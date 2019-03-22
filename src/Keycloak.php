@@ -2,6 +2,7 @@
 
 namespace Fschmtt\Keycloak;
 
+use Fschmtt\Keycloak\Mapper\JsonToServerInfoMapper;
 use Fschmtt\Keycloak\Representation\MemoryInfo;
 use Fschmtt\Keycloak\Representation\ProfileInfo;
 use Fschmtt\Keycloak\Representation\ServerInfo;
@@ -47,7 +48,7 @@ class Keycloak
 
     public function getServerInfo(): ServerInfo
     {
-        $serverInfo = json_decode($this->http->request(
+        $serverInfo = $this->http->request(
             'GET',
             'admin/serverinfo',
             [
@@ -55,55 +56,9 @@ class Keycloak
                     'Authorization' => 'Bearer ' . $this->accessToken,
                 ]
             ]
-        )->getBody()->__toString(), true);
+        )->getBody();
 
-        return new ServerInfo(
-            $serverInfo['builtinProtocolMappers'],
-            $serverInfo['clientImporters'] ?? null,
-            $serverInfo['clientInstallations'],
-            $serverInfo['componentTypes'],
-            $serverInfo['enums'],
-            $serverInfo['identityProviders'],
-            new MemoryInfo(
-                (int) $serverInfo['memoryInfo']['free'],
-                $serverInfo['memoryInfo']['freeFormated'],
-                (int) $serverInfo['memoryInfo']['total'],
-                $serverInfo['memoryInfo']['totalFormated'],
-                (int) $serverInfo['memoryInfo']['used'],
-                $serverInfo['memoryInfo']['usedFormated']
-            ),
-            $serverInfo['passwordPolicies'],
-            $serverInfo['protocolMapperTypes'],
-            new ProfileInfo(
-                $serverInfo['profileInfo']['disabledFeatures'],
-                $serverInfo['profileInfo']['experimentalFeatures'],
-                $serverInfo['profileInfo']['name'],
-                $serverInfo['profileInfo']['previewFeatures']
-            ),
-            $serverInfo['providers'],
-            $serverInfo['socialProviders'],
-            new SystemInfo(
-                $serverInfo['systemInfo']['fileEncoding'],
-                $serverInfo['systemInfo']['javaHome'],
-                $serverInfo['systemInfo']['javaRuntime'],
-                $serverInfo['systemInfo']['javaVendor'],
-                $serverInfo['systemInfo']['javaVersion'],
-                $serverInfo['systemInfo']['javaVm'],
-                $serverInfo['systemInfo']['javaVmVersion'],
-                $serverInfo['systemInfo']['osArchitecture'],
-                $serverInfo['systemInfo']['osName'],
-                $serverInfo['systemInfo']['osVersion'],
-                $serverInfo['systemInfo']['serverTime'],
-                $serverInfo['systemInfo']['uptime'],
-                $serverInfo['systemInfo']['uptimeMillis'],
-                $serverInfo['systemInfo']['userDir'],
-                $serverInfo['systemInfo']['userLocale'],
-                $serverInfo['systemInfo']['userName'],
-                $serverInfo['systemInfo']['userTimezone'],
-                $serverInfo['systemInfo']['version']
-            ),
-            $serverInfo['themes']
-        );
+        return (new JsonToServerInfoMapper())->map((string) $serverInfo);
     }
 
     private function fetchAccessToken(): string
