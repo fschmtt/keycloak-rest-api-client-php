@@ -3,10 +3,7 @@
 namespace Fschmtt\Keycloak;
 
 use Fschmtt\Keycloak\Mapper\JsonToServerInfoMapper;
-use Fschmtt\Keycloak\Representation\MemoryInfo;
-use Fschmtt\Keycloak\Representation\ProfileInfo;
 use Fschmtt\Keycloak\Representation\ServerInfo;
-use Fschmtt\Keycloak\Representation\SystemInfo;
 
 class Keycloak
 {
