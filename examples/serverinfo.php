@@ -3,9 +3,9 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $keycloak = new \Fschmtt\Keycloak\Keycloak(
-    'https://localhost',
+    'http://localhost:8080',
     'admin',
-    'password'
+    'admin'
 );
 
 $serverInfo = $keycloak->getServerInfo();

@@ -59,7 +59,7 @@ class Keycloak
 
         return new ServerInfo(
             $serverInfo['builtinProtocolMappers'],
-            $serverInfo['clientImporters'],
+            $serverInfo['clientImporters'] ?? null,
             $serverInfo['clientInstallations'],
             $serverInfo['componentTypes'],
             $serverInfo['enums'],
@@ -78,7 +78,7 @@ class Keycloak
                 $serverInfo['profileInfo']['disabledFeatures'],
                 $serverInfo['profileInfo']['experimentalFeatures'],
                 $serverInfo['profileInfo']['name'],
-                $serverInfo['profileInfo']['previewFeatures'],
+                $serverInfo['profileInfo']['previewFeatures']
             ),
             $serverInfo['providers'],
             $serverInfo['socialProviders'],
