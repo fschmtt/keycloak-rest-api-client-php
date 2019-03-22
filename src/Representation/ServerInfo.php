@@ -141,7 +141,7 @@ class ServerInfo
         return $this->memoryInfo;
     }
 
-    public function getPasswordPolicies()
+    public function getPasswordPolicies(): array
     {
         return $this->passwordPolicies;
     }

@@ -3,6 +3,7 @@
 namespace Fschmtt\Keycloak\Mapper;
 
 use Fschmtt\Keycloak\Representation\MemoryInfo;
+use Fschmtt\Keycloak\Representation\PasswordPolicyType;
 use Fschmtt\Keycloak\Representation\ProfileInfo;
 use Fschmtt\Keycloak\Representation\ServerInfo;
 use Fschmtt\Keycloak\Representation\SystemInfo;
@@ -13,6 +14,8 @@ class JsonToServerInfoMapper
     {
         $json = json_decode($json, true);
 
+        var_dump($json);
+
         return new ServerInfo(
             $json['builtinProtocolMappers'] ?? null,
             $json['clientImporters'] ?? null,
@@ -21,7 +24,7 @@ class JsonToServerInfoMapper
             $json['enums'] ?? null,
             $json['identityProviders'] ?? null,
             $json['memoryInfo'] ? $this->mapMemoryInfo($json['memoryInfo']) : null,
-            $json['passwordPolicies'] ?? null,
+            $json['passwordPolicies'] ? $this->mapPasswordPolicies($json['passwordPolicies']) : null,
             $json['protocolMapperTypes'] ?? null,
             $json['profileInfo'] ? $this->mapProfileInfo($json['profileInfo']) : null,
             $json['providers'] ?? null,
@@ -75,5 +78,22 @@ class JsonToServerInfoMapper
             $systemInfo['userTimezone'],
             $systemInfo['version']
         );
+    }
+
+    private function mapPasswordPolicies(array $passwordPolicies): array
+    {
+        $policies = [];
+
+        foreach ($passwordPolicies as $passwordPolicy) {
+            $policies[] = new PasswordPolicyType(
+                $passwordPolicy['configType'] ?? null,
+                $passwordPolicy['defaultValue'] ?? null,
+                $passwordPolicy['displayName'] ?? null,
+                $passwordPolicy['id'] ?? null,
+                isset($passwordPolicy['multipleSupported']) ? (bool) $passwordPolicy['multipleSupported'] : null
+            );
+        }
+
+        return $policies;
     }
 }
