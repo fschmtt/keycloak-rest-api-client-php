@@ -1,3 +1,3 @@
 # Keycloak REST API Client
 
-PHP Client to interact with Keycloaks's REST API.
+PHP Client to interact with Keycloak's REST API.
