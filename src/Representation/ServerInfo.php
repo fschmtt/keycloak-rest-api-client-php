@@ -5,75 +5,91 @@ namespace Fschmtt\Keycloak\Representation;
 class ServerInfo
 {
     /**
-     * @var array
+     * @var array|null
      */
     private $builtinProtocolMappers;
 
     /**
-     * @var array
+     * @var array|null
      */
     private $clientImporters;
 
     /**
-     * @var array
+     * @var array|null
      */
     private $clientInstallations;
 
     /**
-     * @var array
+     * @var array|null
      */
     private $componentTypes;
 
     /**
-     * @var array
+     * @var array|null
      */
     private $enums;
 
     /**
-     * @var array
+     * @var array|null
      */
     private $identityProviders;
 
     /**
-     * @var MemoryInfo
+     * @var MemoryInfo|null
      */
     private $memoryInfo;
 
     /**
-     * @var PasswordPolicyType[]
+     * @var PasswordPolicyType[]|null
      */
     private $passwordPolicies;
 
     /**
-     * @var array
+     * @var array|null
      */
     private $protocolMapperTypes;
 
     /**
-     * @var ProfileInfo
+     * @var ProfileInfo|null
      */
     private $profileInfo;
 
     /**
-     * @var array
+     * @var array|null
      */
     private $providers;
 
     /**
-     * @var array
+     * @var array|null
      */
     private $socialProviders;
 
     /**
-     * @var SystemInfo
+     * @var SystemInfo|null
      */
     private $systemInfo;
 
     /**
-     * @var array
+     * @var array|null
      */
     private $themes;
 
+    /**
+     * @param array|null $builtinProtocolMappers
+     * @param array|null $clientImporters
+     * @param array|null $clientInstallations
+     * @param array|null $componentTypes
+     * @param array|null $enums
+     * @param array|null $identityProviders
+     * @param MemoryInfo|null $memoryInfo
+     * @param array|null $passwordPolicies
+     * @param array|null $protocolMapperTypes
+     * @param ProfileInfo|null $profileInfo
+     * @param array|null $providers
+     * @param array|null $socialProviders
+     * @param SystemInfo|null $systemInfo
+     * @param array|null $themes
+     */
     public function __construct(
         ?array $builtinProtocolMappers,
         ?array $clientImporters,
@@ -106,72 +122,114 @@ class ServerInfo
         $this->themes = $themes;
     }
 
-    public function getBuiltinProtocolMappers(): array
+    /**
+     * @return array|null
+     */
+    public function getBuiltinProtocolMappers(): ?array
     {
         return $this->builtinProtocolMappers;
     }
 
-    public function getClientImporters()
+    /**
+     * @return array|null
+     */
+    public function getClientImporters(): ?array
     {
         return $this->clientImporters;
     }
 
-    public function getClientInstallations()
+    /**
+     * @return array|null
+     */
+    public function getClientInstallations(): ?array
     {
         return $this->clientInstallations;
     }
 
-    public function getComponentTypes()
+    /**
+     * @return array|null
+     */
+    public function getComponentTypes(): ?array
     {
         return $this->componentTypes;
     }
 
-    public function getEnums()
+    /**
+     * @return array|null
+     */
+    public function getEnums(): ?array
     {
         return $this->enums;
     }
 
-    public function getIdentityProviders()
+    /**
+     * @return array|null
+     */
+    public function getIdentityProviders(): ?array
     {
         return $this->identityProviders;
     }
 
-    public function getMemoryInfo(): MemoryInfo
+    /**
+     * @return MemoryInfo|null
+     */
+    public function getMemoryInfo(): ?MemoryInfo
     {
         return $this->memoryInfo;
     }
 
-    public function getPasswordPolicies(): array
+    /**
+     * @return PasswordPolicyType[]|null
+     */
+    public function getPasswordPolicies(): ?array
     {
         return $this->passwordPolicies;
     }
 
-    public function getProtocolMapperTypes()
+    /**
+     * @return array|null
+     */
+    public function getProtocolMapperTypes(): ?array
     {
         return $this->protocolMapperTypes;
     }
 
-    public function getProfileInfo(): ProfileInfo
+    /**
+     * @return ProfileInfo|null
+     */
+    public function getProfileInfo(): ?ProfileInfo
     {
         return $this->profileInfo;
     }
 
-    public function getProviders()
+    /**
+     * @return array|null
+     */
+    public function getProviders(): ?array
     {
         return $this->providers;
     }
 
-    public function getSocialProviders()
+    /**
+     * @return array|null
+     */
+    public function getSocialProviders(): ?array
     {
         return $this->socialProviders;
     }
 
-    public function getSystemInfo(): SystemInfo
+    /**
+     * @return SystemInfo|null
+     */
+    public function getSystemInfo(): ?SystemInfo
     {
         return $this->systemInfo;
     }
 
-    public function getThemes()
+    /**
+     * @return array|null
+     */
+    public function getThemes(): ?array
     {
         return $this->themes;
     }

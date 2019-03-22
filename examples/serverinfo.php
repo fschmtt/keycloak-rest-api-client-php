@@ -10,6 +10,11 @@ $keycloak = new \Fschmtt\Keycloak\Keycloak(
 
 $serverInfo = $keycloak->getServerInfo();
 
+/** @var \Fschmtt\Keycloak\Representation\PasswordPolicyType $passwordPolicy */
+foreach ($serverInfo->getPasswordPolicies() as $passwordPolicy) {
+    var_dump($passwordPolicy->getMultipleSupported());
+}
+
 echo sprintf(
     'Keycloak is currently using %s of %s memory.',
     $serverInfo->getMemoryInfo()->getUsedFormatted(),

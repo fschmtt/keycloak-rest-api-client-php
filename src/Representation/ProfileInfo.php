@@ -5,30 +5,30 @@ namespace Fschmtt\Keycloak\Representation;
 class ProfileInfo
 {
     /**
-     * @var array
+     * @var array|null
      */
     private $disabledFeatures;
 
     /**
-     * @var array
+     * @var array|null
      */
     private $experimentalFeatures;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $name;
 
     /**
-     * @var array
+     * @var array|null
      */
     private $previewFeatures;
 
     public function __construct(
-        array $disabledFeatures,
-        array $experimentalFeatures,
-        string $name,
-        array $previewFeatures
+        ?array $disabledFeatures,
+        ?array $experimentalFeatures,
+        ?string $name,
+        ?array $previewFeatures
     ) {
         $this->disabledFeatures = $disabledFeatures;
         $this->experimentalFeatures = $experimentalFeatures;
@@ -36,22 +36,22 @@ class ProfileInfo
         $this->previewFeatures = $previewFeatures;
     }
 
-    public function getDisabledFeatures(): array
+    public function getDisabledFeatures(): ?array
     {
         return $this->disabledFeatures;
     }
 
-    public function getExperimentalFeatures(): array
+    public function getExperimentalFeatures(): ?array
     {
         return $this->experimentalFeatures;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function getPreviewFeatures(): array
+    public function getPreviewFeatures(): ?array
     {
         return $this->previewFeatures;
     }

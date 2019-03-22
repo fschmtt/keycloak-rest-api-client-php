@@ -58,6 +58,21 @@ class Keycloak
         return (new JsonToServerInfoMapper())->map((string) $serverInfo);
     }
 
+    public function getRealms(): array
+    {
+        $realms = $this->http->request(
+            'GET',
+            'admin/realms',
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $this->accessToken,
+                ]
+            ]
+        )->getBody();
+
+        return json_decode($realms->__toString(), true);
+    }
+
     private function fetchAccessToken(): string
     {
         $response = (new \GuzzleHttp\Client())->request(
