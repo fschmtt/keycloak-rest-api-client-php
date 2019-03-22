@@ -70,6 +70,7 @@ class Keycloak
             ]
         )->getBody();
 
+        // TODO Use mapper
         return json_decode($realms->__toString(), true);
     }
 
