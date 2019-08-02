@@ -14,8 +14,6 @@ class JsonToServerInfoMapper
     {
         $json = json_decode($json, true);
 
-        var_dump($json);
-
         return new ServerInfo(
             $json['builtinProtocolMappers'] ?? null,
             $json['clientImporters'] ?? null,
