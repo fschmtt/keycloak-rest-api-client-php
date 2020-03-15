@@ -6,7 +6,9 @@ services:
       context: .
       dockerfile: docker/php-cli/Dockerfile
     container_name: php
-    image: php:7.3-cli
+    image: php:7.4-cli
+    volumes:
+    - .:/var/www/code:rw
 
   keycloak:
     container_name: keycloak
