@@ -2,6 +2,9 @@ version: '3.7'
 
 services:
   php-cli:
+    build:
+      context: .
+      dockerfile: docker/php-cli/Dockerfile
     container_name: php
     image: php:7.3-cli
 
