@@ -3,15 +3,23 @@
     "description": "PHP client for using Keycloak's admin REST API",
     "type": "library",
     "require": {
+        "php": "^7.4",
         "ext-json": "*",
         "guzzlehttp/guzzle": "^6.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.0"
+        "phpunit/phpunit": "^9.0",
+        "phpmetrics/phpmetrics": "^2.5",
+        "phpstan/phpstan": "^0.12.14"
     },
     "autoload": {
         "psr-4": {
             "Fschmtt\\Keycloak\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Fschmtt\\Keycloak\\": "tests"
         }
     },
     "license": "mit",
