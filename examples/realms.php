@@ -5,7 +5,7 @@ use Fschmtt\Keycloak\Representation\Realm;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $keycloak = new \Fschmtt\Keycloak\Keycloak(
-    'http://localhost:8080',
+    'http://keycloak:8080',
     'admin',
     'admin'
 );
