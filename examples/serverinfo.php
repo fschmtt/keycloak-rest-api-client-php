@@ -12,11 +12,27 @@ $serverInfo = $keycloak->getServerInfo();
 
 /** @var \Fschmtt\Keycloak\Representation\PasswordPolicyType $passwordPolicy */
 foreach ($serverInfo->getPasswordPolicies() as $passwordPolicy) {
-    var_dump($passwordPolicy->getMultipleSupported());
+    echo sprintf(
+        'Password policy "%s" does %s support multiple%s',
+        $passwordPolicy->getDisplayName(),
+        $passwordPolicy->getMultipleSupported() ? '' : 'not',
+        PHP_EOL,
+    );
 }
 
 echo sprintf(
-    'Keycloak is currently using %s of %s memory.',
+    'Keycloak %s is running on %s/%s (%s) with %s/%s since %s and currently using %s of %s memory.%s',
+    $serverInfo->getSystemInfo()->getVersion(),
+    $serverInfo->getSystemInfo()->getOsName(),
+    $serverInfo->getSystemInfo()->getOsVersion(),
+    $serverInfo->getSystemInfo()->getOsArchitecture(),
+    $serverInfo->getSystemInfo()->getJavaVm(),
+    $serverInfo->getSystemInfo()->getJavaVersion(),
+    $serverInfo->getSystemInfo()->getUptime(),
     $serverInfo->getMemoryInfo()->getUsedFormatted(),
-    $serverInfo->getMemoryInfo()->getTotalFormatted()
+    $serverInfo->getMemoryInfo()->getTotalFormatted(),
+    PHP_EOL,
 );
+
+$serverInfo2 = $serverInfo->withBuiltinProtocolMappers(null);
+var_dump($serverInfo2->getBuiltinProtocolMappers());
