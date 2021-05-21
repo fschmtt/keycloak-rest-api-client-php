@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Representation;
 
 /**
- * @method array|null getBuiltinProtocolMappers(?array $builtinProtocolMappers)
+ * @method array|null getBuiltinProtocolMappers()
  * @method array|null getClientImporters()
  * @method array|null getClientInstallations()
  * @method array|null getComponentTypes()
@@ -67,32 +67,32 @@ class ServerInfo extends Representation
 
     protected ?array $themes;
 
-    public function __construct(array $properties)
+    public static function from(array $properties): static
     {
         foreach ($properties as $property => $value) {
             if ($property === 'systemInfo') {
-                $properties[$property] = new SystemInfo($value);
+                $properties[$property] = SystemInfo::from($value);
             }
 
             if ($property === 'memoryInfo') {
-                $properties[$property] = new MemoryInfo($value);
+                $properties[$property] = MemoryInfo::from($value);
             }
 
             if ($property === 'profileInfo') {
-                $properties[$property] = new ProfileInfo($value);
+                $properties[$property] = ProfileInfo::from($value);
             }
 
             if ($property === 'passwordPolicies') {
                 $passwordPolicies = [];
 
                 foreach ($value as $passwordPolicy) {
-                    $passwordPolicies[] = new PasswordPolicyType($passwordPolicy);
+                    $passwordPolicies[] = PasswordPolicyType::from($passwordPolicy);
                 }
 
                 $properties[$property] = $passwordPolicies;
             }
         }
 
-        parent::__construct($properties);
+        return parent::from($properties);
     }
 }

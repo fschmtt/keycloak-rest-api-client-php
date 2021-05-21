@@ -11,7 +11,6 @@ abstract class Representation implements RepresentationInterface
 {
     final public function __construct()
     {
-        //
     }
 
     public static function from(array $properties): static
@@ -19,7 +18,7 @@ abstract class Representation implements RepresentationInterface
         $representation = new static();
 
         foreach ($properties as $property => $value) {
-            $representation = $representation->with($property, $value);
+            $representation = $representation->withProperty($property, $value);
         }
 
         return $representation;
@@ -35,12 +34,7 @@ abstract class Representation implements RepresentationInterface
 
     public function with(string $property, mixed $value): static
     {
-        $this->throwExceptionIfPropertyDoesNotExist($property);
-
-        $clone = clone $this;
-        $clone->$property = $value;
-
-        return $clone;
+        return $this->withProperty($property, $value);
     }
 
     public function __call(string $name, array $arguments): mixed
@@ -59,6 +53,16 @@ abstract class Representation implements RepresentationInterface
     public function __get(string $name): mixed
     {
         return $this->$name;
+    }
+
+    private function withProperty(string $property, mixed $value): static
+    {
+        $this->throwExceptionIfPropertyDoesNotExist($property);
+
+        $clone = clone $this;
+        $clone->$property = $value;
+
+        return $clone;
     }
 
     private function throwExceptionIfPropertyDoesNotExist(string $property): void
