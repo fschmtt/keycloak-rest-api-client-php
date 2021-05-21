@@ -29,8 +29,8 @@ echo sprintf(
     $serverInfo->getSystemInfo()->getJavaVm(),
     $serverInfo->getSystemInfo()->getJavaVersion(),
     $serverInfo->getSystemInfo()->getUptime(),
-    $serverInfo->getMemoryInfo()->getUsedFormatted(),
-    $serverInfo->getMemoryInfo()->getTotalFormatted(),
+    $serverInfo->getMemoryInfo()->getUsedFormated(),
+    $serverInfo->getMemoryInfo()->getTotalFormated(),
     PHP_EOL,
 );
 
