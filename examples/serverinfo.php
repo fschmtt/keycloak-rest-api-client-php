@@ -10,18 +10,8 @@ $keycloak = new \Fschmtt\Keycloak\Keycloak(
 
 $serverInfo = $keycloak->getServerInfo();
 
-/** @var \Fschmtt\Keycloak\Representation\PasswordPolicyType $passwordPolicy */
-foreach ($serverInfo->getPasswordPolicies() as $passwordPolicy) {
-    echo sprintf(
-        'Password policy "%s" does %s support multiple%s',
-        $passwordPolicy->getDisplayName(),
-        $passwordPolicy->getMultipleSupported() ? '' : 'not',
-        PHP_EOL,
-    );
-}
-
 echo sprintf(
-    'Keycloak %s is running on %s/%s (%s) with %s/%s since %s and currently using %s of %s memory.%s',
+    'Keycloak %s is running on %s/%s (%s) with %s/%s since %s and is currently using %s of %s (%s %%) memory.',
     $serverInfo->getSystemInfo()->getVersion(),
     $serverInfo->getSystemInfo()->getOsName(),
     $serverInfo->getSystemInfo()->getOsVersion(),
@@ -31,8 +21,5 @@ echo sprintf(
     $serverInfo->getSystemInfo()->getUptime(),
     $serverInfo->getMemoryInfo()->getUsedFormated(),
     $serverInfo->getMemoryInfo()->getTotalFormated(),
-    PHP_EOL,
+    100 - $serverInfo->getMemoryInfo()->getFreePercentage(),
 );
-
-$serverInfo2 = $serverInfo->withBuiltinProtocolMappers(null);
-var_dump($serverInfo2->getBuiltinProtocolMappers());
