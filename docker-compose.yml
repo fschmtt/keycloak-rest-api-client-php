@@ -1,17 +1,13 @@
 version: '3.7'
 
 services:
-  php-cli:
-    build:
-      context: .
-      dockerfile: docker/php-cli/Dockerfile
-    container_name: php
-    image: php:7.4-cli
+  php:
+    image: php:8.0-cli
     volumes:
-    - .:/var/www/code:rw
+    - .:/app:rw
+    working_dir: /app
 
   keycloak:
-    container_name: keycloak
     image: jboss/keycloak:latest
     environment:
       KEYCLOAK_USER: admin
