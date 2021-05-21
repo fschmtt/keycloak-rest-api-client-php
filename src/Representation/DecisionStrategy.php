@@ -2,7 +2,7 @@
 
 namespace Fschmtt\Keycloak\Representation;
 
-interface DecisionStrategy
+abstract class DecisionStrategy implements \Stringable
 {
     public function __toString(): string;
 }
