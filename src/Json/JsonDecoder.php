@@ -1,11 +1,15 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Fschmtt\Keycloak;
+declare(strict_types=1);
+
+namespace Fschmtt\Keycloak\Json;
+
+use JsonException;
 
 class JsonDecoder
 {
     /**
-     * @throws \JsonException
+     * @throws JsonException
      */
     public function decode(string $json): array
     {

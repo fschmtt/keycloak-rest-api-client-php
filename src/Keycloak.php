@@ -1,31 +1,23 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Fschmtt\Keycloak;
 
-use Fschmtt\Keycloak\Mapper\JsonToServerInfoMapper;
 use Fschmtt\Keycloak\Representation\ServerInfo;
+use GuzzleHttp\Client;
 
 class Keycloak
 {
-    /**
-     * @var string
-     */
-    private $baseUrl;
+    private string $baseUrl;
 
-    /**
-     * @var string
-     */
-    private $username;
+    private string $username;
 
-    /**
-     * @var string
-     */
-    private $password;
+    private string $password;
 
-    /**
-     * @var string
-     */
-    private $accessToken;
+    private string $accessToken;
+
+    private Client $http;
 
     public function __construct(string $baseUrl, string $username, string $password)
     {
@@ -33,7 +25,7 @@ class Keycloak
         $this->username = $username;
         $this->password = $password;
         $this->accessToken = $this->fetchAccessToken();
-        $this->http = new \GuzzleHttp\Client([
+        $this->http = new Client([
             'base_uri' => $this->baseUrl . '/auth/',
             'defaults' => [
                 'headers' => [
@@ -74,7 +66,7 @@ class Keycloak
 
     private function fetchAccessToken(): string
     {
-        $response = (new \GuzzleHttp\Client())->request(
+        $response = (new Client())->request(
             'POST',
             $this->baseUrl . '/auth/realms/master/protocol/openid-connect/token',
             [

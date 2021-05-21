@@ -1,140 +1,56 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
-class Group
+/**
+ * @method array|null getAccess()
+ * @method array|null getAttributes()
+ * @method array|null getClientRoles()
+ * @method string|null getId()
+ * @method string|null getName()
+ * @method string|null getPath()
+ * @method array|null getRealmRoles()
+ * @method Group[]|null getSubGroups()
+ * @method array|null withAccess(?array $access)
+ * @method array|null withAttributes(?array $attributes)
+ * @method array|null withClientRoles(?array $clientRoles)
+ * @method string|null withId(?string $id)
+ * @method string|null withName(?string $name)
+ * @method string|null withPath(?string $path)
+ * @method array|null withRealmRoles(?array $realmRoles)
+ * @method Group[]|null withSubGroups(?array $subGroups)
+ */
+class Group extends Representation
 {
-    /**
-     * @var array|null
-     */
-    private $access;
+    private ?array $access;
 
-    /**
-     * @var array|null
-     */
-    private $attributes;
+    private ?array $attributes;
 
-    /**
-     * @var array|null
-     */
-    private $clientRoles;
+    private ?array $clientRoles;
 
-    /**
-     * @var string|null
-     */
-    private $id;
+    private ?string $id;
 
-    /**
-     * @var string|null
-     */
-    private $name;
+    private ?string $name;
 
-    /**
-     * @var string|null
-     */
-    private $path;
+    private ?string $path;
 
-    /**
-     * @var string[]|null
-     */
-    private $realmRoles;
+    private ?array $realmRoles;
 
     /**
      * @var Group[]|null
      */
-    private $subGroups;
+    private ?array $subGroups;
 
-    /**
-     * @param array|null $access
-     * @param array|null $attributes
-     * @param array|null $clientRoles
-     * @param string|null $id
-     * @param string|null $name
-     * @param string|null $path
-     * @param string[]|null $realmRoles
-     * @param Group[]|null $subGroups
-     */
-    public function __construct(
-        ?array $access,
-        ?array $attributes,
-        ?array $clientRoles,
-        ?string $id,
-        ?string $name,
-        ?string $path,
-        ?array $realmRoles,
-        ?array $subGroups
-    ) {
-        $this->access = $access;
-        $this->attributes = $attributes;
-        $this->clientRoles = $clientRoles;
-        $this->id = $id;
-        $this->name = $name;
-        $this->path = $path;
-        $this->realmRoles = $realmRoles;
-        $this->subGroups = $subGroups;
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getAccess(): ?array
+    public function __construct(array $properties)
     {
-        return $this->access;
-    }
+        foreach ($properties as $property => $value) {
+            if ($property === 'subGroups') {
+                $properties[$property] = new Group($properties);
+            }
+        }
 
-    /**
-     * @return array|null
-     */
-    public function getAttributes(): ?array
-    {
-        return $this->attributes;
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getClientRoles(): ?array
-    {
-        return $this->clientRoles;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getId(): ?string
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getPath(): ?string
-    {
-        return $this->path;
-    }
-
-    /**
-     * @return string[]|null
-     */
-    public function getRealmRoles(): ?array
-    {
-        return $this->realmRoles;
-    }
-
-    /**
-     * @return Group[]|null
-     */
-    public function getSubGroups(): ?array
-    {
-        return $this->subGroups;
+        parent::__construct($properties);
     }
 }

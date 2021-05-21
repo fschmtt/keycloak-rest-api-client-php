@@ -1,8 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
-use Fschmtt\Keycloak\JsonDecoder;
+use Fschmtt\Keycloak\Json\JsonDecoder;
 
 abstract class Representation implements RepresentationInterface
 {
@@ -25,7 +27,8 @@ abstract class Representation implements RepresentationInterface
     {
         if (!property_exists(static::class, $property)) {
             throw new \InvalidArgumentException(
-                sprintf('Property "%s" does not exist in "%s"',
+                sprintf(
+                    'Property "%s" does not exist in "%s"',
                     $property,
                     static::class,
                 )

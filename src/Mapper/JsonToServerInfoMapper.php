@@ -1,8 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Mapper;
 
-use Fschmtt\Keycloak\JsonDecoder;
+use Fschmtt\Keycloak\Json\JsonDecoder;
 use Fschmtt\Keycloak\Representation\MemoryInfo;
 use Fschmtt\Keycloak\Representation\PasswordPolicyType;
 use Fschmtt\Keycloak\Representation\ProfileInfo;
