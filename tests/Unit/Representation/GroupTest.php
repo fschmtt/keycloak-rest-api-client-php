@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Fschmtt\Keycloak\Representation\Group
+ * @uses \Fschmtt\Keycloak\Representation\Representation
  */
 class GroupTest extends TestCase
 {
@@ -34,7 +35,6 @@ class GroupTest extends TestCase
                 'role-a',
                 'role-b',
             ],
-            'subGroups' => [],
         ];
 
         $constructedGroup = Group::from($properties);

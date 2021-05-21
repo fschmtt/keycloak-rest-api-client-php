@@ -26,28 +26,28 @@ class JsonToServerInfoMapper
 
         foreach ($properties as $property => $value) {
             if ($property === 'systemInfo') {
-                $properties[$property] = new SystemInfo($value);
+                $properties[$property] = SystemInfo::from($value);
             }
 
             if ($property === 'memoryInfo') {
-                $properties[$property] = new MemoryInfo($value);
+                $properties[$property] = MemoryInfo::from($value);
             }
 
             if ($property === 'profileInfo') {
-                $properties[$property] = new ProfileInfo($value);
+                $properties[$property] = ProfileInfo::from($value);
             }
 
             if ($property === 'passwordPolicies') {
                 $passwordPolicies = [];
 
                 foreach ($value as $passwordPolicy) {
-                    $passwordPolicies[] = new PasswordPolicyType($passwordPolicy);
+                    $passwordPolicies[] = PasswordPolicyType::from($passwordPolicy);
                 }
 
                 $properties[$property] = $passwordPolicies;
             }
         }
 
-        return new ServerInfo($properties);
+        return ServerInfo::from($properties);
     }
 }

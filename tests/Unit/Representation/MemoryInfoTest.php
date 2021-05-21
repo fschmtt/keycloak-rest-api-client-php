@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Fschmtt\Keycloak\Representation\MemoryInfo
+ * @uses \Fschmtt\Keycloak\Representation\Representation
  */
 class MemoryInfoTest extends TestCase
 {
