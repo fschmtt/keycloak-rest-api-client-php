@@ -4,11 +4,24 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Exception\ReadOnlyException;
+
+/**
+ * @method int getFree()
+ * @method string getFreeFormated()
+ * @method int getFreePercentage()
+ * @method int getTotal()
+ * @method string getTotalFormated()
+ * @method int getUsed()
+ * @method string getUsedFormated()
+ */
 class MemoryInfo extends Representation
 {
     protected int $free;
 
     protected string $freeFormated;
+
+    protected int $freePercentage;
 
     protected int $total;
 
@@ -18,33 +31,13 @@ class MemoryInfo extends Representation
 
     protected string $usedFormated;
 
-    public function getFree(): int
+    /**
+     * @throws ReadOnlyException
+     */
+    public function with(string $property, mixed $value): static
     {
-        return $this->free;
-    }
-
-    public function getFreeFormatted(): string
-    {
-        return $this->freeFormated;
-    }
-
-    public function getTotal(): int
-    {
-        return $this->total;
-    }
-
-    public function getTotalFormatted(): string
-    {
-        return $this->totalFormated;
-    }
-
-    public function getUsed(): int
-    {
-        return $this->used;
-    }
-
-    public function getUsedFormatted(): string
-    {
-        return $this->usedFormated;
+        throw new ReadOnlyException(
+            sprintf('Representation %s is read-only', self::class)
+        );
     }
 }
