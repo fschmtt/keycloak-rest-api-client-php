@@ -13,44 +13,46 @@ namespace Fschmtt\Keycloak\Representation;
  * @method string|null getPath()
  * @method array|null getRealmRoles()
  * @method Group[]|null getSubGroups()
- * @method array|null withAccess(?array $access)
- * @method array|null withAttributes(?array $attributes)
- * @method array|null withClientRoles(?array $clientRoles)
- * @method string|null withId(?string $id)
- * @method string|null withName(?string $name)
- * @method string|null withPath(?string $path)
- * @method array|null withRealmRoles(?array $realmRoles)
- * @method Group[]|null withSubGroups(?array $subGroups)
+ * @method self withAccess(?array $access)
+ * @method self withAttributes(?array $attributes)
+ * @method self withClientRoles(?array $clientRoles)
+ * @method self withId(?string $id)
+ * @method self withName(?string $name)
+ * @method self withPath(?string $path)
+ * @method self withRealmRoles(?array $realmRoles)
+ * @method self withSubGroups(?array $subGroups)
  */
 class Group extends Representation
 {
-    private ?array $access;
+    protected ?array $access;
 
-    private ?array $attributes;
+    protected ?array $attributes;
 
-    private ?array $clientRoles;
+    protected ?array $clientRoles;
 
-    private ?string $id;
+    protected ?string $id;
 
-    private ?string $name;
+    protected ?string $name;
 
-    private ?string $path;
+    protected ?string $path;
 
-    private ?array $realmRoles;
+    protected ?array $realmRoles;
 
     /**
      * @var Group[]|null
      */
-    private ?array $subGroups;
+    protected ?array $subGroups;
 
-    public function __construct(array $properties)
+    public static function from(array $properties): static
     {
         foreach ($properties as $property => $value) {
             if ($property === 'subGroups') {
-                $properties[$property] = new Group($properties);
+                foreach ($value as $group) {
+                    $properties[$property][] = static::from($group);
+                }
             }
         }
 
-        parent::__construct($properties);
+        return parent::from($properties);
     }
 }

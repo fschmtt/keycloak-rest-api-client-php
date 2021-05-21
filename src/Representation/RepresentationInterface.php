@@ -6,7 +6,7 @@ namespace Fschmtt\Keycloak\Representation;
 
 interface RepresentationInterface
 {
-    public function __construct(array $properties);
+    public static function from(array $properties): static;
 
-    public function with(string $property, mixed $value): self;
+    public function with(string $property, mixed $value): static;
 }

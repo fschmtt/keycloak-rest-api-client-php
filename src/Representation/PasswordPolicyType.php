@@ -1,7 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fschmtt\Keycloak\Representation;
 
+/**
+ * @method string|null getConfigType()
+ * @method string|null getDefaultValue()
+ * @method string|null getDisplayName()
+ * @method string|null getId()
+ * @method bool|null getMultipleSupported()
+ * @method self withConfigType(?string $configType)
+ * @method self withDefaultValue(?string $defaultValue)
+ * @method self withDisplayName(?string $displayName)
+ * @method self withId(?string $name)
+ * @method self withMultipleSupported(?bool $multipleSupported)
+ */
 class PasswordPolicyType extends Representation
 {
     protected ?string $configType;
@@ -13,29 +27,4 @@ class PasswordPolicyType extends Representation
     protected ?string $id;
 
     protected ?bool $multipleSupported;
-
-    public function getConfigType(): ?string
-    {
-        return $this->configType;
-    }
-
-    public function getDefaultValue(): ?string
-    {
-        return $this->defaultValue;
-    }
-
-    public function getDisplayName(): ?string
-    {
-        return $this->displayName;
-    }
-
-    public function getId(): ?string
-    {
-        return $this->id;
-    }
-
-    public function getMultipleSupported(): ?bool
-    {
-        return $this->multipleSupported;
-    }
 }

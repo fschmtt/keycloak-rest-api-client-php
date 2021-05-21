@@ -5,14 +5,24 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Json\JsonDecoder;
+use InvalidArgumentException;
 
 abstract class Representation implements RepresentationInterface
 {
-    public function __construct(array $properties)
+    final public function __construct()
     {
+        //
+    }
+
+    public static function from(array $properties): static
+    {
+        $representation = new static();
+
         foreach ($properties as $property => $value) {
-            $this->$property = $value;
+            $representation = $representation->with($property, $value);
         }
+
+        return $representation;
     }
 
     public static function fromJson(string $json): static
@@ -20,23 +30,14 @@ abstract class Representation implements RepresentationInterface
         $decoder = new JsonDecoder();
         $properties = $decoder->decode($json);
 
-        return new static($properties);
+        return static::from($properties);
     }
 
     public function with(string $property, mixed $value): static
     {
-        if (!property_exists(static::class, $property)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'Property "%s" does not exist in "%s"',
-                    $property,
-                    static::class,
-                )
-            );
-        }
+        $this->throwExceptionIfPropertyDoesNotExist($property);
 
         $clone = clone $this;
-
         $clone->$property = $value;
 
         return $clone;
@@ -58,5 +59,18 @@ abstract class Representation implements RepresentationInterface
     public function __get(string $name): mixed
     {
         return $this->$name;
+    }
+
+    private function throwExceptionIfPropertyDoesNotExist(string $property): void
+    {
+        if (!property_exists(static::class, $property)) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Property "%s" does not exist in "%s"',
+                    $property,
+                    static::class,
+                )
+            );
+        }
     }
 }
