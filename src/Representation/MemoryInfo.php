@@ -2,53 +2,19 @@
 
 namespace Fschmtt\Keycloak\Representation;
 
-class MemoryInfo
+class MemoryInfo extends Representation
 {
-    /**
-     * @var int
-     */
-    private $free;
+    protected int $free;
 
-    /**
-     * @var string
-     */
-    private $freeFormatted;
+    protected string $freeFormated;
 
-    /**
-     * @var int
-     */
-    private $total;
+    protected int $total;
 
-    /**
-     * @var string
-     */
-    private $totalFormatted;
+    protected string $totalFormated;
 
-    /**
-     * @var int
-     */
-    private $used;
+    protected int $used;
 
-    /**
-     * @var string
-     */
-    private $usedFormatted;
-
-    public function __construct(
-        int $free,
-        string $freeFormatted,
-        int $total,
-        string $totalFormatted,
-        int $used,
-        string $usedFormatted
-    ) {
-        $this->free = $free;
-        $this->freeFormatted = $freeFormatted;
-        $this->total = $total;
-        $this->totalFormatted = $totalFormatted;
-        $this->used = $used;
-        $this->usedFormatted = $usedFormatted;
-    }
+    protected string $usedFormated;
 
     public function getFree(): int
     {
@@ -57,7 +23,7 @@ class MemoryInfo
 
     public function getFreeFormatted(): string
     {
-        return $this->freeFormatted;
+        return $this->freeFormated;
     }
 
     public function getTotal(): int
@@ -67,7 +33,7 @@ class MemoryInfo
 
     public function getTotalFormatted(): string
     {
-        return $this->totalFormatted;
+        return $this->totalFormated;
     }
 
     public function getUsed(): int
@@ -77,6 +43,6 @@ class MemoryInfo
 
     public function getUsedFormatted(): string
     {
-        return $this->usedFormatted;
+        return $this->usedFormated;
     }
 }

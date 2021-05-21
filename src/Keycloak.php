@@ -45,7 +45,7 @@ class Keycloak
 
     public function getServerInfo(): ServerInfo
     {
-        $serverInfo = $this->http->request(
+        return ServerInfo::fromJson((string) $this->http->request(
             'GET',
             'admin/serverinfo',
             [
@@ -53,9 +53,7 @@ class Keycloak
                     'Authorization' => 'Bearer ' . $this->accessToken,
                 ]
             ]
-        )->getBody();
-
-        return (new JsonToServerInfoMapper())->map((string) $serverInfo);
+        )->getBody());
     }
 
     public function getRealms(): array

@@ -2,39 +2,15 @@
 
 namespace Fschmtt\Keycloak\Representation;
 
-class ProfileInfo
+class ProfileInfo extends Representation
 {
-    /**
-     * @var array|null
-     */
-    private $disabledFeatures;
+    protected ?array $disabledFeatures;
 
-    /**
-     * @var array|null
-     */
-    private $experimentalFeatures;
+    protected ?array $experimentalFeatures;
 
-    /**
-     * @var string|null
-     */
-    private $name;
+    protected ?string $name;
 
-    /**
-     * @var array|null
-     */
-    private $previewFeatures;
-
-    public function __construct(
-        ?array $disabledFeatures,
-        ?array $experimentalFeatures,
-        ?string $name,
-        ?array $previewFeatures
-    ) {
-        $this->disabledFeatures = $disabledFeatures;
-        $this->experimentalFeatures = $experimentalFeatures;
-        $this->name = $name;
-        $this->previewFeatures = $previewFeatures;
-    }
+    protected ?array $previewFeatures;
 
     public function getDisabledFeatures(): ?array
     {

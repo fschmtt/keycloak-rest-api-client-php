@@ -2,46 +2,17 @@
 
 namespace Fschmtt\Keycloak\Representation;
 
-class PasswordPolicyType
+class PasswordPolicyType extends Representation
 {
-    /**
-     * @var ?string
-     */
-    private $configType;
+    protected ?string $configType;
 
-    /**
-     * @var ?string
-     */
-    private $defaultValue;
+    protected ?string $defaultValue;
 
-    /**
-     * @var ?string
-     */
-    private $displayName;
+    protected ?string $displayName;
 
-    /**
-     * @var ?string
-     */
-    private $id;
+    protected ?string $id;
 
-    /**
-     * @var ?bool
-     */
-    private $multipleSupported;
-
-    public function __construct(
-        ?string $configType,
-        ?string $defaultValue,
-        ?string $displayName,
-        ?string $id,
-        ?bool $multipleSupported
-    ) {
-        $this->configType = $configType;
-        $this->defaultValue = $defaultValue;
-        $this->displayName = $displayName;
-        $this->id = $id;
-        $this->multipleSupported = $multipleSupported;
-    }
+    protected ?bool $multipleSupported;
 
     public function getConfigType(): ?string
     {
