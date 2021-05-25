@@ -6,8 +6,12 @@ namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Exception\PropertyDoesNotExistException;
 use Fschmtt\Keycloak\Json\JsonDecoder;
+use Fschmtt\Keycloak\Type\Type;
+use JsonSerializable;
+use ReflectionClass;
+use ReflectionProperty;
 
-abstract class Representation implements RepresentationInterface
+abstract class Representation implements RepresentationInterface, JsonSerializable
 {
     public function __construct(...$properties)
     {
@@ -34,6 +38,20 @@ abstract class Representation implements RepresentationInterface
     public function with(string $property, mixed $value): static
     {
         return $this->withProperty($property, $value);
+    }
+
+    public function jsonSerialize(): array
+    {
+        $serializable = [];
+        $reflectedClass = (new ReflectionClass($this));
+        $properties = $reflectedClass->getProperties(ReflectionProperty::IS_PROTECTED);
+
+        foreach ($properties as $property) {
+            $property->setAccessible(true);
+            $serializable[$property->getName()] = ($property instanceof Type) ? $property->jsonSerialize() : $property->getValue($this);
+        }
+
+        return $serializable;
     }
 
     public function __call(string $name, array $arguments): mixed
