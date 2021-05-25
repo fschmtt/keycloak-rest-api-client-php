@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Json;
 
-use Fschmtt\Keycloak\Exception\JsonDecodeException;
 use Fschmtt\Keycloak\Exception\JsonEncodeException;
 use JsonException;
 
 class JsonEncoder
 {
     /**
-     * @throws JsonDecodeException
+     * @throws JsonEncodeException
      */
     public function encode(mixed $data): string
     {
