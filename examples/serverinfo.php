@@ -1,22 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
+use Fschmtt\Keycloak\Keycloak;
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$keycloak = new \Fschmtt\Keycloak\Keycloak(
-    'http://localhost:8080',
+$keycloak = new Keycloak(
+    'http://keycloak:8080',
     'admin',
     'admin'
 );
 
-$serverInfo = $keycloak->getServerInfo();
-
-/** @var \Fschmtt\Keycloak\Representation\PasswordPolicyType $passwordPolicy */
-foreach ($serverInfo->getPasswordPolicies() as $passwordPolicy) {
-    var_dump($passwordPolicy->getMultipleSupported());
-}
+$serverInfo = $keycloak->serverInfo()->get();
 
 echo sprintf(
-    'Keycloak is currently using %s of %s memory.',
-    $serverInfo->getMemoryInfo()->getUsedFormatted(),
-    $serverInfo->getMemoryInfo()->getTotalFormatted()
+    'Keycloak %s is running on %s/%s (%s) with %s/%s since %s and is currently using %s of %s (%s %%) memory.',
+    $serverInfo->getSystemInfo()->getVersion(),
+    $serverInfo->getSystemInfo()->getOsName(),
+    $serverInfo->getSystemInfo()->getOsVersion(),
+    $serverInfo->getSystemInfo()->getOsArchitecture(),
+    $serverInfo->getSystemInfo()->getJavaVm(),
+    $serverInfo->getSystemInfo()->getJavaVersion(),
+    $serverInfo->getSystemInfo()->getUptime(),
+    $serverInfo->getMemoryInfo()->getUsedFormated(),
+    $serverInfo->getMemoryInfo()->getTotalFormated(),
+    100 - $serverInfo->getMemoryInfo()->getFreePercentage(),
 );

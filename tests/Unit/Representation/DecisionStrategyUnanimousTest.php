@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Fschmtt\Keycloak\Representation\DecisionStrategyUnanimous
+ * @uses \Fschmtt\Keycloak\Representation\Representation
  */
 class DecisionStrategyUnanimousTest extends TestCase
 {

@@ -1,7 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Mapper;
 
+use Fschmtt\Keycloak\Json\JsonDecoder;
 use Fschmtt\Keycloak\Representation\MemoryInfo;
 use Fschmtt\Keycloak\Representation\PasswordPolicyType;
 use Fschmtt\Keycloak\Representation\ProfileInfo;
@@ -10,88 +13,41 @@ use Fschmtt\Keycloak\Representation\SystemInfo;
 
 class JsonToServerInfoMapper
 {
+    private JsonDecoder $jsonDecoder;
+
+    public function __construct(JsonDecoder $jsonDecoder)
+    {
+        $this->jsonDecoder = $jsonDecoder;
+    }
+
     public function map(string $json): ServerInfo
     {
-        $json = json_decode($json, true);
+        $properties = $this->jsonDecoder->decode($json);
 
-        return new ServerInfo(
-            $json['builtinProtocolMappers'] ?? null,
-            $json['clientImporters'] ?? null,
-            $json['clientInstallations'] ?? null,
-            $json['componentTypes'] ?? null,
-            $json['enums'] ?? null,
-            $json['identityProviders'] ?? null,
-            $json['memoryInfo'] ? $this->mapMemoryInfo($json['memoryInfo']) : null,
-            $json['passwordPolicies'] ? $this->mapPasswordPolicies($json['passwordPolicies']) : null,
-            $json['protocolMapperTypes'] ?? null,
-            $json['profileInfo'] ? $this->mapProfileInfo($json['profileInfo']) : null,
-            $json['providers'] ?? null,
-            $json['socialProviders'] ?? null,
-            $json['systemInfo'] ? $this->mapSystemInfo($json['systemInfo']) : null,
-            $json['themes'] ?? null
-        );
-    }
+        foreach ($properties as $property => $value) {
+            if ($property === 'systemInfo') {
+                $properties[$property] = SystemInfo::from($value);
+            }
 
-    private function mapMemoryInfo(array $memoryInfo): MemoryInfo
-    {
-        return new MemoryInfo(
-            (int) $memoryInfo['free'],
-            $memoryInfo['freeFormated'],
-            (int) $memoryInfo['total'],
-            $memoryInfo['totalFormated'],
-            (int) $memoryInfo['used'],
-            $memoryInfo['usedFormated']
-        );
-    }
+            if ($property === 'memoryInfo') {
+                $properties[$property] = MemoryInfo::from($value);
+            }
 
-    private function mapProfileInfo(array $profileInfo): ProfileInfo
-    {
-        return new ProfileInfo(
-            $profileInfo['disabledFeatures'],
-            $profileInfo['experimentalFeatures'],
-            $profileInfo['name'],
-            $profileInfo['previewFeatures']
-        );
-    }
+            if ($property === 'profileInfo') {
+                $properties[$property] = ProfileInfo::from($value);
+            }
 
-    private function mapSystemInfo(array $systemInfo): SystemInfo
-    {
-        return new SystemInfo(
-            $systemInfo['fileEncoding'],
-            $systemInfo['javaHome'],
-            $systemInfo['javaRuntime'],
-            $systemInfo['javaVendor'],
-            $systemInfo['javaVersion'],
-            $systemInfo['javaVm'],
-            $systemInfo['javaVmVersion'],
-            $systemInfo['osArchitecture'],
-            $systemInfo['osName'],
-            $systemInfo['osVersion'],
-            $systemInfo['serverTime'],
-            $systemInfo['uptime'],
-            $systemInfo['uptimeMillis'],
-            $systemInfo['userDir'],
-            $systemInfo['userLocale'],
-            $systemInfo['userName'],
-            $systemInfo['userTimezone'],
-            $systemInfo['version']
-        );
-    }
+            if ($property === 'passwordPolicies') {
+                $passwordPolicies = [];
 
-    private function mapPasswordPolicies(array $passwordPolicies): array
-    {
-        $policies = [];
+                foreach ($value as $passwordPolicy) {
+                    $passwordPolicies[] = PasswordPolicyType::from($passwordPolicy);
+                }
 
-        foreach ($passwordPolicies as $passwordPolicy) {
-            $policies[] = new PasswordPolicyType(
-                $passwordPolicy['configType'] ?? null,
-                $passwordPolicy['defaultValue'] ?? null,
-                $passwordPolicy['displayName'] ?? null,
-                $passwordPolicy['id'] ?? null,
-                isset($passwordPolicy['multipleSupported']) ? (bool) $passwordPolicy['multipleSupported'] : null
-            );
+                $properties[$property] = $passwordPolicies;
+            }
         }
 
-        return $policies;
+        return ServerInfo::from($properties);
     }
 }

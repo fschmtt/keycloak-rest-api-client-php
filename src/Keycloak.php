@@ -1,94 +1,56 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Fschmtt\Keycloak;
 
-use Fschmtt\Keycloak\Mapper\JsonToServerInfoMapper;
-use Fschmtt\Keycloak\Representation\ServerInfo;
+use Fschmtt\Keycloak\Http\Client;
+use Fschmtt\Keycloak\Resource\AttackDetection;
+use Fschmtt\Keycloak\Resource\Realms;
+use Fschmtt\Keycloak\Resource\ServerInfo;
 
 class Keycloak
 {
-    /**
-     * @var string
-     */
-    private $baseUrl;
-
-    /**
-     * @var string
-     */
-    private $username;
-
-    /**
-     * @var string
-     */
-    private $password;
-
-    /**
-     * @var string
-     */
-    private $accessToken;
+    private string $baseUrl;
+    private string $username;
+    private string $password;
+    private Http\Client $httpClient;
 
     public function __construct(string $baseUrl, string $username, string $password)
     {
         $this->baseUrl = $baseUrl;
         $this->username = $username;
         $this->password = $password;
-        $this->accessToken = $this->fetchAccessToken();
-        $this->http = new \GuzzleHttp\Client([
-            'base_uri' => $this->baseUrl . '/auth/',
-            'defaults' => [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $this->accessToken,
-                ]
-            ]
-        ]);
+        $this->httpClient = new Client($this);
     }
 
-    public function getServerInfo(): ServerInfo
+    public function getBaseUrl(): string
     {
-        $serverInfo = $this->http->request(
-            'GET',
-            'admin/serverinfo',
-            [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $this->accessToken,
-                ]
-            ]
-        )->getBody();
-
-        return (new JsonToServerInfoMapper())->map((string) $serverInfo);
+        return $this->baseUrl;
     }
 
-    public function getRealms(): array
+    public function getUsername(): string
     {
-        $realms = $this->http->request(
-            'GET',
-            'admin/realms',
-            [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $this->accessToken,
-                ]
-            ]
-        )->getBody();
-
-        // TODO Use mapper
-        return json_decode($realms->__toString(), true);
+        return $this->username;
     }
 
-    private function fetchAccessToken(): string
+    public function getPassword(): string
     {
-        $response = (new \GuzzleHttp\Client())->request(
-            'POST',
-            $this->baseUrl . '/auth/realms/master/protocol/openid-connect/token',
-            [
-                'form_params' => [
-                    'username' => $this->username,
-                    'password' => $this->password,
-                    'client_id' => 'admin-cli',
-                    'grant_type' => 'password',
-                ]
-            ]
-        );
+        return $this->password;
+    }
 
-        return (string) json_decode($response->getBody()->__toString())->access_token;
+    public function attackDetection(): AttackDetection
+    {
+        return new AttackDetection($this->httpClient);
+    }
+
+    public function serverInfo(): ServerInfo
+    {
+        return new ServerInfo($this->httpClient);
+    }
+
+    public function realms(): Realms
+    {
+        return new Realms($this->httpClient);
     }
 }

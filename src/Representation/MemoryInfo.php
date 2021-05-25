@@ -1,82 +1,43 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
-class MemoryInfo
+use Fschmtt\Keycloak\Exception\ReadOnlyException;
+
+/**
+ * @method int getFree()
+ * @method string getFreeFormated()
+ * @method int getFreePercentage()
+ * @method int getTotal()
+ * @method string getTotalFormated()
+ * @method int getUsed()
+ * @method string getUsedFormated()
+ */
+class MemoryInfo extends Representation
 {
-    /**
-     * @var int
-     */
-    private $free;
+    protected int $free;
+
+    protected string $freeFormated;
+
+    protected int $freePercentage;
+
+    protected int $total;
+
+    protected string $totalFormated;
+
+    protected int $used;
+
+    protected string $usedFormated;
 
     /**
-     * @var string
+     * @throws ReadOnlyException
      */
-    private $freeFormatted;
-
-    /**
-     * @var int
-     */
-    private $total;
-
-    /**
-     * @var string
-     */
-    private $totalFormatted;
-
-    /**
-     * @var int
-     */
-    private $used;
-
-    /**
-     * @var string
-     */
-    private $usedFormatted;
-
-    public function __construct(
-        int $free,
-        string $freeFormatted,
-        int $total,
-        string $totalFormatted,
-        int $used,
-        string $usedFormatted
-    ) {
-        $this->free = $free;
-        $this->freeFormatted = $freeFormatted;
-        $this->total = $total;
-        $this->totalFormatted = $totalFormatted;
-        $this->used = $used;
-        $this->usedFormatted = $usedFormatted;
-    }
-
-    public function getFree(): int
+    public function with(string $property, mixed $value): static
     {
-        return $this->free;
-    }
-
-    public function getFreeFormatted(): string
-    {
-        return $this->freeFormatted;
-    }
-
-    public function getTotal(): int
-    {
-        return $this->total;
-    }
-
-    public function getTotalFormatted(): string
-    {
-        return $this->totalFormatted;
-    }
-
-    public function getUsed(): int
-    {
-        return $this->used;
-    }
-
-    public function getUsedFormatted(): string
-    {
-        return $this->usedFormatted;
+        throw new ReadOnlyException(
+            sprintf('Representation %s is read-only', self::class)
+        );
     }
 }

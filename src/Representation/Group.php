@@ -1,140 +1,65 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
-class Group
+/**
+ * @method string[]|null getAccess()
+ * @method string[]|null getAttributes()
+ * @method string[]|null getClientRoles()
+ * @method string|null getId()
+ * @method string|null getName()
+ * @method string|null getPath()
+ * @method string[]|null getRealmRoles()
+ * @method Group[]|null getSubGroups()
+ * @method self withAccess(?array $access)
+ * @method self withAttributes(?array $attributes)
+ * @method self withClientRoles(?array $clientRoles)
+ * @method self withId(?string $id)
+ * @method self withName(?string $name)
+ * @method self withPath(?string $path)
+ * @method self withRealmRoles(?array $realmRoles)
+ * @method self withSubGroups(?array $subGroups)
+ */
+class Group extends Representation
 {
-    /**
-     * @var array|null
-     */
-    private $access;
-
-    /**
-     * @var array|null
-     */
-    private $attributes;
-
-    /**
-     * @var array|null
-     */
-    private $clientRoles;
-
-    /**
-     * @var string|null
-     */
-    private $id;
-
-    /**
-     * @var string|null
-     */
-    private $name;
-
-    /**
-     * @var string|null
-     */
-    private $path;
-
-    /**
-     * @var string[]|null
-     */
-    private $realmRoles;
-
-    /**
-     * @var Group[]|null
-     */
-    private $subGroups;
-
-    /**
-     * @param array|null $access
-     * @param array|null $attributes
-     * @param array|null $clientRoles
-     * @param string|null $id
-     * @param string|null $name
-     * @param string|null $path
-     * @param string[]|null $realmRoles
-     * @param Group[]|null $subGroups
-     */
     public function __construct(
-        ?array $access,
-        ?array $attributes,
-        ?array $clientRoles,
-        ?string $id,
-        ?string $name,
-        ?string $path,
-        ?array $realmRoles,
-        ?array $subGroups
+        protected ?array $access = null,
+        protected ?array $attributes = null,
+        protected ?array $clientRoles = null,
+        protected ?string $id = null,
+        protected ?string $name = null,
+        protected ?string $path = null,
+        protected ?array $realmRoles = null,
+        protected ?array $subGroups = null,
     ) {
-        $this->access = $access;
-        $this->attributes = $attributes;
-        $this->clientRoles = $clientRoles;
-        $this->id = $id;
-        $this->name = $name;
-        $this->path = $path;
-        $this->realmRoles = $realmRoles;
-        $this->subGroups = $subGroups;
+        parent::__construct(
+            $access,
+            $attributes,
+            $clientRoles,
+            $id,
+            $name,
+            $path,
+            $realmRoles,
+            $subGroups,
+        );
     }
 
-    /**
-     * @return array|null
-     */
-    public function getAccess(): ?array
+    public static function from(array $properties): static
     {
-        return $this->access;
-    }
+        foreach ($properties as $property => $value) {
+            if ($property === 'subGroups') {
+                $subGroups = [];
 
-    /**
-     * @return array|null
-     */
-    public function getAttributes(): ?array
-    {
-        return $this->attributes;
-    }
+                foreach ($value as $group) {
+                    $subGroups[] = static::from($group);
+                }
 
-    /**
-     * @return array|null
-     */
-    public function getClientRoles(): ?array
-    {
-        return $this->clientRoles;
-    }
+                $properties[$property] = $subGroups;
+            }
+        }
 
-    /**
-     * @return string|null
-     */
-    public function getId(): ?string
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getPath(): ?string
-    {
-        return $this->path;
-    }
-
-    /**
-     * @return string[]|null
-     */
-    public function getRealmRoles(): ?array
-    {
-        return $this->realmRoles;
-    }
-
-    /**
-     * @return Group[]|null
-     */
-    public function getSubGroups(): ?array
-    {
-        return $this->subGroups;
+        return parent::from($properties);
     }
 }

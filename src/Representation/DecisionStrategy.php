@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fschmtt\Keycloak\Representation;
 
-interface DecisionStrategy
+abstract class DecisionStrategy extends Representation implements \Stringable
 {
-    public function __toString(): string;
 }

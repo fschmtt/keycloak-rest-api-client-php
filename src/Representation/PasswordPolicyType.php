@@ -1,70 +1,30 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fschmtt\Keycloak\Representation;
 
-class PasswordPolicyType
+/**
+ * @method string|null getConfigType()
+ * @method string|null getDefaultValue()
+ * @method string|null getDisplayName()
+ * @method string|null getId()
+ * @method bool|null getMultipleSupported()
+ * @method self withConfigType(?string $configType)
+ * @method self withDefaultValue(?string $defaultValue)
+ * @method self withDisplayName(?string $displayName)
+ * @method self withId(?string $name)
+ * @method self withMultipleSupported(?bool $multipleSupported)
+ */
+class PasswordPolicyType extends Representation
 {
-    /**
-     * @var ?string
-     */
-    private $configType;
+    protected ?string $configType;
 
-    /**
-     * @var ?string
-     */
-    private $defaultValue;
+    protected ?string $defaultValue;
 
-    /**
-     * @var ?string
-     */
-    private $displayName;
+    protected ?string $displayName;
 
-    /**
-     * @var ?string
-     */
-    private $id;
+    protected ?string $id;
 
-    /**
-     * @var ?bool
-     */
-    private $multipleSupported;
-
-    public function __construct(
-        ?string $configType,
-        ?string $defaultValue,
-        ?string $displayName,
-        ?string $id,
-        ?bool $multipleSupported
-    ) {
-        $this->configType = $configType;
-        $this->defaultValue = $defaultValue;
-        $this->displayName = $displayName;
-        $this->id = $id;
-        $this->multipleSupported = $multipleSupported;
-    }
-
-    public function getConfigType(): ?string
-    {
-        return $this->configType;
-    }
-
-    public function getDefaultValue(): ?string
-    {
-        return $this->defaultValue;
-    }
-
-    public function getDisplayName(): ?string
-    {
-        return $this->displayName;
-    }
-
-    public function getId(): ?string
-    {
-        return $this->id;
-    }
-
-    public function getMultipleSupported(): ?bool
-    {
-        return $this->multipleSupported;
-    }
+    protected ?bool $multipleSupported;
 }

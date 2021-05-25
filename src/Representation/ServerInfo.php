@@ -1,236 +1,98 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
-class ServerInfo
+/**
+ * @method array|null getBuiltinProtocolMappers()
+ * @method array|null getClientImporters()
+ * @method array|null getClientInstallations()
+ * @method array|null getComponentTypes()
+ * @method array|null getEnums()
+ * @method array|null getIdentityProviders()
+ * @method MemoryInfo|null getMemoryInfo()
+ * @method PasswordPolicyType[]|null getPasswordPolicies()
+ * @method array|null getProtocolMapperTypes()
+ * @method ProfileInfo|null getProfileInfo()
+ * @method array|null getProviders()
+ * @method array|null getSocialProviders()
+ * @method SystemInfo|null getSystemInfo()
+ * @method array|null getThemes()
+ * @method self withBuiltinProtocolMappers(?array $builtinProtocolMappers)
+ * @method self withClientImporters(?array $clientImporters)
+ * @method self withClientInstallations(?array $clientInstallations)
+ * @method self withComponentTypes(?array $componentTypes)
+ * @method self withEnums(?array $enums)
+ * @method self withIdentityProviders(?array $identityProviders)
+ * @method self withMemoryInfo(?MemoryInfo $memoryInfo)
+ * @method self withPasswordPolicies(?array $passwordPolicies)
+ * @method self withProtocolMapperTypes(?MemoryInfo $protocolMapperTypes)
+ * @method self withProfileInfo(?ProfileInfo $profileInfo)
+ * @method self withProviders(?array $providers)
+ * @method self withSocialProviders(?array $socialProviders)
+ * @method self withSystemInfo(?SystemInfo $systemInfo)
+ * @method self withThemes(?array $themes)
+ */
+class ServerInfo extends Representation
 {
-    /**
-     * @var array|null
-     */
-    private $builtinProtocolMappers;
+    protected ?array $builtinProtocolMappers;
 
-    /**
-     * @var array|null
-     */
-    private $clientImporters;
+    protected ?array $clientImporters;
 
-    /**
-     * @var array|null
-     */
-    private $clientInstallations;
+    protected ?array $clientInstallations;
 
-    /**
-     * @var array|null
-     */
-    private $componentTypes;
+    protected ?array $componentTypes;
 
-    /**
-     * @var array|null
-     */
-    private $enums;
+    protected ?array $enums;
 
-    /**
-     * @var array|null
-     */
-    private $identityProviders;
+    protected ?array $identityProviders;
 
-    /**
-     * @var MemoryInfo|null
-     */
-    private $memoryInfo;
+    protected ?MemoryInfo $memoryInfo;
 
     /**
      * @var PasswordPolicyType[]|null
      */
-    private $passwordPolicies;
+    protected ?array $passwordPolicies;
 
-    /**
-     * @var array|null
-     */
-    private $protocolMapperTypes;
+    protected ?array $protocolMapperTypes;
 
-    /**
-     * @var ProfileInfo|null
-     */
-    private $profileInfo;
+    protected ?ProfileInfo $profileInfo;
 
-    /**
-     * @var array|null
-     */
-    private $providers;
+    protected ?array $providers;
 
-    /**
-     * @var array|null
-     */
-    private $socialProviders;
+    protected ?array $socialProviders;
 
-    /**
-     * @var SystemInfo|null
-     */
-    private $systemInfo;
+    protected ?SystemInfo $systemInfo;
 
-    /**
-     * @var array|null
-     */
-    private $themes;
+    protected ?array $themes;
 
-    /**
-     * @param array|null $builtinProtocolMappers
-     * @param array|null $clientImporters
-     * @param array|null $clientInstallations
-     * @param array|null $componentTypes
-     * @param array|null $enums
-     * @param array|null $identityProviders
-     * @param MemoryInfo|null $memoryInfo
-     * @param array|null $passwordPolicies
-     * @param array|null $protocolMapperTypes
-     * @param ProfileInfo|null $profileInfo
-     * @param array|null $providers
-     * @param array|null $socialProviders
-     * @param SystemInfo|null $systemInfo
-     * @param array|null $themes
-     */
-    public function __construct(
-        ?array $builtinProtocolMappers,
-        ?array $clientImporters,
-        ?array $clientInstallations,
-        ?array $componentTypes,
-        ?array $enums,
-        ?array $identityProviders,
-        ?MemoryInfo $memoryInfo,
-        ?array $passwordPolicies,
-        ?array $protocolMapperTypes,
-        ?ProfileInfo $profileInfo,
-        ?array $providers,
-        ?array $socialProviders,
-        ?SystemInfo $systemInfo,
-        ?array $themes
-    ) {
-        $this->builtinProtocolMappers = $builtinProtocolMappers;
-        $this->clientImporters = $clientImporters;
-        $this->clientInstallations = $clientInstallations;
-        $this->componentTypes = $componentTypes;
-        $this->enums = $enums;
-        $this->identityProviders = $identityProviders;
-        $this->memoryInfo = $memoryInfo;
-        $this->passwordPolicies = $passwordPolicies;
-        $this->protocolMapperTypes = $protocolMapperTypes;
-        $this->profileInfo = $profileInfo;
-        $this->providers = $providers;
-        $this->socialProviders = $socialProviders;
-        $this->systemInfo = $systemInfo;
-        $this->themes = $themes;
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getBuiltinProtocolMappers(): ?array
+    public static function from(array $properties): static
     {
-        return $this->builtinProtocolMappers;
-    }
+        foreach ($properties as $property => $value) {
+            if ($property === 'systemInfo') {
+                $properties[$property] = SystemInfo::from($value);
+            }
 
-    /**
-     * @return array|null
-     */
-    public function getClientImporters(): ?array
-    {
-        return $this->clientImporters;
-    }
+            if ($property === 'memoryInfo') {
+                $properties[$property] = MemoryInfo::from($value);
+            }
 
-    /**
-     * @return array|null
-     */
-    public function getClientInstallations(): ?array
-    {
-        return $this->clientInstallations;
-    }
+            if ($property === 'profileInfo') {
+                $properties[$property] = ProfileInfo::from($value);
+            }
 
-    /**
-     * @return array|null
-     */
-    public function getComponentTypes(): ?array
-    {
-        return $this->componentTypes;
-    }
+            if ($property === 'passwordPolicies') {
+                $passwordPolicies = [];
 
-    /**
-     * @return array|null
-     */
-    public function getEnums(): ?array
-    {
-        return $this->enums;
-    }
+                foreach ($value as $passwordPolicy) {
+                    $passwordPolicies[] = PasswordPolicyType::from($passwordPolicy);
+                }
 
-    /**
-     * @return array|null
-     */
-    public function getIdentityProviders(): ?array
-    {
-        return $this->identityProviders;
-    }
+                $properties[$property] = $passwordPolicies;
+            }
+        }
 
-    /**
-     * @return MemoryInfo|null
-     */
-    public function getMemoryInfo(): ?MemoryInfo
-    {
-        return $this->memoryInfo;
-    }
-
-    /**
-     * @return PasswordPolicyType[]|null
-     */
-    public function getPasswordPolicies(): ?array
-    {
-        return $this->passwordPolicies;
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getProtocolMapperTypes(): ?array
-    {
-        return $this->protocolMapperTypes;
-    }
-
-    /**
-     * @return ProfileInfo|null
-     */
-    public function getProfileInfo(): ?ProfileInfo
-    {
-        return $this->profileInfo;
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getProviders(): ?array
-    {
-        return $this->providers;
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getSocialProviders(): ?array
-    {
-        return $this->socialProviders;
-    }
-
-    /**
-     * @return SystemInfo|null
-     */
-    public function getSystemInfo(): ?SystemInfo
-    {
-        return $this->systemInfo;
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getThemes(): ?array
-    {
-        return $this->themes;
+        return parent::from($properties);
     }
 }

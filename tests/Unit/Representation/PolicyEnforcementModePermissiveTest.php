@@ -9,11 +9,11 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \Fschmtt\Keycloak\Representation\PolicyEnforcementModePermissive
  */
-class PolicyEnforcmentModePermissiveTest extends TestCase
+class PolicyEnforcementModePermissiveTest extends TestCase
 {
     public function testConvertsCorrectlyToString()
     {
-        $this->assertSame(
+        self::assertSame(
             'PERMISSIVE',
             (string) (new PolicyEnforcementModePermissive())
         );

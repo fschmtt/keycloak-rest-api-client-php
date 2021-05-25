@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fschmtt\Keycloak\Representation;
 
-interface PolicyEnforcementMode
+use Stringable;
+
+abstract class PolicyEnforcementMode implements Stringable
 {
-    public function __toString(): string;
 }

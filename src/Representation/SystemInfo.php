@@ -1,158 +1,47 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
-class SystemInfo
+class SystemInfo extends Representation
 {
-    /**
-     * @var string|null
-     */
-    private $fileEncoding;
+    protected ?string $fileEncoding;
 
-    /**
-     * @var string|null
-     */
-    private $javaHome;
+    protected ?string $javaHome;
 
-    /**
-     * @var string|null
-     */
-    private $javaRuntime;
+    protected ?string $javaRuntime;
 
-    /**
-     * @var string|null
-     */
-    private $javaVendor;
+    protected ?string $javaVendor;
 
-    /**
-     * @var string|null
-     */
-    private $javaVersion;
+    protected ?string $javaVersion;
 
-    /**
-     * @var string|null
-     */
-    private $javaVm;
+    protected ?string $javaVm;
 
-    /**
-     * @var string|null
-     */
-    private $javaVmVersion;
+    protected ?string $javaVmVersion;
 
-    /**
-     * @var string|null
-     */
-    private $osArchitecture;
+    protected ?string $osArchitecture;
 
-    /**
-     * @var string|null
-     */
-    private $osName;
+    protected ?string $osName;
 
-    /**
-     * @var string|null
-     */
-    private $osVersion;
+    protected ?string $osVersion;
 
-    /**
-     * @var string|null
-     */
-    private $serverTime;
+    protected ?string $serverTime;
 
-    /**
-     * @var string|null
-     */
-    private $uptime;
+    protected ?string $uptime;
 
-    /**
-     * @var int|null
-     */
-    private $uptimeMillis;
+    protected ?int $uptimeMillis;
 
-    /**
-     * @var string|null
-     */
-    private $userDir;
+    protected ?string $userDir;
 
-    /**
-     * @var string|null
-     */
-    private $userLocale;
+    protected ?string $userLocale;
 
-    /**
-     * @var string|null
-     */
-    private $userName;
+    protected ?string $userName;
 
-    /**
-     * @var string|null
-     */
-    private $userTimezone;
+    protected ?string $userTimezone;
 
-    /**
-     * @var string|null
-     */
-    private $version;
+    protected ?string $version;
 
-    /**
-     * @param string|null $fileEncoding
-     * @param string|null $javaHome
-     * @param string|null $javaRuntime
-     * @param string|null $javaVendor
-     * @param string|null $javaVersion
-     * @param string|null $javaVm
-     * @param string|null $javaVmVersion
-     * @param string|null $osArchitecture
-     * @param string|null $osName
-     * @param string|null $osVersion
-     * @param string|null $serverTime
-     * @param string|null $uptime
-     * @param int|null $uptimeMillis
-     * @param string|null $userDir
-     * @param string|null $userLocale
-     * @param string|null $userName
-     * @param string|null $userTimezone
-     * @param string|null $version
-     */
-    public function __construct(
-        ?string $fileEncoding,
-        ?string $javaHome,
-        ?string $javaRuntime,
-        ?string $javaVendor,
-        ?string $javaVersion,
-        ?string $javaVm,
-        ?string $javaVmVersion,
-        ?string $osArchitecture,
-        ?string $osName,
-        ?string $osVersion,
-        ?string $serverTime,
-        ?string $uptime,
-        ?int $uptimeMillis,
-        ?string $userDir,
-        ?string $userLocale,
-        ?string $userName,
-        ?string $userTimezone,
-        ?string $version
-    ) {
-        $this->fileEncoding = $fileEncoding;
-        $this->javaHome = $javaHome;
-        $this->javaRuntime = $javaRuntime;
-        $this->javaVendor = $javaVendor;
-        $this->javaVersion = $javaVersion;
-        $this->javaVm = $javaVm;
-        $this->javaVmVersion = $javaVmVersion;
-        $this->osArchitecture = $osArchitecture;
-        $this->osName = $osName;
-        $this->osVersion = $osVersion;
-        $this->serverTime = $serverTime;
-        $this->uptime = $uptime;
-        $this->uptimeMillis = $uptimeMillis;
-        $this->userDir = $userDir;
-        $this->userLocale = $userLocale;
-        $this->userName = $userName;
-        $this->userTimezone = $userTimezone;
-        $this->version = $version;
-    }
     public function getUserLocale(): string
     {
         return $this->userLocale;

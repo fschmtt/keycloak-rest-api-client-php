@@ -1,16 +1,19 @@
 {
     "name": "fschmtt/keycloak-rest-api-client-php",
-    "description": "PHP client for using Keycloak's admin REST API",
+    "description": "PHP client to interact with Keycloak's Admin REST API.",
     "type": "library",
     "require": {
-        "php": "^7.4",
+        "php": "^8.0",
         "ext-json": "*",
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^7.3",
+        "lcobucci/jwt": "^4.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.0",
-        "phpmetrics/phpmetrics": "^2.5",
-        "phpstan/phpstan": "^0.12.14"
+        "phpunit/phpunit": "^9.5",
+        "phpmetrics/phpmetrics": "^2.7",
+        "phpstan/phpstan": "^0.12.88",
+        "vimeo/psalm": "^4.7",
+        "squizlabs/php_codesniffer": "^3.6"
     },
     "autoload": {
         "psr-4": {

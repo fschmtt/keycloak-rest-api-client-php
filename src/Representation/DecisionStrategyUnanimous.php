@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
-class DecisionStrategyUnanimous implements DecisionStrategy
+class DecisionStrategyUnanimous extends DecisionStrategy
 {
     public function __toString(): string
     {
