@@ -59,7 +59,7 @@ class GroupTest extends TestCase
             $builtGroup = $builtGroup->with($property, $value);
         }
 
-        self::assertEquals($this->group, $builtGroup); // FIXME In Representation::withProperty()
+        self::assertEquals($this->group, $builtGroup); // FIXME in Representation::withProperty()
     }
 
     public function provideProperties(): array
