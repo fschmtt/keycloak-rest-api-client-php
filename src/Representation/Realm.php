@@ -268,7 +268,7 @@ class Realm extends Representation
             if ($property === 'smtpServer') {
                 $smtpServer = [];
 
-                if ($value === null || $value === []) {
+                if ($value === null || empty($value)) {
                     $properties[$property] = new Map($smtpServer);
 
                     continue;
