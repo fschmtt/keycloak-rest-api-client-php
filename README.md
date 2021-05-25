@@ -34,7 +34,7 @@ echo sprintf(
     100 - $serverInfo->getMemoryInfo()->getFreePercentage(),
 );
 ```
-will print e.g.  
+will print e.g.
 ```text
 Keycloak 13.0.0 is running on Linux/5.10.25-linuxkit (amd64) with OpenJDK 64-Bit Server VM/11.0.11 since 0 days, 2 hours, 37 minutes, 7 seconds and is currently using 139 MB of 512 MB (28 %) memory.
 ```
