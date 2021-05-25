@@ -44,6 +44,17 @@ Keycloak 13.0.0 is running on Linux/5.10.25-linuxkit (amd64) with OpenJDK 64-Bit
 
 More examples can be found in the [examples](examples) directory.
 
+## Available Resources
+### [Realms Admin](https://www.keycloak.org/docs-api/13.0/rest-api/index.html#_realms_admin_resource)
+| Endpoint | Status Code | Response |
+|----------|-------------|----------|
+| `POST /auth/admin/realms` | `201` | [Realm](src/Representations/Realm.php) |
+
+### [Root](https://www.keycloak.org/docs-api/13.0/rest-api/index.html#_root_resource)
+| Endpoint | Status Code | Response |
+|----------|-------------|----------|
+| `GET /auth/admin/serverinfo` | `200` | [ServerInfo](src/Representations/ServerInfo.php) |
+
 ## Local development and testing
 Run `docker compose up -d` to start a local Keycloak instance listening on http://localhost:8080.
 
@@ -55,7 +66,7 @@ docker compose run --rm php php examples/serverinfo.php
 ### Make targets
 `test`: Run PHPUnit tests
 
-`analyze`: Run phpstan and psalm analysis
+`analyze`: Run phpstan and Psalm analysis
 
 `sniff`: Run PHP_CodeSniffer
 
