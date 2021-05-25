@@ -1,6 +1,8 @@
 # Keycloak REST API Client
 PHP client to interact with [Keycloak's Admin REST API](https://www.keycloak.org/docs-api/13.0/rest-api/index.html).
 
+Inspired by [keycloak/keycloak-nodejs-admin-client](https://github.com/keycloak/keycloak-nodejs-admin-client).
+
 _Note: This library is WIP can not be considered stable yet - do not use this in production._
 
 ## Installation
