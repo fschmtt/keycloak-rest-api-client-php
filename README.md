@@ -51,9 +51,10 @@ More examples can be found in the [examples](examples) directory.
 | `DELETE /auth/admin/realms/{realm}/attack-detection/brute-force/users` | `204` | `n/a` | [AttackDetection::clear()](src/Resource/AttackDetection.php) |
 
 ### [Realms Admin](https://www.keycloak.org/docs-api/13.0/rest-api/index.html#_realms_admin_resource)
-| Endpoint | Status Code | Response |
-|----------|-------------|----------|
-| `POST /auth/admin/realms` | `201` | [Realm](src/Representation/Realm.php) |
+| Endpoint | Status Code | Response | API |
+|----------|-------------|----------|-----|
+| `GET /auth/admin/realms` | `201` | array<[Realm](src/Representation/Realm.php)> | [Realms::all()](src/Resource/Realms.php) |
+| `POST /auth/admin/realms` | `201` | [Realm](src/Representation/Realm.php) | [Realms::import()](src/Resource/Realms.php) |
 
 ### [Root](https://www.keycloak.org/docs-api/13.0/rest-api/index.html#_root_resource)
 | Endpoint | Status Code | Response |

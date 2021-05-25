@@ -4,11 +4,33 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Resource;
 
+use Fschmtt\Keycloak\Json\JsonDecoder;
 use Fschmtt\Keycloak\Representation\Realm;
 
 class Realms extends Resource
 {
     private const BASE_PATH = '/auth/admin/realms';
+
+    private ?Realm $realm;
+
+    public function all(): array
+    {
+        /** @var Realm[] $realms */
+        $realms = [];
+
+        $response = (string) $this->httpClient->request(
+            'GET',
+            self::BASE_PATH
+        )->getBody();
+
+        $decoded = (new JsonDecoder())->decode($response);
+
+        foreach ($decoded as $realm) {
+            $realms[] = Realm::from($realm);
+        }
+
+        return $realms;
+    }
 
     public function get(string $realm): Realm
     {
