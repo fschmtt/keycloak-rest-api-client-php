@@ -48,12 +48,12 @@ More examples can be found in the [examples](examples) directory.
 ### [Realms Admin](https://www.keycloak.org/docs-api/13.0/rest-api/index.html#_realms_admin_resource)
 | Endpoint | Status Code | Response |
 |----------|-------------|----------|
-| `POST /auth/admin/realms` | `201` | [Realm](src/Representations/Realm.php) |
+| `POST /auth/admin/realms` | `201` | [Realm](src/Representation/Realm.php) |
 
 ### [Root](https://www.keycloak.org/docs-api/13.0/rest-api/index.html#_root_resource)
 | Endpoint | Status Code | Response |
 |----------|-------------|----------|
-| `GET /auth/admin/serverinfo` | `200` | [ServerInfo](src/Representations/ServerInfo.php) |
+| `GET /auth/admin/serverinfo` | `200` | [ServerInfo](src/Representation/ServerInfo.php) |
 
 ## Local development and testing
 Run `docker compose up -d` to start a local Keycloak instance listening on http://localhost:8080.
