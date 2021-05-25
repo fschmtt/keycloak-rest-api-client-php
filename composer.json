@@ -1,6 +1,6 @@
 {
     "name": "fschmtt/keycloak-rest-api-client-php",
-    "description": "PHP client for using Keycloak's Admin REST API.",
+    "description": "PHP client to interact with Keycloak's Admin REST API.",
     "type": "library",
     "require": {
         "php": "^8.0",
