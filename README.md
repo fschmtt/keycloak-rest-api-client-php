@@ -45,6 +45,11 @@ Keycloak 13.0.0 is running on Linux/5.10.25-linuxkit (amd64) with OpenJDK 64-Bit
 More examples can be found in the [examples](examples) directory.
 
 ## Available Resources
+### [Attack Detection](https://www.keycloak.org/docs-api/13.0/rest-api/index.html#_attack_detection_resource)
+| Endpoint | Status Code | Response | API |
+|----------|-------------|----------|-----|
+| `DELETE /auth/admin/realms/{realm}/attack-detection/brute-force/users` | `204` | `n/a` | [AttackDetection::clear()](src/Resource/AttackDetection.php) |
+
 ### [Realms Admin](https://www.keycloak.org/docs-api/13.0/rest-api/index.html#_realms_admin_resource)
 | Endpoint | Status Code | Response |
 |----------|-------------|----------|

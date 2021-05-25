@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak;
 
 use Fschmtt\Keycloak\Http\Client;
+use Fschmtt\Keycloak\Resource\AttackDetection;
 use Fschmtt\Keycloak\Resource\Realms;
 use Fschmtt\Keycloak\Resource\ServerInfo;
 
@@ -36,6 +37,11 @@ class Keycloak
     public function getPassword(): string
     {
         return $this->password;
+    }
+
+    public function attackDetection(): AttackDetection
+    {
+        return new AttackDetection($this->httpClient);
     }
 
     public function serverInfo(): ServerInfo
