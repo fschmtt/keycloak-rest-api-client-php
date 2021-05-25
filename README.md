@@ -6,7 +6,10 @@ Inspired by [keycloak/keycloak-nodejs-admin-client](https://github.com/keycloak/
 _Note: This library is WIP can not be considered stable yet - do not use this in production._
 
 ## Installation
-*tbd*
+Install via composer:
+```bash
+composer require fschmtt/keycloak-rest-api-client-php
+```
 
 ## Usage
 Example:
