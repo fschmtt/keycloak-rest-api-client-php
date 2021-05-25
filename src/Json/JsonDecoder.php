@@ -7,6 +7,8 @@ namespace Fschmtt\Keycloak\Json;
 use Fschmtt\Keycloak\Exception\JsonDecodeException;
 use JsonException;
 
+use function json_decode;
+
 class JsonDecoder
 {
     /**
