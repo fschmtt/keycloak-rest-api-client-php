@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Exception\PropertyDoesNotExistException;
 use Fschmtt\Keycloak\Json\JsonDecoder;
 use InvalidArgumentException;
 
@@ -47,7 +48,7 @@ abstract class Representation implements RepresentationInterface
             return $this->with(lcfirst(substr($name, 4)), $arguments[0]);
         }
 
-        throw new \RuntimeException();
+        throw new PropertyDoesNotExistException();
     }
 
     public function __get(string $name): mixed
@@ -68,7 +69,7 @@ abstract class Representation implements RepresentationInterface
     private function throwExceptionIfPropertyDoesNotExist(string $property): void
     {
         if (!property_exists(static::class, $property)) {
-            throw new InvalidArgumentException(
+            throw new PropertyDoesNotExistException(
                 sprintf(
                     'Property "%s" does not exist in "%s"',
                     $property,
