@@ -4,81 +4,47 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak;
 
-use Fschmtt\Keycloak\Representation\ServerInfo;
-use GuzzleHttp\Client;
+use Fschmtt\Keycloak\Http\Client;
+use Fschmtt\Keycloak\Resource\Realms;
+use Fschmtt\Keycloak\Resource\ServerInfo;
 
 class Keycloak
 {
     private string $baseUrl;
-
     private string $username;
-
     private string $password;
-
-    private string $accessToken;
-
-    private Client $http;
+    private Http\Client $httpClient;
 
     public function __construct(string $baseUrl, string $username, string $password)
     {
         $this->baseUrl = $baseUrl;
         $this->username = $username;
         $this->password = $password;
-        $this->accessToken = $this->fetchAccessToken();
-        $this->http = new Client([
-            'base_uri' => $this->baseUrl . '/auth/admin/',
-            'defaults' => [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $this->accessToken,
-                ]
-            ]
-        ]);
+        $this->httpClient = new Client($this);
     }
 
-    public function getServerInfo(): ServerInfo
+    public function getBaseUrl(): string
     {
-        return ServerInfo::fromJson((string) $this->http->request(
-            'GET',
-            'serverinfo',
-            [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $this->accessToken,
-                ]
-            ]
-        )->getBody());
+        return $this->baseUrl;
     }
 
-    public function getRealms(): array
+    public function getUsername(): string
     {
-        $realms = $this->http->request(
-            'GET',
-            'realms',
-            [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $this->accessToken,
-                ]
-            ]
-        )->getBody();
-
-        // TODO Use mapper
-        return json_decode($realms->__toString(), true);
+        return $this->username;
     }
 
-    private function fetchAccessToken(): string
+    public function getPassword(): string
     {
-        $response = (new Client())->request(
-            'POST',
-            $this->baseUrl . '/auth/realms/master/protocol/openid-connect/token',
-            [
-                'form_params' => [
-                    'username' => $this->username,
-                    'password' => $this->password,
-                    'client_id' => 'admin-cli',
-                    'grant_type' => 'password',
-                ]
-            ]
-        );
+        return $this->password;
+    }
 
-        return (string) json_decode($response->getBody()->__toString())->access_token;
+    public function serverInfo(): ServerInfo
+    {
+        return new ServerInfo($this->httpClient);
+    }
+
+    public function realms(): Realms
+    {
+        return new Realms($this->httpClient);
     }
 }
