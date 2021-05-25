@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Http;
 
 use DateTime;
+use Fschmtt\Keycloak\Json\JsonDecoder;
 use Fschmtt\Keycloak\Keycloak;
 use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Exception\RequestException;
 use Lcobucci\JWT\Encoding\JoseEncoder;
 use Lcobucci\JWT\Token;
 use Psr\Http\Message\ResponseInterface;
@@ -14,10 +16,12 @@ use Psr\Http\Message\ResponseInterface;
 class Client
 {
     private GuzzleClient $httpClient;
-    private ?Token $accessToken = null;
 
-    public function __construct(private Keycloak $keycloak)
-    {
+    public function __construct(
+        private Keycloak $keycloak,
+        private ?Token $accessToken = null,
+        private ?Token $refreshToken = null
+    ) {
     }
 
     public function request(string $method, string $path = '', array $options = []): ResponseInterface
@@ -48,9 +52,7 @@ class Client
 
     private function authorize(): void
     {
-        $accessToken = $this->fetchAccessToken();
-
-        $this->accessToken = (new Token\Parser(new JoseEncoder()))->parse($accessToken);
+        $this->fetchAccessToken();
 
         $this->httpClient = new GuzzleClient([
             'base_uri' => $this->keycloak->getBaseUrl() . '/auth/admin/',
@@ -62,21 +64,38 @@ class Client
         ]);
     }
 
-    private function fetchAccessToken(): string
+    private function fetchAccessToken(): void
     {
-        $response = (new GuzzleClient())->request(
-            'POST',
-            $this->keycloak->getBaseUrl() . '/auth/realms/master/protocol/openid-connect/token',
-            [
-                'form_params' => [
-                    'username' => $this->keycloak->getUsername(),
-                    'password' => $this->keycloak->getPassword(),
-                    'client_id' => 'admin-cli',
-                    'grant_type' => 'password',
+        try {
+            $response = (new JsonDecoder())->decode((string) (new GuzzleClient())->request(
+                'POST',
+                $this->keycloak->getBaseUrl() . '/auth/realms/master/protocol/openid-connect/token',
+                [
+                    'form_params' => [
+                        'refresh_token' => $this->refreshToken,
+                        'password' => $this->keycloak->getPassword(),
+                        'client_id' => 'admin-cli',
+                        'grant_type' => 'refresh_token',
+                    ]
                 ]
-            ]
-        );
+            )->getBody());
+        } catch (RequestException $e) {
+            // Fall back to grant_type=password ...
+            $response = (new JsonDecoder())->decode((string) (new GuzzleClient())->request(
+                'POST',
+                $this->keycloak->getBaseUrl() . '/auth/realms/master/protocol/openid-connect/token',
+                [
+                    'form_params' => [
+                        'username' => $this->keycloak->getUsername(),
+                        'password' => $this->keycloak->getPassword(),
+                        'client_id' => 'admin-cli',
+                        'grant_type' => 'password',
+                    ]
+                ]
+            )->getBody());
+        }
 
-        return (string) json_decode((string) $response->getBody())->access_token;
+        $this->accessToken = (new Token\Parser(new JoseEncoder()))->parse($response['access_token']);
+        $this->refreshToken = (new Token\Parser(new JoseEncoder()))->parse($response['refresh_token']);
     }
 }
