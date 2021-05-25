@@ -51,6 +51,8 @@ abstract class Representation implements RepresentationInterface
 
     public function __get(string $name): mixed
     {
+        $this->throwExceptionIfPropertyDoesNotExist($name);
+
         return $this->$name;
     }
 
