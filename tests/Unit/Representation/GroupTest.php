@@ -8,13 +8,63 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Fschmtt\Keycloak\Representation\Group
- * @uses \Fschmtt\Keycloak\Representation\Representation
+ * @uses   \Fschmtt\Keycloak\Representation\Representation
  */
 class GroupTest extends TestCase
 {
-    public function testCanBeConstructedFromProperties(): void
+    private Group $group;
+
+    public function setUp(): void
     {
-        $properties = [
+        $subGroup = new Group(
+            access: ['acl-a', 'acl-b',],
+            attributes: ['attr-1', 'attr-2',],
+            clientRoles: ['client-role-x', 'client-role-y', 'client-role-z',],
+            id: 'unique-id',
+            name: 'unique-name',
+            path: '/where/am/i',
+            realmRoles: ['realm-role-a', 'realm-role-b',],
+        );
+
+        $this->group = new Group(
+            access: ['acl-a', 'acl-b',],
+            attributes: ['attr-1', 'attr-2',],
+            clientRoles: ['client-role-x', 'client-role-y', 'client-role-z',],
+            id: 'unique-id',
+            name: 'unique-name',
+            path: '/where/am/i',
+            realmRoles: ['realm-role-a', 'realm-role-b',],
+            subGroups: [$subGroup]
+        );
+    }
+
+    /**
+     * @dataProvider provideProperties
+     */
+    public function testCanBeConstructedFromProperties(array $properties): void
+    {
+        $constructedGroup = Group::from($properties);
+
+        static::assertEquals($this->group, $constructedGroup);
+    }
+
+    /**
+     * @dataProvider provideProperties
+     */
+    public function testCanBeBuilt(array $properties)
+    {
+        $builtGroup = new Group();
+
+        foreach ($properties as $property => $value) {
+            $builtGroup = $builtGroup->with($property, $value);
+        }
+
+        self::assertEquals($this->group, $builtGroup);
+    }
+
+    public function provideProperties(): array
+    {
+        $group = [
             'access' => [
                 'acl-a',
                 'acl-b',
@@ -32,18 +82,17 @@ class GroupTest extends TestCase
             'name' => 'unique-name',
             'path' => '/where/am/i',
             'realmRoles' => [
-                'role-a',
-                'role-b',
+                'realm-role-a',
+                'realm-role-b',
             ],
         ];
 
-        $constructedGroup = Group::from($properties);
+        $group['subGroups'] = [$group];
 
-        $builtGroup = new Group();
-        foreach ($properties as $property => $value) {
-            $builtGroup = $builtGroup->with($property, $value);
-        }
-
-        static::assertEquals($constructedGroup, $builtGroup);
+        return [
+            [
+                $group,
+            ]
+        ];
     }
 }

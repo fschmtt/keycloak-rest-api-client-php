@@ -6,11 +6,10 @@ namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Exception\PropertyDoesNotExistException;
 use Fschmtt\Keycloak\Json\JsonDecoder;
-use InvalidArgumentException;
 
 abstract class Representation implements RepresentationInterface
 {
-    final public function __construct()
+    public function __construct(...$properties)
     {
     }
 
@@ -27,10 +26,9 @@ abstract class Representation implements RepresentationInterface
 
     public static function fromJson(string $json): static
     {
-        $decoder = new JsonDecoder();
-        $properties = $decoder->decode($json);
-
-        return static::from($properties);
+        return static::from(
+            (new JsonDecoder())->decode($json)
+        );
     }
 
     public function with(string $property, mixed $value): static

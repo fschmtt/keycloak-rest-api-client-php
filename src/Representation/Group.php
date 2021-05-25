@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Representation;
 
 /**
- * @method array|null getAccess()
- * @method array|null getAttributes()
- * @method array|null getClientRoles()
+ * @method string[]|null getAccess()
+ * @method string[]|null getAttributes()
+ * @method string[]|null getClientRoles()
  * @method string|null getId()
  * @method string|null getName()
  * @method string|null getPath()
- * @method array|null getRealmRoles()
+ * @method string[]|null getRealmRoles()
  * @method Group[]|null getSubGroups()
  * @method self withAccess(?array $access)
  * @method self withAttributes(?array $attributes)
@@ -24,32 +24,39 @@ namespace Fschmtt\Keycloak\Representation;
  */
 class Group extends Representation
 {
-    protected ?array $access;
-
-    protected ?array $attributes;
-
-    protected ?array $clientRoles;
-
-    protected ?string $id;
-
-    protected ?string $name;
-
-    protected ?string $path;
-
-    protected ?array $realmRoles;
-
-    /**
-     * @var Group[]|null
-     */
-    protected ?array $subGroups;
+    public function __construct(
+        protected ?array $access = null,
+        protected ?array $attributes = null,
+        protected ?array $clientRoles = null,
+        protected ?string $id = null,
+        protected ?string $name = null,
+        protected ?string $path = null,
+        protected ?array $realmRoles = null,
+        protected ?array $subGroups = null,
+    ) {
+        parent::__construct(
+            $access,
+            $attributes,
+            $clientRoles,
+            $id,
+            $name,
+            $path,
+            $realmRoles,
+            $subGroups,
+        );
+    }
 
     public static function from(array $properties): static
     {
         foreach ($properties as $property => $value) {
             if ($property === 'subGroups') {
+                $subGroups = [];
+
                 foreach ($value as $group) {
-                    $properties[$property][] = static::from($group);
+                    $subGroups[] = static::from($group);
                 }
+
+                $properties[$property] = $subGroups;
             }
         }
 
