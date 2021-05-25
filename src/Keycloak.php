@@ -26,7 +26,7 @@ class Keycloak
         $this->password = $password;
         $this->accessToken = $this->fetchAccessToken();
         $this->http = new Client([
-            'base_uri' => $this->baseUrl . '/auth/',
+            'base_uri' => $this->baseUrl . '/auth/admin/',
             'defaults' => [
                 'headers' => [
                     'Authorization' => 'Bearer ' . $this->accessToken,
@@ -39,7 +39,7 @@ class Keycloak
     {
         return ServerInfo::fromJson((string) $this->http->request(
             'GET',
-            'admin/serverinfo',
+            'serverinfo',
             [
                 'headers' => [
                     'Authorization' => 'Bearer ' . $this->accessToken,
@@ -52,7 +52,7 @@ class Keycloak
     {
         $realms = $this->http->request(
             'GET',
-            'admin/realms',
+            'realms',
             [
                 'headers' => [
                     'Authorization' => 'Bearer ' . $this->accessToken,
