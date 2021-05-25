@@ -52,7 +52,7 @@ class Client
 
     private function authorize(): void
     {
-        $this->fetchAccessToken();
+        $this->fetchAccessAndRefreshToken();
 
         $this->httpClient = new GuzzleClient([
             'base_uri' => $this->keycloak->getBaseUrl() . '/auth/admin/',
@@ -64,7 +64,7 @@ class Client
         ]);
     }
 
-    private function fetchAccessToken(): void
+    private function fetchAccessAndRefreshToken(): void
     {
         try {
             $response = (new JsonDecoder())->decode((string) (new GuzzleClient())->request(
