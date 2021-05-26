@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Type\Map;
+
 class Realm extends Representation
 {
     public function __construct(
@@ -35,7 +37,7 @@ class Realm extends Representation
         protected ?int $clientSessionMaxLifespan = null,
         protected ?array $clients = null,
         protected ?array $components = null,
-        protected ?array $defaultClientScopes = null,
+        protected ?array $defaultDefaultClientScopes = null,
         protected ?array $defaultGroups = null,
         protected ?string $defaultLocale = null,
         protected ?array $defaultOptionalClientScopes = null,
@@ -67,11 +69,8 @@ class Realm extends Representation
         protected ?int $maxFailureWaitSeconds = null,
         protected ?int $minimumQuickLoginWaitSeconds = null,
         protected ?int $notBefore = null,
-        protected ?int $oAuth2DeviceCodeLifespan = null,
-        protected ?int $oAuth2DevicePollingInterval = null,
         protected ?int $oauth2DeviceCodeLifespan = null,
         protected ?int $oauth2DevicePollingInterval = null,
-        protected ?int $offlineSessionIdleCount = null,
         protected ?int $offlineSessionIdleTimeout = null,
         protected ?int $offlineSessionMaxLifespan = null,
         protected ?bool $offlineSessionMaxLifespanEnabled = null,
@@ -99,7 +98,7 @@ class Realm extends Representation
         protected ?bool $revokeRefreshToken = null,
         protected ?Roles $roles = null,
         protected ?array $scopeMappings = null,
-        protected ?array $smtpServer = null,
+        protected ?Map $smtpServer = null,
         protected ?string $sslRequired = null,
         protected ?int $ssoSessionIdleTimeout = null,
         protected ?int $ssoSessionIdleTimeoutRememberMe = null,
@@ -162,7 +161,7 @@ class Realm extends Representation
             $clientSessionMaxLifespan,
             $clients,
             $components,
-            $defaultClientScopes,
+            $defaultDefaultClientScopes,
             $defaultGroups,
             $defaultLocale,
             $defaultOptionalClientScopes,
@@ -194,11 +193,8 @@ class Realm extends Representation
             $maxFailureWaitSeconds,
             $minimumQuickLoginWaitSeconds,
             $notBefore,
-            $oAuth2DeviceCodeLifespan,
-            $oAuth2DevicePollingInterval,
             $oauth2DeviceCodeLifespan,
             $oauth2DevicePollingInterval,
-            $offlineSessionIdleCount,
             $offlineSessionIdleTimeout,
             $offlineSessionMaxLifespan,
             $offlineSessionMaxLifespanEnabled,
@@ -267,6 +263,22 @@ class Realm extends Representation
         foreach ($properties as $property => $value) {
             if ($property === 'defaultRole') {
                 $properties[$property] = Role::from($value);
+            }
+
+            if ($property === 'smtpServer') {
+                if ($value === null || empty($value)) {
+                    $properties[$property] = new Map();
+
+                    continue;
+                }
+
+                $smtpServer = [];
+
+                foreach ($value as $k => $v) {
+                    $smtpServer[$k] = $v;
+                }
+
+                $properties[$property] = new Map($smtpServer);
             }
         }
 

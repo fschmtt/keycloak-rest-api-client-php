@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Resource;
 
 use Fschmtt\Keycloak\Json\JsonDecoder;
+use Fschmtt\Keycloak\Json\JsonEncoder;
 use Fschmtt\Keycloak\Representation\Realm;
 
 class Realms extends Resource
 {
     private const BASE_PATH = '/auth/admin/realms';
-
-    private ?Realm $realm;
 
     public function all(): array
     {
@@ -44,6 +43,8 @@ class Realms extends Resource
 
     public function import(Realm $realm): Realm
     {
+        $body = (new JsonEncoder())->encode($realm->jsonSerialize());
+
         $this->httpClient->request(
             'POST',
             self::BASE_PATH,
@@ -51,14 +52,36 @@ class Realms extends Resource
                 'headers' => [
                     'Content-Type' => 'application/json',
                 ],
-                'json' => [
-                    'realm' => $realm->getRealm(),
-                    'displayName' => $realm->getDisplayName(),
-                    'id' => $realm->getId(),
-                ],
+                'body' => $body
             ]
         );
 
         return $this->get($realm->getRealm());
+    }
+
+    public function update(Realm $realm): Realm
+    {
+        $body = (new JsonEncoder())->encode($realm->jsonSerialize());
+
+        $this->httpClient->request(
+            'PUT',
+            self::BASE_PATH . '/' . $realm->getRealm(),
+            [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                ],
+                'body' => $body
+            ]
+        );
+
+        return $this->get($realm->getRealm());
+    }
+
+    public function delete(Realm $realm): void
+    {
+        $this->httpClient->request(
+            'DELETE',
+            self::BASE_PATH . '/' . $realm->getRealm(),
+        );
     }
 }
