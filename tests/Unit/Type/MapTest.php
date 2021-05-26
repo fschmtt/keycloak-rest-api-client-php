@@ -15,8 +15,8 @@ class MapTest extends TestCase
     {
         $map = new Map();
 
-        self::assertInstanceOf(
-            \stdClass::class,
+        self::assertEquals(
+            (object) [],
             $map->jsonSerialize()
         );
     }
@@ -32,7 +32,7 @@ class MapTest extends TestCase
         $map = new Map($array);
 
         self::assertEquals(
-            $array,
+            (object) $array,
             $map->jsonSerialize()
         );
     }
