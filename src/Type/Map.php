@@ -10,7 +10,7 @@ class Map extends Type
 {
     private array $map;
 
-    public function __construct(array $map)
+    public function __construct(array $map = [])
     {
         $this->map = $map;
     }
