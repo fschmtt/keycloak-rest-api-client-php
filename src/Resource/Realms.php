@@ -76,4 +76,12 @@ class Realms extends Resource
 
         return $this->get($realm->getRealm());
     }
+
+    public function delete(Realm $realm): void
+    {
+        $this->httpClient->request(
+            'DELETE',
+            self::BASE_PATH . '/' . $realm->getRealm(),
+        );
+    }
 }
