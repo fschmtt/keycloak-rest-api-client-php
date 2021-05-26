@@ -15,7 +15,7 @@ composer require fschmtt/keycloak-rest-api-client-php
 Example:
 
 ```php
-use Fschmtt\Keycloak\Keycloak;$keycloak = new Keycloak(
+$keycloak = new \Fschmtt\Keycloak\Keycloak(
     baseUrl: 'http://keycloak:8080',
     username: 'admin',
     password: 'admin'
