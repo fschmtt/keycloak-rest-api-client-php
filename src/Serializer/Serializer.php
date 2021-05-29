@@ -15,6 +15,13 @@ class Serializer
      */
     private array $serializers = [];
 
+    public function __construct(SerializerInterface ...$serializers)
+    {
+        foreach ($serializers as $serializer) {
+            $this->serializers[$serializer->serializes()] = $serializer;
+        }
+    }
+
     public function serialize(string $type, mixed $value): mixed
     {
         if (array_key_exists($type, $this->serializers)) {
