@@ -16,8 +16,9 @@ class Client
     private GuzzleClient $httpClient;
     private ?Token $accessToken = null;
 
-    public function __construct(private Keycloak $keycloak)
-    {
+    public function __construct(
+        private Keycloak $keycloak,
+    ) {
     }
 
     public function request(string $method, string $path = '', array $options = []): ResponseInterface
