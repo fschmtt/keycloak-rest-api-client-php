@@ -49,6 +49,8 @@ More examples can be found in the [examples](examples) directory.
 | Endpoint | Status Code | Response | API |
 |----------|-------------|----------|-----|
 | `DELETE /auth/admin/realms/{realm}/attack-detection/brute-force/users` | `204` | `n/a` | [AttackDetection::clear()](src/Resource/AttackDetection.php) |
+| `GET /auth/admin/realms/{realm}/attack-detection/brute-force/users/{userId}` | `204` | [Map](src/Type/Map.php) | [AttackDetection::user()](src/Resource/AttackDetection.php) |
+| `DELETE /auth/admin/realms/{realm}/attack-detection/brute-force/users/{userId}` | `204` | `n/a` | [AttackDetection::clearUser()](src/Resource/AttackDetection.php) |
 
 ### [Realms Admin](https://www.keycloak.org/docs-api/13.0/rest-api/index.html#_realms_admin_resource)
 | Endpoint | Status Code | Response | API |
