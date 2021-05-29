@@ -69,7 +69,7 @@ More examples can be found in the [examples](examples) directory.
 | `GET /auth/admin/serverinfo` | `200` | [ServerInfo](src/Representation/ServerInfo.php) | [ServerInfo::get()](src/Resource/ServerInfo.php) |
 
 ## Local development and testing
-Run `docker compose up -d` to start a local Keycloak instance listening on http://localhost:8080.
+Run `docker compose up -d keycloak` to start a local Keycloak instance listening on http://localhost:8080.
 
 Run your script (e. g. [examples/serverinfo.php](examples/serverinfo.php)) from within the `php` container:
 ```bash
