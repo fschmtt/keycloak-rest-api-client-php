@@ -14,7 +14,7 @@ class Keycloak
     private string $baseUrl;
     private string $username;
     private string $password;
-    private Http\Client $httpClient;
+    private Client $httpClient;
 
     public function __construct(string $baseUrl, string $username, string $password)
     {

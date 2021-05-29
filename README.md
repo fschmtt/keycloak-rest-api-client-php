@@ -1,4 +1,4 @@
-# Keycloak REST API Client
+# Keycloak Admin REST API Client
 PHP client to interact with [Keycloak's Admin REST API](https://www.keycloak.org/docs-api/13.0/rest-api/index.html).
 
 Inspired by [keycloak/keycloak-nodejs-admin-client](https://github.com/keycloak/keycloak-nodejs-admin-client).
@@ -6,7 +6,7 @@ Inspired by [keycloak/keycloak-nodejs-admin-client](https://github.com/keycloak/
 _Note: This library is WIP can not be considered stable yet - do not use this in production._
 
 ## Installation
-Install via composer:
+Install via Composer:
 ```bash
 composer require fschmtt/keycloak-rest-api-client-php
 ```
@@ -14,7 +14,7 @@ composer require fschmtt/keycloak-rest-api-client-php
 ## Usage
 Example:
 
-```php 
+```php
 $keycloak = new \Fschmtt\Keycloak\Keycloak(
     baseUrl: 'http://keycloak:8080',
     username: 'admin',
@@ -53,16 +53,23 @@ More examples can be found in the [examples](examples) directory.
 ### [Realms Admin](https://www.keycloak.org/docs-api/13.0/rest-api/index.html#_realms_admin_resource)
 | Endpoint | Status Code | Response | API |
 |----------|-------------|----------|-----|
-| `GET /auth/admin/realms` | `201` | array<[Realm](src/Representation/Realm.php)> | [Realms::all()](src/Resource/Realms.php) |
 | `POST /auth/admin/realms` | `201` | [Realm](src/Representation/Realm.php) | [Realms::import()](src/Resource/Realms.php) |
+| `GET /auth/admin/realms` | `200` | array<[Realm](src/Representation/Realm.php)> | [Realms::all()](src/Resource/Realms.php) |
+| `PUT /auth/admin/realms/{realm}` | `204` | [Realm](src/Representation/Realm.php) | [Realms::update()](src/Resource/Realms.php) |
+| `DELETE /auth/admin/realms/{realm}` | `204` | `n/a` | [Realms::delete()](src/Resource/Realms.php) |
+| `GET /auth/admin/realms/{realm}/admin-events` | `200` | `array` | [Realms::adminEvents()](src/Resource/Realms.php) |
+| `DELETE /auth/admin/realms/{realm}/admin-events` | `204` | `n/a` | [Realms::deleteAdminEvents()](src/Resource/Realms.php) |
+| `POST /auth/admin/realms/{realm}/clear-keys-cache` | `204` | `n/a` | [Realms::clearKeysCache()](src/Resource/Realms.php) |
+| `POST /auth/admin/realms/{realm}/clear-realm-cache` | `204` | `n/a` | [Realms::clearRealmCache()](src/Resource/Realms.php) |
+| `POST /auth/admin/realms/{realm}/clear-user-cache` | `204` | `n/a` | [Realms::clearUserCache()](src/Resource/Realms.php) |
 
 ### [Root](https://www.keycloak.org/docs-api/13.0/rest-api/index.html#_root_resource)
-| Endpoint | Status Code | Response |
-|----------|-------------|----------|
-| `GET /auth/admin/serverinfo` | `200` | [ServerInfo](src/Representation/ServerInfo.php) |
+| Endpoint | Status Code | Response | API |
+|----------|-------------|----------|-----|
+| `GET /auth/admin/serverinfo` | `200` | [ServerInfo](src/Representation/ServerInfo.php) | [ServerInfo::get()](src/Resource/ServerInfo.php) |
 
 ## Local development and testing
-Run `docker compose up -d` to start a local Keycloak instance listening on http://localhost:8080.
+Run `docker compose up -d keycloak` to start a local Keycloak instance listening on http://localhost:8080.
 
 Run your script (e. g. [examples/serverinfo.php](examples/serverinfo.php)) from within the `php` container:
 ```bash
