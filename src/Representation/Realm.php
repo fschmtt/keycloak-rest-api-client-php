@@ -272,13 +272,7 @@ class Realm extends Representation
                     continue;
                 }
 
-                $smtpServer = [];
-
-                foreach ($value as $k => $v) {
-                    $smtpServer[$k] = $v;
-                }
-
-                $properties[$property] = new Map($smtpServer);
+                $properties[$property] = new Map($value);
             }
         }
 

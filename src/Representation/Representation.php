@@ -78,12 +78,17 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
     {
         $this->throwExceptionIfPropertyDoesNotExist($property);
 
+        // TODO Refactor to have serialization at this central point rather than overriding ::from() and ::with()
+
         $clone = clone $this;
         $clone->$property = $value;
 
         return $clone;
     }
 
+    /**
+     * @throws PropertyDoesNotExistException
+     */
     private function throwExceptionIfPropertyDoesNotExist(string $property): void
     {
         if (!property_exists(static::class, $property)) {

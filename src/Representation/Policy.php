@@ -4,46 +4,74 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Type\Map;
+
 class Policy extends Representation
 {
-    protected ?array $config;
+    public function __construct(
+        protected ?Map $config,
+        protected ?DecisionStrategy $decisionStrategy,
+        protected ?string $description,
+        protected ?string $id,
+        protected ?Logic $logic,
+        protected ?string $name,
+        protected ?string $owner,
+        protected ?array $policies,
+        protected ?array $resources,
+        protected ?array $resourcesData,
+        protected ?array $scopes,
+        protected ?array $scopesData,
+        protected ?string $type,
+    ) {
+        parent::__construct(
+            $this->config,
+            $this->decisionStrategy,
+            $this->description,
+            $this->id,
+            $this->logic,
+            $this->name,
+            $this->owner,
+            $this->policies,
+            $this->resources,
+            $this->resourcesData,
+            $this->scopes,
+            $this->scopesData,
+            $this->type
+        );
+    }
 
-    protected ?DecisionStrategy $decisionStrategy;
+    public static function from(array $properties): static
+    {
+        foreach ($properties as $property => $value) {
+            if ($property === 'config') {
+                $properties[$property] = new Map($value);
+            }
 
-    protected ?string $description;
+            if ($property === 'logic') {
+                $properties[$property] = Logic::from($value);
+            }
 
-    protected ?string $id;
+            if ($property === 'resourcesData') {
+                $resourcesData = [];
 
-    protected ?Logic $logic;
+                foreach ($value as $resource) {
+                    $resourcesData[] = Resource::from($resource);
+                }
 
-    protected ?string $name;
+                $properties[$property] = $resourcesData;
+            }
 
-    protected ?string $owner;
+            if ($property === 'scopesData') {
+                $scopesData = [];
 
-    /**
-     * @var Policy[]|null
-     */
-    protected ?array $policies;
+                foreach ($value as $scope) {
+                    $scopesData[] = Resource::from($scope);
+                }
 
-    /**
-     * @var string[]|null
-     */
-    protected ?array $resources;
+                $properties[$property] = $scopesData;
+            }
+        }
 
-    /**
-     * @var Resource[]|null
-     */
-    protected ?array $resourcesData;
-
-    /**
-     * @var string[]|null
-     */
-    protected ?array $scopes;
-
-    /**
-     * @var Scope[]|null
-     */
-    protected ?array $scopesData;
-
-    protected ?string $type;
+        return parent::from($properties);
+    }
 }

@@ -62,4 +62,19 @@ class Group extends Representation
 
         return parent::from($properties);
     }
+
+    public function with(string $property, mixed $value): static
+    {
+        if ($property === 'subGroups') {
+            $subGroups = [];
+
+            foreach ($value as $group) {
+                $subGroups[] = static::from($group);
+            }
+
+            $value = $subGroups;
+        }
+
+        return parent::with($property, $value);
+    }
 }
