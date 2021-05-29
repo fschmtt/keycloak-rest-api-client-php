@@ -84,4 +84,73 @@ class Realms extends Resource
             self::BASE_PATH . '/' . $realm->getRealm(),
         );
     }
+
+    /**
+     * @description Get admin events
+     * @description Returns all admin events, or filters events based on URL query parameters listed here
+     * TODO Query params
+     */
+    public function adminEvents(Realm $realm): array
+    {
+        return (new JsonDecoder())->decode(
+            (string) $this->httpClient->request(
+                'GET',
+                self::BASE_PATH . '/' . $realm->getRealm() . '/admin-events'
+            )->getBody()
+        );
+    }
+
+    /**
+     * @description Delete all admin events
+     */
+    public function deleteAdminEvents(Realm $realm): void
+    {
+        $this->httpClient->request(
+        'DELETE',
+            self::BASE_PATH . '/' . $realm->getRealm() . '/admin-events'
+        );
+    }
+
+    /**
+     * @description Clear cache of external public keys (Public keys of clients or Identity providers)
+     */
+    public function clearKeysCache(Realm $realm): void
+    {
+        $this->httpClient->request(
+            'POST',
+            self::BASE_PATH . '/' . $realm->getRealm() . '/clear-keys-cache'
+        );
+    }
+
+    public function clearRealmCache(Realm $realm): void
+    {
+        $this->httpClient->request(
+            'POST',
+            self::BASE_PATH . '/' . $realm->getRealm() . '/clear-realm-cache'
+        );
+    }
+
+    public function clearUserCache(Realm $realm): void
+    {
+        $this->httpClient->request(
+            'POST',
+            self::BASE_PATH . '/' . $realm->getRealm() . '/clear-user-cache'
+        );
+    }
+
+    public function clientDescriptionConverter(Realm $realm, array $body): Client
+    {
+        return Client::from(
+            (string) $this->httpClient->request(
+                'POST',
+                self::BASE_PATH . '/' . $realm->getRealm() . '/client-description-converter',
+                [
+                    'headers' => [
+                        'Content-Type' => 'application/json'
+                    ],
+                    'body' =>  $body
+                ]
+            )->getBody()
+        );
+    }
 }
