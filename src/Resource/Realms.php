@@ -6,6 +6,7 @@ namespace Fschmtt\Keycloak\Resource;
 
 use Fschmtt\Keycloak\Json\JsonDecoder;
 use Fschmtt\Keycloak\Json\JsonEncoder;
+use Fschmtt\Keycloak\Representation\Client;
 use Fschmtt\Keycloak\Representation\Realm;
 
 class Realms extends Resource
@@ -17,7 +18,7 @@ class Realms extends Resource
         /** @var Realm[] $realms */
         $realms = [];
 
-        $response = (string) $this->httpClient->request(
+        $response = (string)$this->httpClient->request(
             'GET',
             self::BASE_PATH
         )->getBody();
@@ -34,7 +35,7 @@ class Realms extends Resource
     public function get(string $realm): Realm
     {
         return Realm::fromJson(
-            (string) $this->httpClient->request(
+            (string)$this->httpClient->request(
                 'GET',
                 self::BASE_PATH . '/' . $realm
             )->getBody()
@@ -93,7 +94,7 @@ class Realms extends Resource
     public function adminEvents(Realm $realm): array
     {
         return (new JsonDecoder())->decode(
-            (string) $this->httpClient->request(
+            (string)$this->httpClient->request(
                 'GET',
                 self::BASE_PATH . '/' . $realm->getRealm() . '/admin-events'
             )->getBody()
@@ -106,7 +107,7 @@ class Realms extends Resource
     public function deleteAdminEvents(Realm $realm): void
     {
         $this->httpClient->request(
-        'DELETE',
+            'DELETE',
             self::BASE_PATH . '/' . $realm->getRealm() . '/admin-events'
         );
     }
@@ -141,16 +142,18 @@ class Realms extends Resource
     public function clientDescriptionConverter(Realm $realm, array $body): Client
     {
         return Client::from(
-            (string) $this->httpClient->request(
-                'POST',
-                self::BASE_PATH . '/' . $realm->getRealm() . '/client-description-converter',
-                [
-                    'headers' => [
-                        'Content-Type' => 'application/json'
-                    ],
-                    'body' =>  $body
-                ]
-            )->getBody()
+            (new JsonDecoder())->decode(
+                (string) $this->httpClient->request(
+                    'POST',
+                    self::BASE_PATH . '/' . $realm->getRealm() . '/client-description-converter',
+                    [
+                        'headers' => [
+                            'Content-Type' => 'application/json'
+                        ],
+                        'body' => $body
+                    ]
+                )->getBody()
+            )
         );
     }
 }
