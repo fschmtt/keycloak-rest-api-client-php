@@ -22,7 +22,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Fschmtt\\Keycloak\\": "tests"
+            "Fschmtt\\Keycloak\\Test\\": "tests"
         }
     },
     "license": "mit",
