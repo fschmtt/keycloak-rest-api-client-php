@@ -6,7 +6,6 @@ namespace Fschmtt\Keycloak\Resource;
 
 use Fschmtt\Keycloak\Json\JsonDecoder;
 use Fschmtt\Keycloak\Json\JsonEncoder;
-use Fschmtt\Keycloak\Representation\Client;
 use Fschmtt\Keycloak\Representation\Realm;
 
 class Realms extends Resource
@@ -87,8 +86,6 @@ class Realms extends Resource
     }
 
     /**
-     * @description Get admin events
-     * @description Returns all admin events, or filters events based on URL query parameters listed here
      * TODO Query params
      */
     public function adminEvents(Realm $realm): array
@@ -101,9 +98,6 @@ class Realms extends Resource
         );
     }
 
-    /**
-     * @description Delete all admin events
-     */
     public function deleteAdminEvents(Realm $realm): void
     {
         $this->httpClient->request(
@@ -112,9 +106,6 @@ class Realms extends Resource
         );
     }
 
-    /**
-     * @description Clear cache of external public keys (Public keys of clients or Identity providers)
-     */
     public function clearKeysCache(Realm $realm): void
     {
         $this->httpClient->request(
@@ -136,24 +127,6 @@ class Realms extends Resource
         $this->httpClient->request(
             'POST',
             self::BASE_PATH . '/' . $realm->getRealm() . '/clear-user-cache'
-        );
-    }
-
-    public function clientDescriptionConverter(Realm $realm, array $body): Client
-    {
-        return Client::from(
-            (new JsonDecoder())->decode(
-                (string) $this->httpClient->request(
-                    'POST',
-                    self::BASE_PATH . '/' . $realm->getRealm() . '/client-description-converter',
-                    [
-                        'headers' => [
-                            'Content-Type' => 'application/json'
-                        ],
-                        'body' => $body
-                    ]
-                )->getBody()
-            )
         );
     }
 }

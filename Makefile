@@ -1,8 +1,15 @@
 php = docker compose run --rm --no-deps php
 
 .PHONY: test
-test:
-	$(php) vendor/bin/phpunit
+test: test-unit test-integration
+
+.PHONY: test-unit
+test-unit:
+	$(php) vendor/bin/phpunit --testsuite unit
+
+.PHONY: test-integration
+test-integration:
+	$(php) vendor/bin/phpunit --testsuite integration
 
 .PHONY: analyze
 analyze:
