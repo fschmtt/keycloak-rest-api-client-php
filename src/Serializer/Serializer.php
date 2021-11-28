@@ -29,7 +29,7 @@ class Serializer
         }
 
         try {
-            // Try to fallback to string
+            // Try to fall back to string
             return $this->serializers['string']->serialize($value);
         } catch (\Throwable $e) {
             throw new SerializerException(
