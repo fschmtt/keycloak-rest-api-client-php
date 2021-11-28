@@ -13,8 +13,14 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
 
+  test:
+    runs-on: ubuntu-latest
+    steps:
       - name: Run unit tests
         run: vendor/bin/phpunit --testsuite unit
 
       - name: Run integration tests
-        run: vendor/bin/phpunit --testsuite integration
+        run: |
+          docker-compose -f docker-compose.github.yml up -d php
+          docker-compose -f docker-compose.github.yml run --rm php vendor/bin/phpunit --testsuite integration
+          docker-compose -f docker-compose.github.yml down

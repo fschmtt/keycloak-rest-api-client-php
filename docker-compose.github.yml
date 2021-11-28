@@ -2,7 +2,10 @@ version: '3.7'
 
 services:
   php:
-    image: php:8.0-cli
+    build: docker/php
+    command: ["/wait-for-it.sh", "keycloak:8080"]
+    depends_on:
+      - keycloak
     volumes:
     - .:/app:rw
     working_dir: /app
