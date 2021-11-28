@@ -12,20 +12,20 @@ use Fschmtt\Keycloak\Type\Map;
  * @method string getName()
  * @method string getProtocol()
  * @method string getProtocolMapper()
- * @method withConfig(?Map $config)
- * @method withId(?string $id)
- * @method withName(?string $name)
- * @method withProtocol(?string $protocol)
- * @method withProtocolMapper(?string $protocolMapper)
+ * @method self withConfig(?Map $config)
+ * @method self withId(?string $id)
+ * @method self withName(?string $name)
+ * @method self withProtocol(?string $protocol)
+ * @method self withProtocolMapper(?string $protocolMapper)
  */
 class ProtocolMapper extends Representation
 {
     public function __construct(
-        ?Map $config,
-        ?string $id,
-        ?string $name,
-        ?string $protocol,
-        ?string $protocolMapper,
+        protected ?Map $config,
+        protected ?string $id,
+        protected ?string $name,
+        protected ?string $protocol,
+        protected ?string $protocolMapper,
     ) {
         parent::__construct(
             $config,
