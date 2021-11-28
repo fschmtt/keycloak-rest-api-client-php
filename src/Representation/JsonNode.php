@@ -58,7 +58,6 @@ class JsonNode extends Representation
 
     public static function from(array $properties): static
     {
-        print_r($properties);die;
         foreach ($properties as $property => $value) {
             if ($property === 'nodeType') {
                 $properties[$property] = NodeType::from($value);
