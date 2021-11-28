@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Resource;
 
+use Fschmtt\Keycloak\Collection\ClientCollection;
 use Fschmtt\Keycloak\Json\JsonDecoder;
 use Fschmtt\Keycloak\Json\JsonEncoder;
 use Fschmtt\Keycloak\Representation\Realm;
+use Fschmtt\Keycloak\Serializer\Factory;
 
 class Realms extends Resource
 {
@@ -83,6 +85,18 @@ class Realms extends Resource
             'DELETE',
             self::BASE_PATH . '/' . $realm->getRealm(),
         );
+    }
+
+    public function clients(Realm $realm): ClientCollection
+    {
+        $serializer = (new Factory())->create();
+
+        return $serializer->serialize(ClientCollection::class, (new JsonDecoder())->decode(
+            (string) $this->httpClient->request(
+                'GET',
+                self::BASE_PATH . '/' . $realm->getRealm() . '/clients'
+            )->getBody()
+        ));
     }
 
     /**
