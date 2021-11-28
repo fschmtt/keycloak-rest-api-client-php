@@ -49,7 +49,9 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
 
         foreach ($properties as $property) {
             $property->setAccessible(true);
-            $serializable[$property->getName()] = ($property instanceof Type) ? $property->jsonSerialize() : $property->getValue($this);
+            $serializable[$property->getName()] = ($property instanceof Type)
+                ? $property->jsonSerialize()
+                : $property->getValue($this);
         }
 
         return $serializable;
