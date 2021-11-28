@@ -39,8 +39,8 @@ jobs:
       - name: Run unit tests
         run: vendor/bin/phpunit --testsuite unit
 
-      - uses: ifaxity/wait-on-action
-        name: Wait for Keycloak...
+      - name: Wait for Keycloak...
+        uses: iFaxity/wait-on-action@v1
         with:
           resource: http://localhost:8080
 
