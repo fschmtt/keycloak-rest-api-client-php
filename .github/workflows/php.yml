@@ -15,3 +15,6 @@ jobs:
 
       - name: Run unit tests
         run: vendor/bin/phpunit --testsuite unit
+
+      - name: Run integration tests
+        run: vendor/bin/phpunit --testsuite integration
