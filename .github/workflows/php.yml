@@ -27,9 +27,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Identify PHP version
-        run: php -v
-
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
 

@@ -1,3 +1,5 @@
+![Worfklow](https://github.com/fschmtt/keycloak-rest-api-client-php/actions/workflows/php.yml/badge.svg)
+
 # Keycloak Admin REST API Client
 PHP client to interact with [Keycloak's Admin REST API](https://www.keycloak.org/docs-api/13.0/rest-api/index.html).
 

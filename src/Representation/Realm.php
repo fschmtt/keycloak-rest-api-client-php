@@ -530,6 +530,14 @@ class Realm extends Representation
 
                 $properties[$property] = new Map($value);
             }
+
+            if ($property === 'clientPolicies') {
+                $properties[$property] = ClientPolicies::from($value);
+            }
+
+            if ($property === 'clientProfiles') {
+                $properties[$property] = ClientProfiles::from($value);
+            }
         }
 
         return parent::from($properties);

@@ -7,7 +7,7 @@ namespace Fschmtt\Keycloak\Test\Integration\Resource;
 use Fschmtt\Keycloak\Representation\Realm;
 use Fschmtt\Keycloak\Test\Integration\IntegrationTestCase;
 
-class RealmTest extends IntegrationTestCase
+class RealmsTest extends IntegrationTestCase
 {
     public function testCanGetAllRealms(): void
     {
