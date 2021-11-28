@@ -13,6 +13,10 @@ use ReflectionProperty;
 
 abstract class Representation implements RepresentationInterface, JsonSerializable
 {
+    /**
+     * TODO
+     * @phpstan-ignore-next-line
+     */
     public function __construct(...$properties)
     {
     }
