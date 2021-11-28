@@ -5,22 +5,33 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
+    #container: php:8.0-cli#
+
+    env:
+      KEYCLOAK_BASE_URL: 'http://localhost:8080'
+
+    services:
+      keycloak:
+        image: jboss/keycloak:13.0.0
+        env:
+          KEYCLOAK_USER: admin
+          KEYCLOAK_PASSWORD: admin
+        ports:
+          - '8080:8080'
+
     steps:
       - uses: actions/checkout@v2
+
+      - name: Identify PHP version
+        run: php -v
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
 
-  test:
-    runs-on: ubuntu-latest
-    steps:
       - name: Run unit tests
         run: vendor/bin/phpunit --testsuite unit
 
       - name: Run integration tests
-        run: |
-          docker-compose -f docker-compose.github.yml up -d php
-          docker-compose -f docker-compose.github.yml run --rm php vendor/bin/phpunit --testsuite integration
-          docker-compose -f docker-compose.github.yml down
+        run: vendor/bin/phpunit --testsuite
