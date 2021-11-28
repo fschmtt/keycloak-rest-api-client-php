@@ -77,7 +77,7 @@ More examples can be found in the [examples](examples) directory.
 ## Local development and testing
 Run `docker compose up -d keycloak` to start a local Keycloak instance listening on http://localhost:8080.
 
-Run your script (e. g. [examples/serverinfo.php](examples/serverinfo.php)) from within the `php` container:
+Run your script (e.g. [examples/serverinfo.php](examples/serverinfo.php)) from within the `php` container:
 ```bash
 docker compose run --rm php php examples/serverinfo.php
 ```
