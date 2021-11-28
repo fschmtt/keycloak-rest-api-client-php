@@ -13,13 +13,13 @@ use ReflectionProperty;
 
 abstract class Representation implements RepresentationInterface, JsonSerializable
 {
-    /** @phpstan-ignore-next-line */
     public function __construct(...$properties)
     {
     }
 
     public static function from(array $properties): static
     {
+        /** @phpstan-ignore-next-line */
         $representation = new static();
 
         foreach ($properties as $property => $value) {
