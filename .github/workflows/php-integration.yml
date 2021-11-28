@@ -4,10 +4,12 @@ on:
   pull_request:
     branches: [ main ]
 
+name: PHP Integration (Keycloak compatibility)
+
 jobs:
   test:
     runs-on: ubuntu-latest
-    #container: php:8.0-cli
+
     strategy:
       matrix:
         keycloak: [13.0.0, 14.0.0, 15.0.0]
@@ -29,18 +31,6 @@ jobs:
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
-
-      - name: Run phpstan
-        run: vendor/bin/phpstan analyze src tests
-
-      - name: Run psalm
-        run: vendor/bin/psalm src
-
-      - name: Run code sniffer
-        run: vendor/bin/phpcs --standard=PSR12 src tests
-
-      - name: Run unit tests
-        run: vendor/bin/phpunit --testsuite unit
 
       - name: Wait for Keycloak
         uses: iFaxity/wait-on-action@v1

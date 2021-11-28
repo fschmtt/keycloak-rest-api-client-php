@@ -1,0 +1,26 @@
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+name: PHP Analysis
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run phpstan
+        run: vendor/bin/phpstan analyze src tests
+
+      - name: Run psalm
+        run: vendor/bin/psalm src
+
+      - name: Run code sniffer
+        run: vendor/bin/phpcs --standard=PSR12 src tests
