@@ -17,7 +17,7 @@ class Realms extends Resource
         /** @var Realm[] $realms */
         $realms = [];
 
-        $response = (string)$this->httpClient->request(
+        $response = (string) $this->httpClient->request(
             'GET',
             self::BASE_PATH
         )->getBody();
@@ -34,7 +34,7 @@ class Realms extends Resource
     public function get(string $realm): Realm
     {
         return Realm::fromJson(
-            (string)$this->httpClient->request(
+            (string) $this->httpClient->request(
                 'GET',
                 self::BASE_PATH . '/' . $realm
             )->getBody()
@@ -91,7 +91,7 @@ class Realms extends Resource
     public function adminEvents(Realm $realm): array
     {
         return (new JsonDecoder())->decode(
-            (string)$this->httpClient->request(
+            (string) $this->httpClient->request(
                 'GET',
                 self::BASE_PATH . '/' . $realm->getRealm() . '/admin-events'
             )->getBody()
