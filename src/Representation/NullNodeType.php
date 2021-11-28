@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
-class NullNodeType
+class NullNodeType extends NodeType
 {
     public function __toString(): string
     {
