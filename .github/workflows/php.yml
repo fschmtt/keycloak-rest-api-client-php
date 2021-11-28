@@ -8,19 +8,16 @@ jobs:
   test:
     runs-on: ubuntu-latest
     #container: php:8.0-cli
-    #strategy:
-    #  matrix:
-    #    keycloak-version:
-    #      - 13.0.0
-    #      - 14.0.0
-    #      - 15.0.0
+    strategy:
+      matrix:
+        keycloak: [13.0.0, 14.0.0, 15.0.0]
 
     env:
       KEYCLOAK_BASE_URL: 'http://localhost:8080'
 
     services:
       keycloak:
-        image: jboss/keycloak:13.0.0
+        image: jboss/keycloak:${{ matrix.keycloak }}
         env:
           KEYCLOAK_USER: admin
           KEYCLOAK_PASSWORD: admin
@@ -48,7 +45,7 @@ jobs:
       - name: Run unit tests
         run: vendor/bin/phpunit --testsuite unit
 
-      - name: Wait for Keycloak...
+      - name: Wait for Keycloak
         uses: iFaxity/wait-on-action@v1
         with:
           resource: http://localhost:8080
