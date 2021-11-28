@@ -4,6 +4,9 @@ namespace Fschmtt\Keycloak\Collection;
 
 use Fschmtt\Keycloak\Representation\Group;
 
+/**
+ * @method Group[] getIterator()
+ */
 class GroupCollection extends Collection
 {
     public function getRepresentationClass(): string

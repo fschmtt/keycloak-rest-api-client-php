@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Collection\ClientCollection;
 use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Type\Map;
 
@@ -34,7 +35,7 @@ use Fschmtt\Keycloak\Type\Map;
  * @method array|null getClientScopes()
  * @method int|null getClientSessionIdleTimeout()
  * @method int|null getClientSessionMaxLifespan()
- * @method array|null getClients()
+ * @method ClientCollection|null getClients()
  * @method array|null getComponents()
  * @method array|null getDefaultDefaultClientScopes()
  * @method array|null getDefaultGroups()
@@ -156,7 +157,7 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withClientScopes(?array $value)
  * @method self withClientSessionIdleTimeout(?int $value)
  * @method self withClientSessionMaxLifespan(?int $value)
- * @method self withClients(?array $value)
+ * @method self withClients(?ClientCollection $value)
  * @method self withComponents(?array $value)
  * @method self withDefaultDefaultClientScopes(?array $value)
  * @method self withDefaultGroups(?array $value)
@@ -282,7 +283,7 @@ class Realm extends Representation
         protected ?array $clientScopes = null,
         protected ?int $clientSessionIdleTimeout = null,
         protected ?int $clientSessionMaxLifespan = null,
-        protected ?array $clients = null,
+        protected ?ClientCollection $clients = null,
         protected ?array $components = null,
         protected ?array $defaultDefaultClientScopes = null,
         protected ?array $defaultGroups = null,
