@@ -13,8 +13,6 @@ class RealmTest extends IntegrationTestCase
     {
         $realms = $this->keycloak->realms()->all();
 
-        file_put_contents(__DIR__ . '/_fixtures/realms-all.txt', serialize($realms));
-
         foreach ($realms as $realm) {
             self::assertInstanceOf(Realm::class, $realm);
         }

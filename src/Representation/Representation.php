@@ -19,6 +19,7 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
 
     public static function from(array $properties): static
     {
+        /** @phpstan-ignore-next-line */
         $representation = new static();
 
         foreach ($properties as $property => $value) {
@@ -48,7 +49,9 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
 
         foreach ($properties as $property) {
             $property->setAccessible(true);
-            $serializable[$property->getName()] = ($property instanceof Type) ? $property->jsonSerialize() : $property->getValue($this);
+            $serializable[$property->getName()] = ($property instanceof Type)
+                ? $property->jsonSerialize()
+                : $property->getValue($this);
         }
 
         return $serializable;

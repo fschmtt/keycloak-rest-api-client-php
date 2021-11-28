@@ -14,7 +14,7 @@ abstract class IntegrationTestCase extends TestCase
     public function setUp(): void
     {
         $this->keycloak = new Keycloak(
-            'http://keycloak:8080',
+            $_SERVER['KEYCLOAK_BASE_URL'] ?? 'http://keycloak:8080',
             'admin',
             'admin'
         );

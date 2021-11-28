@@ -8,9 +8,9 @@ services:
     working_dir: /app
 
   keycloak:
-    image: jboss/keycloak:latest
+    image: jboss/keycloak:13.0.0
     environment:
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
     ports:
-      - 8080:8080
+      - '8080:8080'

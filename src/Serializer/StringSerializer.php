@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Serializer;
 
-class String implements SerializerInterface
+class StringSerializer implements SerializerInterface
 {
     public function serializes(): string
     {
