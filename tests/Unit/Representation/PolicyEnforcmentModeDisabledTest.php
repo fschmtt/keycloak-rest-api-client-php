@@ -13,7 +13,7 @@ class PolicyEnforcmentModeDisabledTest extends TestCase
 {
     public function testConvertsCorrectlyToString()
     {
-        $this->assertSame(
+        static::assertSame(
             'DISABLED',
             (string) (new PolicyEnforcementModeDisabled())
         );

@@ -14,7 +14,7 @@ class DecisionStrategyAffirmativeTest extends TestCase
 {
     public function testConvertsCorrectlyToString()
     {
-        $this->assertSame(
+        static::assertSame(
             'AFFIRMATIVE',
             (string) (new DecisionStrategyAffirmative())
         );

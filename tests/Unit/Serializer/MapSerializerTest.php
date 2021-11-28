@@ -7,16 +7,17 @@ namespace Fschmtt\Keycloak\Serializer;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \Fschmtt\Keycloak\Serializer\Map
+ * @covers \Fschmtt\Keycloak\Serializer\MapSerializer
+ * @uses \Fschmtt\Keycloak\Type\Map
  */
-class MapTest extends TestCase
+class MapSerializerTest extends TestCase
 {
     /**
      * @dataProvider provideData
      */
     public function testSerialize(mixed $value, \Fschmtt\Keycloak\Type\Map $expected): void
     {
-        $serializer = new Map();
+        $serializer = new MapSerializer();
 
         self::assertEquals(
             $serializer->serialize($value),

@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Serializer;
 
-class Boolean implements SerializerInterface
+use Fschmtt\Keycloak\Representation\JsonNode as JsonNodeType;
+
+class JsonNodeSerializer implements SerializerInterface
 {
     public function serializes(): string
     {
-        return 'bool';
+        return JsonNodeType::class;
     }
 
     public function serialize($value): bool

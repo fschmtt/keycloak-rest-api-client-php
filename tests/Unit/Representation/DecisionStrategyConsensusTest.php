@@ -14,7 +14,7 @@ class DecisionStrategyConsensusTest extends TestCase
 {
     public function testConvertsCorrectlyToString()
     {
-        $this->assertSame(
+        static::assertSame(
             'CONSENSUS',
             (string) (new DecisionStrategyConsensus())
         );

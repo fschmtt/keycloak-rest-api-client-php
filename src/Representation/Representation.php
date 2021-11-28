@@ -6,6 +6,8 @@ namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Exception\PropertyDoesNotExistException;
 use Fschmtt\Keycloak\Json\JsonDecoder;
+use Fschmtt\Keycloak\Serializer\Factory;
+use Fschmtt\Keycloak\Serializer\Serializer;
 use Fschmtt\Keycloak\Type\Type;
 use JsonSerializable;
 use ReflectionClass;
@@ -13,8 +15,11 @@ use ReflectionProperty;
 
 abstract class Representation implements RepresentationInterface, JsonSerializable
 {
+    private Serializer $serializer;
+
     public function __construct(...$properties)
     {
+        $this->serializer = (new Factory())->create();
     }
 
     public static function from(array $properties): static
@@ -81,7 +86,8 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
     {
         $this->throwExceptionIfPropertyDoesNotExist($property);
 
-        // TODO Refactor to have serialization at this central point rather than overriding ::from() and ::with()
+        $type = $this->getPropertyType($property);
+        $value = $this->serializer->serialize($type, $value);
 
         $clone = clone $this;
         $clone->$property = $value;
@@ -103,5 +109,18 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
                 )
             );
         }
+    }
+
+    private function getPropertyType(string $property): string
+    {
+        $reflectedClass = (new ReflectionClass($this));
+        $properties = $reflectedClass->getProperties(ReflectionProperty::IS_PROTECTED);
+
+        /** @var ReflectionProperty $prop */
+        $prop = array_values(array_filter($properties, function (ReflectionProperty $p) use ($property) {
+            return $p->getName() === $property;
+        }))[0];
+
+        return (string) $prop->getType();
     }
 }

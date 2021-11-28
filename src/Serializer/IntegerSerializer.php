@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Serializer;
 
-class Integer implements SerializerInterface
+class IntegerSerializer implements SerializerInterface
 {
     public function serializes(): string
     {
@@ -13,6 +13,6 @@ class Integer implements SerializerInterface
 
     public function serialize($value): int
     {
-        return (int) $value;
+        return intval($value);
     }
 }
