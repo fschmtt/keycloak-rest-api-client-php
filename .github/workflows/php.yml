@@ -36,6 +36,15 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
 
+      - name: Run phpstan
+        run: vendor/bin/phpstan analyze src tests
+
+      - name: Run psalm
+        run: vendor/bin/psalm src
+
+      - name: Run code sniffer
+        run: vendor/bin/phpcs --standard=PSR12 src tests
+
       - name: Run unit tests
         run: vendor/bin/phpunit --testsuite unit
 
