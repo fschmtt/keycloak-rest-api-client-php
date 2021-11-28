@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Exception\SerializerException;
 use Fschmtt\Keycloak\Representation\JsonNode;
 use Fschmtt\Keycloak\Representation\Representation;
 use Fschmtt\Keycloak\Type\Map;
+use JetBrains\PhpStorm\Pure;
 use PHPUnit\Framework\TestCase;
 
 /**

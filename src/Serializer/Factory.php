@@ -9,9 +9,13 @@ class Factory
         return new Serializer(
             new ArraySerializer(),
             new BooleanSerializer(),
+            new ClientPoliciesSerializer(),
+            new ClientProfilesSerializer(),
+            new GroupCollectionSerializer(),
             new IntegerSerializer(),
             new JsonNodeSerializer(),
             new MapSerializer(),
+            new RoleSerializer(),
             new StringSerializer(),
         );
     }

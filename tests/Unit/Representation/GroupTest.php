@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Collection\GroupCollection;
+use Fschmtt\Keycloak\Type\Map;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -17,9 +19,9 @@ class GroupTest extends TestCase
     public function setUp(): void
     {
         $subGroup = new Group(
-            access: ['acl-a', 'acl-b',],
-            attributes: ['attr-1', 'attr-2',],
-            clientRoles: ['client-role-x', 'client-role-y', 'client-role-z',],
+            access: new Map(['acl-a', 'acl-b',]),
+            attributes: new Map(['attr-1', 'attr-2',]),
+            clientRoles: new Map(['client-role-x', 'client-role-y', 'client-role-z',]),
             id: 'unique-id',
             name: 'unique-name',
             path: '/where/am/i',
@@ -27,14 +29,14 @@ class GroupTest extends TestCase
         );
 
         $this->group = new Group(
-            access: ['acl-a', 'acl-b',],
-            attributes: ['attr-1', 'attr-2',],
-            clientRoles: ['client-role-x', 'client-role-y', 'client-role-z',],
+            access: new Map(['acl-a', 'acl-b',]),
+            attributes: new Map(['attr-1', 'attr-2',]),
+            clientRoles: new Map(['client-role-x', 'client-role-y', 'client-role-z',]),
             id: 'unique-id',
             name: 'unique-name',
             path: '/where/am/i',
             realmRoles: ['realm-role-a', 'realm-role-b',],
-            subGroups: [$subGroup]
+            subGroups: new GroupCollection([$subGroup])
         );
     }
 
@@ -89,10 +91,6 @@ class GroupTest extends TestCase
 
         $group['subGroups'] = [$group];
 
-        return [
-            [
-                $group,
-            ]
-        ];
+        return [[$group]];
     }
 }

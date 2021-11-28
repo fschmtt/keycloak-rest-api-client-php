@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Type\Map;
 
 /**
@@ -55,7 +56,7 @@ use Fschmtt\Keycloak\Type\Map;
  * @method array|null getEventsListeners()
  * @method int|null getFailureFactor()
  * @method array|null getFederatedUsers()
- * @method array|null getGroups()
+ * @method GroupCollection|null getGroups()
  * @method string|null getId()
  * @method array|null getIdentityProviderMappers()
  * @method array|null getIdentityProviders()
@@ -177,7 +178,7 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withEventsListeners(?array $value)
  * @method self withFailureFactor(?int $value)
  * @method self withFederatedUsers(?array $value)
- * @method self withGroups(?array $value)
+ * @method self withGroups(?GroupCollection $value)
  * @method self withId(?string $value)
  * @method self withIdentityProviderMappers(?array $value)
  * @method self withIdentityProviders(?array $value)
@@ -303,7 +304,7 @@ class Realm extends Representation
         protected ?array $eventsListeners = null,
         protected ?int $failureFactor = null,
         protected ?array $federatedUsers = null,
-        protected ?array $groups = null,
+        protected ?GroupCollection $groups = null,
         protected ?string $id = null,
         protected ?array $identityProviderMappers = null,
         protected ?array $identityProviders = null,
@@ -502,44 +503,5 @@ class Realm extends Representation
             $webAuthnPolicySignatureAlgorithms,
             $webAuthnPolicyUserVerificationRequirement,
         );
-    }
-
-    public static function from(array $properties): static
-    {
-        foreach ($properties as $property => $value) {
-            if ($property === 'attributes') {
-                if ($value === null || empty($value)) {
-                    $properties[$property] = new Map();
-
-                    continue;
-                }
-
-                $properties[$property] = new Map($value);
-            }
-
-            if ($property === 'defaultRole') {
-                $properties[$property] = Role::from($value);
-            }
-
-            if ($property === 'smtpServer') {
-                if ($value === null || empty($value)) {
-                    $properties[$property] = new Map();
-
-                    continue;
-                }
-
-                $properties[$property] = new Map($value);
-            }
-
-            if ($property === 'clientPolicies') {
-                $properties[$property] = ClientPolicies::from($value);
-            }
-
-            if ($property === 'clientProfiles') {
-                $properties[$property] = ClientProfiles::from($value);
-            }
-        }
-
-        return parent::from($properties);
     }
 }

@@ -6,8 +6,6 @@ namespace Fschmtt\Keycloak\Serializer;
 
 use Fschmtt\Keycloak\Exception\SerializerException;
 
-use function array_key_exists;
-
 class Serializer
 {
     /**
@@ -33,7 +31,7 @@ class Serializer
 
         $type = $this->disallowNull($type);
 
-        if (array_key_exists($type, $this->serializers)) {
+        if (\array_key_exists($type, $this->serializers)) {
             return $this->serializers[$type]->serialize($value);
         }
 
@@ -44,11 +42,11 @@ class Serializer
 
     private function allowsNull(string $type): bool
     {
-        return str_starts_with($type, '?');
+        return \str_starts_with($type, '?');
     }
 
     private function disallowNull(string $type): string
     {
-        return str_replace('?', '', $type);
+        return \str_replace('?', '', $type);
     }
 }
