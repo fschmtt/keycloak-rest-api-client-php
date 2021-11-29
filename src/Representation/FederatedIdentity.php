@@ -20,9 +20,9 @@ class FederatedIdentity extends Representation
         protected ?string $userName
     ) {
         parent::__construct(
-          $identityProvider,
-          $userId,
-          $userName,
+            $identityProvider,
+            $userId,
+            $userName,
         );
     }
 }
