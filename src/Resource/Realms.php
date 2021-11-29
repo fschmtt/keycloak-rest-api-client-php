@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Resource;
 
 use Fschmtt\Keycloak\Collection\ClientCollection;
+use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Collection\UserCollection;
 use Fschmtt\Keycloak\Json\JsonDecoder;
 use Fschmtt\Keycloak\Json\JsonEncoder;
@@ -108,6 +109,18 @@ class Realms extends Resource
             (string) $this->httpClient->request(
                 'GET',
                 self::BASE_PATH . '/' . $realm->getRealm() . '/users'
+            )->getBody()
+        ));
+    }
+
+    public function groups(Realm $realm): GroupCollection
+    {
+        $serializer = (new Factory())->create();
+
+        return $serializer->serialize(GroupCollection::class, (new JsonDecoder())->decode(
+            (string) $this->httpClient->request(
+                'GET',
+                self::BASE_PATH . '/' . $realm->getRealm() . '/groups?briefRepresentation=false'
             )->getBody()
         ));
     }

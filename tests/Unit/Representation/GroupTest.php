@@ -8,10 +8,6 @@ use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Type\Map;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Representation\Group
- * @uses   \Fschmtt\Keycloak\Representation\Representation
- */
 class GroupTest extends TestCase
 {
     private Group $group;

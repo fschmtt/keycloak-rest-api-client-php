@@ -41,21 +41,4 @@ class AuthenticationFlow extends Representation
             $topLevel,
         );
     }
-
-    public static function from(array $properties): static
-    {
-        foreach ($properties as $property => $value) {
-            if ($property === 'authenticationExecutions') {
-                $authenticationExecutions = [];
-
-                foreach ($value as $authenticationExecution) {
-                    $authenticationExecutions[] = AuthenticationExecutionExport::from($authenticationExecution);
-                }
-
-                $properties[$property] = $authenticationExecutions;
-            }
-        }
-
-        return parent::from($properties);
-    }
 }

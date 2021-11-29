@@ -7,10 +7,6 @@ namespace Fschmtt\Keycloak\Representation;
 use Fschmtt\Keycloak\Exception\ReadOnlyException;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Representation\MemoryInfo
- * @uses \Fschmtt\Keycloak\Representation\Representation
- */
 class MemoryInfoTest extends TestCase
 {
     public function testThrowsReadOnlyException(): void

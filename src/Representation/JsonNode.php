@@ -55,15 +55,4 @@ class JsonNode extends Representation
             $valueNode,
         );
     }
-
-    public static function from(array $properties): static
-    {
-        foreach ($properties as $property => $value) {
-            if ($property === 'nodeType') {
-                $properties[$property] = NodeType::from($value);
-            }
-        }
-
-        return parent::from($properties);
-    }
 }

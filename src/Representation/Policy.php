@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Collection\ResourceCollection;
+use Fschmtt\Keycloak\Collection\ScopeCollection;
+use Fschmtt\Keycloak\Enum\DecisionStrategy;
+use Fschmtt\Keycloak\Enum\Logic;
 use Fschmtt\Keycloak\Type\Map;
 
 class Policy extends Representation
@@ -17,10 +21,10 @@ class Policy extends Representation
         protected ?string $name,
         protected ?string $owner,
         protected ?array $policies,
-        protected ?array $resources,
+        protected ?ResourceCollection $resources,
         protected ?array $resourcesData,
         protected ?array $scopes,
-        protected ?array $scopesData,
+        protected ?ScopeCollection $scopesData,
         protected ?string $type,
     ) {
         parent::__construct(
@@ -38,40 +42,5 @@ class Policy extends Representation
             $this->scopesData,
             $this->type
         );
-    }
-
-    public static function from(array $properties): static
-    {
-        foreach ($properties as $property => $value) {
-            if ($property === 'config') {
-                $properties[$property] = new Map($value);
-            }
-
-            if ($property === 'logic') {
-                $properties[$property] = Logic::from($value);
-            }
-
-            if ($property === 'resourcesData') {
-                $resourcesData = [];
-
-                foreach ($value as $resource) {
-                    $resourcesData[] = Resource::from($resource);
-                }
-
-                $properties[$property] = $resourcesData;
-            }
-
-            if ($property === 'scopesData') {
-                $scopesData = [];
-
-                foreach ($value as $scope) {
-                    $scopesData[] = Resource::from($scope);
-                }
-
-                $properties[$property] = $scopesData;
-            }
-        }
-
-        return parent::from($properties);
     }
 }

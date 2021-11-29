@@ -6,9 +6,6 @@ namespace Fschmtt\Keycloak\Serializer;
 
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Serializer\Factory
- */
 class FactoryTest extends TestCase
 {
     public function testCreate()

@@ -36,7 +36,7 @@ abstract class Collection implements \Countable, \IteratorAggregate
         if (!$item instanceof $expectedRepresentationClass) {
             throw new \InvalidArgumentException(
                 sprintf(
-                    '%s expects items of class %s, %s given',
+                    '%s expects items to be class %s, %s given',
                     static::class,
                     $expectedRepresentationClass,
                     get_class($item)

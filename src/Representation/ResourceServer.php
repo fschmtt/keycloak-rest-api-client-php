@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Collection\PolicyCollection;
+use Fschmtt\Keycloak\Collection\ResourceCollection;
+use Fschmtt\Keycloak\Collection\ScopeCollection;
+use Fschmtt\Keycloak\Enum\DecisionStrategy;
+use Fschmtt\Keycloak\Enum\PolicyEnforcementMode;
+
 class ResourceServer extends Representation
 {
     public function __construct(
@@ -12,10 +18,10 @@ class ResourceServer extends Representation
         ?DecisionStrategy $decisionStrategy = null,
         ?string $id = null,
         ?string $name = null,
-        ?array $policies = null,
+        ?PolicyCollection $policies = null,
         ?PolicyEnforcementMode $policyEnforcementMode = null,
-        ?array $resources = null,
-        ?array $scopes = null,
+        ?ResourceCollection $resources = null,
+        ?ScopeCollection $scopes = null,
     ) {
         parent::__construct(
             $allowRemoveResourceManagement,

@@ -11,9 +11,6 @@ use Fschmtt\Keycloak\Type\Map;
 use JetBrains\PhpStorm\Pure;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Serializer\Serializer
- */
 class SerializerTest extends TestCase
 {
     private Serializer $serializer;
@@ -38,10 +35,10 @@ class SerializerTest extends TestCase
     {
         static::expectException(SerializerException::class);
         static::expectExceptionMessage(
-            sprintf('No matching serializer found for type "%s"', Representation::class)
+            sprintf('No matching serializer found for type "%s"', \stdClass::class)
         );
 
-        $this->serializer->serialize(Representation::class, '');
+        $this->serializer->serialize(\stdClass::class, '');
     }
 
     public function provideKnownTypes(): array
