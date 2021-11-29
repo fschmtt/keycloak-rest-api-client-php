@@ -19,6 +19,7 @@ class Factory
             new JsonNodeSerializer(),
             new LogicSerializer(),
             new MapSerializer(),
+            new PasswordPolicyTypeCollectionSerializer(),
             new PolicyCollectionSerializer(),
             new PolicyEnforcementModeSerializer(),
             new ProtocolMapperCollectionSerializer(),

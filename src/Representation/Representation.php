@@ -22,7 +22,7 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
         $this->serializer = (new Factory())->create();
     }
 
-    public static function from(array $properties): static
+    final public static function from(array $properties): static
     {
         /** @phpstan-ignore-next-line */
         $representation = new static();
@@ -41,12 +41,12 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
         );
     }
 
-    public function with(string $property, mixed $value): static
+    final public function with(string $property, mixed $value): static
     {
         return $this->withProperty($property, $value);
     }
 
-    public function jsonSerialize(): array
+    final public function jsonSerialize(): array
     {
         $serializable = [];
         $reflectedClass = (new ReflectionClass($this));
@@ -62,7 +62,7 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
         return $serializable;
     }
 
-    public function __call(string $name, array $arguments): mixed
+    final public function __call(string $name, array $arguments): mixed
     {
         if (str_starts_with($name, 'get')) {
             return $this->__get(lcfirst(substr($name, 3)));
@@ -75,7 +75,7 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
         throw new PropertyDoesNotExistException();
     }
 
-    public function __get(string $name): mixed
+    final public function __get(string $name): mixed
     {
         $this->throwExceptionIfPropertyDoesNotExist($name);
 
