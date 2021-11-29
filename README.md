@@ -69,6 +69,7 @@ More examples can be found in the [examples](examples) directory.
 | `POST /auth/admin/realms/{realm}/clear-realm-cache` | `204` | `n/a` | [Realms::clearRealmCache()](src/Resource/Realms.php) |
 | `POST /auth/admin/realms/{realm}/clear-user-cache` | `204` | `n/a` | [Realms::clearUserCache()](src/Resource/Realms.php) |
 | `GET /auth/admin/realms/{realm}/clients` | `200` | [ClientCollection](src/Collection/ClientCollection.php) | [Realms::clients()](src/Resource/Realms.php) |
+| `GET /auth/admin/realms/{realm}/users` | `200` | [UserCollection](src/Collection/UserCollection.php) | [Realms::users()](src/Resource/Realms.php) |
 
 ### [Root](https://www.keycloak.org/docs-api/13.0/rest-api/index.html#_root_resource)
 | Endpoint | Status Code | Response | API |

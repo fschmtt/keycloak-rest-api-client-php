@@ -21,6 +21,7 @@ class Factory
             new ProtocolMapperCollectionSerializer(),
             new RoleSerializer(),
             new StringSerializer(),
+            new UserCollectionSerializer(),
         );
     }
 }

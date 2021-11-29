@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Resource;
 
 use Fschmtt\Keycloak\Collection\ClientCollection;
+use Fschmtt\Keycloak\Collection\UserCollection;
 use Fschmtt\Keycloak\Json\JsonDecoder;
 use Fschmtt\Keycloak\Json\JsonEncoder;
 use Fschmtt\Keycloak\Representation\Realm;
@@ -95,6 +96,18 @@ class Realms extends Resource
             (string) $this->httpClient->request(
                 'GET',
                 self::BASE_PATH . '/' . $realm->getRealm() . '/clients'
+            )->getBody()
+        ));
+    }
+
+    public function users(Realm $realm): UserCollection
+    {
+        $serializer = (new Factory())->create();
+
+        return $serializer->serialize(UserCollection::class, (new JsonDecoder())->decode(
+            (string) $this->httpClient->request(
+                'GET',
+                self::BASE_PATH . '/' . $realm->getRealm() . '/users'
             )->getBody()
         ));
     }
