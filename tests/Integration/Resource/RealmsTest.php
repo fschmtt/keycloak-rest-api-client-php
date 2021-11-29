@@ -51,7 +51,7 @@ class RealmsTest extends IntegrationTestCase
     public function testCanClearCaches(): void
     {
         static::expectNotToPerformAssertions();
-        
+
         $realm = new Realm(realm: 'master');
 
         $this->keycloak->realms()->clearKeysCache($realm);
