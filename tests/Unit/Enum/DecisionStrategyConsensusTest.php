@@ -2,14 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Fschmtt\Keycloak\Representation;
+namespace Fschmtt\Keycloak\Enum;
 
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Representation\DecisionStrategyConsensus
- * @uses \Fschmtt\Keycloak\Representation\Representation
- */
 class DecisionStrategyConsensusTest extends TestCase
 {
     public function testConvertsCorrectlyToString()

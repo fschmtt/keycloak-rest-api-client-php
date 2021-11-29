@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Fschmtt\Keycloak\Representation;
+namespace Fschmtt\Keycloak\Enum;
 
 class DecisionStrategyConsensus extends DecisionStrategy
 {

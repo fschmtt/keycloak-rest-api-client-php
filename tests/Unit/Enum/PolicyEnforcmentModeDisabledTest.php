@@ -2,13 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Fschmtt\Keycloak\Representation;
+namespace Fschmtt\Keycloak\Enum;
 
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Representation\PolicyEnforcementModeDisabled
- */
 class PolicyEnforcmentModeDisabledTest extends TestCase
 {
     public function testConvertsCorrectlyToString()
