@@ -6,6 +6,7 @@ namespace Fschmtt\Keycloak\Resource;
 
 use Fschmtt\Keycloak\Collection\ClientCollection;
 use Fschmtt\Keycloak\Collection\GroupCollection;
+use Fschmtt\Keycloak\Collection\RealmCollection;
 use Fschmtt\Keycloak\Collection\UserCollection;
 use Fschmtt\Keycloak\Json\JsonDecoder;
 use Fschmtt\Keycloak\Json\JsonEncoder;
@@ -17,7 +18,7 @@ class Realms extends Resource
 {
     private const BASE_PATH = '/auth/admin/realms';
 
-    public function all(): array
+    public function all(): RealmCollection
     {
         /** @var Realm[] $realms */
         $realms = [];
@@ -33,7 +34,7 @@ class Realms extends Resource
             $realms[] = Realm::from($realm);
         }
 
-        return $realms;
+        return new RealmCollection($realms);
     }
 
     public function get(string $realm): Realm
