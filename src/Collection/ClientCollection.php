@@ -11,7 +11,7 @@ use Fschmtt\Keycloak\Representation\Client;
  */
 class ClientCollection extends Collection
 {
-    public function getRepresentationClass(): string
+    public static function getRepresentationClass(): string
     {
         return Client::class;
     }

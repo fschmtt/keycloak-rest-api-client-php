@@ -11,7 +11,7 @@ use Fschmtt\Keycloak\Representation\Policy;
  */
 class PolicyCollection extends Collection
 {
-    public function getRepresentationClass(): string
+    public static function getRepresentationClass(): string
     {
         return Policy::class;
     }

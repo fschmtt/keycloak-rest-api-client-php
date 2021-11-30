@@ -17,7 +17,7 @@ abstract class Collection implements \Countable, \IteratorAggregate
         }
     }
 
-    abstract public function getRepresentationClass(): string;
+    abstract public static function getRepresentationClass(): string;
 
     public function count(): int
     {

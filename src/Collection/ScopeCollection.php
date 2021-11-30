@@ -11,7 +11,7 @@ use Fschmtt\Keycloak\Representation\Scope;
  */
 class ScopeCollection extends Collection
 {
-    public function getRepresentationClass(): string
+    public static function getRepresentationClass(): string
     {
         return Scope::class;
     }

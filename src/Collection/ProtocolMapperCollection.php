@@ -11,7 +11,7 @@ use Fschmtt\Keycloak\Representation\ProtocolMapper;
  */
 class ProtocolMapperCollection extends Collection
 {
-    public function getRepresentationClass(): string
+    public static function getRepresentationClass(): string
     {
         return ProtocolMapper::class;
     }

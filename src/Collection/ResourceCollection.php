@@ -11,7 +11,7 @@ use Fschmtt\Keycloak\Representation\Resource;
  */
 class ResourceCollection extends Collection
 {
-    public function getRepresentationClass(): string
+    public static function getRepresentationClass(): string
     {
         return Resource::class;
     }

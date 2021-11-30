@@ -11,7 +11,7 @@ use Fschmtt\Keycloak\Representation\PasswordPolicyType;
  */
 class PasswordPolicyTypeCollection extends Collection
 {
-    public function getRepresentationClass(): string
+    public static function getRepresentationClass(): string
     {
         return PasswordPolicyType::class;
     }
