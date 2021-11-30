@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Collection\PasswordPolicyTypeCollection;
+use Fschmtt\Keycloak\Type\Map;
+
 /**
  * @method array|null getBuiltinProtocolMappers()
  * @method array|null getClientImporters()
@@ -36,63 +39,37 @@ namespace Fschmtt\Keycloak\Representation;
  */
 class ServerInfo extends Representation
 {
-    protected ?array $builtinProtocolMappers;
-
-    protected ?array $clientImporters;
-
-    protected ?array $clientInstallations;
-
-    protected ?array $componentTypes;
-
-    protected ?array $enums;
-
-    protected ?array $identityProviders;
-
-    protected ?MemoryInfo $memoryInfo;
-
-    /**
-     * @var PasswordPolicyType[]|null
-     */
-    protected ?array $passwordPolicies;
-
-    protected ?array $protocolMapperTypes;
-
-    protected ?ProfileInfo $profileInfo;
-
-    protected ?array $providers;
-
-    protected ?array $socialProviders;
-
-    protected ?SystemInfo $systemInfo;
-
-    protected ?array $themes;
-
-    public static function from(array $properties): static
-    {
-        foreach ($properties as $property => $value) {
-            if ($property === 'systemInfo') {
-                $properties[$property] = SystemInfo::from($value);
-            }
-
-            if ($property === 'memoryInfo') {
-                $properties[$property] = MemoryInfo::from($value);
-            }
-
-            if ($property === 'profileInfo') {
-                $properties[$property] = ProfileInfo::from($value);
-            }
-
-            if ($property === 'passwordPolicies') {
-                $passwordPolicies = [];
-
-                foreach ($value as $passwordPolicy) {
-                    $passwordPolicies[] = PasswordPolicyType::from($passwordPolicy);
-                }
-
-                $properties[$property] = $passwordPolicies;
-            }
-        }
-
-        return parent::from($properties);
+    public function __construct(
+        protected ?Map $builtinProtocolMappers = null,
+        protected ?Map $clientImporters = null,
+        protected ?Map $clientInstallations = null,
+        protected ?Map $componentTypes = null,
+        protected ?Map $enums = null,
+        protected ?Map $identityProviders = null,
+        protected ?MemoryInfo $memoryInfo = null,
+        protected ?PasswordPolicyTypeCollection $passwordPolicies = null,
+        protected ?ProfileInfo $profileInfo = null,
+        protected ?Map $protocolMapperTypes = null,
+        protected ?Map $providers = null,
+        protected ?Map $socialProviders = null,
+        protected ?SystemInfo $systemInfo = null,
+        protected ?Map $themes = null,
+    ) {
+        parent::__construct(
+            $builtinProtocolMappers,
+            $clientImporters,
+            $clientImporters,
+            $componentTypes,
+            $enums,
+            $identityProviders,
+            $memoryInfo,
+            $passwordPolicies,
+            $profileInfo,
+            $protocolMapperTypes,
+            $providers,
+            $socialProviders,
+            $systemInfo,
+            $themes,
+        );
     }
 }

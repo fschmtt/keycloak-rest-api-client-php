@@ -6,6 +6,8 @@ namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Exception\PropertyDoesNotExistException;
 use Fschmtt\Keycloak\Json\JsonDecoder;
+use Fschmtt\Keycloak\Serializer\Factory;
+use Fschmtt\Keycloak\Serializer\Serializer;
 use Fschmtt\Keycloak\Type\Type;
 use JsonSerializable;
 use ReflectionClass;
@@ -13,11 +15,14 @@ use ReflectionProperty;
 
 abstract class Representation implements RepresentationInterface, JsonSerializable
 {
+    private Serializer $serializer;
+
     public function __construct(...$properties)
     {
+        $this->serializer = (new Factory())->create();
     }
 
-    public static function from(array $properties): static
+    final public static function from(array $properties): static
     {
         /** @phpstan-ignore-next-line */
         $representation = new static();
@@ -36,12 +41,12 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
         );
     }
 
-    public function with(string $property, mixed $value): static
+    final public function with(string $property, mixed $value): static
     {
         return $this->withProperty($property, $value);
     }
 
-    public function jsonSerialize(): array
+    final public function jsonSerialize(): array
     {
         $serializable = [];
         $reflectedClass = (new ReflectionClass($this));
@@ -57,7 +62,7 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
         return $serializable;
     }
 
-    public function __call(string $name, array $arguments): mixed
+    final public function __call(string $name, array $arguments): mixed
     {
         if (str_starts_with($name, 'get')) {
             return $this->__get(lcfirst(substr($name, 3)));
@@ -70,7 +75,7 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
         throw new PropertyDoesNotExistException();
     }
 
-    public function __get(string $name): mixed
+    final public function __get(string $name): mixed
     {
         $this->throwExceptionIfPropertyDoesNotExist($name);
 
@@ -81,7 +86,8 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
     {
         $this->throwExceptionIfPropertyDoesNotExist($property);
 
-        // TODO Refactor to have serialization at this central point rather than overriding ::from() and ::with()
+        $type = $this->getPropertyType($property);
+        $value = $this->serializer->serialize($type, $value);
 
         $clone = clone $this;
         $clone->$property = $value;
@@ -103,5 +109,18 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
                 )
             );
         }
+    }
+
+    private function getPropertyType(string $property): string
+    {
+        $reflectedClass = (new ReflectionClass($this));
+        $properties = $reflectedClass->getProperties(ReflectionProperty::IS_PROTECTED);
+
+        /** @var ReflectionProperty $prop */
+        $prop = array_values(array_filter($properties, function (ReflectionProperty $p) use ($property) {
+            return $p->getName() === $property;
+        }))[0];
+
+        return (string) $prop->getType();
     }
 }

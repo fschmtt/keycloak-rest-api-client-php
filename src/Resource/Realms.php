@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Resource;
 
+use Fschmtt\Keycloak\Collection\ClientCollection;
+use Fschmtt\Keycloak\Collection\GroupCollection;
+use Fschmtt\Keycloak\Collection\UserCollection;
 use Fschmtt\Keycloak\Json\JsonDecoder;
 use Fschmtt\Keycloak\Json\JsonEncoder;
+use Fschmtt\Keycloak\Representation\Client;
 use Fschmtt\Keycloak\Representation\Realm;
+use Fschmtt\Keycloak\Serializer\Factory;
 
 class Realms extends Resource
 {
@@ -83,6 +88,52 @@ class Realms extends Resource
             'DELETE',
             self::BASE_PATH . '/' . $realm->getRealm(),
         );
+    }
+
+    public function clients(Realm $realm): ClientCollection
+    {
+        $serializer = (new Factory())->create();
+
+        return $serializer->serialize(ClientCollection::class, (new JsonDecoder())->decode(
+            (string) $this->httpClient->request(
+                'GET',
+                self::BASE_PATH . '/' . $realm->getRealm() . '/clients'
+            )->getBody()
+        ));
+    }
+
+    public function client(Realm $realm, string $clientId): Client
+    {
+        return Client::fromJson(
+            (string) $this->httpClient->request(
+                'GET',
+                self::BASE_PATH . '/' . $realm->getRealm() . '/clients/' . $clientId
+            )->getBody()
+        );
+    }
+
+    public function users(Realm $realm): UserCollection
+    {
+        $serializer = (new Factory())->create();
+
+        return $serializer->serialize(UserCollection::class, (new JsonDecoder())->decode(
+            (string) $this->httpClient->request(
+                'GET',
+                self::BASE_PATH . '/' . $realm->getRealm() . '/users'
+            )->getBody()
+        ));
+    }
+
+    public function groups(Realm $realm): GroupCollection
+    {
+        $serializer = (new Factory())->create();
+
+        return $serializer->serialize(GroupCollection::class, (new JsonDecoder())->decode(
+            (string) $this->httpClient->request(
+                'GET',
+                self::BASE_PATH . '/' . $realm->getRealm() . '/groups?briefRepresentation=false'
+            )->getBody()
+        ));
     }
 
     /**

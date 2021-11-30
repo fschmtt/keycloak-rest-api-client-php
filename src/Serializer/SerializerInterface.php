@@ -8,5 +8,5 @@ interface SerializerInterface
 {
     public function serializes(): string;
 
-    public function serialize($value): mixed;
+    public function serialize(string $type, mixed $value): mixed;
 }

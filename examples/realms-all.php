@@ -20,6 +20,16 @@ foreach ($realms as $realm) {
         'Realm "%s" %s registrations%s',
         $realm->getRealm(),
         $realm->getRegistrationAllowed() ? 'allows' : 'forbids',
-        PHP_EOL
+        PHP_EOL,
     );
+
+    echo sprintf(
+        'Realm "%s" has the following %d default groups: %s%s',
+        $realm->getRealm(),
+        $realm->getDefaultGroups() ? count($realm->getDefaultGroups()) : 0,
+        $realm->getDefaultGroups() ? implode(',', $realm->getDefaultGroups()) : '',
+        PHP_EOL,
+    );
+
+    echo sprintf('---%s', PHP_EOL);
 }
