@@ -60,7 +60,7 @@ More examples can be found in the [examples](examples) directory.
 | Endpoint | Status Code | Response | API |
 |----------|-------------|----------|-----|
 | `POST /auth/admin/realms` | `201` | [Realm](src/Representation/Realm.php) | [Realms::import()](src/Resource/Realms.php) |
-| `GET /auth/admin/realms` | `200` | array<[Realm](src/Representation/Realm.php)> | [Realms::all()](src/Resource/Realms.php) |
+| `GET /auth/admin/realms` | `200` | [RealmCollection](src/Collection/RealmCollection.php)> | [Realms::all()](src/Resource/Realms.php) |
 | `PUT /auth/admin/realms/{realm}` | `204` | [Realm](src/Representation/Realm.php) | [Realms::update()](src/Resource/Realms.php) |
 | `DELETE /auth/admin/realms/{realm}` | `204` | `n/a` | [Realms::delete()](src/Resource/Realms.php) |
 | `GET /auth/admin/realms/{realm}/admin-events` | `200` | `array` | [Realms::adminEvents()](src/Resource/Realms.php) |

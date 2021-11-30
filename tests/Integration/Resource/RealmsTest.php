@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Test\Integration\Resource;
 
+use Fschmtt\Keycloak\Collection\RealmCollection;
 use Fschmtt\Keycloak\Representation\Realm;
 use Fschmtt\Keycloak\Test\Integration\IntegrationTestBehaviour;
 use PHPUnit\Framework\TestCase;
@@ -16,9 +17,8 @@ class RealmsTest extends TestCase
     {
         $realms = $this->getKeycloak()->realms()->all();
 
-        foreach ($realms as $realm) {
-            static::assertInstanceOf(Realm::class, $realm);
-        }
+        static::assertInstanceOf(RealmCollection::class, $realms);
+        static::assertCount(1, $realms);
     }
 
     public function testCanGetRealm(): void
