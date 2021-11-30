@@ -90,4 +90,4 @@ docker compose run --rm php php examples/serverinfo.php
 * `fix-cs`: Fix PHP_CodeSniffer errors
 * `test`: Run unit and integration tests
 * `test-unit`: Run unit tests
-* `test-integration`: Run integration tests (required a fresh and running Keycloak instance)
+* `test-integration`: Run integration tests (requires a fresh and running Keycloak instance)
