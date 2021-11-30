@@ -11,7 +11,7 @@ class LogicTest extends TestCase
     /**
      * @dataProvider provideLogics
      */
-    public function testCreatesExpectedNodeType(string $providedLogic, string $expectedLogic): void
+    public function testCreatesExpectedLogic(string $providedLogic, string $expectedLogic): void
     {
         static::assertInstanceOf(
             $expectedLogic,

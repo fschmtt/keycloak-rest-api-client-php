@@ -11,16 +11,18 @@ class PolicyEnforcementModeTest extends TestCase
     /**
      * @dataProvider providePolicyEnforcementModes
      */
-    public function testCreatesExpectedNodeType(string $providedNodeType, string $expectedNodeType): void
-    {
+    public function testCreatesExpectedPolicyEnforcementMode(
+        string $providedPolicyEnforcementMode,
+        string $expectedPolicyEnforcementMode
+    ): void {
         static::assertInstanceOf(
-            $expectedNodeType,
-            PolicyEnforcementMode::from($providedNodeType)
+            $expectedPolicyEnforcementMode,
+            PolicyEnforcementMode::from($providedPolicyEnforcementMode)
         );
 
         static::assertEquals(
-            $providedNodeType,
-            (string) PolicyEnforcementMode::from($providedNodeType)
+            $providedPolicyEnforcementMode,
+            (string) PolicyEnforcementMode::from($providedPolicyEnforcementMode)
         );
     }
 

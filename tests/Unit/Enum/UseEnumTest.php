@@ -11,7 +11,7 @@ class UseEnumTest extends TestCase
     /**
      * @dataProvider provideUses
      */
-    public function testCreatesExpectedNodeType(string $providedUse, string $expectedUse): void
+    public function testCreatesExpectedUse(string $providedUse, string $expectedUse): void
     {
         static::assertInstanceOf(
             $expectedUse,

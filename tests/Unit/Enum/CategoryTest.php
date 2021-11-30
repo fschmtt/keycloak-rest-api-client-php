@@ -11,7 +11,7 @@ class CategoryTest extends TestCase
     /**
      * @dataProvider provideCategories
      */
-    public function testCreatesExpectedNodeType(string $providedCategory, string $expectedCategory): void
+    public function testCreatesExpectedCategory(string $providedCategory, string $expectedCategory): void
     {
         static::assertInstanceOf(
             $expectedCategory,
