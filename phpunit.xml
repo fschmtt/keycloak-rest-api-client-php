@@ -7,7 +7,7 @@
          beStrictAboutOutputDuringTests="true"
          beStrictAboutTodoAnnotatedTests="true"
          verbose="true">
-  <coverage processUncoveredFiles="true">
+  <coverage>
     <include>
       <directory suffix=".php">src</directory>
     </include>
