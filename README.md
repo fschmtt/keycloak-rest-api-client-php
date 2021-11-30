@@ -85,11 +85,6 @@ docker compose run --rm php php examples/serverinfo.php
 ```
 
 ### Composer scripts
-
-```bash
-composer run [<script>] [<args>]
-```
-
 * `analyze`: Run phpstan and psalm analysis
 * `check-cs`: Run PHP_CodeSniffer
 * `fix-cs`: Fix PHP_CodeSniffer errors
