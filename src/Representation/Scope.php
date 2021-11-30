@@ -16,7 +16,7 @@ class Scope extends Representation
         protected ?string $name,
         protected ?PolicyCollection $policies,
         protected ?ResourceCollection $resources,
-    ){
+    ) {
         parent::__construct(
             $this->displayName,
             $this->iconUri,
