@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Enum;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class CategoryTest extends TestCase
@@ -22,6 +23,14 @@ class CategoryTest extends TestCase
             $providedCategory,
             (string) Category::from($providedCategory)
         );
+    }
+
+    public function testThrowsExceptionOnInvalidCategory(): void
+    {
+        static::expectException(InvalidArgumentException::class);
+        static::expectExceptionMessage('Unknown category "foo"');
+
+        Category::from('foo');
     }
 
     public function provideCategories(): array

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Enum;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class PolicyEnforcementModeTest extends TestCase
@@ -24,6 +25,14 @@ class PolicyEnforcementModeTest extends TestCase
             $providedPolicyEnforcementMode,
             (string) PolicyEnforcementMode::from($providedPolicyEnforcementMode)
         );
+    }
+
+    public function testThrowsExceptionOnInvalidPolicyEnforcementMode(): void
+    {
+        static::expectException(InvalidArgumentException::class);
+        static::expectExceptionMessage('Unknown policyEnforcementMode "foo"');
+
+        Policy::from('foo');
     }
 
     public function providePolicyEnforcementModes(): array

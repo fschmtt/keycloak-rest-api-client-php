@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Enum;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class PolicyTest extends TestCase
@@ -22,6 +23,14 @@ class PolicyTest extends TestCase
             $providedPolicy,
             (string) Policy::from($providedPolicy)
         );
+    }
+
+    public function testThrowsExceptionOnInvalidPolicy(): void
+    {
+        static::expectException(InvalidArgumentException::class);
+        static::expectExceptionMessage('Unknown policy "foo"');
+
+        Policy::from('foo');
     }
 
     public function providePolicies(): array

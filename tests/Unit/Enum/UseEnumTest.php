@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Enum;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class UseEnumTest extends TestCase
@@ -22,6 +23,14 @@ class UseEnumTest extends TestCase
             $providedUse,
             (string) UseEnum::from($providedUse)
         );
+    }
+
+    public function testThrowsExceptionOnInvalidUse(): void
+    {
+        static::expectException(InvalidArgumentException::class);
+        static::expectExceptionMessage('Unknown use "foo"');
+
+        UseEnum::from('foo');
     }
 
     public function provideUses(): array

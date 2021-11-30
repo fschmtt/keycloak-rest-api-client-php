@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Enum;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class LogicTest extends TestCase
@@ -22,6 +23,14 @@ class LogicTest extends TestCase
             $providedLogic,
             (string) Logic::from($providedLogic)
         );
+    }
+
+    public function testThrowsExceptionOnInvalidLogic(): void
+    {
+        static::expectException(InvalidArgumentException::class);
+        static::expectExceptionMessage('Unknown logic "foo"');
+
+        Logic::from('foo');
     }
 
     public function provideLogics(): array
