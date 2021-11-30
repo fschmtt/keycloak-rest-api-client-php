@@ -11,7 +11,7 @@ class StringSerializer implements SerializerInterface
         return 'string';
     }
 
-    public function serialize($value): string
+    public function serialize(string $type, mixed $value): string
     {
         return (string) $value;
     }

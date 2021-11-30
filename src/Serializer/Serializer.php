@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Serializer;
 
+use Fschmtt\Keycloak\Collection\Collection;
+use Fschmtt\Keycloak\Enum\Enum;
 use Fschmtt\Keycloak\Exception\SerializerException;
 use Fschmtt\Keycloak\Representation\Representation;
 
-class Serializer
+class Serializer implements SerializerInterface
 {
     private const NATIVE_TYPES = [
         'array',
@@ -28,6 +30,11 @@ class Serializer
         }
     }
 
+    public function serializes(): string
+    {
+        throw new \Exception(sprintf('Use (new %s)->create())->serialize()', Factory::class));
+    }
+
     /**
      * @throws SerializerException
      */
@@ -38,13 +45,22 @@ class Serializer
         }
 
         $type = $this->disallowNull($type);
+        $abstractType = $type;
 
         if ($this->isRepresentationType($type)) {
-            return (new RepresentationSerializer())->serialize($type, $value);
+            $abstractType = Representation::class;
         }
 
-        if (\array_key_exists($type, $this->serializers)) {
-            return $this->serializers[$type]->serialize($value);
+        if ($this->isCollectionType($type)) {
+            $abstractType = Collection::class;
+        }
+
+        if ($this->isEnumType($type)) {
+            $abstractType = Enum::class;
+        }
+
+        if (\array_key_exists($abstractType, $this->serializers)) {
+            return $this->serializers[$abstractType]->serialize($type, $value);
         }
 
         throw new SerializerException(
@@ -76,5 +92,39 @@ class Serializer
         $namespace = explode('\\', $type);
 
         return in_array('Representation', $namespace, true);
+    }
+
+    private function isCollectionType($type): bool
+    {
+        if ($this->isNativeType($type)) {
+            return false;
+        }
+
+        if ($this->isRepresentationType($type)) {
+            return false;
+        }
+
+        $namespace = explode('\\', $type);
+
+        return in_array('Collection', $namespace, true);
+    }
+
+    private function isEnumType($type): bool
+    {
+        if ($this->isNativeType($type)) {
+            return false;
+        }
+
+        if ($this->isRepresentationType($type)) {
+            return false;
+        }
+
+        if ($this->isCollectionType($type)) {
+            return false;
+        }
+
+        $namespace = explode('\\', $type);
+
+        return in_array('Enum', $namespace, true);
     }
 }

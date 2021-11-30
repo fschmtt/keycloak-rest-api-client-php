@@ -19,9 +19,9 @@ class BooleanSerializerTest extends TestCase
         $serializer = new BooleanSerializer();
 
         if ($expected === true) {
-            static::assertTrue($serializer->serialize($value));
+            static::assertTrue($serializer->serialize('bool', $value));
         } else {
-            static::assertFalse($serializer->serialize($value));
+            static::assertFalse($serializer->serialize('bool', $value));
         }
     }
 

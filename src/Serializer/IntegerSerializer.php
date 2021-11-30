@@ -11,7 +11,7 @@ class IntegerSerializer implements SerializerInterface
         return 'int';
     }
 
-    public function serialize($value): int
+    public function serialize(string $type, mixed $value): int
     {
         return intval($value);
     }

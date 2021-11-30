@@ -19,7 +19,7 @@ class IntegerSerializerTest extends TestCase
         $serializer = new IntegerSerializer();
 
         static::assertEquals(
-            $serializer->serialize($value),
+            $serializer->serialize('int', $value),
             $expected
         );
     }

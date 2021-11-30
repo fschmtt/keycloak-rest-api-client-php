@@ -9,24 +9,21 @@ class Factory
     public function create(): Serializer
     {
         return new Serializer(
+            // Native serializers
             new ArraySerializer(),
             new BooleanSerializer(),
-            new ClientCollectionSerializer(),
-            new ClientPoliciesSerializer(),
-            new ClientProfilesSerializer(),
-            new GroupCollectionSerializer(),
             new IntegerSerializer(),
-            new JsonNodeSerializer(),
-            new LogicSerializer(),
             new MapSerializer(),
-            new PasswordPolicyTypeCollectionSerializer(),
-            new PolicyCollectionSerializer(),
-            new PolicyEnforcementModeSerializer(),
-            new ProtocolMapperCollectionSerializer(),
-            new ResourceCollectionSerializer(),
-            new RoleSerializer(),
             new StringSerializer(),
-            new UserCollectionSerializer(),
+
+            // Collection serializer
+            new CollectionSerializer(),
+
+            // Representation serializer
+            new RepresentationSerializer(),
+
+            // Enum serializer
+            new EnumSerializer(),
         );
     }
 }

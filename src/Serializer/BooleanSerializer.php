@@ -11,7 +11,7 @@ class BooleanSerializer implements SerializerInterface
         return 'bool';
     }
 
-    public function serialize($value): bool
+    public function serialize(string $type, mixed $value): bool
     {
         if (is_string($value)) {
             $value = trim($value);

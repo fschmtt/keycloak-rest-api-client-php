@@ -6,14 +6,17 @@ namespace Fschmtt\Keycloak\Serializer;
 
 use Fschmtt\Keycloak\Representation\Representation;
 
-class RepresentationSerializer
+class RepresentationSerializer implements SerializerInterface
 {
     public function serializes(): string
     {
         return Representation::class;
     }
 
-    public function serialize($type, $value): Representation
+    /**
+     * @param Representation $type
+     */
+    public function serialize(string $type, $value): Representation
     {
         return $type::from($value);
     }

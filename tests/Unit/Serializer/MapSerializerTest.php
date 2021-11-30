@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Serializer;
 
+use Fschmtt\Keycloak\Type\Map;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -15,12 +16,12 @@ class MapSerializerTest extends TestCase
     /**
      * @dataProvider provideData
      */
-    public function testSerialize(mixed $value, \Fschmtt\Keycloak\Type\Map $expected): void
+    public function testSerialize(mixed $value, Map $expected): void
     {
         $serializer = new MapSerializer();
 
         self::assertEquals(
-            $serializer->serialize($value),
+            $serializer->serialize(Map::class, $value),
             $expected
         );
     }
@@ -30,15 +31,15 @@ class MapSerializerTest extends TestCase
         return [
             [
                 ['a' => 1, 'b' => 2, 'c' => 3],
-                new \Fschmtt\Keycloak\Type\Map([ 'a' => 1, 'b' => 2, 'c' => 3])
+                new Map([ 'a' => 1, 'b' => 2, 'c' => 3])
             ],
             [
                 [],
-                new \Fschmtt\Keycloak\Type\Map()
+                new Map()
             ],
             [
                 1337,
-                new \Fschmtt\Keycloak\Type\Map()
+                new Map()
             ],
         ];
     }

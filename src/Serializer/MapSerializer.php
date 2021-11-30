@@ -15,7 +15,7 @@ class MapSerializer implements SerializerInterface
         return Map::class;
     }
 
-    public function serialize($value): Map
+    public function serialize(string $type, mixed $value): Map
     {
         if (!is_array($value) || empty($value)) {
             return new Map();
