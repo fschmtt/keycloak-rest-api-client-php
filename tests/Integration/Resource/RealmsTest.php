@@ -68,7 +68,7 @@ class RealmsTest extends TestCase
 
         $clients = $this->getKeycloak()->realms()->clients($realm);
 
-        static::assertCount(6, $clients);
+        static::assertCount(7, $clients);
     }
 
     public function testCanGetUsers(): void
