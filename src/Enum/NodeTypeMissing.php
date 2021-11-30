@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Fschmtt\Keycloak\Representation;
+namespace Fschmtt\Keycloak\Enum;
 
-class MissingNodeType extends NodeType
+class NodeTypeMissing extends NodeType
 {
     public function __toString(): string
     {
