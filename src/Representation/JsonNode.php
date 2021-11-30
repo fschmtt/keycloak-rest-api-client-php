@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Enum\NodeType;
+
 class JsonNode extends Representation
 {
     public function __construct(
