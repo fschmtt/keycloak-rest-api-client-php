@@ -11,8 +11,10 @@ class DecisionStrategyTest extends TestCase
     /**
      * @dataProvider provideDecisionStrategies
      */
-    public function testCreatesExpectedNodeType(string $providedDecisionStrategy, string $expectedDecisionStrategy): void
-    {
+    public function testCreatesExpectedNodeType(
+        string $providedDecisionStrategy,
+        string $expectedDecisionStrategy
+    ): void {
         static::assertInstanceOf(
             $expectedDecisionStrategy,
             DecisionStrategy::from($providedDecisionStrategy)
