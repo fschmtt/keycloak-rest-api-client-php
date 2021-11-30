@@ -9,6 +9,7 @@ use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Collection\UserCollection;
 use Fschmtt\Keycloak\Json\JsonDecoder;
 use Fschmtt\Keycloak\Json\JsonEncoder;
+use Fschmtt\Keycloak\Representation\Client;
 use Fschmtt\Keycloak\Representation\Realm;
 use Fschmtt\Keycloak\Serializer\Factory;
 
@@ -99,6 +100,16 @@ class Realms extends Resource
                 self::BASE_PATH . '/' . $realm->getRealm() . '/clients'
             )->getBody()
         ));
+    }
+
+    public function client(Realm $realm, string $clientId): Client
+    {
+        return Client::fromJson(
+            (string) $this->httpClient->request(
+                'GET',
+                self::BASE_PATH . '/' . $realm->getRealm() . '/clients/' . $clientId
+            )->getBody()
+        );
     }
 
     public function users(Realm $realm): UserCollection
