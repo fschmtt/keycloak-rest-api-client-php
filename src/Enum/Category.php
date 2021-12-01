@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Enum;
 
-use InvalidArgumentException;
-
 abstract class Category extends Enum
 {
     protected static function match(string $value): static

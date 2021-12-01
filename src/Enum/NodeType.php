@@ -4,16 +4,11 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Enum;
 
-use InvalidArgumentException;
-
 /**
  * Since Keycloak 14.0.0
  */
 abstract class NodeType extends Enum
 {
-    /**
-     * @throws InvalidArgumentException
-     */
     protected static function match(string $value): static
     {
         return match (strtoupper($value)) {
