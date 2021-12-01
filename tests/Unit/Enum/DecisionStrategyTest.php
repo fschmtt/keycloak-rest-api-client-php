@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Enum;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class DecisionStrategyTest extends TestCase
@@ -11,7 +12,7 @@ class DecisionStrategyTest extends TestCase
     /**
      * @dataProvider provideDecisionStrategies
      */
-    public function testCreatesExpectedNodeType(
+    public function testCreatesExpectedDecisionStrategy(
         string $providedDecisionStrategy,
         string $expectedDecisionStrategy
     ): void {
@@ -24,6 +25,14 @@ class DecisionStrategyTest extends TestCase
             $providedDecisionStrategy,
             (string) DecisionStrategy::from($providedDecisionStrategy)
         );
+    }
+
+    public function testThrowsExceptionOnInvalidDecisionStrategy(): void
+    {
+        static::expectException(InvalidArgumentException::class);
+        static::expectExceptionMessage('Unknown DecisionStrategy "foo"');
+
+        DecisionStrategy::from('foo');
     }
 
     public function provideDecisionStrategies(): array

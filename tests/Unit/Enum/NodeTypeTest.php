@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Enum;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class NodeTypeTest extends TestCase
@@ -22,6 +23,14 @@ class NodeTypeTest extends TestCase
             $providedNodeType,
             (string) NodeType::from($providedNodeType)
         );
+    }
+
+    public function testThrowsExceptionOnInvalidNodeType(): void
+    {
+        static::expectException(InvalidArgumentException::class);
+        static::expectExceptionMessage('Unknown NodeType "foo"');
+
+        NodeType::from('foo');
     }
 
     public function provideNodeTypes(): array
