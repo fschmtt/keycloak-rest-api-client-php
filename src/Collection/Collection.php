@@ -11,6 +11,7 @@ use InvalidArgumentException;
 use IteratorAggregate;
 use JsonSerializable;
 use Traversable;
+
 use function count;
 
 abstract class Collection implements Countable, IteratorAggregate, JsonSerializable
