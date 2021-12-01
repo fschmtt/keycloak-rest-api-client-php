@@ -4,7 +4,23 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Enum;
 
-abstract class Enum implements \Stringable
+use InvalidArgumentException;
+use ReflectionClass;
+use Stringable;
+use UnhandledMatchError;
+
+abstract class Enum implements Stringable
 {
-    abstract public static function from(string $value): static;
+    final public static function from(string $value): static
+    {
+        try {
+            return static::match($value);
+        } catch (UnhandledMatchError) {
+            throw new InvalidArgumentException(
+                sprintf('Unknown %s "%s"', (new ReflectionClass(static::class))->getShortName(), $value)
+            );
+        }
+    }
+
+    abstract protected static function match(string $value): static;
 }

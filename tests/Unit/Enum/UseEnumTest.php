@@ -28,7 +28,7 @@ class UseEnumTest extends TestCase
     public function testThrowsExceptionOnInvalidUse(): void
     {
         static::expectException(InvalidArgumentException::class);
-        static::expectExceptionMessage('Unknown use "foo"');
+        static::expectExceptionMessage('Unknown UseEnum "foo"');
 
         UseEnum::from('foo');
     }

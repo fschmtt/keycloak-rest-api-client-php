@@ -27,10 +27,10 @@ class DecisionStrategyTest extends TestCase
         );
     }
 
-    public function testThrowsExceptionOnInvalidUse(): void
+    public function testThrowsExceptionOnInvalidDecisionStrategy(): void
     {
         static::expectException(InvalidArgumentException::class);
-        static::expectExceptionMessage('Unknown decisionStrategy "foo"');
+        static::expectExceptionMessage('Unknown DecisionStrategy "foo"');
 
         DecisionStrategy::from('foo');
     }

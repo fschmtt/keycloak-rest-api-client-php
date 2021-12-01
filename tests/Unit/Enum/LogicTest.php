@@ -28,7 +28,7 @@ class LogicTest extends TestCase
     public function testThrowsExceptionOnInvalidLogic(): void
     {
         static::expectException(InvalidArgumentException::class);
-        static::expectExceptionMessage('Unknown logic "foo"');
+        static::expectExceptionMessage('Unknown Logic "foo"');
 
         Logic::from('foo');
     }

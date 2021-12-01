@@ -8,7 +8,7 @@ use InvalidArgumentException;
 
 abstract class Category extends Enum
 {
-    public static function from(string $value): static
+    protected static function match(string $value): static
     {
         return match (strtoupper($value)) {
             'ACCESS' => new CategoryAccess(),
@@ -18,7 +18,6 @@ abstract class Category extends Enum
             'INTERNAL' => new CategoryInternal(),
             'LOGOUT' => new CategoryLogout(),
             'USERINFO' => new CategoryUserinfo(),
-            default => throw new InvalidArgumentException(sprintf('Unknown category "%s"', $value)),
         };
     }
 }

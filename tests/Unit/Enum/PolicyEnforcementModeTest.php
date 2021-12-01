@@ -30,9 +30,9 @@ class PolicyEnforcementModeTest extends TestCase
     public function testThrowsExceptionOnInvalidPolicyEnforcementMode(): void
     {
         static::expectException(InvalidArgumentException::class);
-        static::expectExceptionMessage('Unknown policyEnforcementMode "foo"');
+        static::expectExceptionMessage('Unknown PolicyEnforcementMode "foo"');
 
-        Policy::from('foo');
+        PolicyEnforcementMode::from('foo');
     }
 
     public function providePolicyEnforcementModes(): array

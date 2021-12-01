@@ -28,7 +28,7 @@ class NodeTypeTest extends TestCase
     public function testThrowsExceptionOnInvalidNodeType(): void
     {
         static::expectException(InvalidArgumentException::class);
-        static::expectExceptionMessage('Unknown nodeType "foo"');
+        static::expectExceptionMessage('Unknown NodeType "foo"');
 
         NodeType::from('foo');
     }

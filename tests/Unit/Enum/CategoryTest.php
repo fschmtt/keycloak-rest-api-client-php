@@ -28,7 +28,7 @@ class CategoryTest extends TestCase
     public function testThrowsExceptionOnInvalidCategory(): void
     {
         static::expectException(InvalidArgumentException::class);
-        static::expectExceptionMessage('Unknown category "foo"');
+        static::expectExceptionMessage('Unknown Category "foo"');
 
         Category::from('foo');
     }

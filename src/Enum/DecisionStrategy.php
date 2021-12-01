@@ -6,7 +6,7 @@ namespace Fschmtt\Keycloak\Enum;
 
 abstract class DecisionStrategy extends Enum
 {
-    public static function from(string $value): static
+    protected static function match(string $value): static
     {
         return match (strtoupper($value)) {
             'AFFIRMATIVE' => new DecisionStrategyAffirmative(),

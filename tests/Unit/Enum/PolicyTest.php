@@ -28,7 +28,7 @@ class PolicyTest extends TestCase
     public function testThrowsExceptionOnInvalidPolicy(): void
     {
         static::expectException(InvalidArgumentException::class);
-        static::expectExceptionMessage('Unknown policy "foo"');
+        static::expectExceptionMessage('Unknown Policy "foo"');
 
         Policy::from('foo');
     }
