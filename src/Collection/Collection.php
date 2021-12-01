@@ -10,6 +10,7 @@ use Fschmtt\Keycloak\Representation\Representation;
 use InvalidArgumentException;
 use IteratorAggregate;
 use JsonSerializable;
+use ReflectionClass;
 use Traversable;
 
 use function count;
@@ -49,10 +50,10 @@ abstract class Collection implements Countable, IteratorAggregate, JsonSerializa
         if (!$item instanceof $expectedRepresentationClass) {
             throw new InvalidArgumentException(
                 sprintf(
-                    '%s expects items to be class %s, %s given',
-                    static::class,
-                    $expectedRepresentationClass,
-                    get_class($item)
+                    '%s expects items to be %s representation, %s given',
+                    (new ReflectionClass(static::class))->getShortName(),
+                    (new ReflectionClass($expectedRepresentationClass))->getShortName(),
+                    (new ReflectionClass($item))->getShortName(),
                 )
             );
         }
