@@ -84,11 +84,10 @@ Run your script (e.g. [examples/serverinfo.php](examples/serverinfo.php)) from w
 docker compose run --rm php php examples/serverinfo.php
 ```
 
-### Make targets
-`test`: Run PHPUnit tests
-
-`analyze`: Run phpstan and Psalm analysis
-
-`sniff`: Run PHP_CodeSniffer
-
-`fix-cs`: Fix code style
+### Composer scripts
+* `analyze`: Run phpstan and psalm analysis
+* `check-cs`: Run PHP_CodeSniffer
+* `fix-cs`: Fix PHP_CodeSniffer errors
+* `test`: Run unit and integration tests
+* `test-unit`: Run unit tests
+* `test-integration`: Run integration tests (requires a fresh and running Keycloak instance)
