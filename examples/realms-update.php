@@ -16,7 +16,7 @@ $keycloak = new Keycloak(
 $realm = $keycloak->realms()->get(realm: 'master');
 
 // Disable registrations
-$realm = $realm->withRegistrationAllowed(false);
+$realm = $realm->withRegistrationAllowed(!$realm->getRegistrationAllowed());
 
 // Update realm
 $realm = $keycloak->realms()->update($realm);
