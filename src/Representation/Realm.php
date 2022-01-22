@@ -4,8 +4,19 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Collection\AuthenticationFlowCollection;
+use Fschmtt\Keycloak\Collection\AuthenticatorConfigCollection;
 use Fschmtt\Keycloak\Collection\ClientCollection;
+use Fschmtt\Keycloak\Collection\ClientScopeCollection;
 use Fschmtt\Keycloak\Collection\GroupCollection;
+use Fschmtt\Keycloak\Collection\IdentityProviderCollection;
+use Fschmtt\Keycloak\Collection\IdentityProviderMapperCollection;
+use Fschmtt\Keycloak\Collection\ProtocolMapperCollection;
+use Fschmtt\Keycloak\Collection\RequiredActionProviderCollection;
+use Fschmtt\Keycloak\Collection\ScopeMappingCollection;
+use Fschmtt\Keycloak\Collection\UserCollection;
+use Fschmtt\Keycloak\Collection\UserFederationMapperCollection;
+use Fschmtt\Keycloak\Collection\UserFederationProviderCollection;
 use Fschmtt\Keycloak\Type\Map;
 
 /**
@@ -269,17 +280,17 @@ class Realm extends Representation
         protected ?bool $adminEventsEnabled = null,
         protected ?string $adminTheme = null,
         protected ?Map $attributes = null,
-        protected ?array $authenticationFlows = null,
-        protected ?array $authenticatorConfig = null,
+        protected ?AuthenticationFlowCollection $authenticationFlows = null,
+        protected ?AuthenticatorConfigCollection $authenticatorConfig = null,
         protected ?string $browserFlow = null,
-        protected ?array $browserSecurityHeaders = null,
+        protected ?Map $browserSecurityHeaders = null,
         protected ?bool $bruteForceProtected = null,
         protected ?string $clientAuthenticationFlow = null,
         protected ?int $clientOfflineSessionIdleTimeout = null,
         protected ?int $clientOfflineSessionMaxLifespan = null,
         protected ?ClientPolicies $clientPolicies = null,
         protected ?ClientProfiles $clientProfiles = null,
-        protected ?array $clientScopeMappings = null,
+        protected ?ClientScopeCollection $clientScopeMappings = null,
         protected ?array $clientScopes = null,
         protected ?int $clientSessionIdleTimeout = null,
         protected ?int $clientSessionMaxLifespan = null,
@@ -304,11 +315,11 @@ class Realm extends Representation
         protected ?int $eventsExpiration = null,
         protected ?array $eventsListeners = null,
         protected ?int $failureFactor = null,
-        protected ?array $federatedUsers = null,
+        protected ?UserCollection $federatedUsers = null,
         protected ?GroupCollection $groups = null,
         protected ?string $id = null,
-        protected ?array $identityProviderMappers = null,
-        protected ?array $identityProviders = null,
+        protected ?IdentityProviderMapperCollection $identityProviderMappers = null,
+        protected ?IdentityProviderCollection $identityProviders = null,
         protected ?bool $internationalizationEnabled = null,
         protected ?string $keycloakVersion = null,
         protected ?string $loginTheme = null,
@@ -331,7 +342,7 @@ class Realm extends Representation
         protected ?array $otpSupportedApplications = null,
         protected ?string $passwordPolicy = null,
         protected ?bool $permanentLockout = null,
-        protected ?array $protocolMappers = null,
+        protected ?ProtocolMapperCollection $protocolMappers = null,
         protected ?int $quickLoginCheckMilliSeconds = null,
         protected ?string $realm = null,
         protected ?int $refreshTokenMaxReuse = null,
@@ -339,13 +350,13 @@ class Realm extends Representation
         protected ?bool $registrationEmailAsUsername = null,
         protected ?string $registrationFlow = null,
         protected ?bool $rememberMe = null,
-        protected ?array $requiredActions = null,
+        protected ?RequiredActionProviderCollection $requiredActions = null,
         protected ?array $requiredCredentials = null,
         protected ?string $resetCredentialsFlow = null,
         protected ?bool $resetPasswordAllowed = null,
         protected ?bool $revokeRefreshToken = null,
         protected ?Roles $roles = null,
-        protected ?array $scopeMappings = null,
+        protected ?ScopeMappingCollection $scopeMappings = null,
         protected ?Map $smtpServer = null,
         protected ?string $sslRequired = null,
         protected ?int $ssoSessionIdleTimeout = null,
@@ -353,10 +364,10 @@ class Realm extends Representation
         protected ?int $ssoSessionMaxLifespan = null,
         protected ?int $ssoSessionMaxLifespanRememberMe = null,
         protected ?array $supportedLocales = null,
-        protected ?array $userFederationMappers = null,
-        protected ?array $userFederationProviders = null,
+        protected ?UserFederationMapperCollection $userFederationMappers = null,
+        protected ?UserFederationProviderCollection $userFederationProviders = null,
         protected ?bool $userManagedAccessAllowed = null,
-        protected ?array $users = null,
+        protected ?UserCollection $users = null,
         protected ?bool $verifyEmail = null,
         protected ?int $waitIncrementSeconds = null,
         protected ?array $webAuthnPolicyAcceptableAaguids = null,
