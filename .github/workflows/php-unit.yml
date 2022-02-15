@@ -7,7 +7,7 @@ on:
 name: PHP Unit
 
 jobs:
-  test:
+  Unit:
     runs-on: ubuntu-latest
 
     steps:
