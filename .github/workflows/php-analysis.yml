@@ -7,7 +7,7 @@ on:
 name: PHP Analysis
 
 jobs:
-  test:
+  Analyze:
     runs-on: ubuntu-latest
 
     steps:

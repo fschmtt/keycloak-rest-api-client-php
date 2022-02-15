@@ -7,7 +7,7 @@ on:
 name: PHP Integration (Keycloak compatibility)
 
 jobs:
-  test:
+  Integration:
     runs-on: ubuntu-latest
 
     strategy:
