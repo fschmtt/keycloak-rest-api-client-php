@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [ main ]
 
-name: PHP Integration (Keycloak compatibility)
+name: PHP Legacy Integration (Keycloak compatibility)
 
 jobs:
   Integration:
@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        keycloak: [17.0.0, 18.0.0]
+        keycloak: [13.0.0, 14.0.0, 15.0.0, 16.0.0, 17.0.0-legacy, 18.0.0-legacy]
 
     env:
       KEYCLOAK_BASE_URL: 'http://localhost:8080'
@@ -20,8 +20,6 @@ jobs:
     services:
       keycloak:
         image: quay.io/keycloak/keycloak:${{ matrix.keycloak }}
-        options: >-
-          --entrypoint=start-dev
         env:
           KEYCLOAK_USER: admin
           KEYCLOAK_PASSWORD: admin
