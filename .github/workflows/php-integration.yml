@@ -21,7 +21,7 @@ jobs:
       keycloak:
         image: quay.io/keycloak/keycloak:${{ matrix.keycloak }}
         options: >-
-          --entrypoint=/opt/keycloak/bin/kc.sh start-dev
+          --entrypoint="/opt/keycloak/bin/kc.sh start-dev"
         env:
           KEYCLOAK_USER: admin
           KEYCLOAK_PASSWORD: admin
