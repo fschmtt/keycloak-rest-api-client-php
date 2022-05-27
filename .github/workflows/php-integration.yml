@@ -19,7 +19,7 @@ jobs:
 
     services:
       keycloak:
-        image: jboss/keycloak:${{ matrix.keycloak }}
+        image: quay.io/keycloak/keycloak:${{ matrix.keycloak }}
         env:
           KEYCLOAK_USER: admin
           KEYCLOAK_PASSWORD: admin
