@@ -17,14 +17,24 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: |
-          docker build -t ghcr.io/fschmtt/keycloak:${{ matrix.keycloak }} --build-arg KEYCLOAK_VERSION=${{ matrix.keycloak }} docker/keycloak
-          docker login ghcr.io ${{ secrets.GITHUB_TOKEN }}
-          docker push ghcr.io/fschmtt/keycloak:${{ matrix.keycloak }}
-          docker logout ghcr.io
+      - uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/build-push-action@v2
+        with:
+          build-args: >
+            KEYCLOAK_VERSION: ${{ matrix.keycloak }}
+          file: docker/keycloak/Dockerfile
+          push: true
+          tags: ${{ github.repository }}:${{ github.ref }}-${{ matrix.keycloak }}
 
   Integration:
     runs-on: ubuntu-latest
+
+    needs: Build
 
     strategy:
       matrix:
