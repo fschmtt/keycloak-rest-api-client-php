@@ -7,6 +7,22 @@ on:
 name: PHP Integration (Keycloak compatibility)
 
 jobs:
+  Build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        keycloak: [ 17.0.0-legacy, 18.0.0-legacy ]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - run: |
+          docker build -t ghcr.io/fschmtt/keycloak:${{ matrix.keycloak }} --build-arg KEYCLOAK_VERSION=${{ matrix.keycloak }} docker/keycloak
+          docker login ghcr.io ${{ secrets.GITHUB_TOKEN }}
+          docker push ghcr.io/fschmtt/keycloak:${{ matrix.keycloak }}
+          docker logout ghcr.io
+
   Integration:
     runs-on: ubuntu-latest
 
@@ -19,9 +35,7 @@ jobs:
 
     services:
       keycloak:
-        image: quay.io/keycloak/keycloak:${{ matrix.keycloak }}
-        options: >-
-          --entrypoint "/opt/keycloak/bin/kc.sh start-dev"
+        image: ghcr.io/fschmtt/keycloak:${{ matrix.keycloak }}
         env:
           KEYCLOAK_USER: admin
           KEYCLOAK_PASSWORD: admin
