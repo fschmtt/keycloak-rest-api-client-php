@@ -29,7 +29,7 @@ jobs:
             KEYCLOAK_VERSION: ${{ matrix.keycloak }}
           file: docker/keycloak/Dockerfile
           push: true
-          tags: ${{ github.repository }}:${{ github.ref }}-${{ matrix.keycloak }}
+          tags: ${{ github.repository }}:${{ github.sha }}-${{ matrix.keycloak }}
 
   Integration:
     runs-on: ubuntu-latest
