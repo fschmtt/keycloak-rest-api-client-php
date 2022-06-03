@@ -18,8 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: >-
-          docker build -t ghcr.io/fschmtt/keycloak:${{ matrix.keycloak }} docker/keycloak
+      - run: >
+          docker build -t ghcr.io/fschmtt/keycloak:${{ matrix.keycloak }} --build-arg KEYCLOAK_VERSION=${{ matrix.keycloak }} docker/keycloak
           docker login ghcr.io ${{ secrets.GITHUB_TOKEN }}
           docker push ghcr.io/fschmtt/keycloak:${{ matrix.keycloak }}
           docker logout ghcr.io
