@@ -48,7 +48,7 @@ jobs:
 
     services:
       keycloak:
-        image: $REGISTRY/${{ github.repository }}:${{ github.sha }}-${{ matrix.keycloak }}
+        image: ${{ env.REGISTRY }}/${{ github.repository }}:${{ github.sha }}-${{ matrix.keycloak }}
         env:
           KEYCLOAK_USER: admin
           KEYCLOAK_PASSWORD: admin
