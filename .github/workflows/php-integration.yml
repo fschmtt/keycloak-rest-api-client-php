@@ -4,10 +4,10 @@ on:
   pull_request:
     branches: [ main ]
 
-name: PHP Integration (Keycloak compatibility)
-
 env:
   REGISTRY: ghcr.io
+
+name: PHP Integration (Keycloak compatibility)
 
 jobs:
   Build:
@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        keycloak: [ 17.0.0-legacy, 18.0.0-legacy ]
+        keycloak: [ 17.0.0, 18.0.0 ]
 
     steps:
       - uses: actions/checkout@v2
