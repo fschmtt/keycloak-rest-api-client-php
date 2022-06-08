@@ -4,10 +4,10 @@ on:
   pull_request:
     branches: [ main ]
 
+name: PHP Integration (Keycloak compatibility)
+
 env:
   REGISTRY: ghcr.io
-
-name: PHP Integration (Keycloak compatibility)
 
 jobs:
   Build:
@@ -48,7 +48,7 @@ jobs:
 
     services:
       keycloak:
-        image: ${{ env.REGISTRY }}/${{ github.repository }}:${{ github.sha }}-${{ matrix.keycloak }}
+        image: $REGISTRY/${{ github.repository }}:${{ github.sha }}-${{ matrix.keycloak }}
         env:
           KEYCLOAK_USER: admin
           KEYCLOAK_PASSWORD: admin
