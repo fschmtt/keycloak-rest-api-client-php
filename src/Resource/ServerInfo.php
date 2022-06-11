@@ -8,7 +8,7 @@ use Fschmtt\Keycloak\Representation\ServerInfo as ServerInfoRepresentation;
 
 class ServerInfo extends Resource
 {
-    private const BASE_PATH = '/auth/admin/serverinfo';
+    private const BASE_PATH = '/admin/serverinfo';
 
     public function get(): ServerInfoRepresentation
     {

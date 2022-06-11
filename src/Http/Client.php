@@ -54,7 +54,7 @@ class Client
         $this->accessToken = (new Token\Parser(new JoseEncoder()))->parse($accessToken);
 
         $this->httpClient = new GuzzleClient([
-            'base_uri' => $this->keycloak->getBaseUrl() . '/auth/admin/',
+            'base_uri' => $this->keycloak->getBaseUrl() . '/admin/',
             'defaults' => [
                 'headers' => [
                     'Authorization' => 'Bearer ' . $this->accessToken->toString(),
@@ -67,7 +67,7 @@ class Client
     {
         $response = (new GuzzleClient())->request(
             'POST',
-            $this->keycloak->getBaseUrl() . '/auth/realms/master/protocol/openid-connect/token',
+            $this->keycloak->getBaseUrl() . '/realms/master/protocol/openid-connect/token',
             [
                 'form_params' => [
                     'username' => $this->keycloak->getUsername(),

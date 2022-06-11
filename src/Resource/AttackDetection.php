@@ -11,7 +11,7 @@ use Fschmtt\Keycloak\Type\Map;
 
 class AttackDetection extends Resource
 {
-    private const BASE_PATH = '/auth/admin/realms/{realm}/attack-detection/brute-force/users';
+    private const BASE_PATH = '/admin/realms/{realm}/attack-detection/brute-force/users';
 
     public function clear(Realm $realm): void
     {

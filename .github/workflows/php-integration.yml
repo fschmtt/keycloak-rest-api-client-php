@@ -7,22 +7,48 @@ on:
 name: PHP Integration (Keycloak compatibility)
 
 jobs:
-  Integration:
+  Build:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        keycloak: [13.0.0, 14.0.0, 15.0.0, 16.0.0]
+        keycloak: [ 17.0.0, 18.0.0 ]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/build-push-action@v2
+        with:
+          build-args: >
+            KEYCLOAK_VERSION: ${{ matrix.keycloak }}
+          file: docker/keycloak/Dockerfile
+          push: true
+          tags: ghcr.io/${{ github.repository }}:${{ github.sha }}-${{ matrix.keycloak }}
+
+  Integration:
+    runs-on: ubuntu-latest
+
+    needs: Build
+
+    strategy:
+      matrix:
+        keycloak: [17.0.0, 18.0.0]
 
     env:
       KEYCLOAK_BASE_URL: 'http://localhost:8080'
 
     services:
       keycloak:
-        image: jboss/keycloak:${{ matrix.keycloak }}
+        image: ghcr.io/${{ github.repository }}:${{ github.sha }}-${{ matrix.keycloak }}
         env:
-          KEYCLOAK_USER: admin
-          KEYCLOAK_PASSWORD: admin
+          KEYCLOAK_ADMIN: admin
+          KEYCLOAK_ADMIN_PASSWORD: admin
         ports:
           - '8080:8080'
 
