@@ -47,8 +47,8 @@ jobs:
       keycloak:
         image: ghcr.io/${{ github.repository }}:${{ github.sha }}-${{ matrix.keycloak }}
         env:
-          KEYCLOAK_USER: admin
-          KEYCLOAK_PASSWORD: admin
+          KEYCLOAK_ADMIN: admin
+          KEYCLOAK_ADMIN_PASSWORD: admin
         ports:
           - '8080:8080'
 

@@ -13,7 +13,7 @@ services:
     image: quay.io/keycloak/keycloak:18.0.0
     command: start-dev
     environment:
-      KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: admin
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
     ports:
-      - '8080:8080'
+      - '8081:8080'

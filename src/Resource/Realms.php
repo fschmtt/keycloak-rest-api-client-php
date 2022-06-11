@@ -16,7 +16,7 @@ use Fschmtt\Keycloak\Serializer\Factory;
 
 class Realms extends Resource
 {
-    private const BASE_PATH = '/auth/admin/realms';
+    private const BASE_PATH = '/admin/realms';
 
     public function all(): RealmCollection
     {
