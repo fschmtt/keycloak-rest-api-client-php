@@ -4,7 +4,7 @@
 ![PHP Legacy (Keycloak compatibility)](https://github.com/fschmtt/keycloak-rest-api-client-php/actions/workflows/php-integration-legacy.yml/badge.svg?branch=main)
 
 # Keycloak Admin REST API Client
-PHP client to interact with [Keycloak's Admin REST API](https://www.keycloak.org/docs-api/16.0/rest-api/index.html).
+PHP client to interact with [Keycloak's Admin REST API](https://www.keycloak.org/docs-api/18.0/rest-api/index.html).
 
 Inspired by [keycloak/keycloak-nodejs-admin-client](https://github.com/keycloak/keycloak-nodejs-admin-client).
 
@@ -44,20 +44,20 @@ echo sprintf(
 ```
 will print e.g.
 ```text
-Keycloak 16.0.0 is running on Linux/5.10.25-linuxkit (amd64) with OpenJDK 64-Bit Server VM/11.0.11 since 0 days, 2 hours, 37 minutes, 7 seconds and is currently using 139 MB of 512 MB (28 %) memory.
+Keycloak 18.0.0 is running on Linux/5.10.25-linuxkit (amd64) with OpenJDK 64-Bit Server VM/11.0.11 since 0 days, 2 hours, 37 minutes, 7 seconds and is currently using 139 MB of 512 MB (28 %) memory.
 ```
 
 More examples can be found in the [examples](examples) directory.
 
 ## Available Resources
-### [Attack Detection](https://www.keycloak.org/docs-api/16.0/rest-api/index.html#_attack_detection_resource)
+### [Attack Detection](https://www.keycloak.org/docs-api/18.0/rest-api/index.html#_attack_detection_resource)
 | Endpoint | Status Code | Response | API |
 |----------|-------------|----------|-----|
 | `DELETE /auth/admin/realms/{realm}/attack-detection/brute-force/users` | `204` | `n/a` | [AttackDetection::clear()](src/Resource/AttackDetection.php) |
 | `GET /auth/admin/realms/{realm}/attack-detection/brute-force/users/{userId}` | `204` | [Map](src/Type/Map.php) | [AttackDetection::user()](src/Resource/AttackDetection.php) |
 | `DELETE /auth/admin/realms/{realm}/attack-detection/brute-force/users/{userId}` | `204` | `n/a` | [AttackDetection::clearUser()](src/Resource/AttackDetection.php) |
 
-### [Realms Admin](https://www.keycloak.org/docs-api/16.0/rest-api/index.html#_realms_admin_resource)
+### [Realms Admin](https://www.keycloak.org/docs-api/18.0/rest-api/index.html#_realms_admin_resource)
 | Endpoint | Status Code | Response | API |
 |----------|-------------|----------|-----|
 | `POST /auth/admin/realms` | `201` | [Realm](src/Representation/Realm.php) | [Realms::import()](src/Resource/Realms.php) |
@@ -72,7 +72,7 @@ More examples can be found in the [examples](examples) directory.
 | `GET /auth/admin/realms/{realm}/clients` | `200` | [ClientCollection](src/Collection/ClientCollection.php) | [Realms::clients()](src/Resource/Realms.php) |
 | `GET /auth/admin/realms/{realm}/users` | `200` | [UserCollection](src/Collection/UserCollection.php) | [Realms::users()](src/Resource/Realms.php) |
 
-### [Root](https://www.keycloak.org/docs-api/16.0/rest-api/index.html#_root_resource)
+### [Root](https://www.keycloak.org/docs-api/18.0/rest-api/index.html#_root_resource)
 | Endpoint | Status Code | Response | API |
 |----------|-------------|----------|-----|
 | `GET /auth/admin/serverinfo` | `200` | [ServerInfo](src/Representation/ServerInfo.php) | [ServerInfo::get()](src/Resource/ServerInfo.php) |
@@ -90,5 +90,5 @@ docker compose run --rm php php examples/serverinfo.php
 * `check-cs`: Run PHP_CodeSniffer
 * `fix-cs`: Fix PHP_CodeSniffer errors
 * `test`: Run unit and integration tests
-* `test-unit`: Run unit tests
-* `test-integration`: Run integration tests (requires a fresh and running Keycloak instance)
+* `test:unit`: Run unit tests
+* `test:integration`: Run integration tests (requires a fresh and running Keycloak instance)
