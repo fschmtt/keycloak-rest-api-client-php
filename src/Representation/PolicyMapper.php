@@ -6,5 +6,4 @@ namespace Fschmtt\Keycloak\Representation;
 
 class PolicyMapper extends Representation
 {
-
 }
