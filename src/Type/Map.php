@@ -13,7 +13,7 @@ class Map extends Type implements \Countable, \IteratorAggregate
         $this->map = $map;
     }
 
-    public function jsonSerialize(): array
+    public function jsonSerialize(): object
     {
         return (object) $this->map;
     }
