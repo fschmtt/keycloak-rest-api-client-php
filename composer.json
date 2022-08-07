@@ -45,8 +45,8 @@
             "@test-unit",
             "@test-integration"
         ],
-        "test-unit": "docker compose run --rm --no-deps php vendor/bin/phpunit --testsuite unit",
-        "test-integration": "docker compose run --rm --no-deps php vendor/bin/phpunit --testsuite integration"
+        "test:unit": "docker compose run --rm --no-deps php vendor/bin/phpunit --testsuite unit",
+        "test:integration": "docker compose run --rm --no-deps php vendor/bin/phpunit --testsuite integration"
     },
     "scripts-descriptions": {
         "anaylze": "Run phpstan and psalm analysis",
