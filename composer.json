@@ -37,8 +37,8 @@
             "@phpstan",
             "@psalm"
         ],
-        "check-cs": "docker compose run --rm --no-deps php vendor/bin/phpcs --standard=PSR12 src tests",
-        "fix-cs": "docker compose run --rm --no-deps php vendor/bin/phpcbf --standard=PSR12 src tests",
+        "cs": "docker compose run --rm --no-deps php vendor/bin/phpcs --standard=PSR12 src tests",
+        "cs:fix": "docker compose run --rm --no-deps php vendor/bin/phpcbf --standard=PSR12 src tests",
         "phpstan": "docker compose run --rm --no-deps php vendor/bin/phpstan analyze src tests",
         "psalm": "docker compose run --rm --no-deps php vendor/bin/psalm src",
         "test": [
@@ -49,9 +49,9 @@
         "test:integration": "docker compose run --rm --no-deps php vendor/bin/phpunit --testsuite integration"
     },
     "scripts-descriptions": {
-        "anaylze": "Run phpstan and psalm analysis",
-        "check-cs": "Run PHP_CodeSniffer",
-        "fix-cs": "Fix PHP_CodeSniffer errors",
+        "analyze": "Run phpstan and psalm analysis",
+        "cs": "Run PHP_CodeSniffer",
+        "cs:fix": "Fix PHP_CodeSniffer errors",
         "phpstan": "Fix PHP_CodeSniffer errors",
         "psalm": "Fix PHP_CodeSniffer errors",
         "test": "Run unit and integration tests",

@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Serializer;
 
 use Fschmtt\Keycloak\Exception\SerializerException;
-use Fschmtt\Keycloak\Representation\JsonNode;
-use Fschmtt\Keycloak\Representation\Representation;
 use Fschmtt\Keycloak\Type\Map;
-use JetBrains\PhpStorm\Pure;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 class SerializerTest extends TestCase
 {
@@ -23,7 +21,7 @@ class SerializerTest extends TestCase
     /**
      * @dataProvider provideKnownTypes
      */
-    public function testSerializesKnownTypes(string $type, mixed $value, mixed $expected)
+    public function testSerializesKnownTypes(string $type, mixed $value, mixed $expected): void
     {
         static::assertEquals(
             $this->serializer->serialize($type, $value),
@@ -31,14 +29,14 @@ class SerializerTest extends TestCase
         );
     }
 
-    public function testThrowsExceptionForUnknownType()
+    public function testThrowsExceptionForUnknownType(): void
     {
-        static::expectException(SerializerException::class);
-        static::expectExceptionMessage(
-            sprintf('No matching serializer found for type "%s"', \stdClass::class)
+        $this->expectException(SerializerException::class);
+        $this->expectExceptionMessage(
+            sprintf('No matching serializer found for type "%s"', stdClass::class)
         );
 
-        $this->serializer->serialize(\stdClass::class, '');
+        $this->serializer->serialize(stdClass::class, '');
     }
 
     public function provideKnownTypes(): array
