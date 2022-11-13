@@ -53,7 +53,7 @@ class RealmsTest extends TestCase
 
     public function testCanClearCaches(): void
     {
-        static::expectNotToPerformAssertions();
+        $this->expectNotToPerformAssertions();
 
         $realm = new Realm(realm: 'master');
 
@@ -68,7 +68,7 @@ class RealmsTest extends TestCase
 
         $clients = $this->getKeycloak()->realms()->clients($realm);
 
-        static::assertCount(7, $clients);
+        static::assertGreaterThan(0, $clients->count());
     }
 
     public function testCanGetUsers(): void
@@ -82,21 +82,21 @@ class RealmsTest extends TestCase
 
     public function testCanClearKeysCache(): void
     {
-        static::expectNotToPerformAssertions();
+        $this->expectNotToPerformAssertions();
 
         $this->getKeycloak()->realms()->clearKeysCache(new Realm(realm: 'master'));
     }
 
     public function testCanClearRealmCache(): void
     {
-        static::expectNotToPerformAssertions();
+        $this->expectNotToPerformAssertions();
 
         $this->getKeycloak()->realms()->clearRealmCache(new Realm(realm: 'master'));
     }
 
     public function testCanClearUserCache(): void
     {
-        static::expectNotToPerformAssertions();
+        $this->expectNotToPerformAssertions();
 
         $this->getKeycloak()->realms()->clearUserCache(new Realm(realm: 'master'));
     }
@@ -110,7 +110,7 @@ class RealmsTest extends TestCase
 
     public function testCanDeleteAdminEvents(): void
     {
-        static::expectNotToPerformAssertions();
+        $this->expectNotToPerformAssertions();
 
         $this->getKeycloak()->realms()->deleteAdminEvents(new Realm(realm: 'master'));
     }

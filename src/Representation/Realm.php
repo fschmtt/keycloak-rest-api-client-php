@@ -86,6 +86,7 @@ use Fschmtt\Keycloak\Type\Map;
  * @method int|null getOfflineSessionMaxLifespan()
  * @method bool|null getOfflineSessionMaxLifespanEnabled()
  * @method string|null getOtpPolicyAlgorithm()
+ * @method bool|null getOtpPolicyCodeReusable()
  * @method int|null getOtpPolicyDigits()
  * @method int|null getOtpPolicyInitialCounter()
  * @method int|null getOtpPolicyLookAheadWindow()
@@ -208,6 +209,7 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withOfflineSessionMaxLifespan(?int $value)
  * @method self withOfflineSessionMaxLifespanEnabled(?int $value)
  * @method self withOtpPolicyAlgorithm(?string $value)
+ * @method self withOtpPolicyCodeReusable(?bool $value)
  * @method self withOtpPolicyDigits(?int $value)
  * @method self withOtpPolicyInitialCounter(?int $value)
  * @method self withOtpPolicyLookAheadWindow(?int $value)
@@ -334,6 +336,7 @@ class Realm extends Representation
         protected ?int $offlineSessionMaxLifespan = null,
         protected ?bool $offlineSessionMaxLifespanEnabled = null,
         protected ?string $otpPolicyAlgorithm = null,
+        protected ?bool $otpPolicyCodeReusable = null,
         protected ?int $otpPolicyDigits = null,
         protected ?int $otpPolicyInitialCounter = null,
         protected ?int $otpPolicyLookAheadWindow = null,
@@ -458,6 +461,8 @@ class Realm extends Representation
             $offlineSessionMaxLifespan,
             $offlineSessionMaxLifespanEnabled,
             $otpPolicyAlgorithm,
+            /** @since 20.0.0 */
+            $otpPolicyCodeReusable,
             $otpPolicyDigits,
             $otpPolicyInitialCounter,
             $otpPolicyLookAheadWindow,

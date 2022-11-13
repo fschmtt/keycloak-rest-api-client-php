@@ -12,9 +12,10 @@ jobs:
 
     strategy:
       matrix:
-        keycloak: [17.0.0, 18.0.0, 19.0.0]
+        keycloak: [17.0.0, 18.0.0, 19.0.0, 20.0.0]
 
     env:
+      KEYCLOAK_VERSION: ${{ matrix.keycloak }}
       KEYCLOAK_BASE_URL: 'http://localhost:8080'
 
     steps:

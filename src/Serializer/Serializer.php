@@ -4,10 +4,15 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Serializer;
 
+use Exception;
 use Fschmtt\Keycloak\Collection\Collection;
 use Fschmtt\Keycloak\Enum\Enum;
 use Fschmtt\Keycloak\Exception\SerializerException;
 use Fschmtt\Keycloak\Representation\Representation;
+
+use function array_key_exists;
+use function str_replace;
+use function str_starts_with;
 
 class Serializer implements SerializerInterface
 {
@@ -32,7 +37,7 @@ class Serializer implements SerializerInterface
 
     public function serializes(): string
     {
-        throw new \Exception(sprintf('Use (new %s)->create())->serialize()', Factory::class));
+        throw new Exception(sprintf('Use (new %s)->create())->serialize()', Factory::class));
     }
 
     /**
@@ -40,7 +45,7 @@ class Serializer implements SerializerInterface
      */
     public function serialize(string $type, mixed $value): mixed
     {
-        if ($this->allowsNull($type) && $value === null) {
+        if ($value === null && $this->allowsNull($type)) {
             return null;
         }
 
@@ -59,7 +64,7 @@ class Serializer implements SerializerInterface
             $abstractType = Enum::class;
         }
 
-        if (\array_key_exists($abstractType, $this->serializers)) {
+        if (array_key_exists($abstractType, $this->serializers)) {
             return $this->serializers[$abstractType]->serialize($type, $value);
         }
 
@@ -70,12 +75,12 @@ class Serializer implements SerializerInterface
 
     private function allowsNull(string $type): bool
     {
-        return \str_starts_with($type, '?');
+        return str_starts_with($type, '?');
     }
 
     private function disallowNull(string $type): string
     {
-        return \str_replace('?', '', $type);
+        return str_replace('?', '', $type);
     }
 
     private function isNativeType(string $type): bool

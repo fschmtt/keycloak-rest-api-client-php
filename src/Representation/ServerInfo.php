@@ -12,6 +12,7 @@ use Fschmtt\Keycloak\Type\Map;
  * @method array|null getClientImporters()
  * @method array|null getClientInstallations()
  * @method array|null getComponentTypes()
+ * @method CryptoInfo|null getCryptoInfo()
  * @method array|null getEnums()
  * @method array|null getIdentityProviders()
  * @method MemoryInfo|null getMemoryInfo()
@@ -26,6 +27,7 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withClientImporters(?array $clientImporters)
  * @method self withClientInstallations(?array $clientInstallations)
  * @method self withComponentTypes(?array $componentTypes)
+ * @method self withCryptoInfo(?CryptoInfo $componentTypes)
  * @method self withEnums(?array $enums)
  * @method self withIdentityProviders(?array $identityProviders)
  * @method self withMemoryInfo(?MemoryInfo $memoryInfo)
@@ -44,6 +46,8 @@ class ServerInfo extends Representation
         protected ?Map $clientImporters = null,
         protected ?Map $clientInstallations = null,
         protected ?Map $componentTypes = null,
+        /** @since 20.0.0 */
+        protected ?CryptoInfo $cryptoInfo = null,
         protected ?Map $enums = null,
         protected ?Map $identityProviders = null,
         protected ?MemoryInfo $memoryInfo = null,
