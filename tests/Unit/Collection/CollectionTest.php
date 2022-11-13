@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Fschmtt\Keycloak\Collection;
+namespace Fschmtt\Keycloak\Test\Unit\Collection;
 
+use Fschmtt\Keycloak\Collection\RealmCollection;
+use Fschmtt\Keycloak\Collection\UserCollection;
 use Fschmtt\Keycloak\Representation\Realm;
 use Fschmtt\Keycloak\Representation\User;
 use InvalidArgumentException;
@@ -24,8 +26,8 @@ class CollectionTest extends TestCase
 
     public function testThrowsExceptionIfUnexpectedRepresentationIsProvided(): void
     {
-        static::expectException(InvalidArgumentException::class);
-        static::expectExceptionMessage('UserCollection expects items to be User representation, Realm given');
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('UserCollection expects items to be User representation, Realm given');
 
         new UserCollection([
             new Realm(),
@@ -38,8 +40,8 @@ class CollectionTest extends TestCase
             new User(),
         ]);
 
-        static::expectException(InvalidArgumentException::class);
-        static::expectExceptionMessage('UserCollection expects items to be User representation, Realm given');
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('UserCollection expects items to be User representation, Realm given');
 
         $collection->add(new Realm());
     }
