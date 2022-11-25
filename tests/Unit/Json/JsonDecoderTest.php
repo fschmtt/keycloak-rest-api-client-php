@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Fschmtt\Keycloak\Json;
+namespace Fschmtt\Keycloak\Test\Unit\Json;
 
 use Fschmtt\Keycloak\Exception\JsonDecodeException;
+use Fschmtt\Keycloak\Json\JsonDecoder;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -22,7 +23,9 @@ class JsonDecoderTest extends TestCase
     public function testCanDecode(): void
     {
         self::assertSame(
-            ['Hey' => 'I am a valid JSON string!'],
+            [
+                'Hey' => 'I am a valid JSON string!',
+            ],
             $this->decoder->decode('{"Hey": "I am a valid JSON string!"}')
         );
     }

@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Fschmtt\Keycloak\Serializer;
+namespace Fschmtt\Keycloak\Test\Unit\Serializer;
 
+use Fschmtt\Keycloak\Serializer\IntegerSerializer;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -35,7 +36,7 @@ class IntegerSerializerTest extends TestCase
             [' 1337  abc', 1337],
             [true, 1],
             [false, 0],
-            [null, 0]
+            [null, 0],
         ];
     }
 }

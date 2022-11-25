@@ -17,7 +17,7 @@ class AttackDetectionTest extends TestCase
 
     private User $user;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->realm = new Realm(realm: 'master');
         $this->user = new User(id: '978df19a-7fa5-441d-a4b6-e5ae238e5c12');

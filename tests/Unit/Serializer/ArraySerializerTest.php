@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Fschmtt\Keycloak\Serializer;
+namespace Fschmtt\Keycloak\Test\Unit\Serializer;
 
+use Fschmtt\Keycloak\Serializer\ArraySerializer;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -27,9 +28,19 @@ class ArraySerializerTest extends TestCase
     public function provideData(): array
     {
         return [
-            [['foo' => 'bar'], ['foo' => 'bar']],
-            ['foo', [0 => 'foo']],
-            [1337, [0 => 1337]],
+            [[
+                'foo' => 'bar',
+            ], [
+                'foo' => 'bar',
+            ]],
+            [
+                'foo', [
+                    0 => 'foo',
+                ], ],
+            [
+                1337, [
+                    0 => 1337,
+                ], ],
         ];
     }
 }

@@ -39,7 +39,7 @@ class SerializerTest extends TestCase
 {
     private Serializer $serializer;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->serializer = (new Factory())->create();
     }
@@ -70,7 +70,12 @@ class SerializerTest extends TestCase
         yield 'bool' => ['bool', 'false', false];
         yield 'int' => ['int', '1337', 1337];
         yield Representation::class => [Roles::class, [], new Roles()];
-        yield Map::class => [Map::class, ['foo' => 'bar'], new Map(['foo' => 'bar'])];
+        yield Map::class => [
+            Map::class, [
+                'foo' => 'bar',
+            ], new Map([
+                'foo' => 'bar',
+            ]), ];
         yield 'string' => ['string', 'Howdy', 'Howdy'];
         yield Enum::class => [Category::class, 'ADMIN', Category::ADMIN];
         yield Collection::class => [UserCollection::class, [], new UserCollection([])];

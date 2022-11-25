@@ -13,7 +13,7 @@
         "phpmetrics/phpmetrics": "^2.7",
         "phpstan/phpstan": "^1.9",
         "vimeo/psalm": "^4.7",
-        "squizlabs/php_codesniffer": "^3.6"
+        "symplify/easy-coding-standard": "^11.1"
     },
     "autoload": {
         "psr-4": {
@@ -37,8 +37,8 @@
             "@phpstan",
             "@psalm"
         ],
-        "cs": "docker compose run --rm --no-deps php vendor/bin/phpcs --standard=PSR12 src tests",
-        "cs:fix": "docker compose run --rm --no-deps php vendor/bin/phpcbf --standard=PSR12 src tests",
+        "ecs": "docker compose run --rm --no-deps php vendor/bin/ecs check src tests",
+        "ecs:fix": "docker compose run --rm --no-deps php vendor/bin/ecs check --fix src tests",
         "phpstan": "docker compose run --rm --no-deps php vendor/bin/phpstan analyze src tests",
         "psalm": "docker compose run --rm --no-deps php vendor/bin/psalm src",
         "test": [
@@ -50,10 +50,10 @@
     },
     "scripts-descriptions": {
         "analyze": "Run phpstan and psalm analysis",
-        "cs": "Run PHP_CodeSniffer",
-        "cs:fix": "Fix PHP_CodeSniffer errors",
-        "phpstan": "Fix PHP_CodeSniffer errors",
-        "psalm": "Fix PHP_CodeSniffer errors",
+        "ecs": "Run ECS",
+        "ecs:fix": "Fix ECS errors",
+        "phpstan": "Run phpstan",
+        "psalm": "Run psalm",
         "test": "Run unit and integration tests",
         "test:unit": "Run unit tests",
         "test:integration": "Run integration tests (requires a fresh and running Keycloak instance)"

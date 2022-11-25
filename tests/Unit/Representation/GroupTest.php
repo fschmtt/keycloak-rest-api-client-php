@@ -2,36 +2,40 @@
 
 declare(strict_types=1);
 
-namespace Fschmtt\Keycloak\Representation;
+namespace Fschmtt\Keycloak\Test\Unit\Representation;
 
 use Fschmtt\Keycloak\Collection\GroupCollection;
+use Fschmtt\Keycloak\Representation\Group;
 use Fschmtt\Keycloak\Type\Map;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Fschmtt\Keycloak\Representation\Group
+ */
 class GroupTest extends TestCase
 {
     private Group $group;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $subGroup = new Group(
-            access: new Map(['acl-a', 'acl-b',]),
-            attributes: new Map(['attr-1', 'attr-2',]),
-            clientRoles: new Map(['client-role-x', 'client-role-y', 'client-role-z',]),
+            access: new Map(['acl-a', 'acl-b']),
+            attributes: new Map(['attr-1', 'attr-2']),
+            clientRoles: new Map(['client-role-x', 'client-role-y', 'client-role-z']),
             id: 'unique-id',
             name: 'unique-name',
             path: '/where/am/i',
-            realmRoles: ['realm-role-a', 'realm-role-b',],
+            realmRoles: ['realm-role-a', 'realm-role-b'],
         );
 
         $this->group = new Group(
-            access: new Map(['acl-a', 'acl-b',]),
-            attributes: new Map(['attr-1', 'attr-2',]),
-            clientRoles: new Map(['client-role-x', 'client-role-y', 'client-role-z',]),
+            access: new Map(['acl-a', 'acl-b']),
+            attributes: new Map(['attr-1', 'attr-2']),
+            clientRoles: new Map(['client-role-x', 'client-role-y', 'client-role-z']),
             id: 'unique-id',
             name: 'unique-name',
             path: '/where/am/i',
-            realmRoles: ['realm-role-a', 'realm-role-b',],
+            realmRoles: ['realm-role-a', 'realm-role-b'],
             subGroups: new GroupCollection([$subGroup])
         );
     }
@@ -49,7 +53,7 @@ class GroupTest extends TestCase
     /**
      * @dataProvider provideProperties
      */
-    public function testCanBeBuilt(array $properties)
+    public function testCanBeBuilt(array $properties): void
     {
         $builtGroup = new Group();
 

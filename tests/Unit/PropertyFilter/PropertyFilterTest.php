@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Fschmtt\Keycloak\PropertyFilter;
+namespace Fschmtt\Keycloak\Test\Unit\PropertyFilter;
 
+use Fschmtt\Keycloak\PropertyFilter\PropertyFilter;
+use Fschmtt\Keycloak\PropertyFilter\PropertyFilterInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -20,16 +22,20 @@ class PropertyFilterTest extends TestCase
             ->willReturn(true);
         $registeredPropertyFilterMock->expects(static::once())
             ->method('filter')
-            ->with(['property' => 'value'], '20.0.0');
+            ->with([
+                'property' => 'value',
+            ], '20.0.0');
 
         $propertyFilter = new PropertyFilter(
             '20.0.0',
             [
-                $registeredPropertyFilterMock
+                $registeredPropertyFilterMock,
             ]
         );
 
-        $propertyFilter->filter(['property' => 'value'], 'representation');
+        $propertyFilter->filter([
+            'property' => 'value',
+        ], 'representation');
     }
 
     public function testReturnsUnfilteredPropertiesIfNoRegisteredFilterSupportsRepresentation(): void
@@ -45,10 +51,12 @@ class PropertyFilterTest extends TestCase
         $propertyFilter = new PropertyFilter(
             '20.0.0',
             [
-                $registeredPropertyFilterMock
+                $registeredPropertyFilterMock,
             ]
         );
 
-        $propertyFilter->filter(['property' => 'value'], 'representation');
+        $propertyFilter->filter([
+            'property' => 'value',
+        ], 'representation');
     }
 }
