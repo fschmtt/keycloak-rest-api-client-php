@@ -4,13 +4,8 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Enum;
 
-abstract class UseEnum extends Enum
+enum UseEnum: string implements Enum
 {
-    protected static function match(string $value): static
-    {
-        return match (strtoupper($value)) {
-            'ENC' => new UseEnumEnc(),
-            'SIG' => new UseEnumSig(),
-        };
-    }
+    case ENC = 'ENC';
+    case SIG = 'SIG';
 }

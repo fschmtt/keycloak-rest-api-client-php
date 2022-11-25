@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Serializer;
 
+use BackedEnum;
 use Fschmtt\Keycloak\Enum\Enum;
 
 class EnumSerializer implements SerializerInterface
@@ -14,10 +15,10 @@ class EnumSerializer implements SerializerInterface
     }
 
     /**
-     * @param Enum $type
+     * @param BackedEnum $type
      */
-    public function serialize(string $type, mixed $value): Enum
+    public function serialize(string $type, mixed $value): BackedEnum
     {
-        return $type::from($value);
+        return $type::from(strtoupper($value));
     }
 }

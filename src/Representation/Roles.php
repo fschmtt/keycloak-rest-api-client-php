@@ -7,8 +7,8 @@ namespace Fschmtt\Keycloak\Representation;
 class Roles extends Representation
 {
     public function __construct(
-        protected ?array $client,
-        protected ?array $realm
+        protected ?array $client = null,
+        protected ?array $realm = null,
     ) {
         parent::__construct(
             $client,

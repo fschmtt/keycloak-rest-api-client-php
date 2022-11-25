@@ -11,11 +11,17 @@
     <include>
       <directory suffix=".php">src</directory>
     </include>
+
+    <report>
+      <cobertura outputFile="phpunit.cobertura.xml"/>
+    </report>
   </coverage>
+
   <testsuites>
     <testsuite name="unit">
       <directory suffix="Test.php">tests/Unit</directory>
     </testsuite>
+
     <testsuite name="integration">
       <directory suffix="Test.php">tests/Integration</directory>
     </testsuite>

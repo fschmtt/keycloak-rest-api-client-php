@@ -4,14 +4,9 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Enum;
 
-abstract class DecisionStrategy extends Enum
+enum DecisionStrategy: string implements Enum
 {
-    protected static function match(string $value): static
-    {
-        return match (strtoupper($value)) {
-            'AFFIRMATIVE' => new DecisionStrategyAffirmative(),
-            'CONSENSUS' => new DecisionStrategyConsensus(),
-            'UNANIMOUS' => new DecisionStrategyUnanimous(),
-        };
-    }
+    case AFFIRMATIVE = 'AFFIRMATIVE';
+    case CONSENSUS = 'CONSENSUS';
+    case UNANIMOUS = 'UNANIMOUS';
 }

@@ -10,10 +10,6 @@ use Fschmtt\Keycloak\Enum\Enum;
 use Fschmtt\Keycloak\Exception\SerializerException;
 use Fschmtt\Keycloak\Representation\Representation;
 
-use function array_key_exists;
-use function str_replace;
-use function str_starts_with;
-
 class Serializer implements SerializerInterface
 {
     private const NATIVE_TYPES = [
