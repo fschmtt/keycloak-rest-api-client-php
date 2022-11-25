@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Fschmtt\Keycloak\Serializer;
+namespace Fschmtt\Keycloak\Test\Unit\Serializer;
 
+use Fschmtt\Keycloak\Serializer\BooleanSerializer;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 /**
  * @covers \Fschmtt\Keycloak\Serializer\BooleanSerializer
@@ -36,8 +38,8 @@ class BooleanSerializerTest extends TestCase
             ['false', false],
             [true, true],
             [false, false],
-            [new \stdClass(), true],
-            [null, false]
+            [new stdClass(), true],
+            [null, false],
         ];
     }
 }

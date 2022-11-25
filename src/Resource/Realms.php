@@ -58,7 +58,7 @@ class Realms extends Resource
                 'headers' => [
                     'Content-Type' => 'application/json',
                 ],
-                'body' => $body
+                'body' => $body,
             ]
         );
 
@@ -76,7 +76,7 @@ class Realms extends Resource
                 'headers' => [
                     'Content-Type' => 'application/json',
                 ],
-                'body' => $body
+                'body' => $body,
             ]
         );
 

@@ -22,5 +22,5 @@ jobs:
       - name: Run psalm
         run: vendor/bin/psalm src
 
-      - name: Run code sniffer
-        run: vendor/bin/phpcs --standard=PSR12 src tests
+      - name: Run ecs
+        run: vendor/bin/ecs check src tests

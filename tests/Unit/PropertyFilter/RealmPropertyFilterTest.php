@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Fschmtt\Keycloak\PropertyFilter;
+namespace Fschmtt\Keycloak\Test\Unit\PropertyFilter;
 
+use Fschmtt\Keycloak\PropertyFilter\RealmPropertyFilter;
 use Fschmtt\Keycloak\Representation\Realm;
 use Fschmtt\Keycloak\Resource\ServerInfo;
 use Generator;
@@ -37,7 +38,9 @@ class RealmPropertyFilterTest extends TestCase
     public function testFiltersPropertiesPriorToVersion20(string $version): void
     {
         $properties = $this->propertyFilter->filter(
-            ['otpPolicyCodeReusable' => true],
+            [
+                'otpPolicyCodeReusable' => true,
+            ],
             $version
         );
 

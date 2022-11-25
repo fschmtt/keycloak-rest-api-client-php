@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Fschmtt\Keycloak\PropertyFilter;
+namespace Fschmtt\Keycloak\Test\Unit\PropertyFilter;
 
+use Fschmtt\Keycloak\PropertyFilter\PropertyFilter;
+use Fschmtt\Keycloak\PropertyFilter\PropertyFilterFactory;
 use PHPUnit\Framework\TestCase;
 
 /**

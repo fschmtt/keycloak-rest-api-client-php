@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Fschmtt\Keycloak\Serializer;
+namespace Fschmtt\Keycloak\Test\Unit\Serializer;
 
+use Fschmtt\Keycloak\Serializer\MapSerializer;
 use Fschmtt\Keycloak\Type\Map;
 use PHPUnit\Framework\TestCase;
 
@@ -30,16 +31,24 @@ class MapSerializerTest extends TestCase
     {
         return [
             [
-                ['a' => 1, 'b' => 2, 'c' => 3],
-                new Map([ 'a' => 1, 'b' => 2, 'c' => 3])
+                [
+                    'a' => 1,
+                    'b' => 2,
+                    'c' => 3,
+                ],
+                new Map([
+                    'a' => 1,
+                    'b' => 2,
+                    'c' => 3,
+                ]),
             ],
             [
                 [],
-                new Map()
+                new Map(),
             ],
             [
                 1337,
-                new Map()
+                new Map(),
             ],
         ];
     }

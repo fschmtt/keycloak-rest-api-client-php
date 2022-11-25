@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Fschmtt\Keycloak\Json;
+namespace Fschmtt\Keycloak\Test\Unit\Json;
 
 use Fschmtt\Keycloak\Exception\JsonEncodeException;
+use Fschmtt\Keycloak\Json\JsonEncoder;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -23,7 +24,9 @@ class JsonEncoderTest extends TestCase
     {
         self::assertSame(
             '{"Hey":"I am a valid JSON string!"}',
-            $this->decoder->encode(['Hey' => 'I am a valid JSON string!'])
+            $this->decoder->encode([
+                'Hey' => 'I am a valid JSON string!',
+            ])
         );
     }
 

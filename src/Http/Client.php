@@ -30,7 +30,7 @@ class Client
         $defaultOptions = [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->accessToken->toString(),
-            ]
+            ],
         ];
 
         $options = array_merge_recursive($options, $defaultOptions);
@@ -58,8 +58,8 @@ class Client
             'defaults' => [
                 'headers' => [
                     'Authorization' => 'Bearer ' . $this->accessToken->toString(),
-                ]
-            ]
+                ],
+            ],
         ]);
     }
 
@@ -74,7 +74,7 @@ class Client
                     'password' => $this->keycloak->getPassword(),
                     'client_id' => 'admin-cli',
                     'grant_type' => 'password',
-                ]
+                ],
             ]
         );
 
