@@ -9,7 +9,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 $keycloak = new Keycloak(
     baseUrl: 'http://keycloak:8080',
     username: 'admin',
-    password: 'admin'
+    password: 'admin',
+    version: '20.0.0',
 );
 
 // Fetch realm

@@ -3,14 +3,14 @@
 declare(strict_types=1);
 
 use Fschmtt\Keycloak\Keycloak;
-use Fschmtt\Keycloak\Representation\Realm;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $keycloak = new Keycloak(
     baseUrl: 'http://keycloak:8080',
     username: 'admin',
-    password: 'admin'
+    password: 'admin',
+    version: '20.0.0',
 );
 
 $realms = $keycloak->realms()->all();

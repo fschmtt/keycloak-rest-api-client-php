@@ -9,7 +9,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 $keycloak = new Keycloak(
     'http://keycloak:8080',
     'admin',
-    'admin'
+    'admin',
+    version: '20.0.0',
 );
 
 $serverInfo = $keycloak->serverInfo()->get();
