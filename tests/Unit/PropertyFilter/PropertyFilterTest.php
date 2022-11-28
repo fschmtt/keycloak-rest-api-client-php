@@ -6,10 +6,12 @@ namespace Fschmtt\Keycloak\Test\Unit\PropertyFilter;
 
 use Fschmtt\Keycloak\PropertyFilter\PropertyFilter;
 use Fschmtt\Keycloak\PropertyFilter\PropertyFilterInterface;
+use Fschmtt\Keycloak\Representation\Realm;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Fschmtt\Keycloak\PropertyFilter\PropertyFilter
+ * @covers \Fschmtt\Keycloak\Representation\Realm
  */
 class PropertyFilterTest extends TestCase
 {
@@ -18,7 +20,7 @@ class PropertyFilterTest extends TestCase
         $registeredPropertyFilterMock = $this->createMock(PropertyFilterInterface::class);
         $registeredPropertyFilterMock->expects(static::once())
             ->method('filters')
-            ->with('representation')
+            ->with(Realm::class)
             ->willReturn(true);
         $registeredPropertyFilterMock->expects(static::once())
             ->method('filter')
@@ -35,7 +37,7 @@ class PropertyFilterTest extends TestCase
 
         $propertyFilter->filter([
             'property' => 'value',
-        ], 'representation');
+        ], Realm::class);
     }
 
     public function testReturnsUnfilteredPropertiesIfNoRegisteredFilterSupportsRepresentation(): void
@@ -43,7 +45,7 @@ class PropertyFilterTest extends TestCase
         $registeredPropertyFilterMock = $this->createMock(PropertyFilterInterface::class);
         $registeredPropertyFilterMock->expects(static::once())
             ->method('filters')
-            ->with('representation')
+            ->with(Realm::class)
             ->willReturn(false);
         $registeredPropertyFilterMock->expects(static::never())
             ->method('filter');
@@ -57,6 +59,6 @@ class PropertyFilterTest extends TestCase
 
         $propertyFilter->filter([
             'property' => 'value',
-        ], 'representation');
+        ], Realm::class);
     }
 }

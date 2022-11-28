@@ -12,7 +12,7 @@
         "phpunit/phpunit": "^9.5",
         "phpmetrics/phpmetrics": "^2.7",
         "phpstan/phpstan": "^1.9",
-        "vimeo/psalm": "^4.7",
+        "vimeo/psalm": "^4.30",
         "symplify/easy-coding-standard": "^11.1"
     },
     "autoload": {
@@ -37,10 +37,10 @@
             "@phpstan",
             "@psalm"
         ],
-        "ecs": "docker compose run --rm --no-deps php vendor/bin/ecs check src tests",
-        "ecs:fix": "docker compose run --rm --no-deps php vendor/bin/ecs check --fix src tests",
-        "phpstan": "docker compose run --rm --no-deps php vendor/bin/phpstan analyze src tests",
-        "psalm": "docker compose run --rm --no-deps php vendor/bin/psalm src",
+        "ecs": "docker compose run --rm --no-deps php vendor/bin/ecs check src tests examples",
+        "ecs:fix": "docker compose run --rm --no-deps php vendor/bin/ecs check --fix src tests examples",
+        "phpstan": "docker compose run --rm --no-deps php vendor/bin/phpstan analyze src tests examples",
+        "psalm": "docker compose run --rm --no-deps php vendor/bin/psalm src tests examples",
         "test": [
             "@test-unit",
             "@test-integration"

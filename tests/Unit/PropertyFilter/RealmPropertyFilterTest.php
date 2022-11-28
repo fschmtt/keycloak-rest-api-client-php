@@ -6,7 +6,7 @@ namespace Fschmtt\Keycloak\Test\Unit\PropertyFilter;
 
 use Fschmtt\Keycloak\PropertyFilter\RealmPropertyFilter;
 use Fschmtt\Keycloak\Representation\Realm;
-use Fschmtt\Keycloak\Resource\ServerInfo;
+use Fschmtt\Keycloak\Representation\ServerInfo;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
