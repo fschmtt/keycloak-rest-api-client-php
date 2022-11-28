@@ -29,8 +29,8 @@ class EnumSerializerTest extends TestCase
         $serializer = new EnumSerializer();
 
         static::assertEquals(
+            $expected,
             $serializer->serialize($type, $value),
-            $expected
         );
     }
 
