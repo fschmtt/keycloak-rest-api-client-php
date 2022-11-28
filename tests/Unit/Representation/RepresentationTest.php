@@ -143,4 +143,13 @@ class RepresentationTest extends TestCase
         static::assertInstanceOf(Map::class, $representation->getMap());
         static::assertEquals($map, $representation->getMap());
     }
+
+    public function testThrowsIfPropertyDoesNotExist(): void
+    {
+        $representation = new Representation();
+
+        $this->expectException(BadMethodCallException::class);
+
+        $representation->doesNotExist();
+    }
 }
