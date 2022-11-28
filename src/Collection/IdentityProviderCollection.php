@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Representation\IdentityProvider;
 
 /**
  * @method IdentityProvider[] getIterator()
+ * @codeCoverageIgnore
  */
 class IdentityProviderCollection extends Collection
 {

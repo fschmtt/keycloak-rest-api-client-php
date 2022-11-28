@@ -6,6 +6,9 @@ namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Enum\NodeType;
 
+/**
+ * @codeCoverageIgnore
+ */
 class JsonNode extends Representation
 {
     public function __construct(

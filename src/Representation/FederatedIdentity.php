@@ -11,6 +11,8 @@ namespace Fschmtt\Keycloak\Representation;
  * @method self withIdentityProvider(?string $identityProvider)
  * @method self withUserId(?string $userId)
  * @method self withUserName(?string $userName)
+ *
+ * @codeCoverageIgnore
  */
 class FederatedIdentity extends Representation
 {

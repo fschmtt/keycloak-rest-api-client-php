@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Representation\Realm;
 
 /**
  * @method Realm[] getIterator()
+ * @codeCoverageIgnore
  */
 class RealmCollection extends Collection
 {

@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Attribute\Since;
+
 /**
- * @since 20.0.0
  * @method string|null getCryptoProvider()
  * @method array<string>|null getSupportedKeystoreTypes()
  * @method withCryptoProvider(?string $value)
  * @method array<string>|null withSupportedKeystoreTypes(?array $value)
+ *
+ * @codeCoverageIgnore
  */
+#[Since('20.0.0')]
 class CryptoInfo extends Representation
 {
     public function __construct(

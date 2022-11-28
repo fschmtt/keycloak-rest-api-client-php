@@ -84,6 +84,8 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withStandardFlowEnabled(?bool $standardFlowEnabled)
  * @method self withSurrogateAuthRequired(?bool $surrogateAuthRequired)
  * @method self withWebOrigins(?array $webOrigins)
+ *
+ * @codeCoverageIgnore
  */
 class Client extends Representation
 {

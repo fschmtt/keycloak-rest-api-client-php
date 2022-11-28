@@ -9,6 +9,8 @@ namespace Fschmtt\Keycloak\Representation;
  * @method ClientProfile[]|null getProfiles()
  * @method self withGlobalProfiles(?array $globalProfiles)
  * @method self withProfiles(?array $profiles)
+ *
+ * @codeCoverageIgnore
  */
 class ClientProfiles extends Representation
 {

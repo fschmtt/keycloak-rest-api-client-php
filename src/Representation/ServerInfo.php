@@ -38,6 +38,8 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withSocialProviders(?array $socialProviders)
  * @method self withSystemInfo(?SystemInfo $systemInfo)
  * @method self withThemes(?array $themes)
+ *
+ * @codeCoverageIgnore
  */
 class ServerInfo extends Representation
 {

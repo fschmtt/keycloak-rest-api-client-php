@@ -9,6 +9,8 @@ namespace Fschmtt\Keycloak\Representation;
  * @method JsonNode|null getConfiguration()
  * @method self withCondition(?string $condition)
  * @method self withConfiguration(?JsonNode $configuration)
+ *
+ * @codeCoverageIgnore
  */
 class ClientPolicyCondition extends Representation
 {

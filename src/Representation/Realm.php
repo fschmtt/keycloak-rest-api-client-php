@@ -267,6 +267,8 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withWebAuthnPolicyRpId(?string $value)
  * @method self withWebAuthnPolicySignatureAlgorithms(?array $value)
  * @method self withWebAuthnPolicyUserVerificationRequirement(?string $value)
+ *
+ * @codeCoverageIgnore
  */
 class Realm extends Representation
 {

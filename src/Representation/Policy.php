@@ -10,6 +10,9 @@ use Fschmtt\Keycloak\Enum\DecisionStrategy;
 use Fschmtt\Keycloak\Enum\Logic;
 use Fschmtt\Keycloak\Type\Map;
 
+/**
+ * @codeCoverageIgnore
+ */
 class Policy extends Representation
 {
     public function __construct(

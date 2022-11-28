@@ -7,6 +7,9 @@ namespace Fschmtt\Keycloak\Representation;
 use Fschmtt\Keycloak\Collection\PolicyCollection;
 use Fschmtt\Keycloak\Collection\ResourceCollection;
 
+/**
+ * @codeCoverageIgnore
+ */
 class Scope extends Representation
 {
     public function __construct(

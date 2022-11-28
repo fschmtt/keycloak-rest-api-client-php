@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
-class ClientScope
+/**
+ * @codeCoverageIgnore
+ */
+class ClientScope extends Representation
 {
     /**
      * @var array|null

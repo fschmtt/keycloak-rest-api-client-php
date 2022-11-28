@@ -15,6 +15,8 @@ namespace Fschmtt\Keycloak\Representation;
  * @method self withDisplayName(?string $displayName)
  * @method self withId(?string $name)
  * @method self withMultipleSupported(?bool $multipleSupported)
+ *
+ * @codeCoverageIgnore
  */
 class PasswordPolicyType extends Representation
 {

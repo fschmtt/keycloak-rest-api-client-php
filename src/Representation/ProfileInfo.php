@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+/**
+ * @codeCoverageIgnore
+ */
 class ProfileInfo extends Representation
 {
     protected ?array $disabledFeatures;

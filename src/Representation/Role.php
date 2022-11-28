@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+/**
+ * @codeCoverageIgnore
+ */
 class Role extends Representation
 {
     public function __construct(

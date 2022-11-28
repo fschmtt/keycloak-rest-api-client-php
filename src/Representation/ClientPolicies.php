@@ -7,6 +7,8 @@ namespace Fschmtt\Keycloak\Representation;
 /**
  * @method ClientPolicy[]|null getPolicies()
  * @method self withPolicies(?array $policies)
+ *
+ * @codeCoverageIgnore
  */
 class ClientPolicies extends Representation
 {

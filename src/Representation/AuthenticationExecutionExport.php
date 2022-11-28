@@ -21,6 +21,8 @@ namespace Fschmtt\Keycloak\Representation;
  * @method self withParentFlow(?string $parentFlow)
  * @method self withPriority(?int $priority)
  * @method self withRequirement(?string $requirement)
+ *
+ * @codeCoverageIgnore
  */
 class AuthenticationExecutionExport extends Representation
 {

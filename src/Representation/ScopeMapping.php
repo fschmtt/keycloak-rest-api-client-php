@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
-class ScopeMapping
+/**
+ * @codeCoverageIgnore
+ */
+class ScopeMapping extends Representation
 {
     /**
      * @var string|null
