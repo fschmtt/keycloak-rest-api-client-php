@@ -13,8 +13,6 @@ use JsonSerializable;
 use ReflectionClass;
 use Traversable;
 
-use function count;
-
 abstract class Collection implements Countable, IteratorAggregate, JsonSerializable
 {
     protected array $items = [];

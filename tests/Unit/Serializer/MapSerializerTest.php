@@ -6,6 +6,7 @@ namespace Fschmtt\Keycloak\Test\Unit\Serializer;
 
 use Fschmtt\Keycloak\Serializer\MapSerializer;
 use Fschmtt\Keycloak\Type\Map;
+use Generator;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -27,29 +28,38 @@ class MapSerializerTest extends TestCase
         );
     }
 
-    public function provideData(): array
+    public function provideData(): Generator
     {
-        return [
+        yield 'filled array' => [
             [
-                [
-                    'a' => 1,
-                    'b' => 2,
-                    'c' => 3,
-                ],
-                new Map([
-                    'a' => 1,
-                    'b' => 2,
-                    'c' => 3,
-                ]),
+                'a' => 1,
+                'b' => 2,
+                'c' => 3,
             ],
-            [
-                [],
-                new Map(),
-            ],
-            [
-                1337,
-                new Map(),
-            ],
+            new Map([
+                'a' => 1,
+                'b' => 2,
+                'c' => 3,
+            ]),
+        ];
+
+        yield 'empty array' => [
+            [],
+            new Map(),
+        ];
+
+        yield 'non-array' => [
+            1337,
+            new Map(),
+        ];
+
+        yield Map::class => [
+            new Map([
+                'a' => 1,
+            ]),
+            new Map([
+                'a' => 1,
+            ]),
         ];
     }
 }
