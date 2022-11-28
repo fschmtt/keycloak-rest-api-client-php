@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Attribute\Since;
 use Fschmtt\Keycloak\Collection\AuthenticationFlowCollection;
 use Fschmtt\Keycloak\Collection\AuthenticatorConfigCollection;
 use Fschmtt\Keycloak\Collection\ClientCollection;
@@ -336,6 +337,7 @@ class Realm extends Representation
         protected ?int $offlineSessionMaxLifespan = null,
         protected ?bool $offlineSessionMaxLifespanEnabled = null,
         protected ?string $otpPolicyAlgorithm = null,
+        #[Since('20.0.0')]
         protected ?bool $otpPolicyCodeReusable = null,
         protected ?int $otpPolicyDigits = null,
         protected ?int $otpPolicyInitialCounter = null,
@@ -461,7 +463,6 @@ class Realm extends Representation
             $offlineSessionMaxLifespan,
             $offlineSessionMaxLifespanEnabled,
             $otpPolicyAlgorithm,
-            /** @since 20.0.0 */
             $otpPolicyCodeReusable,
             $otpPolicyDigits,
             $otpPolicyInitialCounter,

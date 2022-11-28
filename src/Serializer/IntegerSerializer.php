@@ -13,6 +13,6 @@ class IntegerSerializer implements SerializerInterface
 
     public function serialize(string $type, mixed $value): int
     {
-        return intval($value);
+        return (int) $value;
     }
 }

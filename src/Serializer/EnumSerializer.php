@@ -15,7 +15,7 @@ class EnumSerializer implements SerializerInterface
     }
 
     /**
-     * @param BackedEnum $type
+     * @param class-string<BackedEnum> $type
      */
     public function serialize(string $type, mixed $value): BackedEnum
     {

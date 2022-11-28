@@ -49,7 +49,7 @@ class Realms extends Resource
 
     public function import(Realm $realm): Realm
     {
-        $body = (new JsonEncoder())->encode($this->propertyFilter->filter($realm->jsonSerialize(), Realm::class));
+        $body = (new JsonEncoder())->encode($this->propertyFilter->filter($realm));
 
         $this->httpClient->request(
             'POST',
@@ -67,7 +67,7 @@ class Realms extends Resource
 
     public function update(Realm $realm): Realm
     {
-        $body = (new JsonEncoder())->encode($this->propertyFilter->filter($realm->jsonSerialize(), Realm::class));
+        $body = (new JsonEncoder())->encode($this->propertyFilter->filter($realm));
 
         $this->httpClient->request(
             'PUT',

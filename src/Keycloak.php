@@ -6,7 +6,6 @@ namespace Fschmtt\Keycloak;
 
 use Fschmtt\Keycloak\Http\Client;
 use Fschmtt\Keycloak\PropertyFilter\PropertyFilter;
-use Fschmtt\Keycloak\PropertyFilter\PropertyFilterFactory;
 use Fschmtt\Keycloak\Resource\AttackDetection;
 use Fschmtt\Keycloak\Resource\Realms;
 use Fschmtt\Keycloak\Resource\ServerInfo;
@@ -27,7 +26,7 @@ class Keycloak
         $this->password = $password;
         $this->version = $version;
         $this->httpClient = new Client($this);
-        $this->propertyFilter = (new PropertyFilterFactory())->create($this->version);
+        $this->propertyFilter = new PropertyFilter($this->version);
     }
 
     public function getBaseUrl(): string
