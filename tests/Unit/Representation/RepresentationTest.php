@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Test\Unit\Representation;
 
+use BadMethodCallException;
 use Fschmtt\Keycloak\Exception\PropertyDoesNotExistException;
 use Fschmtt\Keycloak\Test\Unit\Stub\Representation;
 use Fschmtt\Keycloak\Type\Map;
@@ -102,7 +103,7 @@ class RepresentationTest extends TestCase
         );
     }
 
-    public function testJsonSerializesCustomTypesCorrectly(): void
+    public function testJsonSerializesMapCorrectly(): void
     {
         $map = new Map([
             'key-1' => 'value-1',
@@ -120,7 +121,6 @@ class RepresentationTest extends TestCase
         $jsonSerialized = $representation->jsonSerialize();
 
         static::assertIsObject($jsonSerialized['map']);
-        static::assertEquals($map, $jsonSerialized['map']);
     }
 
     public function testSerializesMapCorrectlyWhenOnlyArrayIsProvided(): void

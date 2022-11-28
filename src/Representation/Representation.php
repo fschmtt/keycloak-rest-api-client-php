@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use BadMethodCallException;
 use Fschmtt\Keycloak\Exception\PropertyDoesNotExistException;
 use Fschmtt\Keycloak\Json\JsonDecoder;
 use Fschmtt\Keycloak\Serializer\Factory;
@@ -53,8 +54,8 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
 
         foreach ($properties as $property) {
             $property->setAccessible(true);
-            $serializable[$property->getName()] = ($property instanceof JsonSerializable)
-                ? $property->jsonSerialize()
+            $serializable[$property->getName()] = ($property->getValue($this) instanceof JsonSerializable)
+                ? $property->getValue($this)->jsonSerialize()
                 : $property->getValue($this);
         }
 
@@ -71,7 +72,7 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
             return $this->with(lcfirst(substr($name, 4)), $arguments[0]);
         }
 
-        throw new PropertyDoesNotExistException();
+        throw new BadMethodCallException();
     }
 
     final public function __get(string $name): mixed
