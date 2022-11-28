@@ -19,7 +19,7 @@ class ArraySerializerTest extends TestCase
     {
         $serializer = new ArraySerializer();
 
-        static::assertEquals(
+        static::assertSame(
             $serializer->serialize('array', $value),
             $expected
         );

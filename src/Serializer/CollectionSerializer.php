@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Serializer;
 
 use Fschmtt\Keycloak\Collection\Collection;
-use Fschmtt\Keycloak\Representation\Representation;
 
 class CollectionSerializer implements SerializerInterface
 {
@@ -15,11 +14,10 @@ class CollectionSerializer implements SerializerInterface
     }
 
     /**
-     * @param Collection $type
+     * @param class-string<Collection> $type
      */
     public function serialize(string $type, $value): Collection
     {
-        /** @var Representation $representationClass */
         $representationClass = $type::getRepresentationClass();
         $representations = [];
 

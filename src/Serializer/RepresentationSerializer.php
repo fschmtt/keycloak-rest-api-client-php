@@ -14,7 +14,7 @@ class RepresentationSerializer implements SerializerInterface
     }
 
     /**
-     * @param Representation $type
+     * @param class-string<Representation> $type
      */
     public function serialize(string $type, $value): Representation
     {

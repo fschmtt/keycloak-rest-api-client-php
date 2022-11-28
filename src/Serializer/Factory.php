@@ -15,10 +15,13 @@ class Factory
             new IntegerSerializer(),
             new MapSerializer(),
             new StringSerializer(),
+
             // Collection serializer
             new CollectionSerializer(),
+
             // Representation serializer
             new RepresentationSerializer(),
+
             // Enum serializer
             new EnumSerializer(),
         );

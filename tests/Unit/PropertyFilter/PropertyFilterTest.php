@@ -5,60 +5,88 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Test\Unit\PropertyFilter;
 
 use Fschmtt\Keycloak\PropertyFilter\PropertyFilter;
-use Fschmtt\Keycloak\PropertyFilter\PropertyFilterInterface;
-use Fschmtt\Keycloak\Representation\Realm;
+use Fschmtt\Keycloak\Test\Unit\Stub\Representation;
+use Generator;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 /**
  * @covers \Fschmtt\Keycloak\PropertyFilter\PropertyFilter
- * @covers \Fschmtt\Keycloak\Representation\Realm
  */
 class PropertyFilterTest extends TestCase
 {
-    public function testDelegatesFilteringToRegisteredPropertyFilter(): void
+    /**
+     * @dataProvider keycloakVersions
+     */
+    public function testFiltersOutPropertyWhichHasNotYetBeenIntroduced(string $version): void
     {
-        $registeredPropertyFilterMock = $this->createMock(PropertyFilterInterface::class);
-        $registeredPropertyFilterMock->expects(static::once())
-            ->method('filters')
-            ->with(Realm::class)
-            ->willReturn(true);
-        $registeredPropertyFilterMock->expects(static::once())
-            ->method('filter')
-            ->with([
-                'property' => 'value',
-            ], '20.0.0');
+        $representation = new Representation();
+        $propertyFilter = new PropertyFilter($version);
 
-        $propertyFilter = new PropertyFilter(
-            '20.0.0',
-            [
-                $registeredPropertyFilterMock,
-            ]
-        );
-
-        $propertyFilter->filter([
-            'property' => 'value',
-        ], Realm::class);
+        if ((int) $version < 20) {
+            static::assertArrayNotHasKey('since2000', $propertyFilter->filter($representation));
+        } else {
+            static::assertArrayHasKey('since2000', $propertyFilter->filter($representation));
+        }
     }
 
-    public function testReturnsUnfilteredPropertiesIfNoRegisteredFilterSupportsRepresentation(): void
+    /**
+     * @dataProvider keycloakVersions
+     */
+    public function testFiltersOutPropertyWhichHasBeenRemoved(string $version): void
     {
-        $registeredPropertyFilterMock = $this->createMock(PropertyFilterInterface::class);
-        $registeredPropertyFilterMock->expects(static::once())
-            ->method('filters')
-            ->with(Realm::class)
-            ->willReturn(false);
-        $registeredPropertyFilterMock->expects(static::never())
-            ->method('filter');
+        $representation = new Representation();
+        $propertyFilter = new PropertyFilter($version);
 
-        $propertyFilter = new PropertyFilter(
-            '20.0.0',
-            [
-                $registeredPropertyFilterMock,
-            ]
-        );
+        if ((int) $version > 14) {
+            static::assertArrayNotHasKey('until1400', $propertyFilter->filter($representation));
+        } else {
+            static::assertArrayHasKey('until1400', $propertyFilter->filter($representation));
+        }
+    }
 
-        $propertyFilter->filter([
-            'property' => 'value',
-        ], Realm::class);
+    /**
+     * @dataProvider keycloakVersions
+     */
+    public function testFiltersOutPropertyWhichHasBeenIntroducedAndRemoved(string $version): void
+    {
+        $representation = new Representation();
+        $propertyFilter = new PropertyFilter($version);
+
+        if ((int) $version < 15 || (int) $version > 18) {
+            static::assertArrayNotHasKey('since1500Until1800', $propertyFilter->filter($representation));
+        } else {
+            static::assertArrayHasKey('since1500Until1800', $propertyFilter->filter($representation));
+        }
+    }
+
+    public function testMemoizesFilteredPropertiesOfRepresentation(): void
+    {
+        $representation = new Representation();
+        $propertyFilter = new PropertyFilter('20.0.0');
+
+        $reflection = new ReflectionClass($propertyFilter);
+        $reflection->getProperty('filteredProperties')->setAccessible(true);
+
+        $memoizedFilteredProperties = $reflection->getProperty('filteredProperties')->getValue($propertyFilter);
+        static::assertArrayNotHasKey($representation::class, $memoizedFilteredProperties);
+
+        $propertyFilter->filter($representation);
+        $propertyFilter->filter($representation);
+
+        $memoizedFilteredProperties = $reflection->getProperty('filteredProperties')->getValue($propertyFilter);
+        static::assertArrayHasKey($representation::class, $memoizedFilteredProperties);
+    }
+
+    public function keycloakVersions(): Generator
+    {
+        yield ['13.0.0'];
+        yield ['14.0.0'];
+        yield ['15.0.0'];
+        yield ['16.0.0'];
+        yield ['17.0.0'];
+        yield ['18.0.0'];
+        yield ['19.0.0'];
+        yield ['20.0.0'];
     }
 }
