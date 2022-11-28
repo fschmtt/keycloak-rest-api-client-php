@@ -6,8 +6,6 @@ namespace Fschmtt\Keycloak\Serializer;
 
 use Fschmtt\Keycloak\Type\Map;
 
-use function is_array;
-
 class MapSerializer implements SerializerInterface
 {
     public function serializes(): string
@@ -17,6 +15,10 @@ class MapSerializer implements SerializerInterface
 
     public function serialize(string $type, mixed $value): Map
     {
+        if ($value instanceof Map) {
+            return $value;
+        }
+
         if (!is_array($value) || empty($value)) {
             return new Map();
         }

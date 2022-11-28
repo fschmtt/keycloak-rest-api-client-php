@@ -8,7 +8,6 @@ use Fschmtt\Keycloak\Exception\PropertyDoesNotExistException;
 use Fschmtt\Keycloak\Json\JsonDecoder;
 use Fschmtt\Keycloak\Serializer\Factory;
 use Fschmtt\Keycloak\Serializer\Serializer;
-use Fschmtt\Keycloak\Type\Type;
 use JsonSerializable;
 use ReflectionClass;
 use ReflectionProperty;
@@ -54,7 +53,7 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
 
         foreach ($properties as $property) {
             $property->setAccessible(true);
-            $serializable[$property->getName()] = ($property instanceof Type)
+            $serializable[$property->getName()] = ($property instanceof JsonSerializable)
                 ? $property->jsonSerialize()
                 : $property->getValue($this);
         }
