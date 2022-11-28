@@ -10,7 +10,6 @@ $keycloak = new Keycloak(
     baseUrl: 'http://keycloak:8080',
     username: 'admin',
     password: 'admin',
-    version: '20.0.0',
 );
 
 $realm = $keycloak->realms()->get('master');

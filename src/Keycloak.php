@@ -15,16 +15,15 @@ class Keycloak
     private string $baseUrl;
     private string $username;
     private string $password;
-    private string $version;
+    private ?string $version = null;
     private Client $httpClient;
     private PropertyFilter $propertyFilter;
 
-    public function __construct(string $baseUrl, string $username, string $password, string $version)
+    public function __construct(string $baseUrl, string $username, string $password)
     {
         $this->baseUrl = $baseUrl;
         $this->username = $username;
         $this->password = $password;
-        $this->version = $version;
         $this->httpClient = new Client($this);
         $this->propertyFilter = new PropertyFilter($this->version);
     }
@@ -46,6 +45,8 @@ class Keycloak
 
     public function attackDetection(): AttackDetection
     {
+        $this->fetchVersion();
+
         return new AttackDetection($this->httpClient, $this->propertyFilter);
     }
 
@@ -56,6 +57,18 @@ class Keycloak
 
     public function realms(): Realms
     {
+        $this->fetchVersion();
+
         return new Realms($this->httpClient, $this->propertyFilter);
+    }
+
+    private function fetchVersion(): void
+    {
+        if ($this->version) {
+            return;
+        }
+
+        $this->version = $this->serverInfo()->get()->getSystemInfo()->getVersion();
+        $this->propertyFilter = new PropertyFilter($this->version);
     }
 }

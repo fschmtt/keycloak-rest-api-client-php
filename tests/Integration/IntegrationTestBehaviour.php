@@ -17,7 +17,6 @@ trait IntegrationTestBehaviour
                 $_SERVER['KEYCLOAK_BASE_URL'] ?? 'http://keycloak:8080',
                 'admin',
                 'admin',
-                $_SERVER['KEYCLOAK_VERSION'] ?? '20.0.0'
             );
         }
 

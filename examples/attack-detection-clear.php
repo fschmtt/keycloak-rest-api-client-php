@@ -11,7 +11,6 @@ $keycloak = new Keycloak(
     'http://keycloak:8080',
     'admin',
     'admin',
-    version: '20.0.0',
 );
 
 $keycloak->attackDetection()->clear(

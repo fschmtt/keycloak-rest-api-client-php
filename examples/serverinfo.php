@@ -10,7 +10,6 @@ $keycloak = new Keycloak(
     'http://keycloak:8080',
     'admin',
     'admin',
-    version: '20.0.0',
 );
 
 $serverInfo = $keycloak->serverInfo()->get();
