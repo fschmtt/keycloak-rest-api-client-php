@@ -65,4 +65,22 @@ class CollectionTest extends TestCase
 
         static::assertEquals([], $collection->jsonSerialize());
     }
+
+    public function testFirstReturnsFirstItemInCollection(): void
+    {
+        $collection = new RealmCollection([
+            new Realm(realm: 'first'),
+            new Realm(realm: 'second'),
+            new Realm(realm: 'third'),
+        ]);
+
+        static::assertSame('first', $collection->first()->getRealm());
+    }
+
+    public function testFirstReturnsNullIfCollectionIsEmpty(): void
+    {
+        $collection = new RealmCollection([]);
+
+        static::assertNull($collection->first());
+    }
 }

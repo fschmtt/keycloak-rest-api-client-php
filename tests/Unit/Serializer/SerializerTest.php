@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Test\Unit\Serializer;
 
+use Exception;
 use Fschmtt\Keycloak\Collection\Collection;
 use Fschmtt\Keycloak\Collection\UserCollection;
 use Fschmtt\Keycloak\Enum\Category;
@@ -44,6 +45,14 @@ class SerializerTest extends TestCase
         $this->serializer = (new Factory())->create();
     }
 
+    public function testThrowsExceptionWhenSerializesIsCalled(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage(sprintf('Use (new %s)->create())->serialize()', Factory::class));
+
+        $this->serializer->serializes();
+    }
+
     /**
      * @dataProvider provideKnownTypes
      */
@@ -79,5 +88,6 @@ class SerializerTest extends TestCase
         yield 'string' => ['string', 'Howdy', 'Howdy'];
         yield Enum::class => [Category::class, 'ADMIN', Category::ADMIN];
         yield Collection::class => [UserCollection::class, [], new UserCollection([])];
+        yield 'nullable string' => ['?string', null, null];
     }
 }
