@@ -22,8 +22,8 @@ class MapSerializerTest extends TestCase
         $serializer = new MapSerializer();
 
         self::assertEquals(
+            $expected,
             $serializer->serialize(Map::class, $value),
-            $expected
         );
     }
 

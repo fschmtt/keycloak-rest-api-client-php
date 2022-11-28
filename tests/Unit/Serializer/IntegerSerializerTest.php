@@ -20,8 +20,8 @@ class IntegerSerializerTest extends TestCase
         $serializer = new IntegerSerializer();
 
         static::assertSame(
+            $expected,
             $serializer->serialize('int', $value),
-            $expected
         );
     }
 

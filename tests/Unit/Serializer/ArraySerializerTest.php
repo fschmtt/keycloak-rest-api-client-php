@@ -20,8 +20,8 @@ class ArraySerializerTest extends TestCase
         $serializer = new ArraySerializer();
 
         static::assertSame(
+            $expected,
             $serializer->serialize('array', $value),
-            $expected
         );
     }
 

@@ -50,8 +50,8 @@ class SerializerTest extends TestCase
     public function testSerializesKnownTypes(string $type, mixed $value, mixed $expected): void
     {
         static::assertEquals(
+            $expected,
             $this->serializer->serialize($type, $value),
-            $expected
         );
     }
 
