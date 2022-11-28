@@ -17,7 +17,7 @@ abstract class Collection implements Countable, IteratorAggregate, JsonSerializa
 {
     protected array $items = [];
 
-    public function __construct(iterable $items)
+    public function __construct(iterable $items = [])
     {
         foreach ($items as $item) {
             $this->add($item);
@@ -60,5 +60,10 @@ abstract class Collection implements Countable, IteratorAggregate, JsonSerializa
         }
 
         $this->items[] = $item;
+    }
+
+    public function first(): ?Representation
+    {
+        return $this->items[0] ?? null;
     }
 }
