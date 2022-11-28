@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
-class UserFederationMapper
+/**
+ * @codeCoverageIgnore
+ */
+class UserFederationMapper extends Representation
 {
     /**
      * @var array|null

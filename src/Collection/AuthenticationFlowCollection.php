@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Representation\AuthenticationFlow;
 
 /**
  * @method AuthenticationFlow[] getIterator()
+ * @codeCoverageIgnore
  */
 class AuthenticationFlowCollection extends Collection
 {

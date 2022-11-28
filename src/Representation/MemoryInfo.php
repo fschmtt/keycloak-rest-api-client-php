@@ -12,6 +12,8 @@ namespace Fschmtt\Keycloak\Representation;
  * @method string getTotalFormated()
  * @method int getUsed()
  * @method string getUsedFormated()
+ *
+ * @codeCoverageIgnore
  */
 class MemoryInfo extends Representation
 {

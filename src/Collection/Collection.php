@@ -24,6 +24,9 @@ abstract class Collection implements Countable, IteratorAggregate, JsonSerializa
         }
     }
 
+    /**
+     * @return class-string<Representation>
+     */
     abstract public static function getRepresentationClass(): string;
 
     public function count(): int

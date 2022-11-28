@@ -19,6 +19,8 @@ namespace Fschmtt\Keycloak\Representation;
  * @method self withId(?string $id)
  * @method self withProviderId(?string $providerId)
  * @method self withTopLevel(?bool $topLevel)
+ *
+ * @codeCoverageIgnore
  */
 class AuthenticationFlow extends Representation
 {

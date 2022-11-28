@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Representation\User;
 
 /**
  * @method User[] getIterator()
+ * @codeCoverageIgnore
  */
 class UserCollection extends Collection
 {

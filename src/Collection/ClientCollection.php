@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Representation\Client;
 
 /**
  * @method Client[] getIterator()
+ * @codeCoverageIgnore
  */
 class ClientCollection extends Collection
 {

@@ -7,6 +7,9 @@ namespace Fschmtt\Keycloak\Representation;
 use Fschmtt\Keycloak\Collection\ScopeCollection;
 use Fschmtt\Keycloak\Type\Map;
 
+/**
+ * @codeCoverageIgnore
+ */
 class Resource extends Representation
 {
     public function __construct(

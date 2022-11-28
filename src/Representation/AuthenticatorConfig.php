@@ -13,6 +13,8 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withAlias(?string $alias)
  * @method self withConfig(?Map $config)
  * @method self withId(?string $id)
+ *
+ * @codeCoverageIgnore
  */
 class AuthenticatorConfig extends Representation
 {

@@ -9,6 +9,8 @@ namespace Fschmtt\Keycloak\Representation;
  * @method string|null getExecutor()
  * @method self withConfiguration(?JsonNode $configuration)
  * @method self withExecutor(?string $executor)
+ *
+ * @codeCoverageIgnore
  */
 class ClientPolicyExecutor extends Representation
 {

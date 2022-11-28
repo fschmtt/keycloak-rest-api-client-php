@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Representation\Group;
 
 /**
  * @method Group[] getIterator()
+ * @codeCoverageIgnore
  */
 class GroupCollection extends Collection
 {

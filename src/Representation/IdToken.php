@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+/**
+ * @codeCoverageIgnore
+ */
 class IdToken extends Representation
 {
     public const ACR = 'acr';

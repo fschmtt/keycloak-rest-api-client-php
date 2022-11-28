@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
-class RequiredActionProvider
+/**
+ * @codeCoverageIgnore
+ */
+class RequiredActionProvider extends Representation
 {
     /**
      * @var string|null

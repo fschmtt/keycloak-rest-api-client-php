@@ -19,6 +19,8 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withName(?string $name)
  * @method self withProtocol(?string $protocol)
  * @method self withProtocolMapper(?string $protocolMapper)
+ *
+ * @codeCoverageIgnore
  */
 class ProtocolMapper extends Representation
 {

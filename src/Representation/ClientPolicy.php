@@ -15,6 +15,8 @@ namespace Fschmtt\Keycloak\Representation;
  * @method self withEnabled(?bool $enabled)
  * @method self withName(?string $name)
  * @method self withProfiles(?array $profiles)
+ *
+ * @codeCoverageIgnore
  */
 class ClientPolicy extends Representation
 {

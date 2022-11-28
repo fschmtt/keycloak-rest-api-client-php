@@ -55,6 +55,8 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withServiceAccountClientId(?string $serviceAccountClientId)
  * @method self withTotp(?string $totp)
  * @method self withUsername(?string $username)
+ *
+ * @codeCoverageIgnore
 */
 class User extends Representation
 {

@@ -29,6 +29,8 @@ namespace Fschmtt\Keycloak\Representation;
  * @method self withTemporary(?bool $temporary)
  * @method self withType(?string $type)
  * @method self withValue(?string $value)
+ *
+ * @codeCoverageIgnore
  */
 class Credential extends Representation
 {

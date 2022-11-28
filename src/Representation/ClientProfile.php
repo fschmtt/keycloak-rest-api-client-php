@@ -13,6 +13,8 @@ namespace Fschmtt\Keycloak\Representation;
  * @method self withDescription(?array $description)
  * @method self withExecutors(?array $executors)
  * @method self withName(?string $name)
+ *
+ * @codeCoverageIgnore
  */
 class ClientProfile extends Representation
 {

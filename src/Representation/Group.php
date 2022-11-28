@@ -24,6 +24,8 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withPath(?string $path)
  * @method self withRealmRoles(?array $realmRoles)
  * @method self withSubGroups(?array $subGroups)
+ *
+ * @codeCoverageIgnore
  */
 class Group extends Representation
 {

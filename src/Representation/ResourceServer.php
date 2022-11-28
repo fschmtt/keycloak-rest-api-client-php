@@ -29,6 +29,8 @@ use Fschmtt\Keycloak\Enum\PolicyEnforcementMode;
  * @method self withPolicyEnforcementMode(?PolicyEnforcementMode $policyEnforcementMode)
  * @method self withResources(?ResourceCollection $resources)
  * @method self withScopes(?ScopeCollection $scopes)
+ *
+ * @codeCoverageIgnore
  */
 class ResourceServer extends Representation
 {
