@@ -11,14 +11,14 @@ use ReflectionClass;
 
 class PropertyFilter
 {
-    private string $version;
+    private ?string $version;
 
     /**
      * @var array<class-string<Representation>, array<string, array{since?: string, until?: string}>>
      */
     private array $filteredProperties = [];
 
-    public function __construct(string $version)
+    public function __construct(?string $version = null)
     {
         $this->version = $version;
     }
@@ -29,6 +29,10 @@ class PropertyFilter
     public function filter(Representation $representation): array
     {
         $properties = $representation->jsonSerialize();
+
+        if (!$this->version) {
+            return $properties;
+        }
 
         foreach ($this->getFilteredProperties($representation) as $property => $versions) {
             if (isset($versions['since']) && (int) $this->version < (int) $versions['since']) {

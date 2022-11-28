@@ -15,6 +15,18 @@ use ReflectionClass;
  */
 class PropertyFilterTest extends TestCase
 {
+    public function testDoesNotFilterPropertiesIfVersionIsNotProvided(): void
+    {
+        $representation = new Representation();
+        $propertyFilter = new PropertyFilter();
+
+        $filteredProperties = $propertyFilter->filter($representation);
+
+        static::assertArrayHasKey('since2000', $filteredProperties);
+        static::assertArrayHasKey('until1400', $filteredProperties);
+        static::assertArrayHasKey('since1500Until1800', $filteredProperties);
+    }
+
     /**
      * @dataProvider keycloakVersions
      */

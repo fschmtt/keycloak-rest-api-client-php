@@ -11,7 +11,6 @@ $keycloak = new Keycloak(
     baseUrl: 'http://keycloak:8080',
     username: 'admin',
     password: 'admin',
-    version: '20.0.0',
 );
 
 $random = bin2hex(random_bytes(length: 8));
