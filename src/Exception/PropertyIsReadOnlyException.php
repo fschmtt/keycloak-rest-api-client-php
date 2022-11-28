@@ -6,6 +6,6 @@ namespace Fschmtt\Keycloak\Exception;
 
 use Exception;
 
-class ReadOnlyException extends Exception
+class PropertyIsReadOnlyException extends Exception
 {
 }

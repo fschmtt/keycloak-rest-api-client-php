@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Exception\PropertyDoesNotExistException;
+use Fschmtt\Keycloak\Exception\PropertyIsReadOnlyException;
 use Fschmtt\Keycloak\Json\JsonDecoder;
 use Fschmtt\Keycloak\Serializer\Factory;
 use Fschmtt\Keycloak\Serializer\Serializer;
@@ -85,6 +86,7 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
     private function withProperty(string $property, mixed $value): static
     {
         $this->throwExceptionIfPropertyDoesNotExist($property);
+        $this->throwExceptionIfPropertyIsReadOnly($property);
 
         $type = $this->getPropertyType($property);
         $value = $this->serializer->serialize($type, $value);
@@ -104,6 +106,25 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
             throw new PropertyDoesNotExistException(
                 sprintf(
                     'Property "%s" does not exist in "%s"',
+                    $property,
+                    static::class,
+                )
+            );
+        }
+    }
+
+    /**
+     * @throws PropertyIsReadOnlyException
+     */
+    private function throwExceptionIfPropertyIsReadOnly(string $property): void
+    {
+        $reflectedClass = (new ReflectionClass($this));
+        $reflectedProperty = $reflectedClass->getProperty($property);
+
+        if ($reflectedProperty->isReadOnly()) {
+            throw new PropertyIsReadOnlyException(
+                sprintf(
+                    'Property "%s" on "%s" is read-only',
                     $property,
                     static::class,
                 )
