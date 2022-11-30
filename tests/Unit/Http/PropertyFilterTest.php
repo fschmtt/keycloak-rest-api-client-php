@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Fschmtt\Keycloak\Test\Unit\PropertyFilter;
+namespace Fschmtt\Keycloak\Test\Unit\Http;
 
-use Fschmtt\Keycloak\PropertyFilter\PropertyFilter;
+use Fschmtt\Keycloak\Http\PropertyFilter;
 use Fschmtt\Keycloak\Test\Unit\Stub\Representation;
 use Generator;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
 /**
- * @covers \Fschmtt\Keycloak\PropertyFilter\PropertyFilter
+ * @covers \Fschmtt\Keycloak\Http\PropertyFilter
  */
 class PropertyFilterTest extends TestCase
 {

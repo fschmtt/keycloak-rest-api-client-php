@@ -14,10 +14,10 @@ $keycloak = new Keycloak(
 
 $realm = $keycloak->realms()->get('master');
 
-$clients = $keycloak->realms()->clients($realm->getRealm());
+$adminEvents = $keycloak->realms()->adminEvents($realm->getRealm());
 
-echo sprintf('Realm "%s" has the following clients:%s', $realm->getRealm(), PHP_EOL);
+echo sprintf('The following %d admin events happened on realm "%s":%s', count($adminEvents), $realm->getRealm(), PHP_EOL);
 
-foreach ($clients as $client) {
-    echo sprintf('-> Client "%s"%s', $client->getClientId(), PHP_EOL);
+foreach ($adminEvents as $adminEvent) {
+    print_r($adminEvent);
 }

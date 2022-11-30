@@ -4,49 +4,51 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Resource;
 
-use Fschmtt\Keycloak\Json\JsonDecoder;
-use Fschmtt\Keycloak\Representation\Realm;
-use Fschmtt\Keycloak\Representation\User;
+use Fschmtt\Keycloak\Http\Command;
+use Fschmtt\Keycloak\Http\Method;
+use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Type\Map;
 
 class AttackDetection extends Resource
 {
-    private const BASE_PATH = '/admin/realms/{realm}/attack-detection/brute-force/users';
-
-    public function clear(Realm $realm): void
+    public function clear(string $realm): void
     {
-        $this->httpClient->request(
-            'DELETE',
-            $this->replaceRealmInBasePath($realm->getRealm())
-        );
-    }
-
-    public function user(Realm $realm, User $user): Map
-    {
-        return new Map(
-            (new JsonDecoder())->decode(
-                (string) $this->httpClient->request(
-                    'GET',
-                    sprintf('%s/%s', $this->replaceRealmInBasePath($realm->getRealm()), $user->getId())
-                )->getBody()
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms/{realm}/attack-detection/brute-force/users',
+                Method::DELETE,
+                [
+                    'realm' => $realm,
+                ]
             )
         );
     }
 
-    public function clearUser(Realm $realm, User $user): void
+    public function userStatus(string $realm, string $userId): Map
     {
-        $this->httpClient->request(
-            'DELETE',
-            sprintf('%s/%s', $this->replaceRealmInBasePath($realm->getRealm()), $user->getId())
+        return $this->queryExecutor->executeQuery(
+            new Query(
+                '/admin/realms/{realm}/attack-detection/brute-force/users/{userId}',
+                Map::class,
+                [
+                    'realm' => $realm,
+                    'userId' => $userId,
+                ]
+            )
         );
     }
 
-    private function replaceRealmInBasePath(string $realm): string
+    public function clearUser(string $realm, string $userId): void
     {
-        return str_replace(
-            search: '{realm}',
-            replace: $realm,
-            subject: self::BASE_PATH
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms/{realm}/attack-detection/brute-force/users/{userId}',
+                Method::DELETE,
+                [
+                    'realm' => $realm,
+                    'userId' => $userId,
+                ]
+            )
         );
     }
 }

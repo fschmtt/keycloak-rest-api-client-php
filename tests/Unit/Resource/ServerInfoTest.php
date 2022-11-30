@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Test\Unit\Resource;
 
-use Fschmtt\Keycloak\Http\Client;
-use Fschmtt\Keycloak\PropertyFilter\PropertyFilter;
+use Fschmtt\Keycloak\Http\CommandExecutor;
+use Fschmtt\Keycloak\Http\Query;
+use Fschmtt\Keycloak\Http\QueryExecutor;
+use Fschmtt\Keycloak\Representation\ServerInfo as ServerInfoRepresentation;
 use Fschmtt\Keycloak\Resource\ServerInfo;
-use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -17,16 +18,27 @@ class ServerInfoTest extends TestCase
 {
     public function testGetServerInfo(): void
     {
-        $httpClient = $this->createMock(Client::class);
-        $httpClient->expects(static::once())
-            ->method('request')
-            ->with('GET', '/admin/serverinfo')
-            ->willReturn(new Response(
-                status: 200,
-                body: json_encode([], JSON_THROW_ON_ERROR)
-            ));
+        $query = new Query(
+            '/admin/serverinfo',
+            ServerInfoRepresentation::class,
+        );
 
-        $serverInfo = new ServerInfo($httpClient, new PropertyFilter());
-        $serverInfo->get();
+        $serverInfoRepresentation = new ServerInfoRepresentation();
+
+        $queryExecutor = $this->createMock(QueryExecutor::class);
+        $queryExecutor->expects(static::once())
+            ->method('executeQuery')
+            ->with($query)
+            ->willReturn($serverInfoRepresentation);
+
+        $serverInfo = new ServerInfo(
+            $this->createMock(CommandExecutor::class),
+            $queryExecutor,
+        );
+
+        static::assertSame(
+            $serverInfoRepresentation,
+            $serverInfo->get()
+        );
     }
 }

@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Test\Unit\Resource;
 
-use Fschmtt\Keycloak\Http\Client;
-use Fschmtt\Keycloak\PropertyFilter\PropertyFilter;
-use Fschmtt\Keycloak\Representation\Realm;
-use Fschmtt\Keycloak\Representation\User;
+use Fschmtt\Keycloak\Http\Command;
+use Fschmtt\Keycloak\Http\CommandExecutor;
+use Fschmtt\Keycloak\Http\Method;
+use Fschmtt\Keycloak\Http\Query;
+use Fschmtt\Keycloak\Http\QueryExecutor;
 use Fschmtt\Keycloak\Resource\AttackDetection;
-use GuzzleHttp\Psr7\Response;
+use Fschmtt\Keycloak\Type\Map;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -19,38 +20,70 @@ class AttackDetectionTest extends TestCase
 {
     public function testClearAttackDetectionForAllUsersInRealm(): void
     {
-        $httpClient = $this->createMock(Client::class);
-        $httpClient->expects(static::once())
-            ->method('request')
-            ->with('DELETE', '/admin/realms/test-realm/attack-detection/brute-force/users');
+        $command = new Command(
+            '/admin/realms/{realm}/attack-detection/brute-force/users',
+            Method::DELETE,
+            [
+                'realm' => 'realm',
+            ]
+        );
 
-        $attackDetection = new AttackDetection($httpClient, new PropertyFilter());
-        $attackDetection->clear(new Realm(realm: 'test-realm'));
+        $commandExecutor = $this->createMock(CommandExecutor::class);
+        $commandExecutor->expects(static::once())
+            ->method('executeCommand')
+            ->with($command);
+
+        $attackDetection = new AttackDetection(
+            $commandExecutor,
+            $this->createMock(QueryExecutor::class)
+        );
+        $attackDetection->clear('realm');
     }
 
     public function testClearAttackDetectionForSingleUserInRealm(): void
     {
-        $httpClient = $this->createMock(Client::class);
-        $httpClient->expects(static::once())
-            ->method('request')
-            ->with('DELETE', '/admin/realms/test-realm/attack-detection/brute-force/users/test-user-id');
+        $command = new Command(
+            '/admin/realms/{realm}/attack-detection/brute-force/users/{userId}',
+            Method::DELETE,
+            [
+                'realm' => 'realm',
+                'userId' => 'userId',
+            ]
+        );
 
-        $attackDetection = new AttackDetection($httpClient, new PropertyFilter());
-        $attackDetection->clearUser(new Realm(realm: 'test-realm'), new User(id: 'test-user-id'));
+        $commandExecutor = $this->createMock(CommandExecutor::class);
+        $commandExecutor->expects(static::once())
+            ->method('executeCommand')
+            ->with($command);
+
+        $attackDetection = new AttackDetection(
+            $commandExecutor,
+            $this->createMock(QueryExecutor::class)
+        );
+        $attackDetection->clearUser('realm', 'userId');
     }
 
     public function testGetAttackDetectionForSingleUserInRealm(): void
     {
-        $httpClient = $this->createMock(Client::class);
-        $httpClient->expects(static::once())
-            ->method('request')
-            ->with('GET', '/admin/realms/test-realm/attack-detection/brute-force/users/test-user-id')
-            ->willReturn(new Response(
-                status: 200,
-                body: json_encode([], JSON_THROW_ON_ERROR)
-            ));
+        $query = new Query(
+            '/admin/realms/{realm}/attack-detection/brute-force/users/{userId}',
+            Map::class,
+            [
+                'realm' => 'realm',
+                'userId' => 'userId',
+            ]
+        );
 
-        $attackDetection = new AttackDetection($httpClient, new PropertyFilter());
-        $attackDetection->user(new Realm(realm: 'test-realm'), new User(id: 'test-user-id'));
+        $queryExecutor = $this->createMock(QueryExecutor::class);
+        $queryExecutor->expects(static::once())
+            ->method('executeQuery')
+            ->with($query)
+            ->willReturn(new Map());
+
+        $attackDetection = new AttackDetection(
+            $this->createMock(CommandExecutor::class),
+            $queryExecutor,
+        );
+        $attackDetection->userStatus('realm', 'userId');
     }
 }

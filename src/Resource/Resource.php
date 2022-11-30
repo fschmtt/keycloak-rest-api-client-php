@@ -4,12 +4,23 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Resource;
 
-use Fschmtt\Keycloak\Http\Client;
-use Fschmtt\Keycloak\PropertyFilter\PropertyFilter;
+use Fschmtt\Keycloak\Http\CommandExecutor;
+use Fschmtt\Keycloak\Http\QueryExecutor;
 
+/**
+ * @codeCoverageIgnore
+ */
 abstract class Resource
 {
-    public function __construct(protected Client $httpClient, protected PropertyFilter $propertyFilter)
-    {
+    protected CommandExecutor $commandExecutor;
+
+    protected QueryExecutor $queryExecutor;
+
+    public function __construct(
+        CommandExecutor $commandExecutor,
+        QueryExecutor $queryExecutor,
+    ) {
+        $this->commandExecutor = $commandExecutor;
+        $this->queryExecutor = $queryExecutor;
     }
 }

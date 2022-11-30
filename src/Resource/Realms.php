@@ -8,177 +8,200 @@ use Fschmtt\Keycloak\Collection\ClientCollection;
 use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Collection\RealmCollection;
 use Fschmtt\Keycloak\Collection\UserCollection;
-use Fschmtt\Keycloak\Json\JsonDecoder;
-use Fschmtt\Keycloak\Json\JsonEncoder;
+use Fschmtt\Keycloak\Http\Command;
+use Fschmtt\Keycloak\Http\Method;
+use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Representation\Client;
 use Fschmtt\Keycloak\Representation\Realm;
-use Fschmtt\Keycloak\Serializer\Factory;
 
 class Realms extends Resource
 {
-    private const BASE_PATH = '/admin/realms';
-
-    public function all(): RealmCollection
+    public function all(bool $briefRepresentation = true): RealmCollection
     {
-        /** @var Realm[] $realms */
-        $realms = [];
-
-        $response = (string) $this->httpClient->request(
-            'GET',
-            self::BASE_PATH
-        )->getBody();
-
-        $decoded = (new JsonDecoder())->decode($response);
-
-        foreach ($decoded as $realm) {
-            $realms[] = Realm::from($realm);
-        }
-
-        return new RealmCollection($realms);
+        return $this->queryExecutor->executeQuery(
+            new Query(
+                '/admin/realms?briefRepresentation={briefRepresentation}',
+                RealmCollection::class,
+                [
+                    'briefRepresentation' => $briefRepresentation,
+                ]
+            )
+        );
     }
 
-    public function get(string $realm): Realm
+    public function get(string $realm, bool $briefRepresentation = true): Realm
     {
-        return Realm::fromJson(
-            (string) $this->httpClient->request(
-                'GET',
-                self::BASE_PATH . '/' . $realm
-            )->getBody()
+        return $this->queryExecutor->executeQuery(
+            new Query(
+                '/admin/realms/{realm}?briefRepresentation={briefRepresentation}',
+                Realm::class,
+                [
+                    'realm' => $realm,
+                    'briefRepresentation' => $briefRepresentation,
+                ]
+            )
         );
     }
 
     public function import(Realm $realm): Realm
     {
-        $body = (new JsonEncoder())->encode($this->propertyFilter->filter($realm));
-
-        $this->httpClient->request(
-            'POST',
-            self::BASE_PATH,
-            [
-                'headers' => [
-                    'Content-Type' => 'application/json',
-                ],
-                'body' => $body,
-            ]
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms',
+                Method::POST,
+                [],
+                $realm,
+            )
         );
 
         return $this->get($realm->getRealm());
     }
 
-    public function update(Realm $realm): Realm
+    public function update(string $realm, Realm $updatedRealm): Realm
     {
-        $body = (new JsonEncoder())->encode($this->propertyFilter->filter($realm));
-
-        $this->httpClient->request(
-            'PUT',
-            self::BASE_PATH . '/' . $realm->getRealm(),
-            [
-                'headers' => [
-                    'Content-Type' => 'application/json',
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms/{realm}',
+                Method::PUT,
+                [
+                    'realm' => $realm,
                 ],
-                'body' => $body,
-            ]
+                $updatedRealm,
+            )
         );
 
-        return $this->get($realm->getRealm());
+        return $this->get($updatedRealm->getRealm());
     }
 
-    public function delete(Realm $realm): void
+    public function delete(string $realm): void
     {
-        $this->httpClient->request(
-            'DELETE',
-            self::BASE_PATH . '/' . $realm->getRealm(),
-        );
-    }
-
-    public function clients(Realm $realm): ClientCollection
-    {
-        $serializer = (new Factory())->create();
-
-        return $serializer->serialize(ClientCollection::class, (new JsonDecoder())->decode(
-            (string) $this->httpClient->request(
-                'GET',
-                self::BASE_PATH . '/' . $realm->getRealm() . '/clients'
-            )->getBody()
-        ));
-    }
-
-    public function client(Realm $realm, string $clientId): Client
-    {
-        return Client::fromJson(
-            (string) $this->httpClient->request(
-                'GET',
-                self::BASE_PATH . '/' . $realm->getRealm() . '/clients/' . $clientId
-            )->getBody()
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms/{realm}',
+                Method::DELETE,
+                [
+                    'realm' => $realm,
+                ],
+            )
         );
     }
 
-    public function users(Realm $realm): UserCollection
+    public function clients(string $realm): ClientCollection
     {
-        $serializer = (new Factory())->create();
-
-        return $serializer->serialize(UserCollection::class, (new JsonDecoder())->decode(
-            (string) $this->httpClient->request(
-                'GET',
-                self::BASE_PATH . '/' . $realm->getRealm() . '/users'
-            )->getBody()
-        ));
-    }
-
-    public function groups(Realm $realm): GroupCollection
-    {
-        $serializer = (new Factory())->create();
-
-        return $serializer->serialize(GroupCollection::class, (new JsonDecoder())->decode(
-            (string) $this->httpClient->request(
-                'GET',
-                self::BASE_PATH . '/' . $realm->getRealm() . '/groups?briefRepresentation=false'
-            )->getBody()
-        ));
-    }
-
-    /**
-     * TODO Query params
-     */
-    public function adminEvents(Realm $realm): array
-    {
-        return (new JsonDecoder())->decode(
-            (string) $this->httpClient->request(
-                'GET',
-                self::BASE_PATH . '/' . $realm->getRealm() . '/admin-events'
-            )->getBody()
+        return $this->queryExecutor->executeQuery(
+            new Query(
+                '/admin/realms/{realm}/clients',
+                ClientCollection::class,
+                [
+                    'realm' => $realm,
+                ],
+            )
         );
     }
 
-    public function deleteAdminEvents(Realm $realm): void
+    public function client(string $realm, string $clientId): Client
     {
-        $this->httpClient->request(
-            'DELETE',
-            self::BASE_PATH . '/' . $realm->getRealm() . '/admin-events'
+        return $this->queryExecutor->executeQuery(
+            new Query(
+                '/admin/realms/{realm}/clients/{clientId}',
+                Client::class,
+                [
+                    'realm' => $realm,
+                    'clientId' => $clientId,
+                ],
+            )
         );
     }
 
-    public function clearKeysCache(Realm $realm): void
+    public function users(string $realm): UserCollection
     {
-        $this->httpClient->request(
-            'POST',
-            self::BASE_PATH . '/' . $realm->getRealm() . '/clear-keys-cache'
+        return $this->queryExecutor->executeQuery(
+            new Query(
+                '/admin/realms/{realm}/users',
+                UserCollection::class,
+                [
+                    'realm' => $realm,
+                ],
+            )
         );
     }
 
-    public function clearRealmCache(Realm $realm): void
+    public function groups(string $realm, bool $briefRepresentation = true): GroupCollection
     {
-        $this->httpClient->request(
-            'POST',
-            self::BASE_PATH . '/' . $realm->getRealm() . '/clear-realm-cache'
+        return $this->queryExecutor->executeQuery(
+            new Query(
+                '/admin/realms/{realm}/groups?briefRepresentation={briefRepresentation}',
+                GroupCollection::class,
+                [
+                    'realm' => $realm,
+                    'briefRepresentation' => $briefRepresentation,
+                ],
+            )
         );
     }
 
-    public function clearUserCache(Realm $realm): void
+    public function adminEvents(string $realm): array
     {
-        $this->httpClient->request(
-            'POST',
-            self::BASE_PATH . '/' . $realm->getRealm() . '/clear-user-cache'
+        return $this->queryExecutor->executeQuery(
+            new Query(
+                '/admin/realms/{realm}/admin-events',
+                'array',
+                [
+                    'realm' => $realm,
+                ],
+            )
+        );
+    }
+
+    public function deleteAdminEvents(string $realm): void
+    {
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms/{realm}/admin-events',
+                Method::DELETE,
+                [
+                    'realm' => $realm,
+                ],
+            )
+        );
+    }
+
+    public function clearKeysCache(string $realm): void
+    {
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms/{realm}/clear-keys-cache',
+                Method::POST,
+                [
+                    'realm' => $realm,
+                ],
+            )
+        );
+    }
+
+    public function clearRealmCache(string $realm): void
+    {
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms/{realm}/clear-realm-cache',
+                Method::POST,
+                [
+                    'realm' => $realm,
+                ],
+            )
+        );
+    }
+
+    public function clearUserCache(string $realm): void
+    {
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms/{realm}/clear-user-cache',
+                Method::POST,
+                [
+                    'realm' => $realm,
+                ],
+            )
         );
     }
 }

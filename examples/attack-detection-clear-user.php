@@ -12,6 +12,7 @@ $keycloak = new Keycloak(
     'admin',
 );
 
-$keycloak->attackDetection()->clear(
-    realm: 'master'
+$keycloak->attackDetection()->clearUser(
+    realm: 'master',
+    userId: 'afab8ba7-e278-4dda-8970-bd5a2a4c7bfb',
 );

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Attribute\Since;
 use Fschmtt\Keycloak\Collection\PasswordPolicyTypeCollection;
 use Fschmtt\Keycloak\Type\Map;
 
@@ -48,7 +49,7 @@ class ServerInfo extends Representation
         protected ?Map $clientImporters = null,
         protected ?Map $clientInstallations = null,
         protected ?Map $componentTypes = null,
-        /** @since 20.0.0 */
+        #[Since('20.0.0')]
         protected ?CryptoInfo $cryptoInfo = null,
         protected ?Map $enums = null,
         protected ?Map $identityProviders = null,

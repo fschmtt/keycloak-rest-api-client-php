@@ -23,4 +23,4 @@ $realm = $keycloak->realms()->import(
     )
 );
 
-$keycloak->realms()->delete($realm);
+$keycloak->realms()->delete($realm->getRealm());

@@ -14,7 +14,7 @@ $keycloak = new Keycloak(
 
 $realm = $keycloak->realms()->get('master');
 
-$users = $keycloak->realms()->users($realm);
+$users = $keycloak->realms()->users($realm->getRealm());
 
 echo sprintf('Realm "%s" has the following users:%s', $realm->getRealm(), PHP_EOL);
 

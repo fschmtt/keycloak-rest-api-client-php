@@ -19,6 +19,6 @@ $realm = $keycloak->realms()->get(realm: 'master');
 $realm = $realm->withRegistrationAllowed(!$realm->getRegistrationAllowed());
 
 // Update realm
-$realm = $keycloak->realms()->update($realm);
+$realm = $keycloak->realms()->update($realm->getRealm(), $realm);
 
 var_dump($realm->getRegistrationAllowed());
