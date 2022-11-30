@@ -23,8 +23,7 @@ Example:
 $keycloak = new \Fschmtt\Keycloak\Keycloak(
     baseUrl: 'http://keycloak:8080',
     username: 'admin',
-    password: 'admin',
-    version: '20.0.0'
+    password: 'admin'
 );
 
 $serverInfo = $keycloak->serverInfo()->get();
@@ -88,8 +87,8 @@ docker compose run --rm php php examples/serverinfo.php
 
 ### Composer scripts
 * `analyze`: Run phpstan and psalm analysis
-* `check-cs`: Run PHP_CodeSniffer
-* `fix-cs`: Fix PHP_CodeSniffer errors
+* `ecs`: Run Easy Coding Standard (ECS)
+* `ecs:fix`: Fix Easy Coding Standard (ECS) errors
 * `test`: Run unit and integration tests
 * `test:unit`: Run unit tests
 * `test:integration`: Run integration tests (requires a fresh and running Keycloak instance)
