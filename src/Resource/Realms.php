@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Resource;
 
-use Fschmtt\Keycloak\Collection\ClientCollection;
 use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Collection\RealmCollection;
 use Fschmtt\Keycloak\Collection\UserCollection;
 use Fschmtt\Keycloak\Http\Command;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
-use Fschmtt\Keycloak\Representation\Client;
 use Fschmtt\Keycloak\Representation\Realm;
 
 class Realms extends Resource
@@ -81,33 +79,6 @@ class Realms extends Resource
                 Method::DELETE,
                 [
                     'realm' => $realm,
-                ],
-            )
-        );
-    }
-
-    public function clients(string $realm): ClientCollection
-    {
-        return $this->queryExecutor->executeQuery(
-            new Query(
-                '/admin/realms/{realm}/clients',
-                ClientCollection::class,
-                [
-                    'realm' => $realm,
-                ],
-            )
-        );
-    }
-
-    public function client(string $realm, string $clientId): Client
-    {
-        return $this->queryExecutor->executeQuery(
-            new Query(
-                '/admin/realms/{realm}/clients/{clientId}',
-                Client::class,
-                [
-                    'realm' => $realm,
-                    'clientId' => $clientId,
                 ],
             )
         );

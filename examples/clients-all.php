@@ -14,10 +14,11 @@ $keycloak = new Keycloak(
 
 $realm = $keycloak->realms()->get('master');
 
-$clients = $keycloak->realms()->clients($realm->getRealm());
+$resource = $keycloak->clients();
+$clients = $keycloak->clients()->all(realm: $realm->getRealm());
 
 echo sprintf('Realm "%s" has the following clients:%s', $realm->getRealm(), PHP_EOL);
 
 foreach ($clients as $client) {
-    echo sprintf('-> Client "%s"%s', $client->getClientId(), PHP_EOL);
+    echo sprintf('-> %s (%s)%s', $client->getClientId(), $client->getId(), PHP_EOL);
 }

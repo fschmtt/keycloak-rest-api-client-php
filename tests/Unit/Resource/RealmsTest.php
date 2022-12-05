@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Test\Unit\Resource;
 
-use Fschmtt\Keycloak\Collection\ClientCollection;
 use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Collection\RealmCollection;
 use Fschmtt\Keycloak\Collection\UserCollection;
@@ -13,7 +12,6 @@ use Fschmtt\Keycloak\Http\CommandExecutor;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Http\QueryExecutor;
-use Fschmtt\Keycloak\Representation\Client as ClientRepresentation;
 use Fschmtt\Keycloak\Representation\Group;
 use Fschmtt\Keycloak\Representation\Realm;
 use Fschmtt\Keycloak\Representation\User;
@@ -163,64 +161,6 @@ class RealmsTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
         $realms->delete('to-be-deleted-realm');
-    }
-
-    public function testGetClients(): void
-    {
-        $query = new Query(
-            '/admin/realms/{realm}/clients',
-            ClientCollection::class,
-            [
-                'realm' => 'realm-with-clients',
-            ],
-        );
-
-        $queryExecutor = $this->createMock(QueryExecutor::class);
-        $queryExecutor->expects(static::once())
-            ->method('executeQuery')
-            ->with($query)
-            ->willReturn(new ClientCollection([
-                new ClientRepresentation(id: 'client-1'),
-                new ClientRepresentation(id: 'client-2'),
-            ]));
-
-        $realms = new Realms(
-            $this->createMock(CommandExecutor::class),
-            $queryExecutor,
-        );
-        $clients = $realms->clients(realm: 'realm-with-clients');
-
-        static::assertCount(2, $clients);
-        static::assertInstanceOf(ClientRepresentation::class, $clients->first());
-        static::assertSame('client-1', $clients->first()->getId());
-    }
-
-    public function testGetClient(): void
-    {
-        $query = new Query(
-            '/admin/realms/{realm}/clients/{clientId}',
-            ClientRepresentation::class,
-            [
-                'realm' => 'realm-with-client',
-                'clientId' => 'client-1',
-            ],
-        );
-
-        $queryExecutor = $this->createMock(QueryExecutor::class);
-        $queryExecutor->expects(static::once())
-            ->method('executeQuery')
-            ->with($query)
-            ->willReturn(
-                new ClientRepresentation(id: 'client-1')
-            );
-
-        $realms = new Realms(
-            $this->createMock(CommandExecutor::class),
-            $queryExecutor,
-        );
-        $client = $realms->client('realm-with-client', 'client-1');
-
-        static::assertSame('client-1', $client->getId());
     }
 
     public function testGetUsers(): void
