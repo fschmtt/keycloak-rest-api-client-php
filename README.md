@@ -24,6 +24,7 @@ $keycloak = new \Fschmtt\Keycloak\Keycloak(
     baseUrl: 'http://keycloak:8080',
     username: 'admin',
     password: 'admin'
+     version: '20.0.1',
 );
 
 $serverInfo = $keycloak->serverInfo()->get();
@@ -44,7 +45,7 @@ echo sprintf(
 ```
 will print e.g.
 ```text
-Keycloak 20.0.0 is running on Linux/5.10.25-linuxkit (amd64) with OpenJDK 64-Bit Server VM/11.0.11 since 0 days, 2 hours, 37 minutes, 7 seconds and is currently using 139 MB of 512 MB (28 %) memory.
+Keycloak 20.0.1 is running on Linux/5.10.25-linuxkit (amd64) with OpenJDK 64-Bit Server VM/11.0.11 since 0 days, 2 hours, 37 minutes, 7 seconds and is currently using 139 MB of 512 MB (28 %) memory.
 ```
 
 More examples can be found in the [examples](examples) directory.
