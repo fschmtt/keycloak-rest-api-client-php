@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Enum;
 
-/**
- * @since 14.0.0
- */
+use Fschmtt\Keycloak\Attribute\Since;
+
+#[Since(version: '14.0.0')]
 enum NodeType: string implements Enum
 {
     case ARRAY = 'ARRAY';

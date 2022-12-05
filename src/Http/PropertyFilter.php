@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Fschmtt\Keycloak\PropertyFilter;
+namespace Fschmtt\Keycloak\Http;
 
 use Fschmtt\Keycloak\Attribute\Since;
 use Fschmtt\Keycloak\Attribute\Until;

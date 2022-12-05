@@ -1,0 +1,73 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Fschmtt\Keycloak\Test\Unit\Http;
+
+use Fschmtt\Keycloak\Http\Client;
+use Fschmtt\Keycloak\Http\Command;
+use Fschmtt\Keycloak\Http\CommandExecutor;
+use Fschmtt\Keycloak\Http\Method;
+use Fschmtt\Keycloak\Http\PropertyFilter;
+use Fschmtt\Keycloak\Json\JsonEncoder;
+use Fschmtt\Keycloak\Test\Unit\Stub\Representation;
+use PHPUnit\Framework\TestCase;
+
+/**
+ * @covers \Fschmtt\Keycloak\Http\CommandExecutor
+ */
+class CommandExecutorTest extends TestCase
+{
+    public function testCallsClientWithoutBodyIfCommandHasNoRepresentation(): void
+    {
+        $client = $this->createMock(Client::class);
+        $client->expects(static::once())
+            ->method('request')
+            ->with(
+                Method::DELETE->value,
+                '/path/to/resource',
+                [
+                    'body' => null,
+                    'headers' => [
+                        'Content-Type' => 'application/json',
+                    ],
+                ]
+            );
+
+        $executor = new CommandExecutor($client, new PropertyFilter());
+        $executor->executeCommand(
+            new Command(
+                '/path/to/resource',
+                Method::DELETE
+            )
+        );
+    }
+
+    public function testCallsClientWithBodyIfCommandHasRepresentation(): void
+    {
+        $command = new Command(
+            '/path/to/resource',
+            Method::PUT,
+            [],
+            new Representation()
+        );
+        $representation = $command->getRepresentation();
+
+        $client = $this->createMock(Client::class);
+        $client->expects(static::once())
+            ->method('request')
+            ->with(
+                Method::PUT->value,
+                '/path/to/resource',
+                [
+                    'body' => (new JsonEncoder())->encode($representation->jsonSerialize()),
+                    'headers' => [
+                        'Content-Type' => 'application/json',
+                    ],
+                ]
+            );
+
+        $executor = new CommandExecutor($client, new PropertyFilter());
+        $executor->executeCommand($command);
+    }
+}
