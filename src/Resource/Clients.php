@@ -39,7 +39,7 @@ class Clients extends Resource
         );
     }
 
-    public function import(string $realm, Client $client): ClientRepresentation
+    public function import(string $realm, ClientRepresentation $client): ClientRepresentation
     {
         $this->commandExecutor->executeCommand(
             new Command(

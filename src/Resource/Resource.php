@@ -12,15 +12,9 @@ use Fschmtt\Keycloak\Http\QueryExecutor;
  */
 abstract class Resource
 {
-    protected CommandExecutor $commandExecutor;
-
-    protected QueryExecutor $queryExecutor;
-
     public function __construct(
-        CommandExecutor $commandExecutor,
-        QueryExecutor $queryExecutor,
+        protected readonly CommandExecutor $commandExecutor,
+        protected readonly QueryExecutor $queryExecutor,
     ) {
-        $this->commandExecutor = $commandExecutor;
-        $this->queryExecutor = $queryExecutor;
     }
 }

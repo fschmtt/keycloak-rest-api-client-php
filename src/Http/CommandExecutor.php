@@ -8,16 +8,10 @@ use Fschmtt\Keycloak\Json\JsonEncoder;
 
 class CommandExecutor
 {
-    private Client $client;
-
-    private PropertyFilter $propertyFilter;
-
     public function __construct(
-        Client $client,
-        PropertyFilter $propertyFilter
+        private readonly Client $client,
+        private readonly PropertyFilter $propertyFilter
     ) {
-        $this->client = $client;
-        $this->propertyFilter = $propertyFilter;
     }
 
     public function executeCommand(Command $command): void

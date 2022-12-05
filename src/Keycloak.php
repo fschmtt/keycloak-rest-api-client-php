@@ -16,20 +16,17 @@ use Fschmtt\Keycloak\Serializer\Factory as SerializerFactory;
 
 class Keycloak
 {
-    private string $baseUrl;
-    private string $username;
-    private string $password;
     private ?string $version = null;
     private Client $client;
     private PropertyFilter $propertyFilter;
     private CommandExecutor $commandExecutor;
     private QueryExecutor $queryExecutor;
 
-    public function __construct(string $baseUrl, string $username, string $password)
-    {
-        $this->baseUrl = $baseUrl;
-        $this->username = $username;
-        $this->password = $password;
+    public function __construct(
+        private readonly string $baseUrl,
+        private readonly string $username,
+        private readonly string $password
+    ) {
         $this->client = new Client($this);
         $this->propertyFilter = new PropertyFilter($this->version);
         $this->commandExecutor = new CommandExecutor($this->client, $this->propertyFilter);

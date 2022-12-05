@@ -17,7 +17,7 @@ class Client
     private ?Token $accessToken = null;
 
     public function __construct(
-        private Keycloak $keycloak,
+        private readonly Keycloak $keycloak,
     ) {
     }
 

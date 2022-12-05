@@ -6,18 +6,11 @@ namespace Fschmtt\Keycloak\Http;
 
 class Query
 {
-    private string $path;
-    private string $returnType;
-    private array $parameters;
-
     public function __construct(
-        string $path,
-        string $returnType,
-        array $parameters = [],
+        private readonly string $path,
+        private readonly string $returnType,
+        private readonly array $parameters = [],
     ) {
-        $this->path = $path;
-        $this->returnType = $returnType;
-        $this->parameters = $parameters;
     }
 
     public function getMethod(): Method
