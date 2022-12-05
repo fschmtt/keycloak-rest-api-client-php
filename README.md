@@ -24,7 +24,7 @@ $keycloak = new \Fschmtt\Keycloak\Keycloak(
     baseUrl: 'http://keycloak:8080',
     username: 'admin',
     password: 'admin'
-     version: '20.0.1',
+    version: '20.0.1'
 );
 
 $serverInfo = $keycloak->serverInfo()->get();
