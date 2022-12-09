@@ -53,29 +53,36 @@ More examples can be found in the [examples](examples) directory.
 ### [Attack Detection](https://www.keycloak.org/docs-api/20.0.0/rest-api/index.html#_attack_detection_resource)
 | Endpoint | Status Code | Response | API |
 |----------|-------------|----------|-----|
-| `DELETE /auth/admin/realms/{realm}/attack-detection/brute-force/users` | `204` | `n/a` | [AttackDetection::clear()](src/Resource/AttackDetection.php) |
-| `GET /auth/admin/realms/{realm}/attack-detection/brute-force/users/{userId}` | `204` | [Map](src/Type/Map.php) | [AttackDetection::userStatus()](src/Resource/AttackDetection.php) |
-| `DELETE /auth/admin/realms/{realm}/attack-detection/brute-force/users/{userId}` | `204` | `n/a` | [AttackDetection::clearUser()](src/Resource/AttackDetection.php) |
+| `DELETE /admin/realms/{realm}/attack-detection/brute-force/users` | `204` | `n/a` | [AttackDetection::clear()](src/Resource/AttackDetection.php) |
+| `GET /admin/realms/{realm}/attack-detection/brute-force/users/{userId}` | `204` | [Map](src/Type/Map.php) | [AttackDetection::userStatus()](src/Resource/AttackDetection.php) |
+| `DELETE /admin/realms/{realm}/attack-detection/brute-force/users/{userId}` | `204` | `n/a` | [AttackDetection::clearUser()](src/Resource/AttackDetection.php) |
+
+### [Clients](https://www.keycloak.org/docs-api/20.0.0/rest-api/index.html#_clients_resource)
+| Endpoint | Response | API |
+|----------|----------|-----|
+| `GET /admin/realms/{realm}/clients` | [ClientCollection](src/Collection/ClientCollection.php) | [Clients::all()](src/Resource/Clients.php) |
+| `GET /admin/realms/{realm}/clients/{id}` | [Client](src/Representation/Client.php) | [Clients::get()](src/Resource/Clients.php) |
+| `PUT /admin/realms/{realm}/clients/{id}` | [Client](src/Representation/Client.php) | [Clients::update()](src/Resource/Clients.php) |
+| `POST /admin/realms/{realm}/clients` | [Client](src/Representation/Client.php) | [Clients::import()](src/Resource/Clients.php) |
 
 ### [Realms Admin](https://www.keycloak.org/docs-api/20.0.0/rest-api/index.html#_realms_admin_resource)
 | Endpoint | Status Code | Response | API |
 |----------|-------------|----------|-----|
-| `POST /auth/admin/realms` | `201` | [Realm](src/Representation/Realm.php) | [Realms::import()](src/Resource/Realms.php) |
-| `GET /auth/admin/realms` | `200` | [RealmCollection](src/Collection/RealmCollection.php) | [Realms::all()](src/Resource/Realms.php) |
-| `PUT /auth/admin/realms/{realm}` | `204` | [Realm](src/Representation/Realm.php) | [Realms::update()](src/Resource/Realms.php) |
-| `DELETE /auth/admin/realms/{realm}` | `204` | `n/a` | [Realms::delete()](src/Resource/Realms.php) |
-| `GET /auth/admin/realms/{realm}/admin-events` | `200` | `array` | [Realms::adminEvents()](src/Resource/Realms.php) |
-| `DELETE /auth/admin/realms/{realm}/admin-events` | `204` | `n/a` | [Realms::deleteAdminEvents()](src/Resource/Realms.php) |
-| `POST /auth/admin/realms/{realm}/clear-keys-cache` | `204` | `n/a` | [Realms::clearKeysCache()](src/Resource/Realms.php) |
-| `POST /auth/admin/realms/{realm}/clear-realm-cache` | `204` | `n/a` | [Realms::clearRealmCache()](src/Resource/Realms.php) |
-| `POST /auth/admin/realms/{realm}/clear-user-cache` | `204` | `n/a` | [Realms::clearUserCache()](src/Resource/Realms.php) |
-| `GET /auth/admin/realms/{realm}/clients` | `200` | [ClientCollection](src/Collection/ClientCollection.php) | [Realms::clients()](src/Resource/Realms.php) |
-| `GET /auth/admin/realms/{realm}/users` | `200` | [UserCollection](src/Collection/UserCollection.php) | [Realms::users()](src/Resource/Realms.php) |
+| `POST /admin/realms` | `201` | [Realm](src/Representation/Realm.php) | [Realms::import()](src/Resource/Realms.php) |
+| `GET /admin/realms` | `200` | [RealmCollection](src/Collection/RealmCollection.php) | [Realms::all()](src/Resource/Realms.php) |
+| `PUT /admin/realms/{realm}` | `204` | [Realm](src/Representation/Realm.php) | [Realms::update()](src/Resource/Realms.php) |
+| `DELETE /admin/realms/{realm}` | `204` | `n/a` | [Realms::delete()](src/Resource/Realms.php) |
+| `GET /admin/realms/{realm}/admin-events` | `200` | `array` | [Realms::adminEvents()](src/Resource/Realms.php) |
+| `DELETE /admin/realms/{realm}/admin-events` | `204` | `n/a` | [Realms::deleteAdminEvents()](src/Resource/Realms.php) |
+| `POST /admin/realms/{realm}/clear-keys-cache` | `204` | `n/a` | [Realms::clearKeysCache()](src/Resource/Realms.php) |
+| `POST /admin/realms/{realm}/clear-realm-cache` | `204` | `n/a` | [Realms::clearRealmCache()](src/Resource/Realms.php) |
+| `POST /admin/realms/{realm}/clear-user-cache` | `204` | `n/a` | [Realms::clearUserCache()](src/Resource/Realms.php) |
+| `GET /admin/realms/{realm}/users` | `200` | [UserCollection](src/Collection/UserCollection.php) | [Realms::users()](src/Resource/Realms.php) |
 
 ### [Root](https://www.keycloak.org/docs-api/20.0.0/rest-api/index.html#_root_resource)
 | Endpoint | Status Code | Response | API |
 |----------|-------------|----------|-----|
-| `GET /auth/admin/serverinfo` | `200` | [ServerInfo](src/Representation/ServerInfo.php) | [ServerInfo::get()](src/Resource/ServerInfo.php) |
+| `GET /admin/serverinfo` | `200` | [ServerInfo](src/Representation/ServerInfo.php) | [ServerInfo::get()](src/Resource/ServerInfo.php) |
 
 ## Local development and testing
 Run `docker compose up -d keycloak` to start a local Keycloak instance listening on http://localhost:8080.

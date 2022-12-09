@@ -62,13 +62,6 @@ class RealmsTest extends TestCase
         $this->getKeycloak()->realms()->clearUserCache($realm->getRealm());
     }
 
-    public function testCanGetClients(): void
-    {
-        $clients = $this->getKeycloak()->realms()->clients('master');
-
-        static::assertGreaterThan(0, $clients->count());
-    }
-
     public function testCanGetUsers(): void
     {
         $users = $this->getKeycloak()->realms()->users('master');

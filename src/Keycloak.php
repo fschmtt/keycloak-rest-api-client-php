@@ -9,26 +9,24 @@ use Fschmtt\Keycloak\Http\CommandExecutor;
 use Fschmtt\Keycloak\Http\PropertyFilter;
 use Fschmtt\Keycloak\Http\QueryExecutor;
 use Fschmtt\Keycloak\Resource\AttackDetection;
+use Fschmtt\Keycloak\Resource\Clients;
 use Fschmtt\Keycloak\Resource\Realms;
 use Fschmtt\Keycloak\Resource\ServerInfo;
 use Fschmtt\Keycloak\Serializer\Factory as SerializerFactory;
 
 class Keycloak
 {
-    private string $baseUrl;
-    private string $username;
-    private string $password;
     private ?string $version = null;
     private Client $client;
     private PropertyFilter $propertyFilter;
     private CommandExecutor $commandExecutor;
     private QueryExecutor $queryExecutor;
 
-    public function __construct(string $baseUrl, string $username, string $password)
-    {
-        $this->baseUrl = $baseUrl;
-        $this->username = $username;
-        $this->password = $password;
+    public function __construct(
+        private readonly string $baseUrl,
+        private readonly string $username,
+        private readonly string $password
+    ) {
         $this->client = new Client($this);
         $this->propertyFilter = new PropertyFilter($this->version);
         $this->commandExecutor = new CommandExecutor($this->client, $this->propertyFilter);
@@ -67,6 +65,13 @@ class Keycloak
         $this->fetchVersion();
 
         return new Realms($this->commandExecutor, $this->queryExecutor);
+    }
+
+    public function clients(): Clients
+    {
+        $this->fetchVersion();
+
+        return new Clients($this->commandExecutor, $this->queryExecutor);
     }
 
     private function fetchVersion(): void

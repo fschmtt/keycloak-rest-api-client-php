@@ -13,7 +13,8 @@
         "phpmetrics/phpmetrics": "^2.7",
         "phpstan/phpstan": "^1.9",
         "vimeo/psalm": "^4.30",
-        "symplify/easy-coding-standard": "^11.1"
+        "symplify/easy-coding-standard": "^11.1",
+        "ramsey/uuid": "^4.6"
     },
     "autoload": {
         "psr-4": {

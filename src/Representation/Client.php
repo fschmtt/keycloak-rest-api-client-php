@@ -31,7 +31,6 @@ use Fschmtt\Keycloak\Type\Map;
  * @method string|null getName()
  * @method int|null getNodeReRegistrationTimeout()
  * @method int|null getNotBefore()
- * @method bool|null getOauth2DeviceAuthorizationGrantEnabled()
  * @method array|null getOptionalClientScopes()
  * @method string|null getOrigin()
  * @method string|null getProtocol()
@@ -69,7 +68,6 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withName(?string $name)
  * @method self withNodeReRegistrationTimeout(?int $nodeReRegistrationTimeout)
  * @method self withNotBefore(?int $notBefore)
- * @method self withOauth2DeviceAuthorizationGrantEnabled(?bool $oauth2DeviceAuthorizationGrantEnabled)
  * @method self withOptionalClientScopes(?array $optionalClientScopes)
  * @method self withOrigin(?string $origin)
  * @method self withProtocol(?string $protocol)
@@ -113,7 +111,6 @@ class Client extends Representation
         protected ?string $name = null,
         protected ?int $nodeReRegistrationTimeout = null,
         protected ?int $notBefore = null,
-        protected ?bool $oauth2DeviceAuthorizationGrantEnabled = null,
         protected ?array $optionalClientScopes = null,
         protected ?string $origin = null,
         protected ?string $protocol = null,
@@ -153,7 +150,6 @@ class Client extends Representation
             $name,
             $nodeReRegistrationTimeout,
             $notBefore,
-            $oauth2DeviceAuthorizationGrantEnabled,
             $optionalClientScopes,
             $origin,
             $protocol,

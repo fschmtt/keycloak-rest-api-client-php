@@ -11,16 +11,14 @@ use ReflectionClass;
 
 class PropertyFilter
 {
-    private ?string $version;
-
     /**
      * @var array<class-string<Representation>, array<string, array{since?: string, until?: string}>>
      */
     private array $filteredProperties = [];
 
-    public function __construct(?string $version = null)
-    {
-        $this->version = $version;
+    public function __construct(
+        private readonly ?string $version = null
+    ) {
     }
 
     /**

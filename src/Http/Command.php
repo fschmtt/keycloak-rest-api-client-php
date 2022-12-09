@@ -8,21 +8,12 @@ use Fschmtt\Keycloak\Representation\Representation;
 
 class Command
 {
-    private string $path;
-    private Method $method;
-    private array $parameters;
-    private ?Representation $representation;
-
     public function __construct(
-        string $path,
-        Method $method,
-        array $parameters = [],
-        ?Representation $representation = null,
+        private readonly string $path,
+        private readonly Method $method,
+        private readonly array $parameters = [],
+        private readonly ?Representation $representation = null,
     ) {
-        $this->path = $path;
-        $this->method = $method;
-        $this->parameters = $parameters;
-        $this->representation = $representation;
     }
 
     public function getMethod(): Method

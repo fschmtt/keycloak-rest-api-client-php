@@ -9,13 +9,10 @@ use Fschmtt\Keycloak\Serializer\Serializer;
 
 class QueryExecutor
 {
-    private Client $client;
-    private Serializer $serializer;
-
-    public function __construct(Client $client, Serializer $serializer)
-    {
-        $this->client = $client;
-        $this->serializer = $serializer;
+    public function __construct(
+        private readonly Client $client,
+        private readonly Serializer $serializer
+    ) {
     }
 
     public function executeQuery(Query $query): mixed
