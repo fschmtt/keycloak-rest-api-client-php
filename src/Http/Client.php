@@ -13,11 +13,11 @@ use Psr\Http\Message\ResponseInterface;
 
 class Client
 {
-    private GuzzleClient $httpClient;
     private ?Token $accessToken = null;
 
     public function __construct(
         private readonly Keycloak $keycloak,
+        private GuzzleClient $httpClient,
     ) {
     }
 
@@ -28,6 +28,7 @@ class Client
         }
 
         $defaultOptions = [
+            'base_uri' => $this->keycloak->getBaseUrl(),
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->accessToken->toString(),
             ],
@@ -52,20 +53,11 @@ class Client
         $accessToken = $this->fetchAccessToken();
 
         $this->accessToken = (new Token\Parser(new JoseEncoder()))->parse($accessToken);
-
-        $this->httpClient = new GuzzleClient([
-            'base_uri' => $this->keycloak->getBaseUrl() . '/admin/',
-            'defaults' => [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $this->accessToken->toString(),
-                ],
-            ],
-        ]);
     }
 
     private function fetchAccessToken(): string
     {
-        $response = (new GuzzleClient())->request(
+        $response = $this->httpClient->request(
             'POST',
             $this->keycloak->getBaseUrl() . '/realms/master/protocol/openid-connect/token',
             [
@@ -78,6 +70,9 @@ class Client
             ]
         );
 
-        return (string) json_decode((string) $response->getBody())->access_token;
+        return (string) json_decode(
+            json: (string) $response->getBody(),
+            flags: JSON_THROW_ON_ERROR,
+        )->access_token;
     }
 }
