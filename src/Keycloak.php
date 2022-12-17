@@ -12,6 +12,7 @@ use Fschmtt\Keycloak\Resource\AttackDetection;
 use Fschmtt\Keycloak\Resource\Clients;
 use Fschmtt\Keycloak\Resource\Realms;
 use Fschmtt\Keycloak\Resource\ServerInfo;
+use Fschmtt\Keycloak\Resource\Users;
 use Fschmtt\Keycloak\Serializer\Factory as SerializerFactory;
 use GuzzleHttp\Client as GuzzleClient;
 
@@ -27,7 +28,8 @@ class Keycloak
         private readonly string $baseUrl,
         private readonly string $username,
         private readonly string $password
-    ) {
+    )
+    {
         $this->client = new Client($this, new GuzzleClient());
         $this->propertyFilter = new PropertyFilter($this->version);
         $this->commandExecutor = new CommandExecutor($this->client, $this->propertyFilter);
@@ -73,6 +75,13 @@ class Keycloak
         $this->fetchVersion();
 
         return new Clients($this->commandExecutor, $this->queryExecutor);
+    }
+
+    public function users(): Users
+    {
+        $this->fetchVersion();
+
+        return new Users($this->commandExecutor, $this->queryExecutor);
     }
 
     private function fetchVersion(): void
