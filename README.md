@@ -51,11 +51,11 @@ More examples can be found in the [examples](examples) directory.
 
 ## Available Resources
 ### [Attack Detection](https://www.keycloak.org/docs-api/20.0.0/rest-api/index.html#_attack_detection_resource)
-| Endpoint | Status Code | Response | API |
-|----------|-------------|----------|-----|
-| `DELETE /admin/realms/{realm}/attack-detection/brute-force/users` | `204` | `n/a` | [AttackDetection::clear()](src/Resource/AttackDetection.php) |
-| `GET /admin/realms/{realm}/attack-detection/brute-force/users/{userId}` | `204` | [Map](src/Type/Map.php) | [AttackDetection::userStatus()](src/Resource/AttackDetection.php) |
-| `DELETE /admin/realms/{realm}/attack-detection/brute-force/users/{userId}` | `204` | `n/a` | [AttackDetection::clearUser()](src/Resource/AttackDetection.php) |
+| Endpoint | Response | API |
+|----------|----------|-----|
+| `DELETE /admin/realms/{realm}/attack-detection/brute-force/users` | `n/a` | [AttackDetection::clear()](src/Resource/AttackDetection.php) |
+| `GET /admin/realms/{realm}/attack-detection/brute-force/users/{userId}` | [Map](src/Type/Map.php) | [AttackDetection::userStatus()](src/Resource/AttackDetection.php) |
+| `DELETE /admin/realms/{realm}/attack-detection/brute-force/users/{userId}` | `n/a` | [AttackDetection::clearUser()](src/Resource/AttackDetection.php) |
 
 ### [Clients](https://www.keycloak.org/docs-api/20.0.0/rest-api/index.html#_clients_resource)
 | Endpoint | Response | API |
@@ -66,17 +66,17 @@ More examples can be found in the [examples](examples) directory.
 | `POST /admin/realms/{realm}/clients` | [Client](src/Representation/Client.php) | [Clients::import()](src/Resource/Clients.php) |
 
 ### [Realms Admin](https://www.keycloak.org/docs-api/20.0.0/rest-api/index.html#_realms_admin_resource)
-| Endpoint | Status Code | Response | API |
-|----------|-------------|----------|-----|
-| `POST /admin/realms` | `201` | [Realm](src/Representation/Realm.php) | [Realms::import()](src/Resource/Realms.php) |
-| `GET /admin/realms` | `200` | [RealmCollection](src/Collection/RealmCollection.php) | [Realms::all()](src/Resource/Realms.php) |
-| `PUT /admin/realms/{realm}` | `204` | [Realm](src/Representation/Realm.php) | [Realms::update()](src/Resource/Realms.php) |
-| `DELETE /admin/realms/{realm}` | `204` | `n/a` | [Realms::delete()](src/Resource/Realms.php) |
-| `GET /admin/realms/{realm}/admin-events` | `200` | `array` | [Realms::adminEvents()](src/Resource/Realms.php) |
-| `DELETE /admin/realms/{realm}/admin-events` | `204` | `n/a` | [Realms::deleteAdminEvents()](src/Resource/Realms.php) |
-| `POST /admin/realms/{realm}/clear-keys-cache` | `204` | `n/a` | [Realms::clearKeysCache()](src/Resource/Realms.php) |
-| `POST /admin/realms/{realm}/clear-realm-cache` | `204` | `n/a` | [Realms::clearRealmCache()](src/Resource/Realms.php) |
-| `POST /admin/realms/{realm}/clear-user-cache` | `204` | `n/a` | [Realms::clearUserCache()](src/Resource/Realms.php) |
+| Endpoint | Response | API |
+|----------|----------|-----|
+| `POST /admin/realms` | [Realm](src/Representation/Realm.php) | [Realms::import()](src/Resource/Realms.php) |
+| `GET /admin/realms` | [RealmCollection](src/Collection/RealmCollection.php) | [Realms::all()](src/Resource/Realms.php) |
+| `PUT /admin/realms/{realm}` | [Realm](src/Representation/Realm.php) | [Realms::update()](src/Resource/Realms.php) |
+| `DELETE /admin/realms/{realm}` | `n/a` | [Realms::delete()](src/Resource/Realms.php) |
+| `GET /admin/realms/{realm}/admin-events` | `array` | [Realms::adminEvents()](src/Resource/Realms.php) |
+| `DELETE /admin/realms/{realm}/admin-events` | `n/a` | [Realms::deleteAdminEvents()](src/Resource/Realms.php) |
+| `POST /admin/realms/{realm}/clear-keys-cache` | `n/a` | [Realms::clearKeysCache()](src/Resource/Realms.php) |
+| `POST /admin/realms/{realm}/clear-realm-cache` | `n/a` | [Realms::clearRealmCache()](src/Resource/Realms.php) |
+| `POST /admin/realms/{realm}/clear-user-cache` | `n/a` | [Realms::clearUserCache()](src/Resource/Realms.php) |
 
 ### [Users](https://www.keycloak.org/docs-api/20.0.0/rest-api/index.html#_users_resource)
 | Endpoint | Response | API |
@@ -89,9 +89,9 @@ More examples can be found in the [examples](examples) directory.
 | `GET /admin/realms/{realm}/users` | [UserCollection](src/Collection/UserCollection.php) | [Users::search()](src/Resource/Users.php) |
 
 ### [Root](https://www.keycloak.org/docs-api/20.0.0/rest-api/index.html#_root_resource)
-| Endpoint | Status Code | Response | API |
-|----------|-------------|----------|-----|
-| `GET /admin/serverinfo` | `200` | [ServerInfo](src/Representation/ServerInfo.php) | [ServerInfo::get()](src/Resource/ServerInfo.php) |
+| Endpoint | Response | API |
+|----------|----------|-----|
+| `GET /admin/serverinfo` | [ServerInfo](src/Representation/ServerInfo.php) | [ServerInfo::get()](src/Resource/ServerInfo.php) |
 
 ## Local development and testing
 Run `docker compose up -d keycloak` to start a local Keycloak instance listening on http://localhost:8080.
