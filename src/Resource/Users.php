@@ -29,17 +29,17 @@ class Users extends Resource
     {
         return $this->queryExecutor->executeQuery(
             new Query(
-                '/admin/realms/{realm}/users/{id}',
-                ClientRepresentation::class,
+                '/admin/realms/{realm}/users/{userId}',
+                UserRepresentation::class,
                 [
                     'realm' => $realm,
-                    'id' => $userId,
+                    'userId' => $userId,
                 ]
             )
         );
     }
 
-    public function import(string $realm, UserRepresentation $user): UserRepresentation
+    public function create(string $realm, UserRepresentation $user): void
     {
         $this->commandExecutor->executeCommand(
             new Command(
@@ -51,37 +51,47 @@ class Users extends Resource
                 $user,
             )
         );
-        
-        return $this->get($realm, $user->getId());
     }
 
-    public function update(string $realm, string $userId, UserRepresentation $updatedUser): UserRepresentation
+    public function update(string $realm, string $userId, UserRepresentation $updatedUser): void
     {
         $this->commandExecutor->executeCommand(
             new Command(
-                '/admin/realms/{realm}/users/{id}',
+                '/admin/realms/{realm}/users/{userId}',
                 Method::PUT,
                 [
                     'realm' => $realm,
-                    'id' => $userId,
+                    'userId' => $userId,
                 ],
                 $updatedUser,
             )
         );
-
-        return $this->get($realm, $updatedUser->getId());
     }
 
     public function delete(string $realm, string $userId): void
     {
         $this->commandExecutor->executeCommand(
             new Command(
-                '/admin/realms/{realm}/users/{id}',
+                '/admin/realms/{realm}/users/{userId}',
                 Method::DELETE,
                 [
                     'realm' => $realm,
-                    'id' => $userId,
+                    'userId' => $userId,
                 ],
+            )
+        );
+    }
+
+    public function search(string $realm, array $criteria): UserCollection
+    {
+        return $this->queryExecutor->executeQuery(
+            new Query(
+                '/admin/realms/{realm}/users?{criteria}',
+                UserCollection::class,
+                [
+                    'realm' => $realm,
+                    'criteria' => http_build_query($criteria),
+                ]
             )
         );
     }

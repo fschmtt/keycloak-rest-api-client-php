@@ -77,7 +77,14 @@ More examples can be found in the [examples](examples) directory.
 | `POST /admin/realms/{realm}/clear-keys-cache` | `204` | `n/a` | [Realms::clearKeysCache()](src/Resource/Realms.php) |
 | `POST /admin/realms/{realm}/clear-realm-cache` | `204` | `n/a` | [Realms::clearRealmCache()](src/Resource/Realms.php) |
 | `POST /admin/realms/{realm}/clear-user-cache` | `204` | `n/a` | [Realms::clearUserCache()](src/Resource/Realms.php) |
-| `GET /admin/realms/{realm}/users` | `200` | [UserCollection](src/Collection/UserCollection.php) | [Realms::users()](src/Resource/Realms.php) |
+
+### [Users](https://www.keycloak.org/docs-api/20.0.0/rest-api/index.html#_users_resource)
+| Endpoint | Status Code | API |
+|----------|-------------|----------|-----|
+| `GET /admin/realms/{realm}/users` | [UserCollection](src/Collection/UserCollection.php) | [Users::all()](src/Resource/Users.php) |
+| `POST /admin/realms/{realm}/users` | [User](src/Representation/User.php) | [Users::create()](src/Resource/Users.php) |
+| `GET /admin/realms/{realm}/users/{userId}` | [User](src/Representation/User.php) | [Users::get()](src/Resource/Users.php) |
+| `DELETE /admin/realms/{realm}/users/{userId}` | `n/a` | [Users::delete()](src/Resource/Users.php) |
 
 ### [Root](https://www.keycloak.org/docs-api/20.0.0/rest-api/index.html#_root_resource)
 | Endpoint | Status Code | Response | API |

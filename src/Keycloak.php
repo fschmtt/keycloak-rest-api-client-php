@@ -28,8 +28,7 @@ class Keycloak
         private readonly string $baseUrl,
         private readonly string $username,
         private readonly string $password
-    )
-    {
+    ) {
         $this->client = new Client($this, new GuzzleClient());
         $this->propertyFilter = new PropertyFilter($this->version);
         $this->commandExecutor = new CommandExecutor($this->client, $this->propertyFilter);
