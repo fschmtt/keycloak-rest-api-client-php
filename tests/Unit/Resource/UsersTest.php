@@ -7,6 +7,7 @@ namespace Fschmtt\Keycloak\Test\Unit\Resource;
 use Fschmtt\Keycloak\Collection\UserCollection;
 use Fschmtt\Keycloak\Http\Command;
 use Fschmtt\Keycloak\Http\CommandExecutor;
+use Fschmtt\Keycloak\Http\Criteria;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Http\QueryExecutor;
@@ -162,18 +163,18 @@ class UsersTest extends TestCase
 
     public function testSearchUser(): void
     {
-        $criteria = [
+        $criteria = new Criteria([
             'username' => 'test-user',
             'exact' => true,
-        ];
+        ]);
 
         $query = new Query(
-            '/admin/realms/{realm}/users?{criteria}',
+            '/admin/realms/{realm}/users',
             UserCollection::class,
             [
                 'realm' => 'test-realm',
-                'criteria' => http_build_query($criteria),
             ],
+            $criteria,
         );
 
         $queryExecutor = $this->createMock(QueryExecutor::class);

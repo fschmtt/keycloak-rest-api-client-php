@@ -6,13 +6,14 @@ namespace Fschmtt\Keycloak\Resource;
 
 use Fschmtt\Keycloak\Collection\UserCollection;
 use Fschmtt\Keycloak\Http\Command;
+use Fschmtt\Keycloak\Http\Criteria;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Representation\User as UserRepresentation;
 
 class Users extends Resource
 {
-    public function all(string $realm): UserCollection
+    public function all(string $realm, ?Criteria $criteria = null): UserCollection
     {
         return $this->queryExecutor->executeQuery(
             new Query(
@@ -21,6 +22,7 @@ class Users extends Resource
                 [
                     'realm' => $realm,
                 ],
+                $criteria
             )
         );
     }
@@ -82,16 +84,16 @@ class Users extends Resource
         );
     }
 
-    public function search(string $realm, array $criteria): UserCollection
+    public function search(string $realm, ?Criteria $criteria = null): UserCollection
     {
         return $this->queryExecutor->executeQuery(
             new Query(
-                '/admin/realms/{realm}/users?{criteria}',
+                '/admin/realms/{realm}/users',
                 UserCollection::class,
                 [
                     'realm' => $realm,
-                    'criteria' => http_build_query($criteria),
-                ]
+                ],
+                $criteria
             )
         );
     }

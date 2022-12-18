@@ -7,35 +7,33 @@ namespace Fschmtt\Keycloak\Resource;
 use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Collection\RealmCollection;
 use Fschmtt\Keycloak\Http\Command;
+use Fschmtt\Keycloak\Http\Criteria;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Representation\Realm;
 
 class Realms extends Resource
 {
-    public function all(bool $briefRepresentation = true): RealmCollection
+    public function all(?Criteria $criteria = null): RealmCollection
     {
         return $this->queryExecutor->executeQuery(
             new Query(
-                '/admin/realms?briefRepresentation={briefRepresentation}',
+                '/admin/realms',
                 RealmCollection::class,
-                [
-                    'briefRepresentation' => $briefRepresentation,
-                ]
+                criteria: $criteria,
             )
         );
     }
 
-    public function get(string $realm, bool $briefRepresentation = true): Realm
+    public function get(string $realm): Realm
     {
         return $this->queryExecutor->executeQuery(
             new Query(
-                '/admin/realms/{realm}?briefRepresentation={briefRepresentation}',
+                '/admin/realms/{realm}',
                 Realm::class,
                 [
                     'realm' => $realm,
-                    'briefRepresentation' => $briefRepresentation,
-                ]
+                ],
             )
         );
     }
@@ -83,21 +81,24 @@ class Realms extends Resource
         );
     }
 
-    public function groups(string $realm, bool $briefRepresentation = true): GroupCollection
+    /**
+     * TODO: Refactor to its own resource
+     */
+    public function groups(string $realm, ?Criteria $criteria = null): GroupCollection
     {
         return $this->queryExecutor->executeQuery(
             new Query(
-                '/admin/realms/{realm}/groups?briefRepresentation={briefRepresentation}',
+                '/admin/realms/{realm}/groups',
                 GroupCollection::class,
                 [
                     'realm' => $realm,
-                    'briefRepresentation' => $briefRepresentation,
                 ],
+                $criteria
             )
         );
     }
 
-    public function adminEvents(string $realm): array
+    public function adminEvents(string $realm, ?Criteria $criteria = null): array
     {
         return $this->queryExecutor->executeQuery(
             new Query(
@@ -106,6 +107,7 @@ class Realms extends Resource
                 [
                     'realm' => $realm,
                 ],
+                $criteria,
             )
         );
     }

@@ -10,6 +10,7 @@ class Query
         private readonly string $path,
         private readonly string $returnType,
         private readonly array $parameters = [],
+        private readonly ?Criteria $criteria = null,
     ) {
     }
 
@@ -25,22 +26,24 @@ class Query
             array_keys($this->parameters),
         );
 
-        $values = array_map(
-            static function (mixed $value): string {
-                if (is_bool($value)) {
-                    return $value ? 'true' : 'false';
-                }
+        $values = array_values($this->parameters);
 
-                return (string) $value;
-            },
-            array_values($this->parameters)
-        );
-
-        return str_replace(
+        $path = str_replace(
             $placeholders,
             $values,
             $this->path
         );
+
+        return $path . $this->getQuery();
+    }
+
+    private function getQuery(): string
+    {
+        if (!$this->criteria) {
+            return '';
+        }
+
+        return '?' . http_build_query($this->criteria->jsonSerialize());
     }
 
     public function getReturnType(): string
