@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Test\Unit\Http;
 
+use DateTimeImmutable;
 use Fschmtt\Keycloak\Http\Criteria;
 use PHPUnit\Framework\TestCase;
+use Stringable;
 
 /**
  * @covers \Fschmtt\Keycloak\Http\Criteria
@@ -19,23 +21,57 @@ class CriteriaTest extends TestCase
         static::assertSame([], $criteria->jsonSerialize());
     }
 
+    public function testFiltersOutNullCriterion(): void
+    {
+        $criteria = new Criteria([
+            'foo' => null,
+        ]);
+
+        static::assertSame([], $criteria->jsonSerialize());
+    }
+
     public function testCanCreateCriteriaWithBoolCriterion(): void
     {
         $criteria = new Criteria([
-            Criteria::BRIEF_REPRESENTATION => true,
+            'bool' => true,
         ]);
 
-        static::assertArrayHasKey(Criteria::BRIEF_REPRESENTATION, $criteria->jsonSerialize());
-        static::assertSame('true', $criteria->jsonSerialize()[Criteria::BRIEF_REPRESENTATION]);
+        static::assertArrayHasKey('bool', $criteria->jsonSerialize());
+        static::assertSame('true', $criteria->jsonSerialize()['bool']);
     }
 
     public function testCanCreateCriteriaWithArrayCriterion(): void
     {
         $criteria = new Criteria([
-            Criteria::ADMIN_EVENT_OPERATION_TYPES => ['type-a', 'type-b'],
+            'array' => ['type-a', 'type-b'],
         ]);
 
-        static::assertArrayHasKey(Criteria::ADMIN_EVENT_OPERATION_TYPES, $criteria->jsonSerialize());
-        static::assertSame(['type-a', 'type-b'], $criteria->jsonSerialize()[Criteria::ADMIN_EVENT_OPERATION_TYPES]);
+        static::assertArrayHasKey('array', $criteria->jsonSerialize());
+        static::assertSame(['type-a', 'type-b'], $criteria->jsonSerialize()['array']);
+    }
+
+    public function testCanCreateCriteriaWithDateTimeImmutableCriterion(): void
+    {
+        $criteria = new Criteria([
+            'dateTimeImmutable' => new DateTimeImmutable('2022-12-18'),
+        ]);
+
+        static::assertArrayHasKey('dateTimeImmutable', $criteria->jsonSerialize());
+        static::assertSame('2022-12-18', $criteria->jsonSerialize()['dateTimeImmutable']);
+    }
+
+    public function testCanCreateCriteriaWithStringableCriterion(): void
+    {
+        $criteria = new Criteria([
+            'stringable' => new class() implements Stringable {
+                public function __toString(): string
+                {
+                    return 'criterion';
+                }
+            },
+        ]);
+
+        static::assertArrayHasKey('stringable', $criteria->jsonSerialize());
+        static::assertSame('criterion', $criteria->jsonSerialize()['stringable']);
     }
 }
