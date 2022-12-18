@@ -24,11 +24,8 @@ class RealmsTest extends TestCase
     public function testGetAllRealms(): void
     {
         $query = new Query(
-            '/admin/realms?briefRepresentation={briefRepresentation}',
+            '/admin/realms',
             RealmCollection::class,
-            [
-                'briefRepresentation' => true,
-            ],
         );
 
         $queryExecutor = $this->createMock(QueryExecutor::class);
@@ -67,11 +64,10 @@ class RealmsTest extends TestCase
             ->with($command);
 
         $query = new Query(
-            '/admin/realms/{realm}?briefRepresentation={briefRepresentation}',
+            '/admin/realms/{realm}',
             Realm::class,
             [
                 'realm' => 'imported-realm',
-                'briefRepresentation' => true,
             ],
         );
 
@@ -111,11 +107,10 @@ class RealmsTest extends TestCase
             ->with($command);
 
         $query = new Query(
-            '/admin/realms/{realm}?briefRepresentation={briefRepresentation}',
+            '/admin/realms/{realm}',
             Realm::class,
             [
                 'realm' => 'updated-realm',
-                'briefRepresentation' => true,
             ],
         );
 
@@ -164,11 +159,10 @@ class RealmsTest extends TestCase
     public function testGetGroups(): void
     {
         $query = new Query(
-            '/admin/realms/{realm}/groups?briefRepresentation={briefRepresentation}',
+            '/admin/realms/{realm}/groups',
             GroupCollection::class,
             [
                 'realm' => 'realm-with-groups',
-                'briefRepresentation' => true,
             ],
         );
 

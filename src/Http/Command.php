@@ -28,16 +28,7 @@ class Command
             array_keys($this->parameters),
         );
 
-        $values = array_map(
-            static function (mixed $value): string {
-                if (is_bool($value)) {
-                    return $value ? 'true' : 'false';
-                }
-
-                return (string) $value;
-            },
-            array_values($this->parameters)
-        );
+        $values = array_values($this->parameters);
 
         return str_replace(
             $placeholders,

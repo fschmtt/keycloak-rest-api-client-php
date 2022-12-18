@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Test\Integration\Resource;
 
 use Exception;
+use Fschmtt\Keycloak\Http\Criteria;
 use Fschmtt\Keycloak\Representation\User;
 use Fschmtt\Keycloak\Test\Integration\IntegrationTestBehaviour;
 use PHPUnit\Framework\TestCase;
@@ -34,10 +35,10 @@ class UsersTest extends TestCase
         );
 
         // Search (imported) user
-        $importedUser = $resource->search('master', [
+        $importedUser = $resource->search('master', new Criteria([
             'username' => $importedUsername,
-            'exact' => 'true',
-        ])->first();
+            'exact' => true,
+        ]))->first();
         static::assertInstanceOf(User::class, $importedUser);
         static::assertEquals($importedFirstName, $importedUser->getFirstName());
 
@@ -48,10 +49,10 @@ class UsersTest extends TestCase
         // Update (imported) user
         $resource->update('master', $importedUser->getId(), $importedUser->withFirstName($updatedFirstName));
 
-        $updatedUser = $resource->search('master', [
+        $updatedUser = $resource->search('master', new Criteria([
             'username' => $importedUsername,
-            'exact' => 'true',
-        ])->first();
+            'exact' => true,
+        ]))->first();
         static::assertInstanceOf(User::class, $updatedUser);
         static::assertSame($updatedFirstName, $updatedUser->getFirstName());
 

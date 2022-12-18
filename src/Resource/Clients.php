@@ -6,13 +6,14 @@ namespace Fschmtt\Keycloak\Resource;
 
 use Fschmtt\Keycloak\Collection\ClientCollection;
 use Fschmtt\Keycloak\Http\Command;
+use Fschmtt\Keycloak\Http\Criteria;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Representation\Client as ClientRepresentation;
 
 class Clients extends Resource
 {
-    public function all(string $realm): ClientCollection
+    public function all(string $realm, ?Criteria $criteria = null): ClientCollection
     {
         return $this->queryExecutor->executeQuery(
             new Query(
@@ -21,6 +22,7 @@ class Clients extends Resource
                 [
                     'realm' => $realm,
                 ],
+                $criteria,
             )
         );
     }
@@ -86,7 +88,7 @@ class Clients extends Resource
         );
     }
 
-    public function getUserSessions(string $realm, string $clientId): array
+    public function getUserSessions(string $realm, string $clientId, ?Criteria $criteria = null): array
     {
         return $this->queryExecutor->executeQuery(
             new Query(
@@ -96,6 +98,7 @@ class Clients extends Resource
                     'realm' => $realm,
                     'clientId' => $clientId,
                 ],
+                $criteria,
             )
         );
     }

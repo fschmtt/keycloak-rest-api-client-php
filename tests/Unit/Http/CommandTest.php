@@ -32,13 +32,13 @@ class CommandTest extends TestCase
     public function testSubstitutesParametersInPath(): void
     {
         static::assertSame(
-            '/admin/realms/master/groups?briefRepresentation=true',
+            '/admin/realms/master/groups/group-uuid',
             (new Command(
-                '/admin/realms/{realm}/groups?briefRepresentation={briefRepresentation}',
+                '/admin/realms/{realm}/groups/{groupId}',
                 Method::GET,
                 [
                     'realm' => 'master',
-                    'briefRepresentation' => true,
+                    'groupId' => 'group-uuid',
                 ]
             ))->getPath()
         );
