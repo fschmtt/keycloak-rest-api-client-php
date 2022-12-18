@@ -12,11 +12,10 @@ $keycloak = new Keycloak(
     password: 'admin',
 );
 
-$realm = $keycloak->realms()->get('master');
+$realm = 'master';
+$users = $keycloak->users()->all($realm);
 
-$users = $keycloak->realms()->users($realm->getRealm());
-
-echo sprintf('Realm "%s" has the following users:%s', $realm->getRealm(), PHP_EOL);
+echo sprintf('Realm "%s" has the following users:%s', $realm, PHP_EOL);
 
 foreach ($users as $user) {
     echo sprintf('-> User "%s"%s', $user->getUsername(), PHP_EOL);

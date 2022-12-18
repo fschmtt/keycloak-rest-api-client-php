@@ -6,7 +6,6 @@ namespace Fschmtt\Keycloak\Resource;
 
 use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Collection\RealmCollection;
-use Fschmtt\Keycloak\Collection\UserCollection;
 use Fschmtt\Keycloak\Http\Command;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
@@ -77,19 +76,6 @@ class Realms extends Resource
             new Command(
                 '/admin/realms/{realm}',
                 Method::DELETE,
-                [
-                    'realm' => $realm,
-                ],
-            )
-        );
-    }
-
-    public function users(string $realm): UserCollection
-    {
-        return $this->queryExecutor->executeQuery(
-            new Query(
-                '/admin/realms/{realm}/users',
-                UserCollection::class,
                 [
                     'realm' => $realm,
                 ],
