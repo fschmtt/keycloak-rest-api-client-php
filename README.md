@@ -79,8 +79,8 @@ More examples can be found in the [examples](examples) directory.
 | `POST /admin/realms/{realm}/clear-user-cache` | `204` | `n/a` | [Realms::clearUserCache()](src/Resource/Realms.php) |
 
 ### [Users](https://www.keycloak.org/docs-api/20.0.0/rest-api/index.html#_users_resource)
-| Endpoint | Status Code | API |
-|----------|-------------|----------|-----|
+| Endpoint | Response | API |
+|----------|----------|-----|
 | `GET /admin/realms/{realm}/users` | [UserCollection](src/Collection/UserCollection.php) | [Users::all()](src/Resource/Users.php) |
 | `POST /admin/realms/{realm}/users` | [User](src/Representation/User.php) | [Users::create()](src/Resource/Users.php) |
 | `GET /admin/realms/{realm}/users/{userId}` | [User](src/Representation/User.php) | [Users::get()](src/Resource/Users.php) |
