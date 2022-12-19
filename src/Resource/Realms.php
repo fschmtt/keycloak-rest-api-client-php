@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Resource;
 
-use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Collection\RealmCollection;
 use Fschmtt\Keycloak\Http\Command;
 use Fschmtt\Keycloak\Http\Criteria;
@@ -77,23 +76,6 @@ class Realms extends Resource
                 [
                     'realm' => $realm,
                 ],
-            )
-        );
-    }
-
-    /**
-     * TODO: Refactor to its own resource
-     */
-    public function groups(string $realm, ?Criteria $criteria = null): GroupCollection
-    {
-        return $this->queryExecutor->executeQuery(
-            new Query(
-                '/admin/realms/{realm}/groups',
-                GroupCollection::class,
-                [
-                    'realm' => $realm,
-                ],
-                $criteria
             )
         );
     }

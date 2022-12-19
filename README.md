@@ -65,6 +65,15 @@ More examples can be found in the [examples](examples) directory.
 | `PUT /admin/realms/{realm}/clients/{id}` | [Client](src/Representation/Client.php) | [Clients::update()](src/Resource/Clients.php) |
 | `POST /admin/realms/{realm}/clients` | [Client](src/Representation/Client.php) | [Clients::import()](src/Resource/Clients.php) |
 
+### [Groups](https://www.keycloak.org/docs-api/20.0.0/rest-api/index.html#_clients_resource)
+| Endpoint | Response | API |
+|----------|----------|-----|
+| `GET /admin/realms/{realm}/groups` | [ClientCollection](src/Collection/GroupCollection.php) | [Groups::all()](src/Resource/Groups.php) |
+| `GET /admin/realms/{realm}/groups/{id}` | [Client](src/Representation/Group.php) | [Groups::get()](src/Resource/Groups.php) |
+| `PUT /admin/realms/{realm}/groups/{id}` | `n/a` | [Groups::update()](src/Resource/Groups.php) |
+| `POST /admin/realms/{realm}/groups` | `n/a` | [Groups::import()](src/Resource/Groups.php) |
+| `DELETE /admin/realms/{realm}/groups` | `n/a` | [Groups::delete()](src/Resource/Groups.php) |
+
 ### [Realms Admin](https://www.keycloak.org/docs-api/20.0.0/rest-api/index.html#_realms_admin_resource)
 | Endpoint | Status Code | Response | API |
 |----------|-------------|----------|-----|
