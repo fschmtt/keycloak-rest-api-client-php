@@ -1,0 +1,86 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Fschmtt\Keycloak\Resource;
+
+use Fschmtt\Keycloak\Collection\GroupCollection;
+use Fschmtt\Keycloak\Http\Command;
+use Fschmtt\Keycloak\Http\Criteria;
+use Fschmtt\Keycloak\Http\Method;
+use Fschmtt\Keycloak\Http\Query;
+use Fschmtt\Keycloak\Representation\Group;
+
+class Groups extends Resource
+{
+    public function all(string $realm, ?Criteria $criteria = null): GroupCollection
+    {
+        return $this->queryExecutor->executeQuery(
+            new Query(
+                '/admin/realms/{realm}/groups',
+                GroupCollection::class,
+                [
+                    'realm' => $realm,
+                ],
+                $criteria
+            )
+        );
+    }
+
+    public function get(string $realm, string $groupId): Group
+    {
+        return $this->queryExecutor->executeQuery(
+            new Query(
+                '/admin/realms/{realm}/groups/{groupId}',
+                Group::class,
+                [
+                    'realm' => $realm,
+                    'groupId' => $groupId,
+                ]
+            )
+        );
+    }
+
+    public function create(string $realm, Group $group): void
+    {
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms/{realm}/groups',
+                Method::POST,
+                [
+                    'realm' => $realm,
+                ],
+                $group
+            )
+        );
+    }
+
+    public function update(string $realm, string $groupId, Group $updatedGroup): void
+    {
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms/{realm}/groups/{groupId}',
+                Method::PUT,
+                [
+                    'realm' => $realm,
+                    'groupId' => $groupId,
+                ],
+                $updatedGroup
+            )
+        );
+    }
+
+    public function delete(string $realm, string $groupId): void
+    {
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms/{realm}/groups/{groupId}',
+                Method::DELETE,
+                [
+                    'realm' => $realm,
+                    'groupId' => $groupId,
+                ],
+            )
+        );
+    }
+}

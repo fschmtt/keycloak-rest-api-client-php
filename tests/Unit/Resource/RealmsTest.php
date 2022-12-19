@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Test\Unit\Resource;
 
-use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Collection\RealmCollection;
 use Fschmtt\Keycloak\Http\Command;
 use Fschmtt\Keycloak\Http\CommandExecutor;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Http\QueryExecutor;
-use Fschmtt\Keycloak\Representation\Group;
 use Fschmtt\Keycloak\Representation\Realm;
 use Fschmtt\Keycloak\Resource\Realms;
 use PHPUnit\Framework\TestCase;
@@ -154,38 +152,6 @@ class RealmsTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
         $realms->delete('to-be-deleted-realm');
-    }
-
-    public function testGetGroups(): void
-    {
-        $query = new Query(
-            '/admin/realms/{realm}/groups',
-            GroupCollection::class,
-            [
-                'realm' => 'realm-with-groups',
-            ],
-        );
-
-        $queryExecutor = $this->createMock(QueryExecutor::class);
-        $queryExecutor->expects(static::once())
-            ->method('executeQuery')
-            ->with($query)
-            ->willReturn(
-                new GroupCollection([
-                    new Group(id: 'group-1'),
-                    new Group(id: 'group-2'),
-                ]),
-            );
-
-        $realms = new Realms(
-            $this->createMock(CommandExecutor::class),
-            $queryExecutor,
-        );
-        $groups = $realms->groups('realm-with-groups');
-
-        static::assertCount(2, $groups);
-        static::assertInstanceOf(Group::class, $groups->first());
-        static::assertSame('group-1', $groups->first()->getId());
     }
 
     public function testGetAdminEvents(): void

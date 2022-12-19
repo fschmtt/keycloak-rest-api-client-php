@@ -10,6 +10,7 @@ use Fschmtt\Keycloak\Http\PropertyFilter;
 use Fschmtt\Keycloak\Http\QueryExecutor;
 use Fschmtt\Keycloak\Resource\AttackDetection;
 use Fschmtt\Keycloak\Resource\Clients;
+use Fschmtt\Keycloak\Resource\Groups;
 use Fschmtt\Keycloak\Resource\Realms;
 use Fschmtt\Keycloak\Resource\ServerInfo;
 use Fschmtt\Keycloak\Resource\Users;
@@ -81,6 +82,13 @@ class Keycloak
         $this->fetchVersion();
 
         return new Users($this->commandExecutor, $this->queryExecutor);
+    }
+
+    public function groups(): Groups
+    {
+        $this->fetchVersion();
+
+        return new Groups($this->commandExecutor, $this->queryExecutor);
     }
 
     private function fetchVersion(): void

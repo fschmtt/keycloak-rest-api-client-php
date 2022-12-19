@@ -13,11 +13,10 @@ $keycloak = new Keycloak(
     password: 'admin',
 );
 
-$realm = $keycloak->realms()->get('master');
+$realm = 'master';
+$groups = $keycloak->groups()->all($realm);
 
-$groups = $keycloak->realms()->groups($realm->getRealm());
-
-echo sprintf('Realm "%s" has the following groups:%s', $realm->getRealm(), PHP_EOL);
+echo sprintf('Realm "%s" has the following groups:%s', $realm, PHP_EOL);
 
 foreach ($groups as $group) {
     echoGroup($group);
