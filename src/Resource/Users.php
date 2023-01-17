@@ -97,4 +97,34 @@ class Users extends Resource
             )
         );
     }
+
+    public function joinGroup(string $realm, string $userId, string $groupId): void
+    {
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms/{realm}/users/{userId}/groups/{groupId}',
+                Method::PUT,
+                [
+                    'realm' => $realm,
+                    'userId' => $userId,
+                    'groupId' => $groupId,
+                ]
+            )
+        );
+    }
+
+    public function leaveGroup(string $realm, string $userId, string $groupId): void
+    {
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms/{realm}/users/{userId}/groups/{groupId}',
+                Method::DELETE,
+                [
+                    'realm' => $realm,
+                    'userId' => $userId,
+                    'groupId' => $groupId,
+                ]
+            )
+        );
+    }
 }

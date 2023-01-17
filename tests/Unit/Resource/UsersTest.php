@@ -190,4 +190,54 @@ class UsersTest extends TestCase
 
         $users->search('test-realm', $criteria);
     }
+
+    public function testJoinGroup(): void
+    {
+        $command = new Command(
+            '/admin/realms/{realm}/users/{userId}/groups/{groupId}',
+            Method::PUT,
+            [
+                'realm' => 'test-realm',
+                'userId' => 'test-user',
+                'groupId' => 'test-group',
+            ],
+        );
+
+        $commandExecutor = $this->createMock(CommandExecutor::class);
+        $commandExecutor->expects(static::once())
+            ->method('executeCommand')
+            ->with($command);
+
+        $users = new Users(
+            $commandExecutor,
+            $this->createMock(QueryExecutor::class),
+        );
+
+        $users->joinGroup('test-realm', 'test-user', 'test-group');
+    }
+
+    public function testLeaveGroup(): void
+    {
+        $command = new Command(
+            '/admin/realms/{realm}/users/{userId}/groups/{groupId}',
+            Method::DELETE,
+            [
+                'realm' => 'test-realm',
+                'userId' => 'test-user',
+                'groupId' => 'test-group',
+            ],
+        );
+
+        $commandExecutor = $this->createMock(CommandExecutor::class);
+        $commandExecutor->expects(static::once())
+            ->method('executeCommand')
+            ->with($command);
+
+        $users = new Users(
+            $commandExecutor,
+            $this->createMock(QueryExecutor::class),
+        );
+
+        $users->joinGroup('test-realm', 'test-user', 'test-group');
+    }
 }
