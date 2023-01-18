@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Resource;
 
+use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Collection\UserCollection;
 use Fschmtt\Keycloak\Http\Command;
 use Fschmtt\Keycloak\Http\Criteria;
@@ -124,6 +125,21 @@ class Users extends Resource
                     'userId' => $userId,
                     'groupId' => $groupId,
                 ]
+            )
+        );
+    }
+
+    public function retrieveGroups(string $realm, string $userId, ?Criteria $criteria = null): GroupCollection
+    {
+        return $this->queryExecutor->executeQuery(
+            new Query(
+                '/admin/realms/{realm}/users/{userId}/groups',
+                GroupCollection::class,
+                [
+                    'realm' => $realm,
+                    'userId' => $userId,
+                ],
+                $criteria
             )
         );
     }

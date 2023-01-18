@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Test\Unit\Resource;
 
+use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Collection\UserCollection;
 use Fschmtt\Keycloak\Http\Command;
 use Fschmtt\Keycloak\Http\CommandExecutor;
@@ -11,6 +12,7 @@ use Fschmtt\Keycloak\Http\Criteria;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Http\QueryExecutor;
+use Fschmtt\Keycloak\Representation\Group;
 use Fschmtt\Keycloak\Representation\User;
 use Fschmtt\Keycloak\Resource\Users;
 use PHPUnit\Framework\TestCase;
@@ -239,5 +241,38 @@ class UsersTest extends TestCase
         );
 
         $users->leaveGroup('test-realm', 'test-user', 'test-group');
+    }
+
+    public function testRetrieveGroups(): void
+    {
+        $query = new Query(
+            '/admin/realms/{realm}/users/{userId}/groups',
+            GroupCollection::class,
+            [
+                'realm' => 'test-realm',
+                'userId' => 'test-user',
+            ],
+        );
+
+        $groupCollection = new GroupCollection([
+            new Group(id: 'test-group-1'),
+            new Group(id: 'test-group-2'),
+        ]);
+
+        $queryExecutor = $this->createMock(QueryExecutor::class);
+        $queryExecutor->expects(static::once())
+            ->method('executeQuery')
+            ->with($query)
+            ->willReturn($groupCollection);
+
+        $users = new Users(
+            $this->createMock(CommandExecutor::class),
+            $queryExecutor,
+        );
+
+        static::assertSame(
+            $groupCollection,
+            $users->retrieveGroups('test-realm', 'test-user')
+        );
     }
 }
