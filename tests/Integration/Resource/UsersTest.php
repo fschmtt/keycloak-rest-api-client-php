@@ -6,6 +6,7 @@ namespace Fschmtt\Keycloak\Test\Integration\Resource;
 
 use Exception;
 use Fschmtt\Keycloak\Http\Criteria;
+use Fschmtt\Keycloak\Representation\Group;
 use Fschmtt\Keycloak\Representation\User;
 use Fschmtt\Keycloak\Test\Integration\IntegrationTestBehaviour;
 use PHPUnit\Framework\TestCase;
@@ -65,5 +66,38 @@ class UsersTest extends TestCase
         } catch (Exception $e) {
             static::assertSame(404, $e->getCode());
         }
+    }
+
+    public function testJoinRetrieveLeaveGroupUser(): void
+    {
+        $users = $this->getKeycloak()->users();
+        $user = $users->all('master')->first();
+
+        // create a temp group required for our test
+        $groups = $this->getKeycloak()->groups();
+        $groupName = Uuid::uuid4()->toString();
+        $groups->create(
+            'master',
+            new Group(name: $groupName),
+        );
+        $group = $groups->all('master')->first();
+
+        // join group
+        $users->joinGroup('master', $user->getId(), $group->getId());
+
+        $userGroups = $users->retrieveGroups('master', $user->getId());
+        static::assertGreaterThanOrEqual(1, $userGroups->count());
+        $userFirstGroup = $userGroups->first();
+        static::assertInstanceOf(Group::class, $userFirstGroup);
+        static::assertSame($group->getId(), $userFirstGroup->getId());
+
+        // leave group
+        $users->leaveGroup('master', $user->getId(), $group->getId());
+
+        $userGroups = $users->retrieveGroups('master', $user->getId());
+        static::assertGreaterThanOrEqual(0, $userGroups->count());
+
+        // remove the temp group
+        $groups->delete('master', $group->getId());
     }
 }
