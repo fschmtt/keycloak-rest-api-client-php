@@ -238,6 +238,6 @@ class UsersTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
 
-        $users->joinGroup('test-realm', 'test-user', 'test-group');
+        $users->leaveGroup('test-realm', 'test-user', 'test-group');
     }
 }
