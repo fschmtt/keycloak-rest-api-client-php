@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Resource;
 
+use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Collection\UserCollection;
 use Fschmtt\Keycloak\Http\Command;
 use Fschmtt\Keycloak\Http\Criteria;
@@ -92,6 +93,51 @@ class Users extends Resource
                 UserCollection::class,
                 [
                     'realm' => $realm,
+                ],
+                $criteria
+            )
+        );
+    }
+
+    public function joinGroup(string $realm, string $userId, string $groupId): void
+    {
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms/{realm}/users/{userId}/groups/{groupId}',
+                Method::PUT,
+                [
+                    'realm' => $realm,
+                    'userId' => $userId,
+                    'groupId' => $groupId,
+                ]
+            )
+        );
+    }
+
+    public function leaveGroup(string $realm, string $userId, string $groupId): void
+    {
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms/{realm}/users/{userId}/groups/{groupId}',
+                Method::DELETE,
+                [
+                    'realm' => $realm,
+                    'userId' => $userId,
+                    'groupId' => $groupId,
+                ]
+            )
+        );
+    }
+
+    public function retrieveGroups(string $realm, string $userId, ?Criteria $criteria = null): GroupCollection
+    {
+        return $this->queryExecutor->executeQuery(
+            new Query(
+                '/admin/realms/{realm}/users/{userId}/groups',
+                GroupCollection::class,
+                [
+                    'realm' => $realm,
+                    'userId' => $userId,
                 ],
                 $criteria
             )
