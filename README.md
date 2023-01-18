@@ -98,6 +98,7 @@ More examples can be found in the [examples](examples) directory.
 | `GET /admin/realms/{realm}/users` | [UserCollection](src/Collection/UserCollection.php) | [Users::search()](src/Resource/Users.php) |
 | `PUT /{realm}/users/{id}/groups/{groupId}` | `n/a` | [Users::joinGroup()](src/Resource/Users.php) |
 | `DELETE /{realm}/users/{id}/groups/{groupId}` | `n/a` | [Users::leaveGroup()](src/Resource/Users.php) |
+| `GET /{realm}/users/{id}/groups` | [GroupCollection](src/Collection/GroupCollection.php) | [Users::retrieveGroups()](src/Resource/Users.php) |
 
 ### [Root](https://www.keycloak.org/docs-api/20.0.0/rest-api/index.html#_root_resource)
 | Endpoint | Response | API |
