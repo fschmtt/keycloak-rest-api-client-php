@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Test\Unit\Resource;
 
 use Fschmtt\Keycloak\Collection\GroupCollection;
+use Fschmtt\Keycloak\Collection\RoleCollection;
 use Fschmtt\Keycloak\Collection\UserCollection;
 use Fschmtt\Keycloak\Http\Command;
 use Fschmtt\Keycloak\Http\CommandExecutor;
@@ -13,6 +14,7 @@ use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Http\QueryExecutor;
 use Fschmtt\Keycloak\Representation\Group;
+use Fschmtt\Keycloak\Representation\Role;
 use Fschmtt\Keycloak\Representation\User;
 use Fschmtt\Keycloak\Resource\Users;
 use PHPUnit\Framework\TestCase;
@@ -274,5 +276,125 @@ class UsersTest extends TestCase
             $groupCollection,
             $users->retrieveGroups('test-realm', 'test-user')
         );
+    }
+
+    public function testRetrieveRealmRoles(): void
+    {
+        $query = new Query(
+            '/admin/realms/{realm}/users/{userId}/role-mappings/realm',
+            RoleCollection::class,
+            [
+                'realm' => 'test-realm',
+                'userId' => 'test-user',
+            ],
+        );
+
+        $roleCollection = new RoleCollection([
+            new Role(id: 'test-role-1'),
+            new Role(id: 'test-role-2'),
+        ]);
+
+        $queryExecutor = $this->createMock(QueryExecutor::class);
+        $queryExecutor->expects(static::once())
+            ->method('executeQuery')
+            ->with($query)
+            ->willReturn($roleCollection);
+
+        $users = new Users(
+            $this->createMock(CommandExecutor::class),
+            $queryExecutor,
+        );
+
+        static::assertSame(
+            $roleCollection,
+            $users->retrieveRealmRoles('test-realm', 'test-user')
+        );
+    }
+
+    public function testRetrieveAvailableRealmRoles(): void
+    {
+        $query = new Query(
+            '/admin/realms/{realm}/users/{userId}/role-mappings/realm/available',
+            RoleCollection::class,
+            [
+                'realm' => 'test-realm',
+                'userId' => 'test-user',
+            ],
+        );
+
+        $roleCollection = new RoleCollection([
+            new Role(id: 'test-role-1'),
+            new Role(id: 'test-role-2'),
+        ]);
+
+        $queryExecutor = $this->createMock(QueryExecutor::class);
+        $queryExecutor->expects(static::once())
+            ->method('executeQuery')
+            ->with($query)
+            ->willReturn($roleCollection);
+
+        $users = new Users(
+            $this->createMock(CommandExecutor::class),
+            $queryExecutor,
+        );
+
+        static::assertSame(
+            $roleCollection,
+            $users->retrieveAvailableRealmRoles('test-realm', 'test-user')
+        );
+    }
+
+    public function testAddRealmRoles(): void
+    {
+        $roles = [new Role(id: 'uuid', name: 'some-name')];
+
+        $command = new Command(
+            '/admin/realms/{realm}/users/{userId}/role-mappings/realm',
+            Method::POST,
+            [
+                'realm' => 'test-realm',
+                'userId' => 'test-user',
+            ],
+            $roles,
+        );
+
+        $commandExecutor = $this->createMock(CommandExecutor::class);
+        $commandExecutor->expects(static::once())
+            ->method('executeCommand')
+            ->with($command);
+
+        $users = new Users(
+            $commandExecutor,
+            $this->createMock(QueryExecutor::class),
+        );
+
+        $users->addRealmRoles('test-realm', 'test-user', $roles);
+    }
+
+    public function testRemoveRealmRoles(): void
+    {
+        $roles = [new Role(id: 'uuid', name: 'some-name')];
+
+        $command = new Command(
+            '/admin/realms/{realm}/users/{userId}/role-mappings/realm',
+            Method::DELETE,
+            [
+                'realm' => 'test-realm',
+                'userId' => 'test-user',
+            ],
+            $roles,
+        );
+
+        $commandExecutor = $this->createMock(CommandExecutor::class);
+        $commandExecutor->expects(static::once())
+            ->method('executeCommand')
+            ->with($command);
+
+        $users = new Users(
+            $commandExecutor,
+            $this->createMock(QueryExecutor::class),
+        );
+
+        $users->removeRealmRoles('test-realm', 'test-user', $roles);
     }
 }
