@@ -20,13 +20,26 @@ class CommandExecutor
             $command->getMethod()->value,
             $command->getPath(),
             [
-                'body' => $command->getRepresentation()
-                    ? (new JsonEncoder())->encode($this->propertyFilter->filter($command->getRepresentation()))
-                    : null,
+                'body' => $this->prepareBody($command),
                 'headers' => [
                     'Content-Type' => 'application/json',
                 ],
             ]
         );
+    }
+
+    protected function prepareBody(Command $command): ?string
+    {
+        if ($command->getPayload() === null) {
+            return null;
+        }
+
+        if (is_array($command->getPayload())) {
+            $payload = array_map([$this->propertyFilter, 'filter'], $command->getPayload());
+        } else {
+            $payload = $this->propertyFilter->filter($command->getPayload());
+        }
+
+        return (new JsonEncoder())->encode($payload);
     }
 }

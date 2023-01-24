@@ -14,19 +14,36 @@ use PHPUnit\Framework\TestCase;
  */
 class CommandTest extends TestCase
 {
-    public function testHasNoRepresentationByDefault(): void
+    public function testHasNoPayloadByDefault(): void
     {
-        static::assertNull((new Command('/path', Method::POST))->getRepresentation());
+        static::assertNull((new Command('/path', Method::POST))->getPayload());
     }
 
-    public function testCanGetRepresentation(): void
+    public function testCanGetPayload(): void
     {
         $representation = new Representation();
 
         static::assertSame(
             $representation,
-            (new Command('/path', Method::POST, [], $representation))->getRepresentation()
+            (new Command('/path', Method::POST, [], $representation))->getPayload()
         );
+    }
+
+    public function testCanGetPayloadWithArray(): void
+    {
+        $payload = [new Representation()];
+
+        static::assertSame(
+            $payload,
+            (new Command('/path', Method::POST, [], $payload))->getPayload()
+        );
+    }
+
+    public function testInvalidPayloadThrowsException(): void
+    {
+        $this->expectException(\TypeError::class);
+        /** @psalm-suppress InvalidArgument */
+        new Command('/path', Method::POST, [], [1, 2, 3]);
     }
 
     public function testSubstitutesParametersInPath(): void

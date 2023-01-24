@@ -51,7 +51,7 @@ class CommandExecutorTest extends TestCase
             [],
             new Representation()
         );
-        $representation = $command->getRepresentation();
+        $payload = $command->getPayload();
 
         $client = $this->createMock(Client::class);
         $client->expects(static::once())
@@ -60,7 +60,36 @@ class CommandExecutorTest extends TestCase
                 Method::PUT->value,
                 '/path/to/resource',
                 [
-                    'body' => (new JsonEncoder())->encode($representation->jsonSerialize()),
+                    'body' => (new JsonEncoder())->encode($payload->jsonSerialize()),
+                    'headers' => [
+                        'Content-Type' => 'application/json',
+                    ],
+                ]
+            );
+
+        $executor = new CommandExecutor($client, new PropertyFilter());
+        $executor->executeCommand($command);
+    }
+
+    public function testCallsClientWithBodyIfCommandHasArrayOfRepresentations(): void
+    {
+        $representation = new Representation();
+
+        $command = new Command(
+            '/path/to/resource',
+            Method::PUT,
+            [],
+            [$representation]
+        );
+
+        $client = $this->createMock(Client::class);
+        $client->expects(static::once())
+            ->method('request')
+            ->with(
+                Method::PUT->value,
+                '/path/to/resource',
+                [
+                    'body' => (new JsonEncoder())->encode([$representation->jsonSerialize()]),
                     'headers' => [
                         'Content-Type' => 'application/json',
                     ],
