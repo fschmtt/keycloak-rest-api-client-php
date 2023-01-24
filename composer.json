@@ -43,8 +43,8 @@
         "phpstan": "docker compose run --rm --no-deps php vendor/bin/phpstan analyze src tests examples",
         "psalm": "docker compose run --rm --no-deps php vendor/bin/psalm src tests examples",
         "test": [
-            "@test-unit",
-            "@test-integration"
+            "@test:unit",
+            "@test:integration"
         ],
         "test:unit": "docker compose run --rm --no-deps php vendor/bin/phpunit --testsuite unit",
         "test:integration": "docker compose run --rm --no-deps php vendor/bin/phpunit --testsuite integration"
