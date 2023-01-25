@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Test\Integration\Resource;
 
 use Exception;
+use Fschmtt\Keycloak\Collection\RoleCollection;
 use Fschmtt\Keycloak\Http\Criteria;
 use Fschmtt\Keycloak\Representation\Group;
 use Fschmtt\Keycloak\Representation\Role;
@@ -115,34 +116,34 @@ class UsersTest extends TestCase
 
             // retrieve user's roles and count them
             $roles = $users->retrieveRealmRoles('master', $user->getId());
-            $cntRoles = $roles->count();
+            $rolesCount = $roles->count();
 
             // retrieve user's available roles and count them
             $availableRoles = $users->retrieveAvailableRealmRoles('master', $user->getId());
-            $cntAvailableRoles = $availableRoles->count();
-            static::assertGreaterThanOrEqual(1, $cntAvailableRoles);
+            $availableRolesCount = $availableRoles->count();
+            static::assertGreaterThanOrEqual(1, $availableRolesCount);
             $role = $availableRoles->first();
             static::assertInstanceOf(Role::class, $role);
 
             // add the first available role to the user
-            $users->addRealmRoles('master', $user->getId(), [$role]);
+            $users->addRealmRoles('master', $user->getId(), new RoleCollection([$role]));
 
             $roles = $users->retrieveRealmRoles('master', $user->getId());
-            static::assertEquals($cntRoles + 1, $roles->count());
+            static::assertEquals($rolesCount + 1, $roles->count());
             static::assertContainsEquals($role, $roles);
 
             $availableRoles = $users->retrieveAvailableRealmRoles('master', $user->getId());
-            static::assertEquals($cntAvailableRoles - 1, $availableRoles->count());
+            static::assertEquals($availableRolesCount - 1, $availableRoles->count());
 
             // remove the role from the user (back to the initial state)
-            $users->removeRealmRoles('master', $user->getId(), [$role]);
+            $users->removeRealmRoles('master', $user->getId(), new RoleCollection([$role]));
 
             $roles = $users->retrieveRealmRoles('master', $user->getId());
-            static::assertEquals($cntRoles, $roles->count());
+            static::assertEquals($rolesCount, $roles->count());
             static::assertNotContainsEquals($role, $roles);
 
             $availableRoles = $users->retrieveAvailableRealmRoles('master', $user->getId());
-            static::assertEquals($cntAvailableRoles, $availableRoles->count());
+            static::assertEquals($availableRolesCount, $availableRoles->count());
         } finally {
             $this->getKeycloak()->roles()->delete('master', 'test-user-role');
         }

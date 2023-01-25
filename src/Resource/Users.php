@@ -173,7 +173,7 @@ class Users extends Resource
         );
     }
 
-    public function addRealmRoles(string $realm, string $userId, array $roles): void
+    public function addRealmRoles(string $realm, string $userId, RoleCollection $roles): void
     {
         $this->commandExecutor->executeCommand(
             new Command(
@@ -188,7 +188,7 @@ class Users extends Resource
         );
     }
 
-    public function removeRealmRoles(string $realm, string $userId, array $roles): void
+    public function removeRealmRoles(string $realm, string $userId, RoleCollection $roles): void
     {
         $this->commandExecutor->executeCommand(
             new Command(

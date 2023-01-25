@@ -4,26 +4,17 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Http;
 
+use Fschmtt\Keycloak\Collection\Collection;
 use Fschmtt\Keycloak\Representation\Representation;
 
 class Command
 {
-    /**
-     * @param Representation[]|Representation|null $payload
-     */
     public function __construct(
         private readonly string $path,
         private readonly Method $method,
         private readonly array $parameters = [],
-        private readonly array|Representation|null $payload = null,
+        private readonly Representation|Collection|null $payload = null,
     ) {
-        if (is_array($payload)) {
-            foreach ($payload as $representation) {
-                if (!$representation instanceof Representation) {
-                    throw new \TypeError(sprintf('"%s()" expects parameter 4 to be an array of Representation objects, but it contains "%s".', __METHOD__, get_debug_type($representation)));
-                }
-            }
-        }
     }
 
     public function getMethod(): Method
@@ -47,7 +38,7 @@ class Command
         );
     }
 
-    public function getPayload(): array|Representation|null
+    public function getPayload(): Representation|Collection|null
     {
         return $this->payload;
     }

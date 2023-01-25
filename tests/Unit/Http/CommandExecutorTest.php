@@ -10,6 +10,7 @@ use Fschmtt\Keycloak\Http\CommandExecutor;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\PropertyFilter;
 use Fschmtt\Keycloak\Json\JsonEncoder;
+use Fschmtt\Keycloak\Test\Unit\Stub\Collection;
 use Fschmtt\Keycloak\Test\Unit\Stub\Representation;
 use PHPUnit\Framework\TestCase;
 
@@ -71,7 +72,7 @@ class CommandExecutorTest extends TestCase
         $executor->executeCommand($command);
     }
 
-    public function testCallsClientWithBodyIfCommandHasArrayOfRepresentations(): void
+    public function testCallsClientWithBodyIfCommandHasCollection(): void
     {
         $representation = new Representation();
 
@@ -79,7 +80,7 @@ class CommandExecutorTest extends TestCase
             '/path/to/resource',
             Method::PUT,
             [],
-            [$representation]
+            new Collection([$representation]),
         );
 
         $client = $this->createMock(Client::class);

@@ -6,6 +6,7 @@ namespace Fschmtt\Keycloak\Test\Unit\Http;
 
 use Fschmtt\Keycloak\Http\Command;
 use Fschmtt\Keycloak\Http\Method;
+use Fschmtt\Keycloak\Test\Unit\Stub\Collection;
 use Fschmtt\Keycloak\Test\Unit\Stub\Representation;
 use PHPUnit\Framework\TestCase;
 
@@ -19,7 +20,7 @@ class CommandTest extends TestCase
         static::assertNull((new Command('/path', Method::POST))->getPayload());
     }
 
-    public function testCanGetPayload(): void
+    public function testCanGetRepresentationPayload(): void
     {
         $representation = new Representation();
 
@@ -29,21 +30,14 @@ class CommandTest extends TestCase
         );
     }
 
-    public function testCanGetPayloadWithArray(): void
+    public function testCanGetCollectionPayload(): void
     {
-        $payload = [new Representation()];
+        $payload = new Collection([new Representation()]);
 
         static::assertSame(
             $payload,
             (new Command('/path', Method::POST, [], $payload))->getPayload()
         );
-    }
-
-    public function testInvalidPayloadThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-        /** @psalm-suppress InvalidArgument */
-        new Command('/path', Method::POST, [], [1, 2, 3]);
     }
 
     public function testSubstitutesParametersInPath(): void

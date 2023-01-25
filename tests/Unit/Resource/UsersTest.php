@@ -346,7 +346,7 @@ class UsersTest extends TestCase
 
     public function testAddRealmRoles(): void
     {
-        $roles = [new Role(id: 'uuid', name: 'some-name')];
+        $roles = new RoleCollection([new Role(id: 'uuid', name: 'some-name')]);
 
         $command = new Command(
             '/admin/realms/{realm}/users/{userId}/role-mappings/realm',
@@ -373,7 +373,7 @@ class UsersTest extends TestCase
 
     public function testRemoveRealmRoles(): void
     {
-        $roles = [new Role(id: 'uuid', name: 'some-name')];
+        $roles = new RoleCollection([new Role(id: 'uuid', name: 'some-name')]);
 
         $command = new Command(
             '/admin/realms/{realm}/users/{userId}/role-mappings/realm',
