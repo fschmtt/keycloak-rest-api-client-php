@@ -104,38 +104,47 @@ class UsersTest extends TestCase
 
     public function testAddRemoveRealmRoleUser(): void
     {
-        $users = $this->getKeycloak()->users();
-        $user = $users->all('master')->first();
+        try {
+            // create a role required for our test
+            $this->getKeycloak()->roles()->create('master', new Role(
+                name: 'test-user-role',
+            ));
 
-        // retrieve user's roles and count them
-        $roles = $users->retrieveRealmRoles('master', $user->getId());
-        $cntRoles = $roles->count();
+            $users = $this->getKeycloak()->users();
+            $user = $users->all('master')->first();
 
-        // retrieve user's available roles and count them
-        $availableRoles = $users->retrieveAvailableRealmRoles('master', $user->getId());
-        $cntAvailableRoles = $availableRoles->count();
-        static::assertGreaterThanOrEqual(1, $cntAvailableRoles);
-        $role = $availableRoles->first();
-        static::assertInstanceOf(Role::class, $role);
+            // retrieve user's roles and count them
+            $roles = $users->retrieveRealmRoles('master', $user->getId());
+            $cntRoles = $roles->count();
 
-        // add the first available role to the user
-        $users->addRealmRoles('master', $user->getId(), [$role]);
+            // retrieve user's available roles and count them
+            $availableRoles = $users->retrieveAvailableRealmRoles('master', $user->getId());
+            $cntAvailableRoles = $availableRoles->count();
+            static::assertGreaterThanOrEqual(1, $cntAvailableRoles);
+            $role = $availableRoles->first();
+            static::assertInstanceOf(Role::class, $role);
 
-        $roles = $users->retrieveRealmRoles('master', $user->getId());
-        static::assertEquals($cntRoles + 1, $roles->count());
-        static::assertContainsEquals($role, $roles);
+            // add the first available role to the user
+            $users->addRealmRoles('master', $user->getId(), [$role]);
 
-        $availableRoles = $users->retrieveAvailableRealmRoles('master', $user->getId());
-        static::assertEquals($cntAvailableRoles - 1, $availableRoles->count());
+            $roles = $users->retrieveRealmRoles('master', $user->getId());
+            static::assertEquals($cntRoles + 1, $roles->count());
+            static::assertContainsEquals($role, $roles);
 
-        // remove the role from the user (back to the initial state)
-        $users->removeRealmRoles('master', $user->getId(), [$role]);
+            $availableRoles = $users->retrieveAvailableRealmRoles('master', $user->getId());
+            static::assertEquals($cntAvailableRoles - 1, $availableRoles->count());
 
-        $roles = $users->retrieveRealmRoles('master', $user->getId());
-        static::assertEquals($cntRoles, $roles->count());
-        static::assertNotContainsEquals($role, $roles);
+            // remove the role from the user (back to the initial state)
+            $users->removeRealmRoles('master', $user->getId(), [$role]);
 
-        $availableRoles = $users->retrieveAvailableRealmRoles('master', $user->getId());
-        static::assertEquals($cntAvailableRoles, $availableRoles->count());
+            $roles = $users->retrieveRealmRoles('master', $user->getId());
+            static::assertEquals($cntRoles, $roles->count());
+            static::assertNotContainsEquals($role, $roles);
+
+            $availableRoles = $users->retrieveAvailableRealmRoles('master', $user->getId());
+            static::assertEquals($cntAvailableRoles, $availableRoles->count());
+        } finally {
+            $this->getKeycloak()->roles()->delete('master', 'test-user-role');
+        }
     }
 }
