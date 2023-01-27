@@ -12,6 +12,7 @@ use Fschmtt\Keycloak\Resource\AttackDetection;
 use Fschmtt\Keycloak\Resource\Clients;
 use Fschmtt\Keycloak\Resource\Groups;
 use Fschmtt\Keycloak\Resource\Realms;
+use Fschmtt\Keycloak\Resource\Roles;
 use Fschmtt\Keycloak\Resource\ServerInfo;
 use Fschmtt\Keycloak\Resource\Users;
 use Fschmtt\Keycloak\Serializer\Factory as SerializerFactory;
@@ -89,6 +90,13 @@ class Keycloak
         $this->fetchVersion();
 
         return new Groups($this->commandExecutor, $this->queryExecutor);
+    }
+
+    public function roles(): Roles
+    {
+        $this->fetchVersion();
+
+        return new Roles($this->commandExecutor, $this->queryExecutor);
     }
 
     private function fetchVersion(): void

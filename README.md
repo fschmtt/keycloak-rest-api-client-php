@@ -99,6 +99,18 @@ More examples can be found in the [examples](examples) directory.
 | `PUT /{realm}/users/{id}/groups/{groupId}` | `n/a` | [Users::joinGroup()](src/Resource/Users.php) |
 | `DELETE /{realm}/users/{id}/groups/{groupId}` | `n/a` | [Users::leaveGroup()](src/Resource/Users.php) |
 | `GET /{realm}/users/{id}/groups` | [GroupCollection](src/Collection/GroupCollection.php) | [Users::retrieveGroups()](src/Resource/Users.php) |
+| `GET /{realm}/users/{id}/role-mappings/realm` | [RoleCollection](src/Collection/RoleCollection.php) | [Users::retrieveRealmRoles()](src/Resource/Users.php) |
+| `GET /{realm}/users/{id}/role-mappings/realm/available` | [RoleCollection](src/Collection/RoleCollection.php) | [Users::retrieveAvailableRealmRoles()](src/Resource/Users.php) |
+| `POST /{realm}/users/{id}/role-mappings/realm` | `n/a` | [Users::addRealmRoles()](src/Resource/Users.php) |
+| `DELETE /{realm}/users/{id}/role-mappings/realm` | `n/a` | [Users::removeRealmRoles()](src/Resource/Users.php) |
+
+### [Roles](https://www.keycloak.org/docs-api/20.0.0/rest-api/index.html#_roles_resource)
+| Endpoint | Response | API |
+|----------|----------|-----|
+| `GET /admin/realms/{realm}/roles` | [RoleCollection](src/Collection/RoleCollection.php) | [Roles::all()](src/Resource/Roles.php) |
+| `GET /admin/realms/{realm}/roles/{roleName}` | [Role](src/Representation/Role.php) | [Roles::get()](src/Resource/Roles.php) |
+| `POST /admin/realms/{realm}/roles` | `n/a` | [Roles::create()](src/Resource/Roles.php) |
+| `DELETE /admin/realms/{realm}/roles/{roleName}` | `n/a` | [Roles::delete()](src/Resource/Roles.php) |
 
 ### [Root](https://www.keycloak.org/docs-api/20.0.0/rest-api/index.html#_root_resource)
 | Endpoint | Response | API |

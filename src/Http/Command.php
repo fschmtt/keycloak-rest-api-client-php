@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Http;
 
+use Fschmtt\Keycloak\Collection\Collection;
 use Fschmtt\Keycloak\Representation\Representation;
 
 class Command
@@ -12,7 +13,7 @@ class Command
         private readonly string $path,
         private readonly Method $method,
         private readonly array $parameters = [],
-        private readonly ?Representation $representation = null,
+        private readonly Representation|Collection|null $payload = null,
     ) {
     }
 
@@ -37,8 +38,8 @@ class Command
         );
     }
 
-    public function getRepresentation(): ?Representation
+    public function getPayload(): Representation|Collection|null
     {
-        return $this->representation;
+        return $this->payload;
     }
 }

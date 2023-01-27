@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Resource;
 
 use Fschmtt\Keycloak\Collection\GroupCollection;
+use Fschmtt\Keycloak\Collection\RoleCollection;
 use Fschmtt\Keycloak\Collection\UserCollection;
 use Fschmtt\Keycloak\Http\Command;
 use Fschmtt\Keycloak\Http\Criteria;
@@ -140,6 +141,64 @@ class Users extends Resource
                     'userId' => $userId,
                 ],
                 $criteria
+            )
+        );
+    }
+
+    public function retrieveRealmRoles(string $realm, string $userId): RoleCollection
+    {
+        return $this->queryExecutor->executeQuery(
+            new Query(
+                '/admin/realms/{realm}/users/{userId}/role-mappings/realm',
+                RoleCollection::class,
+                [
+                    'realm' => $realm,
+                    'userId' => $userId,
+                ]
+            )
+        );
+    }
+
+    public function retrieveAvailableRealmRoles(string $realm, string $userId): RoleCollection
+    {
+        return $this->queryExecutor->executeQuery(
+            new Query(
+                '/admin/realms/{realm}/users/{userId}/role-mappings/realm/available',
+                RoleCollection::class,
+                [
+                    'realm' => $realm,
+                    'userId' => $userId,
+                ]
+            )
+        );
+    }
+
+    public function addRealmRoles(string $realm, string $userId, RoleCollection $roles): void
+    {
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms/{realm}/users/{userId}/role-mappings/realm',
+                Method::POST,
+                [
+                    'realm' => $realm,
+                    'userId' => $userId,
+                ],
+                $roles
+            )
+        );
+    }
+
+    public function removeRealmRoles(string $realm, string $userId, RoleCollection $roles): void
+    {
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms/{realm}/users/{userId}/role-mappings/realm',
+                Method::DELETE,
+                [
+                    'realm' => $realm,
+                    'userId' => $userId,
+                ],
+                $roles
             )
         );
     }
