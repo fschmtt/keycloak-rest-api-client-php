@@ -5,6 +5,14 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Representation;
 
 /**
+ * @method array|null getAttributes()
+ * @method bool|null getClientRole()
+ * @method bool|null getComposite()
+ * @method RoleComposites|null getComposites()
+ * @method string|null getContainerId()
+ * @method string|null getDescription()
+ * @method string|null getName()
+ *
  * @codeCoverageIgnore
  */
 class Role extends Representation

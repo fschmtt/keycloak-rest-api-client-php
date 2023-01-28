@@ -74,6 +74,7 @@ class UsersTest extends TestCase
     {
         $users = $this->getKeycloak()->users();
         $user = $users->all('master')->first();
+        static::assertInstanceOf(User::class, $user);
 
         // create a temp group required for our test
         $groups = $this->getKeycloak()->groups();
@@ -83,6 +84,7 @@ class UsersTest extends TestCase
             new Group(name: $groupName),
         );
         $group = $groups->all('master')->first();
+        static::assertInstanceOf(Group::class, $group);
 
         // join group
         $users->joinGroup('master', $user->getId(), $group->getId());
@@ -113,9 +115,10 @@ class UsersTest extends TestCase
 
             $users = $this->getKeycloak()->users();
             $user = $users->all('master')->first();
+            static::assertInstanceOf(User::class, $user);
 
             // retrieve user's roles and count them
-            $roles = $users->retrieveRealmRoles('master', $user->getId());
+            $roles = $users->retrieveRealmRoles('maste125r', $user->getId());
             $rolesCount = $roles->count();
 
             // retrieve user's available roles and count them

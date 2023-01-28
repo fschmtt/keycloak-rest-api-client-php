@@ -74,7 +74,10 @@ class CollectionTest extends TestCase
             new Realm(realm: 'third'),
         ]);
 
-        static::assertSame('first', $collection->first()->getRealm());
+        $realm = $collection->first();
+
+        static::assertInstanceOf(Realm::class, $realm);
+        static::assertSame('first', $realm->getRealm());
     }
 
     public function testFirstReturnsNullIfCollectionIsEmpty(): void
