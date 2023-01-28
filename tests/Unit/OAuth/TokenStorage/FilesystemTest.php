@@ -110,7 +110,7 @@ class FilesystemTest extends TestCase
         new Filesystem($path);
     }
 
-    private function recreateFilesystemStorage()
+    private function recreateFilesystemStorage(): void
     {
         $this->storage = new Filesystem($this->path);
     }
