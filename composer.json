@@ -40,7 +40,7 @@
         ],
         "ecs": "vendor/bin/ecs check src tests examples",
         "ecs:fix": "vendor/bin/ecs check --fix src tests examples",
-        "phpstan": "vendor/bin/phpstan analyze --level 2 src tests examples",
+        "phpstan": "vendor/bin/phpstan analyze --level 4 src tests examples",
         "psalm": "vendor/bin/psalm src tests examples",
         "test": [
             "@test:unit",
