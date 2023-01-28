@@ -7,7 +7,6 @@ namespace Fschmtt\Keycloak\Collection;
 use Fschmtt\Keycloak\Representation\AuthenticatorConfig;
 
 /**
- * @method AuthenticatorConfig[] getIterator()
  * @codeCoverageIgnore
  */
 class AuthenticatorConfigCollection extends Collection

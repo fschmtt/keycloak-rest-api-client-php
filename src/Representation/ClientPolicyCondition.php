@@ -18,9 +18,5 @@ class ClientPolicyCondition extends Representation
         protected ?string $condition = null,
         protected ?JsonNode $configuration = null,
     ) {
-        parent::__construct(
-            $condition,
-            $configuration,
-        );
     }
 }

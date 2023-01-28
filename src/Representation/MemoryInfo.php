@@ -26,14 +26,5 @@ class MemoryInfo extends Representation
         protected ?int $used = null,
         protected ?string $usedFormated = null,
     ) {
-        parent::__construct(
-            $this->free,
-            $this->freeFormated,
-            $this->freePercentage,
-            $this->total,
-            $this->totalFormated,
-            $this->used,
-            $this->usedFormated,
-        );
     }
 }

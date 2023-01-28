@@ -10,6 +10,7 @@ use JsonException;
 class JsonDecoder
 {
     /**
+     * @return array<mixed>
      * @throws JsonDecodeException
      */
     public function decode(string $json): array

@@ -84,7 +84,7 @@ class Serializer implements SerializerInterface
         return in_array($type, self::NATIVE_TYPES, true);
     }
 
-    private function isRepresentationType($type): bool
+    private function isRepresentationType(string $type): bool
     {
         if ($this->isNativeType($type)) {
             return false;
@@ -95,7 +95,7 @@ class Serializer implements SerializerInterface
         return in_array('Representation', $namespace, true);
     }
 
-    private function isCollectionType($type): bool
+    private function isCollectionType(string $type): bool
     {
         if ($this->isNativeType($type)) {
             return false;
@@ -110,7 +110,7 @@ class Serializer implements SerializerInterface
         return in_array('Collection', $namespace, true);
     }
 
-    private function isEnumType($type): bool
+    private function isEnumType(string $type): bool
     {
         if ($this->isNativeType($type)) {
             return false;

@@ -5,35 +5,27 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Representation;
 
 /**
+ * @method string[]|null getDisabledFeatures()
+ * @method self withDisabledFeatures(?array $value)
+ * @method string[]|null getExperimentalFeatures()
+ * @method self withExperimentalFeatures(?array $value)
+ * @method string|null getName()
+ * @method self withName(?string $value)
+ * @method string[]|null getPreviewFeatures()
+ * @method self withPreviewFeatures(?array $value)
+ *
  * @codeCoverageIgnore
  */
 class ProfileInfo extends Representation
 {
-    protected ?array $disabledFeatures;
-
-    protected ?array $experimentalFeatures;
-
-    protected ?string $name;
-
-    protected ?array $previewFeatures;
-
-    public function getDisabledFeatures(): ?array
-    {
-        return $this->disabledFeatures;
-    }
-
-    public function getExperimentalFeatures(): ?array
-    {
-        return $this->experimentalFeatures;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function getPreviewFeatures(): ?array
-    {
-        return $this->previewFeatures;
+    public function __construct(
+        /** @var string[]|null */
+        protected ?array $disabledFeatures = null,
+        /** @var string[]|null */
+        protected ?array $experimentalFeatures = null,
+        protected ?string $name = null,
+        /** @var string[]|null */
+        protected ?array $previewFeatures = null,
+    ) {
     }
 }

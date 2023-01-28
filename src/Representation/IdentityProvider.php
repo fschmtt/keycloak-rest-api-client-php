@@ -4,206 +4,51 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Type\Map;
+
 /**
+ * @method bool|null getAddReadTokenRoleOnCreate()
+ * @method self withAddReadTokenRoleOnCreate(?bool $addReadTokenRoleOnCreate)
+ * @method string|null getAlias()
+ * @method self withAlias(?string $alias)
+ * @method Map|null getConfig()
+ * @method self withConfig(?Map $config)
+ * @method string|null getDisplayName()
+ * @method self withDisplayName(?string $displayName)
+ * @method bool|null getEnabled()
+ * @method self withEnabled(?bool $enabled)
+ * @method string|null getFirstBrokerLoginFlowAlias()
+ * @method self withFirstBrokerLoginFlowAlias(?string $firstBrokerLoginFlowAlias)
+ * @method string|null getInternalId()
+ * @method self withInternalId(?string $internalId)
+ * @method bool|null getLinkOnly()
+ * @method self withLinkOnly(?bool $linkOnly)
+ * @method string|null getPostBrokerLoginFlowAlias()
+ * @method self withPostBrokerLoginFlowAlias(?string $postBrokerLoginFlowAlias)
+ * @method string|null getProviderId()
+ * @method self withProviderId(?string $providerId)
+ * @method bool|null getStoreToken()
+ * @method self withStoreToken(?bool $storeToken)
+ * @method bool|null getTrustEmail()
+ * @method self withTrustEmail(?bool $trustEmail)
+ *
  * @codeCoverageIgnore
  */
 class IdentityProvider extends Representation
 {
-    /**
-     * @var bool|null
-     */
-    private $addReadTokenRoleOnCreate;
-
-    /**
-     * @var string|null
-     */
-    private $alias;
-
-    /**
-     * @var array|null
-     */
-    private $config;
-
-    /**
-     * @var string|null
-     */
-    private $displayName;
-
-    /**
-     * @var bool|null
-     */
-    private $enabled;
-
-    /**
-     * @var string|null
-     */
-    private $firstBrokerLoginFlowAlias;
-
-    /**
-     * @var string|null
-     */
-    private $internalId;
-
-    /**
-     * @var bool|null
-     */
-    private $linkOnly;
-
-    /**
-     * @var string|null
-     */
-    private $postBrokerLoginFlowAlias;
-
-    /**
-     * @var string|null
-     */
-    private $providerId;
-
-    /**
-     * @var bool|null
-     */
-    private $storeToken;
-
-    /**
-     * @var bool|null
-     */
-    private $trustEmail;
-
-    /**
-     * @param bool|null $addReadTokenRoleOnCreate
-     * @param string|null $alias
-     * @param array|null $config
-     * @param string|null $displayName
-     * @param bool|null $enabled
-     * @param string|null $firstBrokerLoginFlowAlias
-     * @param string|null $internalId
-     * @param bool|null $linkOnly
-     * @param string|null $postBrokerLoginFlowAlias
-     * @param string|null $providerId
-     * @param bool|null $storeToken
-     * @param bool|null $trustEmail
-     */
     public function __construct(
-        ?bool $addReadTokenRoleOnCreate,
-        ?string $alias,
-        ?array $config,
-        ?string $displayName,
-        ?bool $enabled,
-        ?string $firstBrokerLoginFlowAlias,
-        ?string $internalId,
-        ?bool $linkOnly,
-        ?string $postBrokerLoginFlowAlias,
-        ?string $providerId,
-        ?bool $storeToken,
-        ?bool $trustEmail
+        protected ?bool $addReadTokenRoleOnCreate = null,
+        protected ?string $alias = null,
+        protected ?Map $config = null,
+        protected ?string $displayName = null,
+        protected ?bool $enabled = null,
+        protected ?string $firstBrokerLoginFlowAlias = null,
+        protected ?string $internalId = null,
+        protected ?bool $linkOnly = null,
+        protected ?string $postBrokerLoginFlowAlias = null,
+        protected ?string $providerId = null,
+        protected ?bool $storeToken = null,
+        protected ?bool $trustEmail = null,
     ) {
-        $this->addReadTokenRoleOnCreate = $addReadTokenRoleOnCreate;
-        $this->alias = $alias;
-        $this->config = $config;
-        $this->displayName = $displayName;
-        $this->enabled = $enabled;
-        $this->firstBrokerLoginFlowAlias = $firstBrokerLoginFlowAlias;
-        $this->internalId = $internalId;
-        $this->linkOnly = $linkOnly;
-        $this->postBrokerLoginFlowAlias = $postBrokerLoginFlowAlias;
-        $this->providerId = $providerId;
-        $this->storeToken = $storeToken;
-        $this->trustEmail = $trustEmail;
-    }
-
-    /**
-     * @return bool|null
-     */
-    public function getAddReadTokenRoleOnCreate(): ?bool
-    {
-        return $this->addReadTokenRoleOnCreate;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getAlias(): ?string
-    {
-        return $this->alias;
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getConfig(): ?array
-    {
-        return $this->config;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getDisplayName(): ?string
-    {
-        return $this->displayName;
-    }
-
-    /**
-     * @return bool|null
-     */
-    public function getEnabled(): ?bool
-    {
-        return $this->enabled;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getFirstBrokerLoginFlowAlias(): ?string
-    {
-        return $this->firstBrokerLoginFlowAlias;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getInternalId(): ?string
-    {
-        return $this->internalId;
-    }
-
-    /**
-     * @return bool|null
-     */
-    public function getLinkOnly(): ?bool
-    {
-        return $this->linkOnly;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getPostBrokerLoginFlowAlias(): ?string
-    {
-        return $this->postBrokerLoginFlowAlias;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getProviderId(): ?string
-    {
-        return $this->providerId;
-    }
-
-    /**
-     * @return bool|null
-     */
-    public function getStoreToken(): ?bool
-    {
-        return $this->storeToken;
-    }
-
-    /**
-     * @return bool|null
-     */
-    public function getTrustEmail(): ?bool
-    {
-        return $this->trustEmail;
     }
 }

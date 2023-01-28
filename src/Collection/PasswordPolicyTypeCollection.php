@@ -7,7 +7,6 @@ namespace Fschmtt\Keycloak\Collection;
 use Fschmtt\Keycloak\Representation\PasswordPolicyType;
 
 /**
- * @method PasswordPolicyType[] getIterator()
  * @codeCoverageIgnore
  */
 class PasswordPolicyTypeCollection extends Collection

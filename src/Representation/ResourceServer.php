@@ -35,26 +35,15 @@ use Fschmtt\Keycloak\Enum\PolicyEnforcementMode;
 class ResourceServer extends Representation
 {
     public function __construct(
-        ?bool $allowRemoveResourceManagement = null,
-        ?string $clientId = null,
-        ?DecisionStrategy $decisionStrategy = null,
-        ?string $id = null,
-        ?string $name = null,
-        ?PolicyCollection $policies = null,
-        ?PolicyEnforcementMode $policyEnforcementMode = null,
-        ?ResourceCollection $resources = null,
-        ?ScopeCollection $scopes = null,
+        protected ?bool $allowRemoveResourceManagement = null,
+        protected ?string $clientId = null,
+        protected ?DecisionStrategy $decisionStrategy = null,
+        protected ?string $id = null,
+        protected ?string $name = null,
+        protected ?PolicyCollection $policies = null,
+        protected ?PolicyEnforcementMode $policyEnforcementMode = null,
+        protected ?ResourceCollection $resources = null,
+        protected ?ScopeCollection $scopes = null,
     ) {
-        parent::__construct(
-            $allowRemoveResourceManagement,
-            $clientId,
-            $decisionStrategy,
-            $id,
-            $name,
-            $policies,
-            $policyEnforcementMode,
-            $resources,
-            $scopes,
-        );
     }
 }

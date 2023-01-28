@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Collection;
 
-use Fschmtt\Keycloak\Representation\Policy;
+use Fschmtt\Keycloak\Representation\Credential;
 
 /**
  * @codeCoverageIgnore
  */
-class PolicyCollection extends Collection
+class CredentialCollection extends Collection
 {
     public static function getRepresentationClass(): string
     {
-        return Policy::class;
+        return Credential::class;
     }
 }

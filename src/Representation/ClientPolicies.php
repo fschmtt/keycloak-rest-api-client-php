@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Collection\ClientPolicyCollection;
+
 /**
- * @method ClientPolicy[]|null getPolicies()
- * @method self withPolicies(?array $policies)
+ * @method ClientPolicyCollection|null getPolicies()
+ * @method self withPolicies(?ClientPolicyCollection $policies)
  *
  * @codeCoverageIgnore
  */
 class ClientPolicies extends Representation
 {
     public function __construct(
-        protected ?array $policies = null
+        protected ?ClientPolicyCollection $policies = null
     ) {
-        parent::__construct($policies);
     }
 }

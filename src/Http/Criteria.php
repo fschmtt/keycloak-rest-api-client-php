@@ -14,11 +14,17 @@ class Criteria
      */
     private array $criteria;
 
+    /**
+     * @param array<string, mixed> $criteria
+     */
     public function __construct(array $criteria = [])
     {
         $this->criteria = $criteria;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function jsonSerialize(): array
     {
         $serialized = [];

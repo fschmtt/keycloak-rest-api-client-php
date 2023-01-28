@@ -10,8 +10,14 @@ use IteratorAggregate;
 use Traversable;
 use function count;
 
+/**
+ * @implements IteratorAggregate<string, mixed>
+ */
 class Map extends Type implements Countable, IteratorAggregate
 {
+    /**
+     * @param array<mixed> $map
+     */
     public function __construct(
         private readonly array $map = []
     ) {

@@ -9,6 +9,7 @@ class Query
     public function __construct(
         private readonly string $path,
         private readonly string $returnType,
+        /** @var array<string, string> */
         private readonly array $parameters = [],
         private readonly ?Criteria $criteria = null,
     ) {

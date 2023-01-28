@@ -13,6 +13,14 @@ use PHPUnit\Framework\TestCase;
  */
 class StringSerializerTest extends TestCase
 {
+    public function testSerializes(): void
+    {
+        static::assertSame(
+            'string',
+            (new StringSerializer())->serializes()
+        );
+    }
+
     /**
      * @dataProvider provideData
      */

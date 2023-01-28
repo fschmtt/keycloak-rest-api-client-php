@@ -21,10 +21,5 @@ class FederatedIdentity extends Representation
         protected ?string $userId,
         protected ?string $userName
     ) {
-        parent::__construct(
-            $identityProvider,
-            $userId,
-            $userName,
-        );
     }
 }

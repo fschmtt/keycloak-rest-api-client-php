@@ -15,8 +15,14 @@ use Traversable;
 
 abstract class Collection implements Countable, IteratorAggregate, JsonSerializable
 {
+    /**
+     * @var array<array-key, Representation>
+     */
     protected array $items = [];
 
+    /**
+     * @param array<array-key, Representation> $items
+     */
     public function __construct(iterable $items = [])
     {
         foreach ($items as $item) {
@@ -39,6 +45,9 @@ abstract class Collection implements Countable, IteratorAggregate, JsonSerializa
         return new ArrayIterator($this->items);
     }
 
+    /**
+     * @return array<array-key, Representation>
+     */
     public function jsonSerialize(): array
     {
         return $this->items;

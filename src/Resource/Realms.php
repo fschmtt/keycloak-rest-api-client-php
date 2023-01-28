@@ -11,6 +11,9 @@ use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Representation\Realm;
 
+/**
+ * @phpstan-type AdminEvent array<mixed>
+ */
 class Realms extends Resource
 {
     public function all(?Criteria $criteria = null): RealmCollection
@@ -80,6 +83,9 @@ class Realms extends Resource
         );
     }
 
+    /**
+     * @return AdminEvent[]
+     */
     public function adminEvents(string $realm, ?Criteria $criteria = null): array
     {
         return $this->queryExecutor->executeQuery(

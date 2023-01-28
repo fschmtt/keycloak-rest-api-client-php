@@ -13,6 +13,14 @@ use stdClass;
  */
 class BooleanSerializerTest extends TestCase
 {
+    public function testSerializes(): void
+    {
+        static::assertSame(
+            'bool',
+            (new BooleanSerializer())->serializes()
+        );
+    }
+
     /**
      * @dataProvider provideData
      */
@@ -27,6 +35,9 @@ class BooleanSerializerTest extends TestCase
         }
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function provideData(): array
     {
         return [

@@ -8,14 +8,14 @@ use Ramsey\Uuid\Uuid;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $keycloak = new Keycloak(
-    baseUrl: 'http://keycloak:8080',
+    baseUrl: $_SERVER['KEYCLOAK_BASE_URL'] ?? 'http://keycloak:8080',
     username: 'admin',
     password: 'admin',
 );
 
 $resource = $keycloak->clients();
 $clients = $keycloak->clients()->all(realm: 'master');
-$client = $keycloak->clients()->get('master', $clients->first()->getId());
+$client = $keycloak->clients()->get('master', $clients->first()->getId()); // @phpstan-ignore-line
 
 $random = bin2hex(random_bytes(length: 8));
 

@@ -150,6 +150,7 @@ class RepresentationTest extends TestCase
 
         $this->expectException(BadMethodCallException::class);
 
+        // @phpstan-ignore-next-line
         $representation->doesNotExist();
     }
 }

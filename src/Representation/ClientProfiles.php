@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Collection\ClientProfileCollection;
+
 /**
- * @method ClientProfile[]|null getGlobalProfiles()
- * @method ClientProfile[]|null getProfiles()
+ * @method ClientProfileCollection|null getGlobalProfiles()
+ * @method ClientProfileCollection|null getProfiles()
  * @method self withGlobalProfiles(?array $globalProfiles)
  * @method self withProfiles(?array $profiles)
  *
@@ -15,12 +17,8 @@ namespace Fschmtt\Keycloak\Representation;
 class ClientProfiles extends Representation
 {
     public function __construct(
-        protected ?array $profiles = null,
-        protected ?array $globalProfiles = null,
+        protected ?ClientProfileCollection $profiles = null,
+        protected ?ClientProfileCollection $globalProfiles = null,
     ) {
-        parent::__construct(
-            $globalProfiles,
-            $profiles,
-        );
     }
 }

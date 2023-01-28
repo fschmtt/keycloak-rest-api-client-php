@@ -12,6 +12,14 @@ use PHPUnit\Framework\TestCase;
  */
 class IntegerSerializerTest extends TestCase
 {
+    public function testSerializes(): void
+    {
+        static::assertSame(
+            'int',
+            (new IntegerSerializer())->serializes()
+        );
+    }
+
     /**
      * @dataProvider provideData
      */
@@ -25,6 +33,9 @@ class IntegerSerializerTest extends TestCase
         );
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function provideData(): array
     {
         return [

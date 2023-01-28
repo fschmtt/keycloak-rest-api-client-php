@@ -12,6 +12,7 @@ class Command
     public function __construct(
         private readonly string $path,
         private readonly Method $method,
+        /** @var array<string, string> */
         private readonly array $parameters = [],
         private readonly Representation|Collection|null $payload = null,
     ) {

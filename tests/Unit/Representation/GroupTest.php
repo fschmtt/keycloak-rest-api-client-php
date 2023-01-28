@@ -27,6 +27,7 @@ class GroupTest extends TestCase
             path: '/where/am/i',
             realmRoles: ['realm-role-a', 'realm-role-b'],
         );
+        $subGroup->withId('unique-id');
 
         $this->group = new Group(
             access: new Map(['acl-a', 'acl-b']),
@@ -38,9 +39,11 @@ class GroupTest extends TestCase
             realmRoles: ['realm-role-a', 'realm-role-b'],
             subGroups: new GroupCollection([$subGroup])
         );
+        $this->group->withId('unique-id');
     }
 
     /**
+     * @param array<string, mixed> $properties
      * @dataProvider provideProperties
      */
     public function testCanBeConstructedFromProperties(array $properties): void
@@ -51,6 +54,7 @@ class GroupTest extends TestCase
     }
 
     /**
+     * @param array<mixed> $properties
      * @dataProvider provideProperties
      */
     public function testCanBeBuilt(array $properties): void
@@ -61,9 +65,12 @@ class GroupTest extends TestCase
             $builtGroup = $builtGroup->with($property, $value);
         }
 
-        self::assertEquals($this->group, $builtGroup); // FIXME in Representation::withProperty()
+        self::assertEquals($this->group, $builtGroup);
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function provideProperties(): array
     {
         $group = [

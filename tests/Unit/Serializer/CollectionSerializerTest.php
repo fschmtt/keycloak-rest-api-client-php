@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Test\Unit\Serializer;
 
+use Fschmtt\Keycloak\Collection\Collection;
 use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Representation\Group;
 use Fschmtt\Keycloak\Serializer\CollectionSerializer;
@@ -14,6 +15,14 @@ use PHPUnit\Framework\TestCase;
  */
 class CollectionSerializerTest extends TestCase
 {
+    public function testSerializes(): void
+    {
+        static::assertSame(
+            Collection::class,
+            (new CollectionSerializer())->serializes()
+        );
+    }
+
     public function testSerializesCollection(): void
     {
         $serializer = new CollectionSerializer();

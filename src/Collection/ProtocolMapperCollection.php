@@ -7,7 +7,6 @@ namespace Fschmtt\Keycloak\Collection;
 use Fschmtt\Keycloak\Representation\ProtocolMapper;
 
 /**
- * @method ProtocolMapper[] getIterator()
  * @codeCoverageIgnore
  */
 class ProtocolMapperCollection extends Collection

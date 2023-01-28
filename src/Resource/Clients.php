@@ -11,6 +11,9 @@ use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Representation\Client as ClientRepresentation;
 
+/**
+ * @phpstan-type UserSession array<mixed>
+ */
 class Clients extends Resource
 {
     public function all(string $realm, ?Criteria $criteria = null): ClientCollection
@@ -88,6 +91,9 @@ class Clients extends Resource
         );
     }
 
+    /**
+     * @return UserSession[]
+     */
     public function getUserSessions(string $realm, string $clientId, ?Criteria $criteria = null): array
     {
         return $this->queryExecutor->executeQuery(

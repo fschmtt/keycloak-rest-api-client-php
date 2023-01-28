@@ -75,10 +75,12 @@ class FilesystemTest extends TestCase
 
         static::assertSame($storedAccessToken, $this->storage->retrieveAccessToken());
 
-        $this->storage->storeRefreshToken($newAccessToken);
+        $this->storage->storeAccessToken($newAccessToken);
 
-        static::assertNotSame($storedAccessToken, $this->storage->storeAccessToken($newAccessToken));
-        static::assertSame($newAccessToken, $this->storage->retrieveAccessToken());
+        $this->recreateFilesystemStorage();
+
+        static::assertNotSame($storedAccessToken, $this->storage->retrieveAccessToken());
+        static::assertEquals($newAccessToken->toString(), $this->storage->retrieveAccessToken()->toString());
     }
 
     public function testOverridesPreviouslyStoredRefreshToken(): void
@@ -92,8 +94,10 @@ class FilesystemTest extends TestCase
 
         $this->storage->storeRefreshToken($newRefreshToken);
 
+        $this->recreateFilesystemStorage();
+
         static::assertNotSame($storedRefreshToken, $this->storage->retrieveRefreshToken());
-        static::assertSame($newRefreshToken, $this->storage->retrieveRefreshToken());
+        static::assertEquals($newRefreshToken->toString(), $this->storage->retrieveRefreshToken()->toString());
     }
 
     public function testThrowsExceptionIfPathDoesNotExist(): void
@@ -104,5 +108,10 @@ class FilesystemTest extends TestCase
         static::expectExceptionMessage(sprintf('Path "%s" does not exist or is not writable', $path));
 
         new Filesystem($path);
+    }
+
+    private function recreateFilesystemStorage(): void
+    {
+        $this->storage = new Filesystem($this->path);
     }
 }

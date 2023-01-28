@@ -115,13 +115,16 @@ class UsersTest extends TestCase
     public function testDeleteUser(): void
     {
         $deletedUser = new User(id: 'deleted-user');
+        $deletedUserId = $deletedUser->getId();
+
+        static::assertIsString($deletedUserId);
 
         $command = new Command(
             '/admin/realms/{realm}/users/{userId}',
             Method::DELETE,
             [
                 'realm' => 'test-realm',
-                'userId' => $deletedUser->getId(),
+                'userId' => $deletedUserId,
             ],
         );
 
@@ -135,7 +138,7 @@ class UsersTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
 
-        $users->delete('test-realm', $deletedUser->getId());
+        $users->delete('test-realm', $deletedUserId);
     }
 
     public function testUpdateUser(): void

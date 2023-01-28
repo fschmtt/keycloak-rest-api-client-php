@@ -7,7 +7,6 @@ namespace Fschmtt\Keycloak\Collection;
 use Fschmtt\Keycloak\Representation\Scope;
 
 /**
- * @method Scope[] getIterator()
  * @codeCoverageIgnore
  */
 class ScopeCollection extends Collection

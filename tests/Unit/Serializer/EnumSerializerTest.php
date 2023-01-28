@@ -21,6 +21,14 @@ use PHPUnit\Framework\TestCase;
  */
 class EnumSerializerTest extends TestCase
 {
+    public function testSerializes(): void
+    {
+        static::assertSame(
+            Enum::class,
+            (new EnumSerializer())->serializes()
+        );
+    }
+
     /**
      * @dataProvider enums
      */

@@ -13,15 +13,13 @@ use JsonSerializable;
 use ReflectionClass;
 use ReflectionProperty;
 
-abstract class Representation implements RepresentationInterface, JsonSerializable
+abstract class Representation implements JsonSerializable
 {
-    private Serializer $serializer;
+    private ?Serializer $serializer = null;
 
-    public function __construct(...$properties)
-    {
-        $this->serializer = (new Factory())->create();
-    }
-
+    /**
+     * @param array<mixed> $properties
+     */
     final public static function from(array $properties): static
     {
         /** @phpstan-ignore-next-line */
@@ -46,6 +44,9 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
         return $this->withProperty($property, $value);
     }
 
+    /**
+     * @return array<mixed>
+     */
     final public function jsonSerialize(): array
     {
         $serializable = [];
@@ -62,6 +63,9 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
         return $serializable;
     }
 
+    /**
+     * @param string[] $arguments
+     */
     final public function __call(string $name, array $arguments): mixed
     {
         if (str_starts_with($name, 'get')) {
@@ -87,7 +91,7 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
         $this->throwExceptionIfPropertyDoesNotExist($property);
 
         $type = $this->getPropertyType($property);
-        $value = $this->serializer->serialize($type, $value);
+        $value = $this->getSerializer()->serialize($type, $value);
 
         $clone = clone $this;
         $clone->$property = $value;
@@ -122,5 +126,14 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
         }))[0];
 
         return (string) $prop->getType();
+    }
+
+    private function getSerializer(): Serializer
+    {
+        if (!$this->serializer) {
+            $this->serializer = (new Factory())->create();
+        }
+
+        return $this->serializer;
     }
 }

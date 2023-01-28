@@ -32,13 +32,5 @@ class ProtocolMapper extends Representation
         protected ?string $protocol = null,
         protected ?string $protocolMapper = null,
     ) {
-        parent::__construct(
-            $config,
-            $consentRequired,
-            $id,
-            $name,
-            $protocol,
-            $protocolMapper,
-        );
     }
 }

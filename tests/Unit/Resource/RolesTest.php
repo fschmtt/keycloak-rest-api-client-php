@@ -110,13 +110,16 @@ class RolesTest extends TestCase
     public function testDeleteRole(): void
     {
         $deletedRole = new Role(name: 'deleted-role');
+        $deletedRoleName = $deletedRole->getName();
+
+        static::assertIsString($deletedRoleName);
 
         $command = new Command(
             '/admin/realms/{realm}/roles/{roleName}',
             Method::DELETE,
             [
                 'realm' => 'test-realm',
-                'roleName' => $deletedRole->getName(),
+                'roleName' => $deletedRoleName,
             ],
         );
 
@@ -130,6 +133,6 @@ class RolesTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
 
-        $roles->delete('test-realm', $deletedRole->getName());
+        $roles->delete('test-realm', $deletedRoleName);
     }
 }
