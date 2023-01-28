@@ -7,7 +7,6 @@ namespace Fschmtt\Keycloak\Collection;
 use Fschmtt\Keycloak\Representation\FederatedIdentity;
 
 /**
- * @extends Collection<FederatedIdentity>
  * @codeCoverageIgnore
  */
 class FederatedIdentityCollection extends Collection

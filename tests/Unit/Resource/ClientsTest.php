@@ -84,6 +84,9 @@ class ClientsTest extends TestCase
     public function testUpdateClient(): void
     {
         $updatedClient = new ClientRepresentation(clientId: 'updated-client', id: 'uuid');
+        $updatedClientId = $updatedClient->getId();
+
+        static::assertIsString($updatedClientId);
 
         $command = new Command(
             '/admin/realms/{realm}/clients/{clientId}',
@@ -105,7 +108,7 @@ class ClientsTest extends TestCase
             ClientRepresentation::class,
             [
                 'realm' => 'test-realm',
-                'clientId' => $updatedClient->getId(),
+                'clientId' => $updatedClientId,
             ],
         );
 
@@ -131,6 +134,9 @@ class ClientsTest extends TestCase
     public function testImportClient(): void
     {
         $importedClient = new ClientRepresentation(clientId: 'imported-client', id: 'uuid');
+        $importedClientId = $importedClient->getId();
+
+        static::assertIsString($importedClientId);
 
         $command = new Command(
             '/admin/realms/{realm}/clients',
@@ -151,7 +157,7 @@ class ClientsTest extends TestCase
             ClientRepresentation::class,
             [
                 'realm' => 'test-realm',
-                'clientId' => $importedClient->getId(),
+                'clientId' => $importedClientId,
             ],
         );
 
@@ -177,13 +183,16 @@ class ClientsTest extends TestCase
     public function testDeleteClient(): void
     {
         $deletedClient = new ClientRepresentation(clientId: 'deleted-client', id: 'uuid');
+        $deletedClientId = $deletedClient->getId();
+
+        static::assertIsString($deletedClientId);
 
         $command = new Command(
             '/admin/realms/{realm}/clients/{clientId}',
             Method::DELETE,
             [
                 'realm' => 'test-realm',
-                'clientId' => $deletedClient->getId(),
+                'clientId' => $deletedClientId,
             ],
         );
 
@@ -197,19 +206,22 @@ class ClientsTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
 
-        $clients->delete('test-realm', $deletedClient->getId());
+        $clients->delete('test-realm', $deletedClientId);
     }
 
     public function testGetUserSessions(): void
     {
         $client = new ClientRepresentation(id: 'test-client');
+        $clientId = $client->getId();
+
+        static::assertIsString($clientId);
 
         $query = new Query(
             '/admin/realms/{realm}/clients/{clientId}/user-sessions',
             'array',
             [
                 'realm' => 'test-realm',
-                'clientId' => $client->getId(),
+                'clientId' => $clientId,
             ],
         );
 
@@ -228,7 +240,7 @@ class ClientsTest extends TestCase
 
         static::assertSame(
             $userSessions,
-            $clients->getUserSessions('test-realm', $client->getId())
+            $clients->getUserSessions('test-realm', $clientId)
         );
     }
 }

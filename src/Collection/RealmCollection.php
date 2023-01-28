@@ -7,7 +7,6 @@ namespace Fschmtt\Keycloak\Collection;
 use Fschmtt\Keycloak\Representation\Realm;
 
 /**
- * @extends Collection<Realm>
  * @codeCoverageIgnore
  */
 class RealmCollection extends Collection

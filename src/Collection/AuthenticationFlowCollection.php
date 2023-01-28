@@ -7,8 +7,6 @@ namespace Fschmtt\Keycloak\Collection;
 use Fschmtt\Keycloak\Representation\AuthenticationFlow;
 
 /**
- * @extends Collection<AuthenticationFlow>
- *
  * @codeCoverageIgnore
  */
 class AuthenticationFlowCollection extends Collection

@@ -7,8 +7,6 @@ namespace Fschmtt\Keycloak\Collection;
 use Fschmtt\Keycloak\Representation\ClientScope;
 
 /**
- * @extends Collection<ClientScope>
- *
  * @codeCoverageIgnore
  */
 class ClientScopeCollection extends Collection

@@ -100,7 +100,7 @@ class Client extends Representation
         protected ?string $clientAuthenticatorType = null,
         protected ?string $clientId = null,
         protected ?bool $consentRequired = null,
-        /** @var string[] */
+        /** @var string[]|null */
         protected ?array $defaultClientScopes = null,
         protected ?string $description = null,
         protected ?bool $directAccessGrantsEnabled = null,
@@ -112,13 +112,13 @@ class Client extends Representation
         protected ?string $name = null,
         protected ?int $nodeReRegistrationTimeout = null,
         protected ?int $notBefore = null,
-        /** @var string[] */
+        /** @var string[]|null */
         protected ?array $optionalClientScopes = null,
         protected ?string $origin = null,
         protected ?string $protocol = null,
         protected ?ProtocolMapperCollection $protocolMappers = null,
         protected ?bool $publicClient = null,
-        /** @var string[] */
+        /** @var string[]|null */
         protected ?array $redirectUris = null,
         protected ?Map $registeredNodes = null,
         protected ?string $registrationAccessToken = null,
@@ -127,7 +127,7 @@ class Client extends Representation
         protected ?bool $serviceAccountsEnabled = null,
         protected ?bool $standardFlowEnabled = null,
         protected ?bool $surrogateAuthRequired = null,
-        /** @var string[] */
+        /** @var string[]|null */
         protected ?array $webOrigins = null,
     ) {
     }

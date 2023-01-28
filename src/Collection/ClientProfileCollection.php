@@ -7,7 +7,6 @@ namespace Fschmtt\Keycloak\Collection;
 use Fschmtt\Keycloak\Representation\ClientProfile;
 
 /**
- * @extends Collection<ClientProfile>
  * @codeCoverageIgnore
  */
 class ClientProfileCollection extends Collection

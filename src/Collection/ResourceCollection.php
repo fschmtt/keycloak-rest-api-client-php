@@ -7,7 +7,6 @@ namespace Fschmtt\Keycloak\Collection;
 use Fschmtt\Keycloak\Representation\Resource;
 
 /**
- * @extends Collection<Resource>
  * @codeCoverageIgnore
  */
 class ResourceCollection extends Collection

@@ -16,7 +16,6 @@ class CollectionSerializer implements SerializerInterface
 
     /**
      * @param class-string<Collection> $type
-     * @return Collection<Representation>
      */
     public function serialize(string $type, mixed $value): Collection
     {

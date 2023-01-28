@@ -7,7 +7,6 @@ namespace Fschmtt\Keycloak\Collection;
 use Fschmtt\Keycloak\Representation\RequiredActionProvider;
 
 /**
- * @extends Collection<RequiredActionProvider>
  * @codeCoverageIgnore
  */
 class RequiredActionProviderCollection extends Collection

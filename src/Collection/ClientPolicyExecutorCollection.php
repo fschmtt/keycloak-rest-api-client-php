@@ -7,7 +7,6 @@ namespace Fschmtt\Keycloak\Collection;
 use Fschmtt\Keycloak\Representation\ClientPolicyExecutor;
 
 /**
- * @extends Collection<ClientPolicyExecutor>
  * @codeCoverageIgnore
  */
 class ClientPolicyExecutorCollection extends Collection

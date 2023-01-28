@@ -7,7 +7,6 @@ namespace Fschmtt\Keycloak\Collection;
 use Fschmtt\Keycloak\Representation\UserConsent;
 
 /**
- * @extends Collection<UserConsent>
  * @codeCoverageIgnore
  */
 class UserConsentCollection extends Collection

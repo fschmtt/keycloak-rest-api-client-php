@@ -7,7 +7,6 @@ namespace Fschmtt\Keycloak\Collection;
 use Fschmtt\Keycloak\Representation\AuthenticationExecutionExport;
 
 /**
- * @extends Collection<AuthenticationExecutionExport>
  * @codeCoverageIgnore
  */
 class AuthenticationExecutionExportCollection extends Collection

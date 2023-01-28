@@ -7,7 +7,6 @@ namespace Fschmtt\Keycloak\Collection;
 use Fschmtt\Keycloak\Representation\Group;
 
 /**
- * @extends Collection<Group>
  * @codeCoverageIgnore
  */
 class GroupCollection extends Collection

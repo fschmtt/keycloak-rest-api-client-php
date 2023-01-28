@@ -7,7 +7,6 @@ namespace Fschmtt\Keycloak\Collection;
 use Fschmtt\Keycloak\Representation\User;
 
 /**
- * @extends Collection<User>
  * @codeCoverageIgnore
  */
 class UserCollection extends Collection

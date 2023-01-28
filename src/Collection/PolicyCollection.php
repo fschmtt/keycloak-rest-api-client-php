@@ -7,7 +7,6 @@ namespace Fschmtt\Keycloak\Collection;
 use Fschmtt\Keycloak\Representation\Policy;
 
 /**
- * @extends Collection<Policy>
  * @codeCoverageIgnore
  */
 class PolicyCollection extends Collection
