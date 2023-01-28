@@ -3,3 +3,8 @@
 .phpunit.result.cache
 composer.lock
 phpunit.cobertura.xml
+
+# Devenv
+.devenv*
+devenv.local.nix
+
