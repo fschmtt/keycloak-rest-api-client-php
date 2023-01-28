@@ -7,7 +7,7 @@ namespace Fschmtt\Keycloak\Collection;
 use Fschmtt\Keycloak\Representation\Policy;
 
 /**
- * @method Policy[] getIterator()
+ * @extends Collection<Policy>
  * @codeCoverageIgnore
  */
 class PolicyCollection extends Collection

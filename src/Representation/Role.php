@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Type\Map;
+
 /**
  * @method array|null getAttributes()
  * @method bool|null getClientRole()
@@ -18,7 +20,7 @@ namespace Fschmtt\Keycloak\Representation;
 class Role extends Representation
 {
     public function __construct(
-        protected ?array $attributes = null,
+        protected ?Map $attributes = null,
         protected ?bool $clientRole = null,
         protected ?bool $composite = null,
         protected ?RoleComposites $composites = null,

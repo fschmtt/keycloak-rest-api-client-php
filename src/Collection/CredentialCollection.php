@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Collection;
 
-use Fschmtt\Keycloak\Representation\ClientScope;
+use Fschmtt\Keycloak\Representation\Credential;
 
 /**
- * @extends Collection<ClientScope>
- *
+ * @extends Collection<Credential>
  * @codeCoverageIgnore
  */
-class ClientScopeCollection extends Collection
+class CredentialCollection extends Collection
 {
     public static function getRepresentationClass(): string
     {
-        return ClientScope::class;
+        return Credential::class;
     }
 }

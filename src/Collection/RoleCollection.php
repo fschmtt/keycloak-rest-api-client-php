@@ -7,7 +7,7 @@ namespace Fschmtt\Keycloak\Collection;
 use Fschmtt\Keycloak\Representation\Role;
 
 /**
- * @method Role[] getIterator()
+ * @extends Collection<Role>
  * @codeCoverageIgnore
  */
 class RoleCollection extends Collection

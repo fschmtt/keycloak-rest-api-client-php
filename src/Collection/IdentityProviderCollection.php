@@ -7,7 +7,7 @@ namespace Fschmtt\Keycloak\Collection;
 use Fschmtt\Keycloak\Representation\IdentityProvider;
 
 /**
- * @method IdentityProvider[] getIterator()
+ * @extends Collection<IdentityProvider>
  * @codeCoverageIgnore
  */
 class IdentityProviderCollection extends Collection

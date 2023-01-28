@@ -11,6 +11,9 @@ class ArraySerializer implements SerializerInterface
         return 'array';
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function serialize(string $type, mixed $value): array
     {
         if (is_array($value)) {

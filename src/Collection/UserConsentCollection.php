@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Collection;
 
-use Fschmtt\Keycloak\Representation\ClientScope;
+use Fschmtt\Keycloak\Representation\UserConsent;
 
 /**
- * @extends Collection<ClientScope>
- *
+ * @extends Collection<UserConsent>
  * @codeCoverageIgnore
  */
-class ClientScopeCollection extends Collection
+class UserConsentCollection extends Collection
 {
     public static function getRepresentationClass(): string
     {
-        return ClientScope::class;
+        return UserConsent::class;
     }
 }

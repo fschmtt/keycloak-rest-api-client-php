@@ -13,10 +13,20 @@ use JsonSerializable;
 use ReflectionClass;
 use Traversable;
 
+/**
+ * @template T of Representation
+ * @implements IteratorAggregate<array-key, T>
+ */
 abstract class Collection implements Countable, IteratorAggregate, JsonSerializable
 {
+    /**
+     * @var array<array-key, T>
+     */
     protected array $items = [];
 
+    /**
+     * @param array<array-key, T> $items
+     */
     public function __construct(iterable $items = [])
     {
         foreach ($items as $item) {
@@ -39,6 +49,9 @@ abstract class Collection implements Countable, IteratorAggregate, JsonSerializa
         return new ArrayIterator($this->items);
     }
 
+    /**
+     * @return array<array-key, T>
+     */
     public function jsonSerialize(): array
     {
         return $this->items;

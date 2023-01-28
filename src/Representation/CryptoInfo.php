@@ -8,9 +8,9 @@ use Fschmtt\Keycloak\Attribute\Since;
 
 /**
  * @method string|null getCryptoProvider()
- * @method array<string>|null getSupportedKeystoreTypes()
- * @method withCryptoProvider(?string $value)
- * @method array<string>|null withSupportedKeystoreTypes(?array $value)
+ * @method self withCryptoProvider(?string $value)
+ * @method string[]|null getSupportedKeystoreTypes()
+ * @method self withSupportedKeystoreTypes(?array $value)
  *
  * @codeCoverageIgnore
  */
@@ -19,6 +19,7 @@ class CryptoInfo extends Representation
 {
     public function __construct(
         protected ?string $cryptoProvider = null,
+        /** @var string[]|null */
         protected ?array $supportedKeystoreTypes = null,
     ) {
     }

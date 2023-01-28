@@ -27,6 +27,9 @@ class BooleanSerializerTest extends TestCase
         }
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function provideData(): array
     {
         return [

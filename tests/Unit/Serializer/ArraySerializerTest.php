@@ -13,6 +13,7 @@ use PHPUnit\Framework\TestCase;
 class ArraySerializerTest extends TestCase
 {
     /**
+     * @param array<mixed> $expected
      * @dataProvider provideData
      */
     public function testSerialize(mixed $value, array $expected): void
@@ -25,6 +26,9 @@ class ArraySerializerTest extends TestCase
         );
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function provideData(): array
     {
         return [

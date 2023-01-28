@@ -4,126 +4,36 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Type\Map;
+
 /**
+ * @method string|null getAlias()
+ * @method self withAlias(?string $alias)
+ * @method Map|null getConfig()
+ * @method self withConfig(?Map $config)
+ * @method bool|null getDefaultAction()
+ * @method self withDefaultAction(?bool $defaultAction)
+ * @method bool|null getEnabled()
+ * @method self withEnabled(?bool $enabled)
+ * @method string|null getName()
+ * @method self withName(?string $name)
+ * @method bool|null getPriority()
+ * @method self withPriority(?bool $priority)
+ * @method string|null getProviderId()
+ * @method self withProviderId(?string $providerId)
+ *
  * @codeCoverageIgnore
  */
 class RequiredActionProvider extends Representation
 {
-    /**
-     * @var string|null
-     */
-    private $alias;
-
-    /**
-     * @var array|null
-     */
-    private $config;
-
-    /**
-     * @var bool|null
-     */
-    private $defaultAction;
-
-    /**
-     * @var bool|null
-     */
-    private $enabled;
-
-    /**
-     * @var string|null
-     */
-    private $name;
-
-    /**
-     * @var bool|null
-     */
-    private $priority;
-
-    /**
-     * @var string|null
-     */
-    private $providerId;
-
-    /**
-     * @param string|null $alias
-     * @param array|null $config
-     * @param bool|null $defaultAction
-     * @param bool|null $enabled
-     * @param string|null $name
-     * @param bool|null $priority
-     * @param string|null $providerId
-     */
     public function __construct(
-        ?string $alias,
-        ?array $config,
-        ?bool $defaultAction,
-        ?bool $enabled,
-        ?string $name,
-        ?bool $priority,
-        ?string $providerId
+        protected ?string $alias = null,
+        protected ?Map $config = null,
+        protected ?bool $defaultAction = null,
+        protected ?bool $enabled = null,
+        protected ?string $name = null,
+        protected ?bool $priority = null,
+        protected ?string $providerId = null,
     ) {
-        $this->alias = $alias;
-        $this->config = $config;
-        $this->defaultAction = $defaultAction;
-        $this->enabled = $enabled;
-        $this->name = $name;
-        $this->priority = $priority;
-        $this->providerId = $providerId;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getAlias(): ?string
-    {
-        return $this->alias;
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getConfig(): ?array
-    {
-        return $this->config;
-    }
-
-    /**
-     * @return bool|null
-     */
-    public function getDefaultAction(): ?bool
-    {
-        return $this->defaultAction;
-    }
-
-    /**
-     * @return bool|null
-     */
-    public function getEnabled(): ?bool
-    {
-        return $this->enabled;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return bool|null
-     */
-    public function getPriority(): ?bool
-    {
-        return $this->priority;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getProviderId(): ?string
-    {
-        return $this->providerId;
     }
 }

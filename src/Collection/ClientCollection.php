@@ -7,8 +7,7 @@ namespace Fschmtt\Keycloak\Collection;
 use Fschmtt\Keycloak\Representation\Client;
 
 /**
- * @method Client[] getIterator()
- * @method Client|null first()
+ * @extends Collection<Client>
  *
  * @codeCoverageIgnore
  */

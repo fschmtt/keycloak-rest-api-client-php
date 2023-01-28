@@ -4,94 +4,30 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Type\Map;
+
 /**
+ * @method Map|null getConfig()
+ * @method self withConfig(?Map $config)
+ * @method string|null getFederationMapperType()
+ * @method self withFederationMapperType(?string $federationMapperType)
+ * @method string|null getFederationProviderDisplayName()
+ * @method self withFederationProviderDisplayName(?string $federationProviderDisplayName)
+ * @method string|null getId()
+ * @method self withId(?string $id)
+ * @method string|null getName()
+ * @method self withName(?string $name)
+ *
  * @codeCoverageIgnore
  */
 class UserFederationMapper extends Representation
 {
-    /**
-     * @var array|null
-     */
-    private $config;
-
-    /**
-     * @var string|null
-     */
-    private $federationMapperType;
-
-    /**
-     * @var string|null
-     */
-    private $federationProviderDisplayName;
-
-    /**
-     * @var string|null
-     */
-    private $id;
-
-    /**
-     * @var string|null
-     */
-    private $name;
-
-    /**
-     * @param array|null $config
-     * @param string|null $federationMapperType
-     * @param string|null $federationProviderDisplayName
-     * @param string|null $id
-     * @param string|null $name
-     */
     public function __construct(
-        ?array $config,
-        ?string $federationMapperType,
-        ?string $federationProviderDisplayName,
-        ?string $id,
-        ?string $name
+        protected ?Map $config = null,
+        protected ?string $federationMapperType = null,
+        protected ?string $federationProviderDisplayName = null,
+        protected ?string $id = null,
+        protected ?string $name = null,
     ) {
-        $this->config = $config;
-        $this->federationMapperType = $federationMapperType;
-        $this->federationProviderDisplayName = $federationProviderDisplayName;
-        $this->id = $id;
-        $this->name = $name;
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getConfig(): ?array
-    {
-        return $this->config;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getFederationMapperType(): ?string
-    {
-        return $this->federationMapperType;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getFederationProviderDisplayName(): ?string
-    {
-        return $this->federationProviderDisplayName;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getId(): ?string
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getName(): ?string
-    {
-        return $this->name;
     }
 }

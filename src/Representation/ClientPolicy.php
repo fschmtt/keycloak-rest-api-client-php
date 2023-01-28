@@ -21,10 +21,12 @@ namespace Fschmtt\Keycloak\Representation;
 class ClientPolicy extends Representation
 {
     public function __construct(
+        /** @var string[] */
         protected ?array $conditions = null,
         protected ?string $description = null,
         protected ?bool $enabled = null,
         protected ?string $name = null,
+        /** @var string[] */
         protected ?array $profiles = null,
     ) {
     }

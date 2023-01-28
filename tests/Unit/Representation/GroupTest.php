@@ -41,6 +41,7 @@ class GroupTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $properties
      * @dataProvider provideProperties
      */
     public function testCanBeConstructedFromProperties(array $properties): void
@@ -51,6 +52,7 @@ class GroupTest extends TestCase
     }
 
     /**
+     * @param array<mixed> $properties
      * @dataProvider provideProperties
      */
     public function testCanBeBuilt(array $properties): void
@@ -64,6 +66,9 @@ class GroupTest extends TestCase
         self::assertEquals($this->group, $builtGroup); // FIXME in Representation::withProperty()
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function provideProperties(): array
     {
         $group = [

@@ -7,7 +7,7 @@ namespace Fschmtt\Keycloak\Collection;
 use Fschmtt\Keycloak\Representation\UserFederationMapper;
 
 /**
- * @method UserFederationMapper[] getIterator()
+ * @extends Collection<UserFederationMapper>
  * @codeCoverageIgnore
  */
 class UserFederationMapperCollection extends Collection

@@ -7,7 +7,7 @@ namespace Fschmtt\Keycloak\Collection;
 use Fschmtt\Keycloak\Representation\RequiredActionProvider;
 
 /**
- * @method RequiredActionProvider[] getIterator()
+ * @extends Collection<RequiredActionProvider>
  * @codeCoverageIgnore
  */
 class RequiredActionProviderCollection extends Collection

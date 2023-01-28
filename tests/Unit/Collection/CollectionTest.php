@@ -30,7 +30,7 @@ class CollectionTest extends TestCase
         $this->expectExceptionMessage('UserCollection expects items to be User representation, Realm given');
 
         new UserCollection([
-            new Realm(),
+            new Realm(), // @phpstan-ignore-line
         ]);
     }
 

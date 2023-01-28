@@ -22,6 +22,9 @@ class Client
     ) {
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public function request(string $method, string $path = '', array $options = []): ResponseInterface
     {
         if (!$this->isAuthorized()) {

@@ -36,6 +36,7 @@ class Group extends Representation
         protected ?string $id = null,
         protected ?string $name = null,
         protected ?string $path = null,
+        /** @var string[]|null */
         protected ?array $realmRoles = null,
         protected ?GroupCollection $subGroups = null,
     ) {

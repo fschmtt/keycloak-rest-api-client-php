@@ -21,6 +21,7 @@ class Resource extends Representation
         protected ?bool $ownerManagedAccess,
         protected ?ScopeCollection $scopes,
         protected ?string $type,
+        /** @var string[]|null */
         protected ?array $uris,
     ) {
     }

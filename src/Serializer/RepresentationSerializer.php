@@ -16,7 +16,7 @@ class RepresentationSerializer implements SerializerInterface
     /**
      * @param class-string<Representation> $type
      */
-    public function serialize(string $type, $value): Representation
+    public function serialize(string $type, mixed $value): Representation
     {
         return $type::from($value);
     }

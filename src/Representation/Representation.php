@@ -13,10 +13,13 @@ use JsonSerializable;
 use ReflectionClass;
 use ReflectionProperty;
 
-abstract class Representation implements RepresentationInterface, JsonSerializable
+abstract class Representation implements JsonSerializable
 {
     private ?Serializer $serializer = null;
 
+    /**
+     * @param array<mixed> $properties
+     */
     final public static function from(array $properties): static
     {
         /** @phpstan-ignore-next-line */
@@ -41,6 +44,9 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
         return $this->withProperty($property, $value);
     }
 
+    /**
+     * @return array<mixed>
+     */
     final public function jsonSerialize(): array
     {
         $serializable = [];
@@ -57,6 +63,9 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
         return $serializable;
     }
 
+    /**
+     * @param string[] $arguments
+     */
     final public function __call(string $name, array $arguments): mixed
     {
         if (str_starts_with($name, 'get')) {

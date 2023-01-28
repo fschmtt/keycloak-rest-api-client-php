@@ -7,7 +7,8 @@ namespace Fschmtt\Keycloak\Collection;
 use Fschmtt\Keycloak\Representation\AuthenticationFlow;
 
 /**
- * @method AuthenticationFlow[] getIterator()
+ * @extends Collection<AuthenticationFlow>
+ *
  * @codeCoverageIgnore
  */
 class AuthenticationFlowCollection extends Collection

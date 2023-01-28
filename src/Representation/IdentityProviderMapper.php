@@ -4,94 +4,30 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Type\Map;
+
 /**
+ * @method Map|null getConfig()
+ * @method self withConfig(?Map $config)
+ * @method string|null getId()
+ * @method self withId(?string $id)
+ * @method string|null getIdentityProviderAlias()
+ * @method self withIdentityProviderAlias(?string $identityProviderAlias)
+ * @method string|null getIdentityProviderMapper()
+ * @method self withIdentityProviderMapper(?string $identityProviderMapper)
+ * @method string|null getName()
+ * @method self withName(?string $name)
+ *
  * @codeCoverageIgnore
  */
 class IdentityProviderMapper extends Representation
 {
-    /**
-     * @var array|null
-     */
-    private $config;
-
-    /**
-     * @var string|null
-     */
-    private $id;
-
-    /**
-     * @var string|null
-     */
-    private $identityProviderAlias;
-
-    /**
-     * @var string|null
-     */
-    private $identityProviderMapper;
-
-    /**
-     * @var string|null
-     */
-    private $name;
-
-    /**
-     * @param array|null $config
-     * @param string|null $id
-     * @param string|null $identityProviderAlias
-     * @param string|null $identityProviderMapper
-     * @param string|null $name
-     */
     public function __construct(
-        ?array $config,
-        ?string $id,
-        ?string $identityProviderAlias,
-        ?string $identityProviderMapper,
-        ?string $name
+        protected ?Map $config = null,
+        protected ?string $id = null,
+        protected ?string $identityProviderAlias = null,
+        protected ?string $identityProviderMapper = null,
+        protected ?string $name = null,
     ) {
-        $this->config = $config;
-        $this->id = $id;
-        $this->identityProviderAlias = $identityProviderAlias;
-        $this->identityProviderMapper = $identityProviderMapper;
-        $this->name = $name;
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getConfig(): ?array
-    {
-        return $this->config;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getId(): ?string
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getIdentityProviderAlias(): ?string
-    {
-        return $this->identityProviderAlias;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getIdentityProviderMapper(): ?string
-    {
-        return $this->identityProviderMapper;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getName(): ?string
-    {
-        return $this->name;
     }
 }

@@ -18,5 +18,11 @@ return static function(ECSConfig $config): void {
         NoUnusedImportsFixer::class,
     ]);
 
+    $config->paths([
+        'src',
+        'tests',
+        'examples',
+    ]);
+
     $config->parallel();
 };

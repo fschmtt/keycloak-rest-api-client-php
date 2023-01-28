@@ -105,7 +105,6 @@ use Fschmtt\Keycloak\Type\Map;
  * @method string|null getRegistrationFlow()
  * @method bool|null getRememberMe()
  * @method array|null getRequiredActions()
- * @method array|null getRequiredCredentials()
  * @method string|null getResetCredentialsFlow()
  * @method bool|null getResetPasswordAllowed()
  * @method bool|null getRevokeRefreshToken()
@@ -117,7 +116,7 @@ use Fschmtt\Keycloak\Type\Map;
  * @method int|null getSsoSessionIdleTimeoutRememberMe()
  * @method int|null getSsoSessionMaxLifespan()
  * @method int|null getSsoSessionMaxLifespanRememberMe()
- * @method array|null getSupportedLocales()
+ * @method string[]|null getSupportedLocales()
  * @method array|null getUserFederationMappers()
  * @method array|null getUserFederationProviders()
  * @method bool|null getUserManagedAccessAllowed()
@@ -228,7 +227,6 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withRegistrationFlow(?string $value)
  * @method self withRememberMe(?bool $value)
  * @method self withRequiredActions(?array $value)
- * @method self withRequiredCredentials(?array $value)
  * @method self withResetCredentialsFlow(?string $value)
  * @method self withResetPasswordAllowed(?bool $value)
  * @method self withRevokeRefreshToken(?bool $value)
@@ -295,15 +293,18 @@ class Realm extends Representation
         protected ?int $clientOfflineSessionMaxLifespan = null,
         protected ?ClientPolicies $clientPolicies = null,
         protected ?ClientProfiles $clientProfiles = null,
-        protected ?ClientScopeCollection $clientScopeMappings = null,
-        protected ?array $clientScopes = null,
+        protected ?Map $clientScopeMappings = null,
+        protected ?ClientScopeCollection $clientScopes = null,
         protected ?int $clientSessionIdleTimeout = null,
         protected ?int $clientSessionMaxLifespan = null,
         protected ?ClientCollection $clients = null,
-        protected ?array $components = null,
+        protected ?MultivaluedHashMap $components = null,
+        /** @var string[]|null */
         protected ?array $defaultDefaultClientScopes = null,
+        /** @var string[]|null */
         protected ?array $defaultGroups = null,
         protected ?string $defaultLocale = null,
+        /** @var string[]|null */
         protected ?array $defaultOptionalClientScopes = null,
         protected ?Role $defaultRole = null,
         protected ?string $defaultSignatureAlgorithm = null,
@@ -315,9 +316,11 @@ class Realm extends Representation
         protected ?bool $editUsernameAllowed = null,
         protected ?string $emailTheme = null,
         protected ?bool $enabled = null,
+        /** @var string[]|null */
         protected ?array $enabledEventTypes = null,
         protected ?bool $eventsEnabled = null,
         protected ?int $eventsExpiration = null,
+        /** @var string[]|null */
         protected ?array $eventsListeners = null,
         protected ?int $failureFactor = null,
         protected ?UserCollection $federatedUsers = null,
@@ -346,6 +349,7 @@ class Realm extends Representation
         protected ?int $otpPolicyLookAheadWindow = null,
         protected ?int $otpPolicyPeriod = null,
         protected ?string $otpPolicyType = null,
+        /** @var string[]|null */
         protected ?array $otpSupportedApplications = null,
         protected ?string $passwordPolicy = null,
         protected ?bool $permanentLockout = null,
@@ -358,7 +362,6 @@ class Realm extends Representation
         protected ?string $registrationFlow = null,
         protected ?bool $rememberMe = null,
         protected ?RequiredActionProviderCollection $requiredActions = null,
-        protected ?array $requiredCredentials = null,
         protected ?string $resetCredentialsFlow = null,
         protected ?bool $resetPasswordAllowed = null,
         protected ?bool $revokeRefreshToken = null,
@@ -370,6 +373,7 @@ class Realm extends Representation
         protected ?int $ssoSessionIdleTimeoutRememberMe = null,
         protected ?int $ssoSessionMaxLifespan = null,
         protected ?int $ssoSessionMaxLifespanRememberMe = null,
+        /** @var string[]|null */
         protected ?array $supportedLocales = null,
         protected ?UserFederationMapperCollection $userFederationMappers = null,
         protected ?UserFederationProviderCollection $userFederationProviders = null,
@@ -377,11 +381,13 @@ class Realm extends Representation
         protected ?UserCollection $users = null,
         protected ?bool $verifyEmail = null,
         protected ?int $waitIncrementSeconds = null,
+        /** @var string[]|null */
         protected ?array $webAuthnPolicyAcceptableAaguids = null,
         protected ?string $webAuthnPolicyAttestationConveyancePreference = null,
         protected ?string $webAuthnPolicyAuthenticatorAttachment = null,
         protected ?bool $webAuthnPolicyAvoidSameAuthenticatorRegister = null,
         protected ?int $webAuthnPolicyCreateTimeout = null,
+        /** @var string[]|null */
         protected ?array $webAuthnPolicyPasswordlessAcceptableAaguids = null,
         protected ?string $webAuthnPolicyPasswordlessAttestationConveyancePreference = null,
         protected ?string $webAuthnPolicyPasswordlessAuthenticatorAttachment = null,
@@ -390,11 +396,13 @@ class Realm extends Representation
         protected ?string $webAuthnPolicyPasswordlessRequireResidentKey = null,
         protected ?string $webAuthnPolicyPasswordlessRpEntityName = null,
         protected ?string $webAuthnPolicyPasswordlessRpId = null,
+        /** @var string[]|null */
         protected ?array $webAuthnPolicyPasswordlessSignatureAlgorithms = null,
         protected ?string $webAuthnPolicyPasswordlessUserVerificationRequirement = null,
         protected ?string $webAuthnPolicyRequireResidentKey = null,
         protected ?string $webAuthnPolicyRpEntityName = null,
         protected ?string $webAuthnPolicyRpId = null,
+        /** @var string[]|null */
         protected ?array $webAuthnPolicySignatureAlgorithms = null,
         protected ?string $webAuthnPolicyUserVerificationRequirement = null,
     ) {
