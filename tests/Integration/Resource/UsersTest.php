@@ -118,7 +118,7 @@ class UsersTest extends TestCase
             static::assertInstanceOf(User::class, $user);
 
             // retrieve user's roles and count them
-            $roles = $users->retrieveRealmRoles('maste125r', $user->getId());
+            $roles = $users->retrieveRealmRoles('master', $user->getId());
             $rolesCount = $roles->count();
 
             // retrieve user's available roles and count them
