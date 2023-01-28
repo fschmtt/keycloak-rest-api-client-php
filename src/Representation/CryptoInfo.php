@@ -21,9 +21,5 @@ class CryptoInfo extends Representation
         protected ?string $cryptoProvider = null,
         protected ?array $supportedKeystoreTypes = null,
     ) {
-        parent::__construct(
-            $cryptoProvider,
-            $supportedKeystoreTypes
-        );
     }
 }

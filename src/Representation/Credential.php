@@ -49,20 +49,5 @@ class Credential extends Representation
         protected ?string $type = null,
         protected ?string $value = null
     ) {
-        parent::__construct(
-            $algorithm,
-            $config,
-            $counter,
-            $createdDate,
-            $device,
-            $digits,
-            $hashIterations,
-            $hashedSaltedValue,
-            $period,
-            $salt,
-            $temporary,
-            $type,
-            $value,
-        );
     }
 }

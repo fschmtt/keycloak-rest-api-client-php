@@ -15,6 +15,5 @@ class ClientPolicies extends Representation
     public function __construct(
         protected ?array $policies = null
     ) {
-        parent::__construct($policies);
     }
 }

@@ -18,9 +18,5 @@ class ClientPolicyExecutor extends Representation
         protected ?JsonNode $configuration = null,
         protected ?string $executor = null,
     ) {
-        parent::__construct(
-            $configuration,
-            $executor,
-        );
     }
 }

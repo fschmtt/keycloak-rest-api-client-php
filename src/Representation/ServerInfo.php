@@ -62,21 +62,5 @@ class ServerInfo extends Representation
         protected ?SystemInfo $systemInfo = null,
         protected ?Map $themes = null,
     ) {
-        parent::__construct(
-            $builtinProtocolMappers,
-            $clientImporters,
-            $clientImporters,
-            $componentTypes,
-            $enums,
-            $identityProviders,
-            $memoryInfo,
-            $passwordPolicies,
-            $profileInfo,
-            $protocolMapperTypes,
-            $providers,
-            $socialProviders,
-            $systemInfo,
-            $themes,
-        );
     }
 }

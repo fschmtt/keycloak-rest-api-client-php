@@ -19,15 +19,5 @@ class Role extends Representation
         protected ?string $id = null,
         protected ?string $name = null,
     ) {
-        parent::__construct(
-            $attributes,
-            $clientRole,
-            $composite,
-            $containerId,
-            $composites,
-            $description,
-            $id,
-            $name,
-        );
     }
 }

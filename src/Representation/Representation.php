@@ -15,12 +15,7 @@ use ReflectionProperty;
 
 abstract class Representation implements RepresentationInterface, JsonSerializable
 {
-    private Serializer $serializer;
-
-    public function __construct(...$properties)
-    {
-        $this->serializer = (new Factory())->create();
-    }
+    private ?Serializer $serializer = null;
 
     final public static function from(array $properties): static
     {
@@ -87,7 +82,7 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
         $this->throwExceptionIfPropertyDoesNotExist($property);
 
         $type = $this->getPropertyType($property);
-        $value = $this->serializer->serialize($type, $value);
+        $value = $this->getSerializer()->serialize($type, $value);
 
         $clone = clone $this;
         $clone->$property = $value;
@@ -122,5 +117,14 @@ abstract class Representation implements RepresentationInterface, JsonSerializab
         }))[0];
 
         return (string) $prop->getType();
+    }
+
+    private function getSerializer(): Serializer
+    {
+        if (!$this->serializer) {
+            $this->serializer = (new Factory())->create();
+        }
+
+        return $this->serializer;
     }
 }

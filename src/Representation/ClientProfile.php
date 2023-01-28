@@ -24,11 +24,5 @@ class ClientProfile extends Representation
         protected ?array $executors = null,
         protected ?string $name = null,
     ) {
-        parent::__construct(
-            $builtin,
-            $description,
-            $executors,
-            $name,
-        );
     }
 }

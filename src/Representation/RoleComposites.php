@@ -21,9 +21,5 @@ class RoleComposites extends Representation
         protected ?Map $client = null,
         protected ?RealmCollection $realm = null
     ) {
-        parent::__construct(
-            $client,
-            $realm
-        );
     }
 }

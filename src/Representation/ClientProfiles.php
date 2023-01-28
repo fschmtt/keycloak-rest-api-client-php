@@ -18,9 +18,5 @@ class ClientProfiles extends Representation
         protected ?array $profiles = null,
         protected ?array $globalProfiles = null,
     ) {
-        parent::__construct(
-            $globalProfiles,
-            $profiles,
-        );
     }
 }

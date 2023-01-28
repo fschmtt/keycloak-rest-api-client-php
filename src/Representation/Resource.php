@@ -23,16 +23,5 @@ class Resource extends Representation
         protected ?string $type,
         protected ?array $uris,
     ) {
-        parent::__construct(
-            $id,
-            $attributes,
-            $displayName,
-            $icon_uri,
-            $name,
-            $ownerManagedAccess,
-            $scopes,
-            $type,
-            $uris,
-        );
     }
 }

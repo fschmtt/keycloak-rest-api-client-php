@@ -35,29 +35,5 @@ class JsonNode extends Representation
         protected ?bool $textual = null,
         protected ?bool $valueNode = null,
     ) {
-        parent::__construct(
-            $array,
-            $bigDecimal,
-            $bigInteger,
-            $binary,
-            $boolean,
-            $containerNode,
-            $double,
-            $empty,
-            $float,
-            $floatingPointNumber,
-            $int,
-            $integralNumber,
-            $long,
-            $missingNode,
-            $nodeType,
-            $null,
-            $number,
-            $object,
-            $pojo,
-            $short,
-            $textual,
-            $valueNode,
-        );
     }
 }

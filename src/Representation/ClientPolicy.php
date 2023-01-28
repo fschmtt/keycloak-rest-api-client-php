@@ -27,12 +27,5 @@ class ClientPolicy extends Representation
         protected ?string $name = null,
         protected ?array $profiles = null,
     ) {
-        parent::__construct(
-            $conditions,
-            $description,
-            $enabled,
-            $name,
-            $profiles,
-        );
     }
 }

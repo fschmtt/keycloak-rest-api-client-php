@@ -86,31 +86,5 @@ class User extends Representation
         protected ?string $totp = null,
         protected ?string $username = null,
     ) {
-        parent::__construct(
-            $access,
-            $attributes,
-            $clientConsents,
-            $clientRoles,
-            $createdTimestamp,
-            $credentials,
-            $disableableCredentialTypes,
-            $email,
-            $emailVerified,
-            $enabled,
-            $federatedIdentities,
-            $federationLink,
-            $firstName,
-            $groups,
-            $id,
-            $lastName,
-            $notBefore,
-            $origin,
-            $realmRoles,
-            $requiredActions,
-            $self,
-            $serviceAccountClientId,
-            $totp,
-            $username,
-        );
     }
 }

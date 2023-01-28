@@ -30,20 +30,5 @@ class Policy extends Representation
         protected ?ScopeCollection $scopesData,
         protected ?string $type,
     ) {
-        parent::__construct(
-            $this->config,
-            $this->decisionStrategy,
-            $this->description,
-            $this->id,
-            $this->logic,
-            $this->name,
-            $this->owner,
-            $this->policies,
-            $this->resources,
-            $this->resourcesData,
-            $this->scopes,
-            $this->scopesData,
-            $this->type
-        );
     }
 }

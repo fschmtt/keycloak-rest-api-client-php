@@ -19,14 +19,9 @@ use Fschmtt\Keycloak\Type\Map;
 class AuthenticatorConfig extends Representation
 {
     public function __construct(
-        ?string $alias = null,
-        ?Map $config = null,
-        ?string $id = null,
+        protected ?string $alias = null,
+        protected ?Map $config = null,
+        protected ?string $id = null,
     ) {
-        parent::__construct(
-            $alias,
-            $config,
-            $id,
-        );
     }
 }

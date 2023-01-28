@@ -13,9 +13,5 @@ class Roles extends Representation
         protected ?array $client = null,
         protected ?array $realm = null,
     ) {
-        parent::__construct(
-            $client,
-            $realm
-        );
     }
 }

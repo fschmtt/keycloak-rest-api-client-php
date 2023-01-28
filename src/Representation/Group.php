@@ -39,15 +39,5 @@ class Group extends Representation
         protected ?array $realmRoles = null,
         protected ?GroupCollection $subGroups = null,
     ) {
-        parent::__construct(
-            $access,
-            $attributes,
-            $clientRoles,
-            $id,
-            $name,
-            $path,
-            $realmRoles,
-            $subGroups,
-        );
     }
 }

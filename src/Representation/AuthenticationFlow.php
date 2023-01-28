@@ -33,14 +33,5 @@ class AuthenticationFlow extends Representation
         protected ?string $providerId = null,
         protected ?bool $topLevel = null,
     ) {
-        parent::__construct(
-            $alias,
-            $authenticationExecutions,
-            $builtIn,
-            $description,
-            $id,
-            $providerId,
-            $topLevel,
-        );
     }
 }
