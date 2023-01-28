@@ -37,11 +37,9 @@ class Representation extends \Fschmtt\Keycloak\Representation\Representation
         ?string $since1500Until1800 = null,
         ?Map $map = null,
     ) {
-        parent::__construct(
-            $since2000,
-            $until1400,
-            $since1500Until1800,
-            $map,
-        );
+        $this->since2000 = $since2000;
+        $this->until1400 = $until1400;
+        $this->since1500Until1800 = $since1500Until1800;
+        $this->map = $map;
     }
 }
