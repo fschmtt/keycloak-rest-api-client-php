@@ -105,6 +105,7 @@ use Fschmtt\Keycloak\Type\Map;
  * @method string|null getRegistrationFlow()
  * @method bool|null getRememberMe()
  * @method array|null getRequiredActions()
+ * @method string[]|null getRequiredCredentials()
  * @method string|null getResetCredentialsFlow()
  * @method bool|null getResetPasswordAllowed()
  * @method bool|null getRevokeRefreshToken()
@@ -227,6 +228,7 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withRegistrationFlow(?string $value)
  * @method self withRememberMe(?bool $value)
  * @method self withRequiredActions(?array $value)
+ * @method self withRequiredCredentials(?array $value)
  * @method self withResetCredentialsFlow(?string $value)
  * @method self withResetPasswordAllowed(?bool $value)
  * @method self withRevokeRefreshToken(?bool $value)
@@ -362,6 +364,8 @@ class Realm extends Representation
         protected ?string $registrationFlow = null,
         protected ?bool $rememberMe = null,
         protected ?RequiredActionProviderCollection $requiredActions = null,
+        /** @var string[]|null */
+        protected ?array $requiredCredentials = null,
         protected ?string $resetCredentialsFlow = null,
         protected ?bool $resetPasswordAllowed = null,
         protected ?bool $revokeRefreshToken = null,

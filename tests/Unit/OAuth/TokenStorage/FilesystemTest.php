@@ -75,7 +75,7 @@ class FilesystemTest extends TestCase
 
         static::assertSame($storedAccessToken, $this->storage->retrieveAccessToken());
 
-        $this->storage->storeRefreshToken($newAccessToken);
+        $this->storage->storeAccessToken($newAccessToken);
 
         static::assertNotSame($storedAccessToken, $this->storage->retrieveAccessToken());
         static::assertSame($newAccessToken, $this->storage->retrieveAccessToken());

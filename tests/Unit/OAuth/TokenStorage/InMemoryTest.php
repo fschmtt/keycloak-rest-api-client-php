@@ -55,7 +55,7 @@ class InMemoryTest extends TestCase
 
         static::assertSame($storedAccessToken, $storage->retrieveAccessToken());
 
-        $storage->storeRefreshToken($newAccessToken);
+        $storage->storeAccessToken($newAccessToken);
 
         static::assertNotSame($storedAccessToken, $storage->retrieveAccessToken());
         static::assertSame($newAccessToken, $storage->retrieveAccessToken());
