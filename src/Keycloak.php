@@ -8,6 +8,8 @@ use Fschmtt\Keycloak\Http\Client;
 use Fschmtt\Keycloak\Http\CommandExecutor;
 use Fschmtt\Keycloak\Http\PropertyFilter;
 use Fschmtt\Keycloak\Http\QueryExecutor;
+use Fschmtt\Keycloak\OAuth\TokenStorage\InMemory;
+use Fschmtt\Keycloak\OAuth\TokenStorageInterface;
 use Fschmtt\Keycloak\Resource\AttackDetection;
 use Fschmtt\Keycloak\Resource\Clients;
 use Fschmtt\Keycloak\Resource\Groups;
@@ -29,9 +31,10 @@ class Keycloak
     public function __construct(
         private readonly string $baseUrl,
         private readonly string $username,
-        private readonly string $password
+        private readonly string $password,
+        private readonly TokenStorageInterface $tokenStorage = new InMemory(),
     ) {
-        $this->client = new Client($this, new GuzzleClient());
+        $this->client = new Client($this, new GuzzleClient(), $this->tokenStorage);
         $this->propertyFilter = new PropertyFilter($this->version);
         $this->commandExecutor = new CommandExecutor($this->client, $this->propertyFilter);
         $this->queryExecutor = new QueryExecutor($this->client, (new SerializerFactory())->create());

@@ -38,16 +38,16 @@
             "@phpstan",
             "@psalm"
         ],
-        "ecs": "docker compose run --rm --no-deps php vendor/bin/ecs check src tests examples",
-        "ecs:fix": "docker compose run --rm --no-deps php vendor/bin/ecs check --fix src tests examples",
-        "phpstan": "docker compose run --rm --no-deps php vendor/bin/phpstan analyze src tests examples",
-        "psalm": "docker compose run --rm --no-deps php vendor/bin/psalm src tests examples",
+        "ecs": "vendor/bin/ecs check src tests examples",
+        "ecs:fix": "vendor/bin/ecs check --fix src tests examples",
+        "phpstan": "vendor/bin/phpstan analyze src tests examples",
+        "psalm": "vendor/bin/psalm src tests examples",
         "test": [
             "@test:unit",
             "@test:integration"
         ],
-        "test:unit": "docker compose run --rm --no-deps php vendor/bin/phpunit --testsuite unit",
-        "test:integration": "docker compose run --rm --no-deps php vendor/bin/phpunit --testsuite integration"
+        "test:unit": "vendor/bin/phpunit --testsuite unit",
+        "test:integration": "vendor/bin/phpunit --testsuite integration"
     },
     "scripts-descriptions": {
         "analyze": "Run phpstan and psalm analysis",

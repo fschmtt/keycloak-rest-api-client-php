@@ -8,8 +8,6 @@ PHP client to interact with [Keycloak's Admin REST API](https://www.keycloak.org
 
 Inspired by [keycloak/keycloak-nodejs-admin-client](https://github.com/keycloak/keycloak-nodejs-admin-client).
 
-_Note: This library is WIP and can not be considered stable yet - do not use this in production._
-
 ## Installation
 Install via Composer:
 ```bash
