@@ -15,6 +15,14 @@ use PHPUnit\Framework\TestCase;
  */
 class MapSerializerTest extends TestCase
 {
+    public function testSerializes(): void
+    {
+        static::assertSame(
+            Map::class,
+            (new MapSerializer())->serializes()
+        );
+    }
+
     /**
      * @dataProvider provideData
      */

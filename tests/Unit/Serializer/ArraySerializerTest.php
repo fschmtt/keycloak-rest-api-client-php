@@ -12,6 +12,14 @@ use PHPUnit\Framework\TestCase;
  */
 class ArraySerializerTest extends TestCase
 {
+    public function testSerializes(): void
+    {
+        static::assertSame(
+            'array',
+            (new ArraySerializer())->serializes()
+        );
+    }
+
     /**
      * @param array<mixed> $expected
      * @dataProvider provideData

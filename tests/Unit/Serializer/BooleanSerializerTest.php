@@ -13,6 +13,14 @@ use stdClass;
  */
 class BooleanSerializerTest extends TestCase
 {
+    public function testSerializes(): void
+    {
+        static::assertSame(
+            'bool',
+            (new BooleanSerializer())->serializes()
+        );
+    }
+
     /**
      * @dataProvider provideData
      */

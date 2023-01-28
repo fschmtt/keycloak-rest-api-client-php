@@ -13,6 +13,14 @@ use PHPUnit\Framework\TestCase;
  */
 class RepresentationSerializerTest extends TestCase
 {
+    public function testSerializes(): void
+    {
+        static::assertSame(
+            RepresentationSerializer::class,
+            (new RepresentationSerializer())->serializes()
+        );
+    }
+
     public function testSerializesRepresentation(): void
     {
         $serializer = new RepresentationSerializer();
