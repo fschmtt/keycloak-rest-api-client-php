@@ -7,7 +7,7 @@ use Fschmtt\Keycloak\Keycloak;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $keycloak = new Keycloak(
-    'http://keycloak:8080',
+    $_SERVER['KEYCLOAK_BASE_URL'] ?? 'http://keycloak:8080',
     'admin',
     'admin',
 );
