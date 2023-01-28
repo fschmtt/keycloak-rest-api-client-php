@@ -6,18 +6,19 @@ namespace Fschmtt\Keycloak\Http;
 
 use DateTime;
 use Fschmtt\Keycloak\Keycloak;
-use GuzzleHttp\Client as GuzzleClient;
+use Fschmtt\Keycloak\OAuth\TokenStorageInterface;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\ClientException;
 use Lcobucci\JWT\Encoding\JoseEncoder;
 use Lcobucci\JWT\Token;
 use Psr\Http\Message\ResponseInterface;
 
 class Client
 {
-    private ?Token $accessToken = null;
-
     public function __construct(
         private readonly Keycloak $keycloak,
-        private GuzzleClient $httpClient,
+        private readonly ClientInterface $httpClient,
+        private readonly TokenStorageInterface $tokenStorage,
     ) {
     }
 
@@ -30,7 +31,7 @@ class Client
         $defaultOptions = [
             'base_uri' => $this->keycloak->getBaseUrl(),
             'headers' => [
-                'Authorization' => 'Bearer ' . $this->accessToken->toString(),
+                'Authorization' => 'Bearer ' . $this->tokenStorage->retrieveAccessToken()->toString(),
             ],
         ];
 
@@ -45,34 +46,59 @@ class Client
 
     public function isAuthorized(): bool
     {
-        return $this->accessToken !== null && !$this->accessToken->isExpired(new DateTime());
+        return $this->tokenStorage->retrieveAccessToken() !== null && !$this->tokenStorage->retrieveAccessToken()->isExpired(new DateTime());
     }
 
     private function authorize(): void
     {
-        $accessToken = $this->fetchAccessToken();
+        $tokens = $this->fetchTokens();
+        $parser = (new Token\Parser(new JoseEncoder()));
 
-        $this->accessToken = (new Token\Parser(new JoseEncoder()))->parse($accessToken);
+        $this->tokenStorage->storeAccessToken($parser->parse($tokens['access_token']));
+        $this->tokenStorage->storeRefreshToken($parser->parse($tokens['refresh_token']));
     }
 
-    private function fetchAccessToken(): string
+    /**
+     * @return array{access_token: string, refresh_token: string}
+     */
+    private function fetchTokens(): array
     {
-        $response = $this->httpClient->request(
-            'POST',
-            $this->keycloak->getBaseUrl() . '/realms/master/protocol/openid-connect/token',
-            [
-                'form_params' => [
-                    'username' => $this->keycloak->getUsername(),
-                    'password' => $this->keycloak->getPassword(),
-                    'client_id' => 'admin-cli',
-                    'grant_type' => 'password',
+        try {
+            $response = $this->httpClient->request(
+                'POST',
+                $this->keycloak->getBaseUrl() . '/realms/master/protocol/openid-connect/token',
+                [
+                    'form_params' => [
+                        'refresh_token' => $this->tokenStorage->retrieveRefreshToken()?->toString(),
+                        'client_id' => 'admin-cli',
+                        'grant_type' => 'refresh_token',
+                    ],
                 ],
-            ]
+            );
+        } catch (ClientException $e) {
+            $response = $this->httpClient->request(
+                'POST',
+                $this->keycloak->getBaseUrl() . '/realms/master/protocol/openid-connect/token',
+                [
+                    'form_params' => [
+                        'username' => $this->keycloak->getUsername(),
+                        'password' => $this->keycloak->getPassword(),
+                        'client_id' => 'admin-cli',
+                        'grant_type' => 'password',
+                    ],
+                ]
+            );
+        }
+
+        $tokens = json_decode(
+            $response->getBody()->getContents(),
+            true,
+            flags: JSON_THROW_ON_ERROR,
         );
 
-        return (string) json_decode(
-            json: (string) $response->getBody(),
-            flags: JSON_THROW_ON_ERROR,
-        )->access_token;
+        return [
+            'access_token' => $tokens['access_token'],
+            'refresh_token' => $tokens['refresh_token'],
+        ];
     }
 }
