@@ -6,7 +6,7 @@ namespace Fschmtt\Keycloak\Representation;
 
 /**
  * @method int|null getCreatedDate()
- * @method int|null getCredentialData()
+ * @method string|null getCredentialData()
  * @method string|null getId()
  * @method int|null getPriority()
  * @method string|null getSecretData()
@@ -15,7 +15,7 @@ namespace Fschmtt\Keycloak\Representation;
  * @method string|null getUserLabel()
  * @method string|null getValue()
  * @method self withCreatedDate(?int $createdDate)
- * @method self withCredentialData(?int $credentialData)
+ * @method self withCredentialData(?string $credentialData)
  * @method self withId(?string $id)
  * @method self withPriority(?int $priority)
  * @method self withSecretData(?string $secretData)
