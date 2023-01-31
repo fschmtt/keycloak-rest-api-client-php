@@ -16,6 +16,7 @@ use Fschmtt\Keycloak\Http\QueryExecutor;
 use Fschmtt\Keycloak\Representation\Group;
 use Fschmtt\Keycloak\Representation\Role;
 use Fschmtt\Keycloak\Representation\User;
+use Fschmtt\Keycloak\Representation\Credential;
 use Fschmtt\Keycloak\Resource\Users;
 use PHPUnit\Framework\TestCase;
 
@@ -89,6 +90,49 @@ class UsersTest extends TestCase
     public function testCreateUser(): void
     {
         $createdUser = new User(id: 'uuid', username: 'imported-user');
+
+        $command = new Command(
+            '/admin/realms/{realm}/users',
+            Method::POST,
+            [
+                'realm' => 'test-realm',
+            ],
+            $createdUser,
+        );
+
+        $commandExecutor = $this->createMock(CommandExecutor::class);
+        $commandExecutor->expects(static::once())
+            ->method('executeCommand')
+            ->with($command);
+
+        $users = new Users(
+            $commandExecutor,
+            $this->createMock(QueryExecutor::class),
+        );
+
+        $users->create('test-realm', $createdUser);
+    }
+
+    private function createPasswordCredential($pwd): Credential
+    {
+        $salt=random_bytes(16);
+        $iterations=27500;
+        $length=64;
+        $hash=hash_pbkdf2("sha256",$pwd,$salt,$iterations,$length,true);
+        $credential = new Credential(
+            credentialData:
+            "{\"hashIterations\":$iterations,\"algorithm\":\"pbkdf2-sha256\"}",
+            secretData:
+            "{\"value\":\"".base64_encode($hash)."\",\"salt\":\"".base64_encode($salt)."\"}",
+            type: "password",
+        );
+        return $credential;
+    }
+
+    public function testCreateUserWithCredential(): void
+    {
+        $credential = $this->createPasswordCredential('Test1234!');
+        $createdUser = new User(id: 'uuid', username: 'imported-user', array($credential));
 
         $command = new Command(
             '/admin/realms/{realm}/users',
