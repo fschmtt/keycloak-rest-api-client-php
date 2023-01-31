@@ -30,7 +30,7 @@ class Credential extends Representation
 {
     public function __construct(
         protected ?int $createdDate = null,
-        protected ?int $credentialData = null,
+        protected ?string $credentialData = null,
         protected ?string $id = null,
         protected ?int $priority = null,
         protected ?string $secretData = null,
