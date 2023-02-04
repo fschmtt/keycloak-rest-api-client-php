@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Test\Integration\Resource;
 
 use Exception;
+use Fschmtt\Keycloak\Collection\CredentialCollection;
 use Fschmtt\Keycloak\Collection\RoleCollection;
 use Fschmtt\Keycloak\Http\Criteria;
+use Fschmtt\Keycloak\Representation\Credential;
 use Fschmtt\Keycloak\Representation\Group;
 use Fschmtt\Keycloak\Representation\Role;
 use Fschmtt\Keycloak\Representation\User;
@@ -150,5 +152,55 @@ class UsersTest extends TestCase
         } finally {
             $this->getKeycloak()->roles()->delete('master', 'test-user-role');
         }
+    }
+
+    public function testCreateUserWithPasswordCredential(): void
+    {
+        $users = $this->getKeycloak()->users();
+        $username = Uuid::uuid4()->toString();
+
+        $users->create('master', new User(
+            credentials: new CredentialCollection([$this->createPasswordCredential('p4ssw0rd')]),
+            username: $username,
+        ));
+
+        $user = $this->searchUserByUsername($username);
+        static::assertInstanceOf(User::class, $user);
+
+        $users->delete('master', $user->getId());
+
+        $user = $this->searchUserByUsername($username);
+        static::assertNull($user);
+    }
+
+    private function searchUserByUsername(string $username): ?User
+    {
+        /** @var User|null $user */
+        $user = $this->getKeycloak()->users()->search('master', new Criteria([
+            'username' => $username,
+            'exact' => true,
+        ]))->first();
+
+        return $user;
+    }
+
+    private function createPasswordCredential(string $password): Credential
+    {
+        $salt = random_bytes(16);
+        $iterations = 27500;
+
+        $hash = hash_pbkdf2('sha256', $password, $salt, 27500, 64, true);
+
+        return new Credential(
+            credentialData: json_encode([
+                'hashIterations' => $iterations,
+                'algorithm' => 'pbkdf2-sha256',
+            ], JSON_THROW_ON_ERROR),
+            secretData: json_encode([
+                'value' => base64_encode($hash),
+                'salt' => base64_encode($salt),
+            ], JSON_THROW_ON_ERROR),
+            type: 'password',
+        );
     }
 }
