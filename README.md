@@ -4,7 +4,7 @@
 ![PHP Legacy (Keycloak compatibility)](https://github.com/fschmtt/keycloak-rest-api-client-php/actions/workflows/php-integration-legacy.yml/badge.svg?branch=main)
 
 # Keycloak Admin REST API Client
-PHP client to interact with [Keycloak's Admin REST API](https://www.keycloak.org/docs-api/20.0.0/rest-api/index.html).
+PHP client to interact with [Keycloak's Admin REST API](https://www.keycloak.org/docs-api/21.0.0/rest-api/index.html).
 
 Inspired by [keycloak/keycloak-nodejs-admin-client](https://github.com/keycloak/keycloak-nodejs-admin-client).
 
@@ -42,20 +42,20 @@ echo sprintf(
 ```
 will print e.g.
 ```text
-Keycloak 20.0.0 is running on Linux/5.10.25-linuxkit (amd64) with OpenJDK 64-Bit Server VM/11.0.11 since 0 days, 2 hours, 37 minutes, 7 seconds and is currently using 139 MB of 512 MB (28 %) memory.
+Keycloak 21.0.0 is running on Linux/5.10.25-linuxkit (amd64) with OpenJDK 64-Bit Server VM/11.0.11 since 0 days, 2 hours, 37 minutes, 7 seconds and is currently using 139 MB of 512 MB (28 %) memory.
 ```
 
 More examples can be found in the [examples](examples) directory.
 
 ## Available Resources
-### [Attack Detection](https://www.keycloak.org/docs-api/20.0.0/rest-api/index.html#_attack_detection_resource)
+### [Attack Detection](https://www.keycloak.org/docs-api/21.0.0/rest-api/index.html#_attack_detection_resource)
 | Endpoint | Response | API |
 |----------|----------|-----|
 | `DELETE /admin/realms/{realm}/attack-detection/brute-force/users` | `n/a` | [AttackDetection::clear()](src/Resource/AttackDetection.php) |
 | `GET /admin/realms/{realm}/attack-detection/brute-force/users/{userId}` | [Map](src/Type/Map.php) | [AttackDetection::userStatus()](src/Resource/AttackDetection.php) |
 | `DELETE /admin/realms/{realm}/attack-detection/brute-force/users/{userId}` | `n/a` | [AttackDetection::clearUser()](src/Resource/AttackDetection.php) |
 
-### [Clients](https://www.keycloak.org/docs-api/20.0.0/rest-api/index.html#_clients_resource)
+### [Clients](https://www.keycloak.org/docs-api/21.0.0/rest-api/index.html#_clients_resource)
 | Endpoint | Response | API |
 |----------|----------|-----|
 | `GET /admin/realms/{realm}/clients` | [ClientCollection](src/Collection/ClientCollection.php) | [Clients::all()](src/Resource/Clients.php) |
@@ -63,7 +63,7 @@ More examples can be found in the [examples](examples) directory.
 | `PUT /admin/realms/{realm}/clients/{id}` | [Client](src/Representation/Client.php) | [Clients::update()](src/Resource/Clients.php) |
 | `POST /admin/realms/{realm}/clients` | [Client](src/Representation/Client.php) | [Clients::import()](src/Resource/Clients.php) |
 
-### [Groups](https://www.keycloak.org/docs-api/20.0.0/rest-api/index.html#_clients_resource)
+### [Groups](https://www.keycloak.org/docs-api/21.0.0/rest-api/index.html#_clients_resource)
 | Endpoint | Response | API |
 |----------|----------|-----|
 | `GET /admin/realms/{realm}/groups` | [ClientCollection](src/Collection/GroupCollection.php) | [Groups::all()](src/Resource/Groups.php) |
@@ -72,7 +72,7 @@ More examples can be found in the [examples](examples) directory.
 | `POST /admin/realms/{realm}/groups` | `n/a` | [Groups::import()](src/Resource/Groups.php) |
 | `DELETE /admin/realms/{realm}/groups` | `n/a` | [Groups::delete()](src/Resource/Groups.php) |
 
-### [Realms Admin](https://www.keycloak.org/docs-api/20.0.0/rest-api/index.html#_realms_admin_resource)
+### [Realms Admin](https://www.keycloak.org/docs-api/21.0.0/rest-api/index.html#_realms_admin_resource)
 | Endpoint | Response | API |
 |----------|----------|-----|
 | `POST /admin/realms` | [Realm](src/Representation/Realm.php) | [Realms::import()](src/Resource/Realms.php) |
@@ -85,7 +85,7 @@ More examples can be found in the [examples](examples) directory.
 | `POST /admin/realms/{realm}/clear-realm-cache` | `n/a` | [Realms::clearRealmCache()](src/Resource/Realms.php) |
 | `POST /admin/realms/{realm}/clear-user-cache` | `n/a` | [Realms::clearUserCache()](src/Resource/Realms.php) |
 
-### [Users](https://www.keycloak.org/docs-api/20.0.0/rest-api/index.html#_users_resource)
+### [Users](https://www.keycloak.org/docs-api/21.0.0/rest-api/index.html#_users_resource)
 | Endpoint | Response | API |
 |----------|----------|-----|
 | `GET /admin/realms/{realm}/users` | [UserCollection](src/Collection/UserCollection.php) | [Users::all()](src/Resource/Users.php) |
@@ -102,7 +102,7 @@ More examples can be found in the [examples](examples) directory.
 | `POST /{realm}/users/{id}/role-mappings/realm` | `n/a` | [Users::addRealmRoles()](src/Resource/Users.php) |
 | `DELETE /{realm}/users/{id}/role-mappings/realm` | `n/a` | [Users::removeRealmRoles()](src/Resource/Users.php) |
 
-### [Roles](https://www.keycloak.org/docs-api/20.0.0/rest-api/index.html#_roles_resource)
+### [Roles](https://www.keycloak.org/docs-api/21.0.0/rest-api/index.html#_roles_resource)
 | Endpoint | Response | API |
 |----------|----------|-----|
 | `GET /admin/realms/{realm}/roles` | [RoleCollection](src/Collection/RoleCollection.php) | [Roles::all()](src/Resource/Roles.php) |
@@ -110,7 +110,7 @@ More examples can be found in the [examples](examples) directory.
 | `POST /admin/realms/{realm}/roles` | `n/a` | [Roles::create()](src/Resource/Roles.php) |
 | `DELETE /admin/realms/{realm}/roles/{roleName}` | `n/a` | [Roles::delete()](src/Resource/Roles.php) |
 
-### [Root](https://www.keycloak.org/docs-api/20.0.0/rest-api/index.html#_root_resource)
+### [Root](https://www.keycloak.org/docs-api/21.0.0/rest-api/index.html#_root_resource)
 | Endpoint | Response | API |
 |----------|----------|-----|
 | `GET /admin/serverinfo` | [ServerInfo](src/Representation/ServerInfo.php) | [ServerInfo::get()](src/Resource/ServerInfo.php) |
