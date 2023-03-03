@@ -40,10 +40,7 @@ class UsersTest extends TestCase
         );
 
         // Search (imported) user
-        $importedUser = $resource->search('master', new Criteria([
-            'username' => $importedUsername,
-            'exact' => true,
-        ]))->first();
+        $importedUser = $this->searchUserByUsername($importedUsername);
         static::assertInstanceOf(User::class, $importedUser);
         static::assertEquals($importedFirstName, $importedUser->getFirstName());
 
@@ -54,10 +51,7 @@ class UsersTest extends TestCase
         // Update (imported) user
         $resource->update('master', $importedUser->getId(), $importedUser->withFirstName($updatedFirstName));
 
-        $updatedUser = $resource->search('master', new Criteria([
-            'username' => $importedUsername,
-            'exact' => true,
-        ]))->first();
+        $updatedUser = $this->searchUserByUsername($importedUsername);
         static::assertInstanceOf(User::class, $updatedUser);
         static::assertSame($updatedFirstName, $updatedUser->getFirstName());
 
@@ -173,10 +167,10 @@ class UsersTest extends TestCase
         static::assertNull($user);
     }
 
-    private function searchUserByUsername(string $username): ?User
+    private function searchUserByUsername(string $username, string $realm = 'master'): ?User
     {
         /** @var User|null $user */
-        $user = $this->getKeycloak()->users()->search('master', new Criteria([
+        $user = $this->getKeycloak()->users()->search($realm, new Criteria([
             'username' => $username,
             'exact' => true,
         ]))->first();
