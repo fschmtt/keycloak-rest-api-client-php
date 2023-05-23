@@ -32,7 +32,7 @@ use Fschmtt\Keycloak\Type\Map;
  * @method array|null getRequiredActions()
  * @method string|null getSelf()
  * @method string|null getServiceAccountClientId()
- * @method string|null getTotp()
+ * @method bool|null getTotp()
  * @method string|null getUsername()
  * @method self withAccess(?Map $access)
  * @method self withAttributes(?Map $attributes)
@@ -56,7 +56,7 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withRequiredActions(?array $requiredActions)
  * @method self withSelf(?string $self)
  * @method self withServiceAccountClientId(?string $serviceAccountClientId)
- * @method self withTotp(?string $totp)
+ * @method self withTotp(?bool $totp)
  * @method self withUsername(?string $username)
  *
  * @codeCoverageIgnore
@@ -90,7 +90,7 @@ class User extends Representation
         protected ?array $requiredActions = null,
         protected ?string $self = null,
         protected ?string $serviceAccountClientId = null,
-        protected ?string $totp = null,
+        protected ?bool $totp = null,
         protected ?string $username = null,
     ) {
     }
