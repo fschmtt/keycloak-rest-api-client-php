@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Representation\RequiredActionProvider;
 
 /**
  * @codeCoverageIgnore
+ * @extends Collection<RequiredActionProvider>
  */
 class RequiredActionProviderCollection extends Collection
 {

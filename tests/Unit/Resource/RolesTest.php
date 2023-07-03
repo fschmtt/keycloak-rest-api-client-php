@@ -12,11 +12,10 @@ use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Http\QueryExecutor;
 use Fschmtt\Keycloak\Representation\Role;
 use Fschmtt\Keycloak\Resource\Roles;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Resource\Roles
- */
+#[CoversClass(Roles::class)]
 class RolesTest extends TestCase
 {
     public function testGetAllRoles(): void

@@ -6,12 +6,11 @@ namespace Fschmtt\Keycloak\Test\Unit\Http;
 
 use DateTimeImmutable;
 use Fschmtt\Keycloak\Http\Criteria;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Stringable;
 
-/**
- * @covers \Fschmtt\Keycloak\Http\Criteria
- */
+#[CoversClass(Criteria::class)]
 class CriteriaTest extends TestCase
 {
     public function testCanCreateEmptyCriteria(): void

@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Representation\IdentityProvider;
 
 /**
  * @codeCoverageIgnore
+ * @extends Collection<IdentityProvider>
  */
 class IdentityProviderCollection extends Collection
 {

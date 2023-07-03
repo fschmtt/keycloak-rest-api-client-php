@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Representation\UserConsent;
 
 /**
  * @codeCoverageIgnore
+ * @extends Collection<UserConsent>
  */
 class UserConsentCollection extends Collection
 {

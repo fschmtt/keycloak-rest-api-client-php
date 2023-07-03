@@ -9,11 +9,10 @@ use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Http\QueryExecutor;
 use Fschmtt\Keycloak\Representation\ServerInfo as ServerInfoRepresentation;
 use Fschmtt\Keycloak\Resource\ServerInfo;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Resource\ServerInfo
- */
+#[CoversClass(ServerInfo::class)]
 class ServerInfoTest extends TestCase
 {
     public function testGetServerInfo(): void

@@ -14,11 +14,10 @@ use Fschmtt\Keycloak\Enum\PolicyEnforcementMode;
 use Fschmtt\Keycloak\Enum\UseEnum;
 use Fschmtt\Keycloak\Serializer\EnumSerializer;
 use Generator;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Serializer\EnumSerializer
- */
+#[CoversClass(EnumSerializer::class)]
 class EnumSerializerTest extends TestCase
 {
     public function testSerializes(): void
@@ -42,7 +41,7 @@ class EnumSerializerTest extends TestCase
         );
     }
 
-    public function enums(): Generator
+    public static function enums(): Generator
     {
         yield Category::class => [Category::class, 'authorization_response', Category::AUTHORIZATION_RESPONSE];
         yield DecisionStrategy::class => [DecisionStrategy::class, 'cOnSeNsUs', DecisionStrategy::CONSENSUS];

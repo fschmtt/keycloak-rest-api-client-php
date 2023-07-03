@@ -12,11 +12,10 @@ use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Http\QueryExecutor;
 use Fschmtt\Keycloak\Representation\Client as ClientRepresentation;
 use Fschmtt\Keycloak\Resource\Clients;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Resource\Clients
- */
+#[CoversClass(Clients::class)]
 class ClientsTest extends TestCase
 {
     public function testGetAllClients(): void

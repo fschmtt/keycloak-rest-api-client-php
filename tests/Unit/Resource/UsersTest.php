@@ -17,11 +17,10 @@ use Fschmtt\Keycloak\Representation\Group;
 use Fschmtt\Keycloak\Representation\Role;
 use Fschmtt\Keycloak\Representation\User;
 use Fschmtt\Keycloak\Resource\Users;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Resource\Users
- */
+#[CoversClass(Users::class)]
 class UsersTest extends TestCase
 {
     public function testGetAllUsers(): void

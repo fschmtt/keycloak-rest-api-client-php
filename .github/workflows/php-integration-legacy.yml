@@ -17,6 +17,7 @@ jobs:
     env:
       KEYCLOAK_VERSION: ${{ matrix.keycloak }}
       KEYCLOAK_BASE_URL: 'http://localhost:8080/auth'
+      XDEBUG_MODE: coverage
 
     services:
       keycloak:

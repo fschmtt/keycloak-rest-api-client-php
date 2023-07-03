@@ -7,11 +7,10 @@ namespace Fschmtt\Keycloak\Test\Unit\Serializer;
 use Fschmtt\Keycloak\Representation\Realm;
 use Fschmtt\Keycloak\Representation\Representation;
 use Fschmtt\Keycloak\Serializer\RepresentationSerializer;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Serializer\RepresentationSerializer
- */
+#[CoversClass(RepresentationSerializer::class)]
 class RepresentationSerializerTest extends TestCase
 {
     public function testSerializes(): void

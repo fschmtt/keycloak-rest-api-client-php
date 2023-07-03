@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Representation\Realm;
 
 /**
  * @codeCoverageIgnore
+ * @extends Collection<Realm>
  */
 class RealmCollection extends Collection
 {

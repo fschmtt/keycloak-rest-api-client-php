@@ -8,11 +8,10 @@ use Fschmtt\Keycloak\Collection\Collection;
 use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Representation\Group;
 use Fschmtt\Keycloak\Serializer\CollectionSerializer;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Serializer\CollectionSerializer
- */
+#[CoversClass(CollectionSerializer::class)]
 class CollectionSerializerTest extends TestCase
 {
     public function testSerializes(): void

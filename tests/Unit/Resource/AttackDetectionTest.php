@@ -11,11 +11,10 @@ use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Http\QueryExecutor;
 use Fschmtt\Keycloak\Resource\AttackDetection;
 use Fschmtt\Keycloak\Type\Map;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Resource\AttackDetection
- */
+#[CoversClass(AttackDetection::class)]
 class AttackDetectionTest extends TestCase
 {
     public function testClearAttackDetectionForAllUsersInRealm(): void

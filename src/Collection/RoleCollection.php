@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Representation\Role;
 
 /**
  * @codeCoverageIgnore
+ * @extends Collection<Role>
  */
 class RoleCollection extends Collection
 {

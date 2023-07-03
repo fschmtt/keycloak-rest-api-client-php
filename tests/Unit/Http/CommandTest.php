@@ -8,11 +8,10 @@ use Fschmtt\Keycloak\Http\Command;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Test\Unit\Stub\Collection;
 use Fschmtt\Keycloak\Test\Unit\Stub\Representation;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Http\Command
- */
+#[CoversClass(Command::class)]
 class CommandTest extends TestCase
 {
     public function testHasNoPayloadByDefault(): void

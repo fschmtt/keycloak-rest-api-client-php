@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Test\Unit\Attribute;
 
 use Fschmtt\Keycloak\Attribute\Until;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Attribute\Until
- */
+#[CoversClass(Until::class)]
 class UntilTest extends TestCase
 {
     public function testCanBeConstructedWithVersion(): void

@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Representation\Group;
 
 /**
  * @codeCoverageIgnore
+ * @extends Collection<Group>
  */
 class GroupCollection extends Collection
 {

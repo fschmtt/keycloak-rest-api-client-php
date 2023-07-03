@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Test\Unit\Serializer;
 
 use Fschmtt\Keycloak\Serializer\IntegerSerializer;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Serializer\IntegerSerializer
- */
+#[CoversClass(IntegerSerializer::class)]
 class IntegerSerializerTest extends TestCase
 {
     public function testSerializes(): void
@@ -36,7 +35,7 @@ class IntegerSerializerTest extends TestCase
     /**
      * @return array<mixed>
      */
-    public function provideData(): array
+    public static function provideData(): array
     {
         return [
             ['', 0],

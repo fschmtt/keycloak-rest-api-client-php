@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Test\Unit\Attribute;
 
 use Fschmtt\Keycloak\Attribute\Since;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Attribute\Since
- */
+#[CoversClass(Since::class)]
 class SinceTest extends TestCase
 {
     public function testCanBeConstructedWithVersion(): void

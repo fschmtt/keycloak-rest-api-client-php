@@ -124,7 +124,7 @@ docker compose run --rm php php examples/serverinfo.php
 ```
 
 ### Composer scripts
-* `analyze`: Run phpstan and psalm analysis
+* `analyze`: Run phpstan analysis
 * `ecs`: Run Easy Coding Standard (ECS)
 * `ecs:fix`: Fix Easy Coding Standard (ECS) errors
 * `test`: Run unit and integration tests

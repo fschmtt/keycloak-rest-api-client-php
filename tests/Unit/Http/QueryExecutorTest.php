@@ -10,11 +10,10 @@ use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Http\QueryExecutor;
 use Fschmtt\Keycloak\Serializer\Serializer;
 use GuzzleHttp\Psr7\Response;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Http\QueryExecutor
- */
+#[CoversClass(QueryExecutor::class)]
 class QueryExecutorTest extends TestCase
 {
     public function testCallsClientWithQueryProperties(): void

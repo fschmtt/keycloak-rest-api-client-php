@@ -6,11 +6,10 @@ namespace Fschmtt\Keycloak\Test\Unit\Json;
 
 use Fschmtt\Keycloak\Exception\JsonDecodeException;
 use Fschmtt\Keycloak\Json\JsonDecoder;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Json\JsonDecoder
- */
+#[CoversClass(JsonDecoder::class)]
 class JsonDecoderTest extends TestCase
 {
     private JsonDecoder $decoder;
