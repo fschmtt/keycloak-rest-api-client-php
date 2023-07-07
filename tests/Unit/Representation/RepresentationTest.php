@@ -11,7 +11,7 @@ use Fschmtt\Keycloak\Type\Map;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(Representation::class)]
+#[CoversClass(\Fschmtt\Keycloak\Representation\Representation::class)]
 class RepresentationTest extends TestCase
 {
     public function testThrowsExceptionWhenTryingToModifyPropertyWhichDoesNotExist(): void
