@@ -7,11 +7,10 @@ namespace Fschmtt\Keycloak\Test\Unit\Representation;
 use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Representation\Group;
 use Fschmtt\Keycloak\Type\Map;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Representation\Group
- */
+#[CoversClass(Group::class)]
 class GroupTest extends TestCase
 {
     private Group $group;
@@ -71,7 +70,7 @@ class GroupTest extends TestCase
     /**
      * @return array<mixed>
      */
-    public function provideProperties(): array
+    public static function provideProperties(): array
     {
         $group = [
             'access' => [

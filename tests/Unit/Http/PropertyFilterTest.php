@@ -7,12 +7,11 @@ namespace Fschmtt\Keycloak\Test\Unit\Http;
 use Fschmtt\Keycloak\Http\PropertyFilter;
 use Fschmtt\Keycloak\Test\Unit\Stub\Representation;
 use Generator;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
-/**
- * @covers \Fschmtt\Keycloak\Http\PropertyFilter
- */
+#[CoversClass(PropertyFilter::class)]
 class PropertyFilterTest extends TestCase
 {
     public function testDoesNotFilterPropertiesIfVersionIsNotProvided(): void
@@ -90,7 +89,7 @@ class PropertyFilterTest extends TestCase
         static::assertArrayHasKey($representation::class, $memoizedFilteredProperties);
     }
 
-    public function keycloakVersions(): Generator
+    public static function keycloakVersions(): Generator
     {
         yield ['13.0.0'];
         yield ['14.0.0'];

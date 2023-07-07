@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Test\Unit\Serializer;
 
 use Fschmtt\Keycloak\Serializer\BooleanSerializer;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-/**
- * @covers \Fschmtt\Keycloak\Serializer\BooleanSerializer
- */
+#[CoversClass(BooleanSerializer::class)]
 class BooleanSerializerTest extends TestCase
 {
     public function testSerializes(): void
@@ -38,7 +37,7 @@ class BooleanSerializerTest extends TestCase
     /**
      * @return array<mixed>
      */
-    public function provideData(): array
+    public static function provideData(): array
     {
         return [
             ['', false],

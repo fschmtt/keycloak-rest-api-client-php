@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Representation\ProtocolMapper;
 
 /**
  * @codeCoverageIgnore
+ * @extends Collection<ProtocolMapper>
  */
 class ProtocolMapperCollection extends Collection
 {

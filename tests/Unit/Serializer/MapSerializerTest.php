@@ -7,12 +7,10 @@ namespace Fschmtt\Keycloak\Test\Unit\Serializer;
 use Fschmtt\Keycloak\Serializer\MapSerializer;
 use Fschmtt\Keycloak\Type\Map;
 use Generator;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Serializer\MapSerializer
- * @uses \Fschmtt\Keycloak\Type\Map
- */
+#[CoversClass(MapSerializer::class)]
 class MapSerializerTest extends TestCase
 {
     public function testSerializes(): void
@@ -24,7 +22,7 @@ class MapSerializerTest extends TestCase
     }
 
     /**
-     * @dataProvider provideData
+     * @dataProvider maps
      */
     public function testSerialize(mixed $value, Map $expected): void
     {
@@ -36,7 +34,7 @@ class MapSerializerTest extends TestCase
         );
     }
 
-    public function provideData(): Generator
+    public static function maps(): Generator
     {
         yield 'filled array' => [
             [

@@ -12,11 +12,10 @@ use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Http\QueryExecutor;
 use Fschmtt\Keycloak\Representation\Group;
 use Fschmtt\Keycloak\Resource\Groups;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Resource\Groups
- */
+#[CoversClass(Groups::class)]
 class GroupsTest extends TestCase
 {
     public function testGetAllGroups(): void

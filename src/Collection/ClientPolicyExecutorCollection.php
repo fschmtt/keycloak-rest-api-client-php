@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Representation\ClientPolicyExecutor;
 
 /**
  * @codeCoverageIgnore
+ * @extends Collection<ClientPolicyExecutor>
  */
 class ClientPolicyExecutorCollection extends Collection
 {

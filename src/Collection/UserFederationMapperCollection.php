@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Representation\UserFederationMapper;
 
 /**
  * @codeCoverageIgnore
+ * @extends Collection<UserFederationMapper>
  */
 class UserFederationMapperCollection extends Collection
 {

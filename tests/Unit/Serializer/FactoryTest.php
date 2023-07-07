@@ -6,19 +6,10 @@ namespace Fschmtt\Keycloak\Test\Unit\Serializer;
 
 use Fschmtt\Keycloak\Serializer\Factory;
 use Fschmtt\Keycloak\Serializer\Serializer;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Serializer\Factory
- * @uses \Fschmtt\Keycloak\Serializer\ArraySerializer
- * @uses \Fschmtt\Keycloak\Serializer\BooleanSerializer
- * @uses \Fschmtt\Keycloak\Serializer\EnumSerializer
- * @uses \Fschmtt\Keycloak\Serializer\IntegerSerializer
- * @uses \Fschmtt\Keycloak\Serializer\MapSerializer
- * @uses \Fschmtt\Keycloak\Serializer\RepresentationSerializer
- * @uses \Fschmtt\Keycloak\Serializer\Serializer
- * @uses \Fschmtt\Keycloak\Serializer\StringSerializer
- */
+#[CoversClass(Factory::class)]
 class FactoryTest extends TestCase
 {
     public function testCreate(): void

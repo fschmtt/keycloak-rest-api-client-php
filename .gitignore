@@ -1,10 +1,18 @@
 /.idea/
 /vendor/
-.phpunit.result.cache
+
+# Composer
 composer.lock
+
+# PHPUnit
+/.phpunit.cache/
+.phpunit.result.cache
 phpunit.cobertura.xml
 
 # Devenv
 .devenv*
 devenv.local.nix
+
+# Direnv
+/.direnv/
 

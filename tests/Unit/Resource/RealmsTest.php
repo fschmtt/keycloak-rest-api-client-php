@@ -12,11 +12,10 @@ use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Http\QueryExecutor;
 use Fschmtt\Keycloak\Representation\Realm;
 use Fschmtt\Keycloak\Resource\Realms;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Resource\Realms
- */
+#[CoversClass(Realms::class)]
 class RealmsTest extends TestCase
 {
     public function testGetAllRealms(): void

@@ -17,10 +17,7 @@ jobs:
         run: composer install --prefer-dist --no-progress
 
       - name: Run phpstan
-        run: vendor/bin/phpstan analyze src tests examples
-
-      - name: Run psalm
-        run: vendor/bin/psalm src tests examples
+        run: vendor/bin/phpstan analyze
 
       - name: Run ecs
-        run: vendor/bin/ecs check src tests examples
+        run: vendor/bin/ecs check

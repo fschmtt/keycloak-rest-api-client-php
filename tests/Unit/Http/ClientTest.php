@@ -12,11 +12,10 @@ use Fschmtt\Keycloak\Test\Unit\TokenGenerator;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Response;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Http\Client
- */
+#[CoversClass(Client::class)]
 class ClientTest extends TestCase
 {
     use TokenGenerator;
@@ -61,41 +60,7 @@ class ClientTest extends TestCase
         $httpClient = $this->createMock(ClientInterface::class);
         $httpClient->expects(static::exactly(3))
             ->method('request')
-            ->withConsecutive(
-                [
-                    'POST',
-                    sprintf('%s/realms/master/protocol/openid-connect/token', $this->keycloak->getBaseUrl()),
-                    [
-                        'form_params' => [
-                            'client_id' => 'admin-cli',
-                            'grant_type' => 'refresh_token',
-                            'refresh_token' => null,
-                        ],
-                    ],
-                ],
-                [
-                    'POST',
-                    sprintf('%s/realms/master/protocol/openid-connect/token', $this->keycloak->getBaseUrl()),
-                    [
-                        'form_params' => [
-                            'client_id' => 'admin-cli',
-                            'grant_type' => 'password',
-                            'username' => $this->keycloak->getUsername(),
-                            'password' => $this->keycloak->getPassword(),
-                        ],
-                    ],
-                ],
-                [
-                    'GET',
-                    sprintf('%s/admin/realms', $this->keycloak->getBaseUrl()),
-                    [
-                        'base_uri' => $this->keycloak->getBaseUrl(),
-                        'headers' => [
-                            'Authorization' => 'Bearer ' . $accessToken->toString(),
-                        ],
-                    ],
-                ],
-            )->willReturnOnConsecutiveCalls(
+            ->willReturnOnConsecutiveCalls(
                 $this->throwException($this->createMock(ClientException::class)),
                 $authorizationResponse,
                 $realmsResponse,

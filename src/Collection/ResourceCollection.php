@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Representation\Resource;
 
 /**
  * @codeCoverageIgnore
+ * @extends Collection<Resource>
  */
 class ResourceCollection extends Collection
 {

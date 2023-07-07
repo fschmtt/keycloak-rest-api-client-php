@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Representation\User;
 
 /**
  * @codeCoverageIgnore
+ * @extends Collection<User>
  */
 class UserCollection extends Collection
 {

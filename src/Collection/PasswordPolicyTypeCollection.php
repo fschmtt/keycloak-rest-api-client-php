@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Representation\PasswordPolicyType;
 
 /**
  * @codeCoverageIgnore
+ * @extends Collection<PasswordPolicyType>
  */
 class PasswordPolicyTypeCollection extends Collection
 {

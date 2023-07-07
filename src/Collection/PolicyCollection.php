@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Representation\Policy;
 
 /**
  * @codeCoverageIgnore
+ * @extends Collection<Policy>
  */
 class PolicyCollection extends Collection
 {

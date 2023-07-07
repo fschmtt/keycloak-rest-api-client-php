@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Representation\AuthenticatorConfig;
 
 /**
  * @codeCoverageIgnore
+ * @extends Collection<AuthenticatorConfig>
  */
 class AuthenticatorConfigCollection extends Collection
 {

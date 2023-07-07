@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Test\Unit\Type;
 
 use Fschmtt\Keycloak\Type\Map;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Type\Map
- */
+#[CoversClass(Map::class)]
 class MapTest extends TestCase
 {
     public function testCanBeConstructedFromEmptyArray(): void

@@ -8,11 +8,10 @@ use BadMethodCallException;
 use Fschmtt\Keycloak\Exception\PropertyDoesNotExistException;
 use Fschmtt\Keycloak\Test\Unit\Stub\Representation;
 use Fschmtt\Keycloak\Type\Map;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Representation\Representation
- */
+#[CoversClass(Representation::class)]
 class RepresentationTest extends TestCase
 {
     public function testThrowsExceptionWhenTryingToModifyPropertyWhichDoesNotExist(): void

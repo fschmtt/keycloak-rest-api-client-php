@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Representation\ScopeMapping;
 
 /**
  * @codeCoverageIgnore
+ * @extends Collection<ScopeMapping>
  */
 class ScopeMappingCollection extends Collection
 {

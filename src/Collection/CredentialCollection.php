@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Representation\Credential;
 
 /**
  * @codeCoverageIgnore
+ * @extends Collection<Credential>
  */
 class CredentialCollection extends Collection
 {

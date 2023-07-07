@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Representation\AuthenticationExecutionExport;
 
 /**
  * @codeCoverageIgnore
+ * @extends Collection<AuthenticationExecutionExport>
  */
 class AuthenticationExecutionExportCollection extends Collection
 {

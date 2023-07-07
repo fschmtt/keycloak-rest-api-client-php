@@ -16,26 +16,11 @@ use Fschmtt\Keycloak\Serializer\Factory;
 use Fschmtt\Keycloak\Serializer\Serializer;
 use Fschmtt\Keycloak\Type\Map;
 use Generator;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-/**
- * @covers \Fschmtt\Keycloak\Serializer\Serializer
- * @uses \Fschmtt\Keycloak\Collection\Collection
- * @uses \Fschmtt\Keycloak\Collection\UserCollection
- * @uses \Fschmtt\Keycloak\Representation\Representation
- * @uses \Fschmtt\Keycloak\Representation\Roles
- * @uses \Fschmtt\Keycloak\Serializer\ArraySerializer
- * @uses \Fschmtt\Keycloak\Serializer\BooleanSerializer
- * @uses \Fschmtt\Keycloak\Serializer\CollectionSerializer
- * @uses \Fschmtt\Keycloak\Serializer\EnumSerializer
- * @uses \Fschmtt\Keycloak\Serializer\Factory
- * @uses \Fschmtt\Keycloak\Serializer\IntegerSerializer
- * @uses \Fschmtt\Keycloak\Serializer\MapSerializer
- * @uses \Fschmtt\Keycloak\Serializer\RepresentationSerializer
- * @uses \Fschmtt\Keycloak\Serializer\StringSerializer
- * @uses \Fschmtt\Keycloak\Type\Map
- */
+#[CoversClass(Serializer::class)]
 class SerializerTest extends TestCase
 {
     private Serializer $serializer;
@@ -74,7 +59,7 @@ class SerializerTest extends TestCase
         $this->serializer->serialize(stdClass::class, '');
     }
 
-    public function provideKnownTypes(): Generator
+    public static function provideKnownTypes(): Generator
     {
         yield 'bool' => ['bool', 'false', false];
         yield 'int' => ['int', '1337', 1337];

@@ -33,7 +33,6 @@ class CollectionSerializer implements SerializerInterface
             $representations[] = $representationClass::from($representation);
         }
 
-        /** @psalm-suppress UndefinedClass */
         return new $type($representations);
     }
 }

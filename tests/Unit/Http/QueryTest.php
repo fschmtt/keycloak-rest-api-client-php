@@ -8,11 +8,10 @@ use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Http\Criteria;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Http\Query
- */
+#[CoversClass(Query::class)]
 class QueryTest extends TestCase
 {
     public function testEnforcesGetMethod(): void

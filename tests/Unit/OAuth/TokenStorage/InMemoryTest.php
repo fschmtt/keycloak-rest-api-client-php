@@ -6,11 +6,10 @@ namespace Fschmtt\Keycloak\Test\Unit\OAuth\TokenStorage;
 
 use Fschmtt\Keycloak\OAuth\TokenStorage\InMemory;
 use Fschmtt\Keycloak\Test\Unit\TokenGenerator;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\OAuth\TokenStorage\InMemory
- */
+#[CoversClass(InMemory::class)]
 class InMemoryTest extends TestCase
 {
     use TokenGenerator;

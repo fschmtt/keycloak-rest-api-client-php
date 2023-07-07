@@ -7,11 +7,10 @@ namespace Fschmtt\Keycloak\Test\Unit\OAuth\TokenStorage;
 use Fschmtt\Keycloak\Exception\TokenStorageException;
 use Fschmtt\Keycloak\OAuth\TokenStorage\Filesystem;
 use Fschmtt\Keycloak\Test\Unit\TokenGenerator;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\OAuth\TokenStorage\Filesystem
- */
+#[CoversClass(Filesystem::class)]
 class FilesystemTest extends TestCase
 {
     use TokenGenerator;

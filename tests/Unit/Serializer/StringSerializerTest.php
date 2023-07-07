@@ -6,11 +6,10 @@ namespace Fschmtt\Keycloak\Test\Unit\Serializer;
 
 use Fschmtt\Keycloak\Serializer\StringSerializer;
 use Generator;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Serializer\StringSerializer
- */
+#[CoversClass(StringSerializer::class)]
 class StringSerializerTest extends TestCase
 {
     public function testSerializes(): void
@@ -34,7 +33,7 @@ class StringSerializerTest extends TestCase
         );
     }
 
-    public function provideData(): Generator
+    public static function provideData(): Generator
     {
         yield 'empty string' => ['', ''];
         yield 'string with single whitespace' => [' ', ' '];

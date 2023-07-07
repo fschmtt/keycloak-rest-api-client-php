@@ -12,11 +12,10 @@ use Fschmtt\Keycloak\Http\PropertyFilter;
 use Fschmtt\Keycloak\Json\JsonEncoder;
 use Fschmtt\Keycloak\Test\Unit\Stub\Collection;
 use Fschmtt\Keycloak\Test\Unit\Stub\Representation;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Fschmtt\Keycloak\Http\CommandExecutor
- */
+#[CoversClass(CommandExecutor::class)]
 class CommandExecutorTest extends TestCase
 {
     public function testCallsClientWithoutBodyIfCommandHasNoRepresentation(): void

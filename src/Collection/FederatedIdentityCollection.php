@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Representation\FederatedIdentity;
 
 /**
  * @codeCoverageIgnore
+ * @extends Collection<FederatedIdentity>
  */
 class FederatedIdentityCollection extends Collection
 {
