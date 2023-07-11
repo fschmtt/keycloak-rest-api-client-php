@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Type\Map;
+use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
 /**
  * @method array|null getAttributes()
@@ -14,9 +15,8 @@ use Fschmtt\Keycloak\Type\Map;
  * @method string|null getContainerId()
  * @method string|null getDescription()
  * @method string|null getName()
- *
- * @codeCoverageIgnore
  */
+#[IgnoreClassForCodeCoverage(self::class)]
 class Role extends Representation
 {
     public function __construct(

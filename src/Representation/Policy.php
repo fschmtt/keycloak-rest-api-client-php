@@ -9,6 +9,7 @@ use Fschmtt\Keycloak\Collection\ScopeCollection;
 use Fschmtt\Keycloak\Enum\DecisionStrategy;
 use Fschmtt\Keycloak\Enum\Logic;
 use Fschmtt\Keycloak\Type\Map;
+use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
 /**
  * @method Map|null getConfig()
@@ -37,9 +38,8 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withScopesData(?ScopeCollection $scopesData)
  * @method string|null getType()
  * @method self withType(?string $type)
- *
- * @codeCoverageIgnore
  */
+#[IgnoreClassForCodeCoverage(self::class)]
 class Policy extends Representation
 {
     public function __construct(

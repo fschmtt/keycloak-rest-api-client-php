@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
+
 /**
  * @method string[]|null getDisabledFeatures()
  * @method self withDisabledFeatures(?array $value)
@@ -13,9 +15,8 @@ namespace Fschmtt\Keycloak\Representation;
  * @method self withName(?string $value)
  * @method string[]|null getPreviewFeatures()
  * @method self withPreviewFeatures(?array $value)
- *
- * @codeCoverageIgnore
  */
+#[IgnoreClassForCodeCoverage(self::class)]
 class ProfileInfo extends Representation
 {
     public function __construct(

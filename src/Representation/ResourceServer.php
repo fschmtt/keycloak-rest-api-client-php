@@ -9,6 +9,7 @@ use Fschmtt\Keycloak\Collection\ResourceCollection;
 use Fschmtt\Keycloak\Collection\ScopeCollection;
 use Fschmtt\Keycloak\Enum\DecisionStrategy;
 use Fschmtt\Keycloak\Enum\PolicyEnforcementMode;
+use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
 /**
  * @method bool|null getAllowRemoveResourceManagement()
@@ -29,9 +30,8 @@ use Fschmtt\Keycloak\Enum\PolicyEnforcementMode;
  * @method self withPolicyEnforcementMode(?PolicyEnforcementMode $policyEnforcementMode)
  * @method self withResources(?ResourceCollection $resources)
  * @method self withScopes(?ScopeCollection $scopes)
- *
- * @codeCoverageIgnore
  */
+#[IgnoreClassForCodeCoverage(self::class)]
 class ResourceServer extends Representation
 {
     public function __construct(

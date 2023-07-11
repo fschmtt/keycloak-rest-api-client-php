@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
+
 /**
  * @method ClientPolicyCondition[]|null getConditions()
  * @method string|null getDescription()
@@ -15,9 +17,8 @@ namespace Fschmtt\Keycloak\Representation;
  * @method self withEnabled(?bool $enabled)
  * @method self withName(?string $name)
  * @method self withProfiles(?array $profiles)
- *
- * @codeCoverageIgnore
  */
+#[IgnoreClassForCodeCoverage(self::class)]
 class ClientPolicy extends Representation
 {
     public function __construct(

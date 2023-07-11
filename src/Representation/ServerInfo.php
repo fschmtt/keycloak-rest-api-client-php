@@ -7,6 +7,7 @@ namespace Fschmtt\Keycloak\Representation;
 use Fschmtt\Keycloak\Attribute\Since;
 use Fschmtt\Keycloak\Collection\PasswordPolicyTypeCollection;
 use Fschmtt\Keycloak\Type\Map;
+use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
 /**
  * @method array|null getBuiltinProtocolMappers()
@@ -39,9 +40,8 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withSocialProviders(?array $socialProviders)
  * @method self withSystemInfo(?SystemInfo $systemInfo)
  * @method self withThemes(?array $themes)
- *
- * @codeCoverageIgnore
  */
+#[IgnoreClassForCodeCoverage(self::class)]
 class ServerInfo extends Representation
 {
     public function __construct(

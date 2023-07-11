@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Collection;
 
 use Fschmtt\Keycloak\Representation\Resource;
+use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
 /**
- * @codeCoverageIgnore
  * @extends Collection<Resource>
  */
+#[IgnoreClassForCodeCoverage(self::class)]
 class ResourceCollection extends Collection
 {
     public static function getRepresentationClass(): string
