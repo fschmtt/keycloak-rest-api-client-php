@@ -19,6 +19,7 @@ use Fschmtt\Keycloak\Collection\UserCollection;
 use Fschmtt\Keycloak\Collection\UserFederationMapperCollection;
 use Fschmtt\Keycloak\Collection\UserFederationProviderCollection;
 use Fschmtt\Keycloak\Type\Map;
+use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
 /**
  * @method int|null getAccessCodeLifespan()
@@ -267,9 +268,8 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withWebAuthnPolicyRpId(?string $value)
  * @method self withWebAuthnPolicySignatureAlgorithms(?array $value)
  * @method self withWebAuthnPolicyUserVerificationRequirement(?string $value)
- *
- * @codeCoverageIgnore
  */
+#[IgnoreClassForCodeCoverage(self::class)]
 class Realm extends Representation
 {
     public function __construct(

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
+
 /**
  * @method int|null getCreatedDate()
  * @method string|null getCredentialData()
@@ -23,9 +25,8 @@ namespace Fschmtt\Keycloak\Representation;
  * @method self withType(?string $type)
  * @method self withUserLabel(?string $userLabel)
  * @method self withValue(?string $value)
- *
- * @codeCoverageIgnore
  */
+#[IgnoreClassForCodeCoverage(self::class)]
 class Credential extends Representation
 {
     public function __construct(

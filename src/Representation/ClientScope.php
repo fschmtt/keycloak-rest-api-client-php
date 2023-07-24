@@ -6,6 +6,7 @@ namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Collection\ProtocolMapperCollection;
 use Fschmtt\Keycloak\Type\Map;
+use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
 /**
  * @method Map|null getAttributes()
@@ -20,9 +21,8 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withProtocol(?string $protocol)
  * @method ProtocolMapperCollection|null getProtocolMappers()
  * @method self withProtocolMappers(?ProtocolMapperCollection $protocolMappers)
- *
- * @codeCoverageIgnore
  */
+#[IgnoreClassForCodeCoverage(self::class)]
 class ClientScope extends Representation
 {
     public function __construct(

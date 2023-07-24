@@ -6,15 +6,15 @@ namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Collection\RealmCollection;
 use Fschmtt\Keycloak\Type\Map;
+use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
 /**
  * @method Map|null getClient()
  * @method RealmCollection|null getRealm()
  * @method self withClient(?Map $client)
  * @method self withRealm(?RealmCollection $realm)
- *
- * @codeCoverageIgnore
  */
+#[IgnoreClassForCodeCoverage(self::class)]
 class RoleComposites extends Representation
 {
     public function __construct(

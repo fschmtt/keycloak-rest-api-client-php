@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Type\Map;
+use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
 /**
  * @method bool|null getAddReadTokenRoleOnCreate()
@@ -31,9 +32,8 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withStoreToken(?bool $storeToken)
  * @method bool|null getTrustEmail()
  * @method self withTrustEmail(?bool $trustEmail)
- *
- * @codeCoverageIgnore
  */
+#[IgnoreClassForCodeCoverage(self::class)]
 class IdentityProvider extends Representation
 {
     public function __construct(

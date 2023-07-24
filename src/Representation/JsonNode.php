@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Enum\NodeType;
+use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
-/**
- * @codeCoverageIgnore
- */
+#[IgnoreClassForCodeCoverage(self::class)]
 class JsonNode extends Representation
 {
     public function __construct(

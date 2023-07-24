@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Type\Map;
+use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
 /**
  * @method Map|null getConfig()
@@ -17,9 +18,8 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withId(?string $id)
  * @method string|null getName()
  * @method self withName(?string $name)
- *
- * @codeCoverageIgnore
  */
+#[IgnoreClassForCodeCoverage(self::class)]
 class UserFederationMapper extends Representation
 {
     public function __construct(

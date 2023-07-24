@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
+
 /**
  * @method string|null getConfigType()
  * @method string|null getDefaultValue()
@@ -15,9 +17,8 @@ namespace Fschmtt\Keycloak\Representation;
  * @method self withDisplayName(?string $displayName)
  * @method self withId(?string $name)
  * @method self withMultipleSupported(?bool $multipleSupported)
- *
- * @codeCoverageIgnore
  */
+#[IgnoreClassForCodeCoverage(self::class)]
 class PasswordPolicyType extends Representation
 {
     protected ?string $configType;

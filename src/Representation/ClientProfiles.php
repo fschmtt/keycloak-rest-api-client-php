@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Collection\ClientProfileCollection;
+use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
 /**
  * @method ClientProfileCollection|null getGlobalProfiles()
  * @method ClientProfileCollection|null getProfiles()
  * @method self withGlobalProfiles(?array $globalProfiles)
  * @method self withProfiles(?array $profiles)
- *
- * @codeCoverageIgnore
  */
+#[IgnoreClassForCodeCoverage(self::class)]
 class ClientProfiles extends Representation
 {
     public function __construct(

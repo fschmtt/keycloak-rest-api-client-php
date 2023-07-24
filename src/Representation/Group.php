@@ -6,6 +6,7 @@ namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Type\Map;
+use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
 /**
  * @method Map|null getAccess()
@@ -24,9 +25,8 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withPath(?string $path)
  * @method self withRealmRoles(?array $realmRoles)
  * @method self withSubGroups(?array $subGroups)
- *
- * @codeCoverageIgnore
  */
+#[IgnoreClassForCodeCoverage(self::class)]
 class Group extends Representation
 {
     public function __construct(

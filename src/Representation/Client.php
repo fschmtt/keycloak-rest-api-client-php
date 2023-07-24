@@ -6,6 +6,7 @@ namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Collection\ProtocolMapperCollection;
 use Fschmtt\Keycloak\Type\Map;
+use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
 /**
  * @method Map|null getAccess()
@@ -82,9 +83,8 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withStandardFlowEnabled(?bool $standardFlowEnabled)
  * @method self withSurrogateAuthRequired(?bool $surrogateAuthRequired)
  * @method self withWebOrigins(?array $webOrigins)
- *
- * @codeCoverageIgnore
  */
+#[IgnoreClassForCodeCoverage(self::class)]
 class Client extends Representation
 {
     public function __construct(

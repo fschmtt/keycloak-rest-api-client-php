@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
-/**
- * @codeCoverageIgnore
- */
+use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
+
+#[IgnoreClassForCodeCoverage(self::class)]
 class MultivaluedHashMap extends Representation
 {
     public function __construct(
