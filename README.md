@@ -101,6 +101,7 @@ More examples can be found in the [examples](examples) directory.
 | `GET /{realm}/users/{id}/role-mappings/realm/available` | [RoleCollection](src/Collection/RoleCollection.php) | [Users::retrieveAvailableRealmRoles()](src/Resource/Users.php) |
 | `POST /{realm}/users/{id}/role-mappings/realm` | `n/a` | [Users::addRealmRoles()](src/Resource/Users.php) |
 | `DELETE /{realm}/users/{id}/role-mappings/realm` | `n/a` | [Users::removeRealmRoles()](src/Resource/Users.php) |
+| `PUT /{realm}/users/{id}/execute-actions-email` | `n/a` | [Users::executeActionsEmail()](src/Resource/Users.php) |
 
 ### [Roles](https://www.keycloak.org/docs-api/22.0.0/rest-api/index.html#_roles_resource)
 | Endpoint | Response | API |
