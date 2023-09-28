@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Http;
 
-use DateTime;
 use Fschmtt\Keycloak\Keycloak;
 use Fschmtt\Keycloak\OAuth\TokenStorageInterface;
 use GuzzleHttp\ClientInterface;
@@ -35,6 +34,7 @@ class Client
             'base_uri' => $this->keycloak->getBaseUrl(),
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->tokenStorage->retrieveAccessToken()->toString(),
+                'Content-Type' => 'application/json',
             ],
         ];
 
@@ -49,7 +49,9 @@ class Client
 
     public function isAuthorized(): bool
     {
-        return $this->tokenStorage->retrieveAccessToken() !== null && !$this->tokenStorage->retrieveAccessToken()->isExpired(new DateTime());
+        $accessToken = $this->tokenStorage->retrieveAccessToken();
+
+        return $accessToken && !$accessToken->isExpired(new \DateTimeImmutable());
     }
 
     private function authorize(): void

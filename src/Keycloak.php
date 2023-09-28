@@ -12,6 +12,7 @@ use Fschmtt\Keycloak\OAuth\TokenStorage\InMemory;
 use Fschmtt\Keycloak\OAuth\TokenStorageInterface;
 use Fschmtt\Keycloak\Resource\AttackDetection;
 use Fschmtt\Keycloak\Resource\Clients;
+use Fschmtt\Keycloak\Resource\Custom;
 use Fschmtt\Keycloak\Resource\Groups;
 use Fschmtt\Keycloak\Resource\Realms;
 use Fschmtt\Keycloak\Resource\Resource;
@@ -119,6 +120,11 @@ class Keycloak
         $this->fetchVersion();
 
         return new $resource($this->commandExecutor, $this->queryExecutor);
+    }
+
+    public function custom(): Custom
+    {
+        return new Custom($this->commandExecutor, $this->queryExecutor, $this->client);
     }
 
     private function fetchVersion(): void

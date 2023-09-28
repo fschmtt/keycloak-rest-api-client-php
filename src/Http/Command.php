@@ -12,9 +12,10 @@ class Command
     public function __construct(
         private readonly string $path,
         private readonly Method $method,
-        /** @var array<string, string> */
+        /** @var array<string, string> $parameters */
         private readonly array $parameters = [],
-        private readonly Representation|Collection|null $payload = null,
+        /** @var Representation|Collection|array<mixed>|null $payload */
+        private readonly Representation|Collection|array|null $payload = null,
     ) {
     }
 
@@ -39,7 +40,10 @@ class Command
         );
     }
 
-    public function getPayload(): Representation|Collection|null
+    /**
+     * @return Representation|Collection|array<mixed>|null
+     */
+    public function getPayload(): Representation|Collection|array|null
     {
         return $this->payload;
     }
