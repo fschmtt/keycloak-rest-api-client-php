@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Type\Map;
-use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
 /**
  * @method string|null getAlias()
@@ -22,8 +21,9 @@ use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
  * @method self withPriority(?bool $priority)
  * @method string|null getProviderId()
  * @method self withProviderId(?string $providerId)
+ *
+ * @codeCoverageIgnore
  */
-#[IgnoreClassForCodeCoverage(self::class)]
 class RequiredActionProvider extends Representation
 {
     public function __construct(

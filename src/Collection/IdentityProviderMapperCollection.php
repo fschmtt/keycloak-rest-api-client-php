@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Collection;
 
 use Fschmtt\Keycloak\Representation\IdentityProviderMapper;
-use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
 /**
  * @extends Collection<IdentityProviderMapper>
+ *
+ * @codeCoverageIgnore
  */
-#[IgnoreClassForCodeCoverage(self::class)]
 class IdentityProviderMapperCollection extends Collection
 {
     public static function getRepresentationClass(): string

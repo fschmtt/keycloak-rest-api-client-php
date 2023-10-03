@@ -6,9 +6,10 @@ namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Collection\ScopeCollection;
 use Fschmtt\Keycloak\Type\Map;
-use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
-#[IgnoreClassForCodeCoverage(self::class)]
+/**
+ * @codeCoverageIgnore
+ */
 class Resource extends Representation
 {
     public function __construct(

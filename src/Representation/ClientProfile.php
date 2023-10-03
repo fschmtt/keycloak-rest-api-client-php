@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Collection\ClientPolicyExecutorCollection;
-use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
 /**
  * @method bool|null getBuiltin()
@@ -16,8 +15,9 @@ use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
  * @method self withDescription(?array $description)
  * @method self withExecutors(?ClientPolicyExecutorCollection $executors)
  * @method self withName(?string $name)
+ *
+ * @codeCoverageIgnore
  */
-#[IgnoreClassForCodeCoverage(self::class)]
 class ClientProfile extends Representation
 {
     public function __construct(

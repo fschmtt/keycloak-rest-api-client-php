@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Type\Map;
-use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
 /**
  * @method int|null getChangedSyncPeriod()
@@ -24,8 +23,9 @@ use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
  * @method self withPriority(?int $priority)
  * @method string|null getProviderName()
  * @method self withProviderName(?string $providerName)
+ *
+ * @codeCoverageIgnore
  */
-#[IgnoreClassForCodeCoverage(self::class)]
 class UserFederationProvider extends Representation
 {
     public function __construct(

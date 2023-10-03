@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
-use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
-
 /**
  * @method string|null getAuthenticator()
  * @method string|null getAuthenticatorConfig()
@@ -23,8 +21,9 @@ use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
  * @method self withParentFlow(?string $parentFlow)
  * @method self withPriority(?int $priority)
  * @method self withRequirement(?string $requirement)
+ *
+ * @codeCoverageIgnore
  */
-#[IgnoreClassForCodeCoverage(self::class)]
 class AuthenticationExecutionExport extends Representation
 {
     protected ?string $authenticator;

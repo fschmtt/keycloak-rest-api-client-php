@@ -8,7 +8,6 @@ use Fschmtt\Keycloak\Collection\CredentialCollection;
 use Fschmtt\Keycloak\Collection\FederatedIdentityCollection;
 use Fschmtt\Keycloak\Collection\UserConsentCollection;
 use Fschmtt\Keycloak\Type\Map;
-use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
 /**
  * @method Map|null getAccess()
@@ -59,8 +58,9 @@ use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
  * @method self withServiceAccountClientId(?string $serviceAccountClientId)
  * @method self withTotp(?bool $totp)
  * @method self withUsername(?string $username)
+ *
+ * @codeCoverageIgnore
 */
-#[IgnoreClassForCodeCoverage(self::class)]
 class User extends Representation
 {
     public function __construct(

@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Collection\ClientPolicyCollection;
-use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
 /**
  * @method ClientPolicyCollection|null getPolicies()
  * @method self withPolicies(?ClientPolicyCollection $policies)
+ *
+ * @codeCoverageIgnore
  */
-#[IgnoreClassForCodeCoverage(self::class)]
 class ClientPolicies extends Representation
 {
     public function __construct(

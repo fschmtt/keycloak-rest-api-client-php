@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Attribute\Since;
-use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
 /**
  * @method string[]|null getClientSignatureAsymmetricAlgorithms()
@@ -16,9 +15,10 @@ use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
  * @method self withClientSignatureSymmetricAlgorithms(?array $value)
  * @method self withCryptoProvider(?string $value)
  * @method self withSupportedKeystoreTypes(?array $value)
+ *
+ * @codeCoverageIgnore
  */
 #[Since('20.0.0')]
-#[IgnoreClassForCodeCoverage(CryptoInfo::class)]
 class CryptoInfo extends Representation
 {
     public function __construct(

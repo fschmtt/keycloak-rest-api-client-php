@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Collection;
 
 use Fschmtt\Keycloak\Representation\UserFederationProvider;
-use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
 /**
  * @extends Collection<UserFederationProvider>
+ *
+ * @codeCoverageIgnore
  */
-#[IgnoreClassForCodeCoverage(self::class)]
 class UserFederationProviderCollection extends Collection
 {
     public static function getRepresentationClass(): string

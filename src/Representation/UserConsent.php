@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
-use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
-
 /**
  * @method string|null getClientId()
  * @method int|null getCreatedDate()
  * @method string[]|null getGrantedClientScopes()
  * @method int|null getLastUpdatedDate()
+ *
+ * @codeCoverageIgnore
  */
-#[IgnoreClassForCodeCoverage(self::class)]
 class UserConsent extends Representation
 {
     public function __construct(

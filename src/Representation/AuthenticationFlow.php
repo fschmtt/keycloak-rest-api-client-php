@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Collection\AuthenticationExecutionExportCollection;
-use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
 /**
  * @method string|null getAlias()
@@ -22,8 +21,9 @@ use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
  * @method self withId(?string $id)
  * @method self withProviderId(?string $providerId)
  * @method self withTopLevel(?bool $topLevel)
+ *
+ * @codeCoverageIgnore
  */
-#[IgnoreClassForCodeCoverage(self::class)]
 class AuthenticationFlow extends Representation
 {
     public function __construct(
