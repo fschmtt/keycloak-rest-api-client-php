@@ -99,4 +99,35 @@ class CommandExecutorTest extends TestCase
         $executor = new CommandExecutor($client, new PropertyFilter());
         $executor->executeCommand($command);
     }
+
+    public function testCallsClientWithBodyIfCommandHasArrayPayload(): void
+    {
+        $payload = [
+            'custom' => 'payload',
+        ];
+
+        $command = new Command(
+            '/path/to/resource',
+            Method::PUT,
+            [],
+            $payload,
+        );
+
+        $client = $this->createMock(Client::class);
+        $client->expects(static::once())
+            ->method('request')
+            ->with(
+                Method::PUT->value,
+                '/path/to/resource',
+                [
+                    'body' => (new JsonEncoder())->encode($payload),
+                    'headers' => [
+                        'Content-Type' => 'application/json',
+                    ],
+                ]
+            );
+
+        $executor = new CommandExecutor($client, new PropertyFilter());
+        $executor->executeCommand($command);
+    }
 }

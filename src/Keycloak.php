@@ -22,6 +22,9 @@ use Fschmtt\Keycloak\Resource\Users;
 use Fschmtt\Keycloak\Serializer\Factory as SerializerFactory;
 use GuzzleHttp\Client as GuzzleClient;
 
+/**
+ * @codeCoverageIgnore
+ */
 class Keycloak
 {
     private ?string $version = null;

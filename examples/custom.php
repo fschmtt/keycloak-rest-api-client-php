@@ -34,3 +34,16 @@ $custom->command(new CustomCommand(
         'bool' => true,
     ]
 ));
+
+$custom->request(
+    Method::GET->value,
+    '/admin/custom/endpoint',
+    [
+        'headers' => [
+            'Custom-Header' => 'Custom-Value',
+        ],
+        'json' => [
+            'custom' => 'body',
+        ],
+    ],
+);

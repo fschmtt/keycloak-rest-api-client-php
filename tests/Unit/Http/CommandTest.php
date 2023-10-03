@@ -39,6 +39,18 @@ class CommandTest extends TestCase
         );
     }
 
+    public function testCanGetArrayPayload(): void
+    {
+        $payload = [
+            'custom' => 'payload',
+        ];
+
+        static::assertSame(
+            $payload,
+            (new Command('/path', Method::POST, [], $payload))->getPayload()
+        );
+    }
+
     public function testSubstitutesParametersInPath(): void
     {
         static::assertSame(
