@@ -1,3 +1,4 @@
+![codecov](https://codecov.io/gh/fschmtt/keycloak-rest-api-client-php/graph/badge.svg?token=uDlQdqBF5V)](https://codecov.io/gh/fschmtt/keycloak-rest-api-client-php)
 ![PHP Analysis](https://github.com/fschmtt/keycloak-rest-api-client-php/actions/workflows/php-analysis.yml/badge.svg?branch=main)
 ![PHP Unit](https://github.com/fschmtt/keycloak-rest-api-client-php/actions/workflows/php-unit.yml/badge.svg?branch=main)
 ![PHP Integration (Keycloak compatibility)](https://github.com/fschmtt/keycloak-rest-api-client-php/actions/workflows/php-integration.yml/badge.svg?branch=main)
