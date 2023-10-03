@@ -402,16 +402,13 @@ class UsersTest extends TestCase
 
     public function testExecuteActionsEmail(): void
     {
-        $user = new User(id: 'test-user', username: 'new-username');
-
         $command = new Command(
             '/admin/realms/{realm}/users/{userId}/execute-actions-email',
             Method::PUT,
             [
                 'realm' => 'test-realm',
-                'userId' => 'test-user',
+                'userId' => 'test-user-id',
             ],
-            $user,
         );
 
         $commandExecutor = $this->createMock(CommandExecutor::class);
@@ -419,5 +416,11 @@ class UsersTest extends TestCase
             ->method('executeCommand')
             ->with($command);
 
+        $users = new Users(
+            $commandExecutor,
+            $this->createMock(QueryExecutor::class),
+        );
+
+        $users->executeActionsEmail('test-realm', 'test-user-id');
     }
 }

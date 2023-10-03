@@ -167,18 +167,6 @@ class UsersTest extends TestCase
         static::assertNull($user);
     }
 
-    public function testExecuteActionsEmail(): void
-    {
-        $users = $this->getKeycloak()->users();
-        $user = $users->all('master')->first();
-        static::assertInstanceOf(User::class, $user);
-
-        // Execute actions email
-        $result = $users->executeActionsEmail('master', $user->getId());
-
-        static::assertNull($result);
-    }
-
     private function searchUserByUsername(string $username, string $realm = 'master'): ?User
     {
         /** @var User|null $user */
