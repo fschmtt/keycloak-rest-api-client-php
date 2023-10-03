@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
-use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
-
 /**
  * @method JsonNode|null getConfiguration()
  * @method string|null getExecutor()
  * @method self withConfiguration(?JsonNode $configuration)
  * @method self withExecutor(?string $executor)
+ *
+ * @codeCoverageIgnore
  */
-#[IgnoreClassForCodeCoverage(self::class)]
 class ClientPolicyExecutor extends Representation
 {
     public function __construct(

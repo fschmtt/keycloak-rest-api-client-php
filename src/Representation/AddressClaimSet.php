@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
-use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
-
-#[IgnoreClassForCodeCoverage(self::class)]
+/**
+ * @codeCoverageIgnore
+ */
 class AddressClaimSet extends Representation
 {
     protected ?string $country;

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
-use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
-
 /**
  * @method int getFree()
  * @method string getFreeFormated()
@@ -14,8 +12,9 @@ use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
  * @method string getTotalFormated()
  * @method int getUsed()
  * @method string getUsedFormated()
+ *
+ * @codeCoverageIgnore
  */
-#[IgnoreClassForCodeCoverage(self::class)]
 class MemoryInfo extends Representation
 {
     public function __construct(

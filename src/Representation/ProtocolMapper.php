@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Type\Map;
-use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
 /**
  * @method Map|null getConfig()
@@ -20,8 +19,9 @@ use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
  * @method self withName(?string $name)
  * @method self withProtocol(?string $protocol)
  * @method self withProtocolMapper(?string $protocolMapper)
+ *
+ * @codeCoverageIgnore
  */
-#[IgnoreClassForCodeCoverage(self::class)]
 class ProtocolMapper extends Representation
 {
     public function __construct(
