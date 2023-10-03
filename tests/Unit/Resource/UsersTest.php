@@ -399,4 +399,28 @@ class UsersTest extends TestCase
 
         $users->removeRealmRoles('test-realm', 'test-user', $roles);
     }
+
+    public function testExecuteActionsEmail(): void
+    {
+        $command = new Command(
+            '/admin/realms/{realm}/users/{userId}/execute-actions-email',
+            Method::PUT,
+            [
+                'realm' => 'test-realm',
+                'userId' => 'test-user-id',
+            ],
+        );
+
+        $commandExecutor = $this->createMock(CommandExecutor::class);
+        $commandExecutor->expects(static::once())
+            ->method('executeCommand')
+            ->with($command);
+
+        $users = new Users(
+            $commandExecutor,
+            $this->createMock(QueryExecutor::class),
+        );
+
+        $users->executeActionsEmail('test-realm', 'test-user-id');
+    }
 }

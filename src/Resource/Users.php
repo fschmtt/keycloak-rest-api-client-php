@@ -202,4 +202,18 @@ class Users extends Resource
             )
         );
     }
+
+    public function executeActionsEmail(string $realm, string $userId): void
+    {
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms/{realm}/users/{userId}/execute-actions-email',
+                Method::PUT,
+                [
+                    'realm' => $realm,
+                    'userId' => $userId,
+                ]
+            )
+        );
+    }
 }
