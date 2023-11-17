@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Attribute\Since;
+use Fschmtt\Keycloak\Collection\FeatureCollection;
 use Fschmtt\Keycloak\Collection\PasswordPolicyTypeCollection;
 use Fschmtt\Keycloak\Type\Map;
 
@@ -15,6 +16,7 @@ use Fschmtt\Keycloak\Type\Map;
  * @method array|null getComponentTypes()
  * @method CryptoInfo|null getCryptoInfo()
  * @method array|null getEnums()
+ * @method FeatureCollection|null getFeatures()
  * @method array|null getIdentityProviders()
  * @method MemoryInfo|null getMemoryInfo()
  * @method PasswordPolicyType[]|null getPasswordPolicies()
@@ -24,21 +26,6 @@ use Fschmtt\Keycloak\Type\Map;
  * @method array|null getSocialProviders()
  * @method SystemInfo|null getSystemInfo()
  * @method array|null getThemes()
- * @method self withBuiltinProtocolMappers(?array $builtinProtocolMappers)
- * @method self withClientImporters(?array $clientImporters)
- * @method self withClientInstallations(?array $clientInstallations)
- * @method self withComponentTypes(?array $componentTypes)
- * @method self withCryptoInfo(?CryptoInfo $componentTypes)
- * @method self withEnums(?array $enums)
- * @method self withIdentityProviders(?array $identityProviders)
- * @method self withMemoryInfo(?MemoryInfo $memoryInfo)
- * @method self withPasswordPolicies(?array $passwordPolicies)
- * @method self withProtocolMapperTypes(?MemoryInfo $protocolMapperTypes)
- * @method self withProfileInfo(?ProfileInfo $profileInfo)
- * @method self withProviders(?array $providers)
- * @method self withSocialProviders(?array $socialProviders)
- * @method self withSystemInfo(?SystemInfo $systemInfo)
- * @method self withThemes(?array $themes)
  *
  * @codeCoverageIgnore
  */
@@ -52,6 +39,8 @@ class ServerInfo extends Representation
         #[Since('20.0.0')]
         protected ?CryptoInfo $cryptoInfo = null,
         protected ?Map $enums = null,
+        #[Since('22.0.4')]
+        protected ?FeatureCollection $features = null,
         protected ?Map $identityProviders = null,
         protected ?MemoryInfo $memoryInfo = null,
         protected ?PasswordPolicyTypeCollection $passwordPolicies = null,
