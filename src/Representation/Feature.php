@@ -19,6 +19,7 @@ class Feature extends Representation
         protected ?string $name = null,
         protected ?string $label = null,
         protected ?string $type = null,
+        /** @var string[] $dependencies */
         protected ?array $dependencies = null,
         protected ?bool $enabled = null,
     ) {
