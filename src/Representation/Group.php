@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Attribute\Since;
 use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Type\Map;
 
@@ -15,6 +16,7 @@ use Fschmtt\Keycloak\Type\Map;
  * @method string|null getName()
  * @method string|null getPath()
  * @method string[]|null getRealmRoles()
+ * @method int|null getSubGroupCount()
  * @method Group[]|null getSubGroups()
  * @method self withAccess(?Map $access)
  * @method self withAttributes(?Map $attributes)
@@ -23,6 +25,7 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withName(?string $name)
  * @method self withPath(?string $path)
  * @method self withRealmRoles(?array $realmRoles)
+ * @method self withSubGroupCount(?int $subGroupCount)
  * @method self withSubGroups(?array $subGroups)
  *
  * @codeCoverageIgnore
@@ -38,6 +41,8 @@ class Group extends Representation
         protected ?string $path = null,
         /** @var string[]|null */
         protected ?array $realmRoles = null,
+        #[Since('23.0.0')]
+        protected ?int $subGroupCount = null,
         protected ?GroupCollection $subGroups = null,
     ) {
     }
