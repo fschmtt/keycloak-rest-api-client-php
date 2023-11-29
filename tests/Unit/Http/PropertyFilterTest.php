@@ -27,7 +27,7 @@ class PropertyFilterTest extends TestCase
     }
 
     /**
-     * @dataProvider keycloakVersions
+     * @dataProvider supportedKeycloakVersions
      */
     public function testFiltersOutPropertyWhichHasNotYetBeenIntroduced(string $version): void
     {
@@ -42,7 +42,7 @@ class PropertyFilterTest extends TestCase
     }
 
     /**
-     * @dataProvider keycloakVersions
+     * @dataProvider supportedKeycloakVersions
      */
     public function testFiltersOutPropertyWhichHasBeenRemoved(string $version): void
     {
@@ -57,7 +57,7 @@ class PropertyFilterTest extends TestCase
     }
 
     /**
-     * @dataProvider keycloakVersions
+     * @dataProvider supportedKeycloakVersions
      */
     public function testFiltersOutPropertyWhichHasBeenIntroducedAndRemoved(string $version): void
     {
@@ -89,7 +89,7 @@ class PropertyFilterTest extends TestCase
         static::assertArrayHasKey($representation::class, $memoizedFilteredProperties);
     }
 
-    public static function keycloakVersions(): Generator
+    public static function supportedKeycloakVersions(): Generator
     {
         yield ['13.0.0'];
         yield ['14.0.0'];
@@ -101,5 +101,6 @@ class PropertyFilterTest extends TestCase
         yield ['20.0.0'];
         yield ['21.0.0'];
         yield ['22.0.0'];
+        yield ['23.0.0'];
     }
 }

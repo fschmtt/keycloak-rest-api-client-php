@@ -129,11 +129,13 @@ use Fschmtt\Keycloak\Type\Map;
  * @method string|null getWebAuthnPolicyAuthenticatorAttachment()
  * @method bool|null getWebAuthnPolicyAvoidSameAuthenticatorRegister()
  * @method int|null getWebAuthnPolicyCreateTimeout()
+ * @method string[]|null getWebAuthnPolicyExtraOrigins()
  * @method array|null getWebAuthnPolicyPasswordlessAcceptableAaguids()
  * @method string|null getWebAuthnPolicyPasswordlessAttestationConveyancePreference()
  * @method string|null getWebAuthnPolicyPasswordlessAuthenticatorAttachment()
  * @method bool|null getWebAuthnPolicyPasswordlessAvoidSameAuthenticatorRegister()
  * @method int|null getWebAuthnPolicyPasswordlessCreateTimeout()
+ * @method string[]|null getWebAuthnPolicyPasswordlessPolicyExtraOrigins()
  * @method string|null getWebAuthnPolicyPasswordlessRequireResidentKey()
  * @method string|null getWebAuthnPolicyPasswordlessRpEntityName()
  * @method string|null getWebAuthnPolicyPasswordlessRpId()
@@ -252,11 +254,13 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withWebAuthnPolicyAuthenticatorAttachment(?string $value)
  * @method self withWebAuthnPolicyAvoidSameAuthenticatorRegister(?bool $value)
  * @method self withWebAuthnPolicyCreateTimeout(?int $value)
+ * @method self withWebAuthnPolicyExtraOrigins(?array $value)
  * @method self withWebAuthnPolicyPasswordlessAcceptableAaguids(?array $value)
  * @method self withWebAuthnPolicyPasswordlessAttestationConveyancePreference(?string $value)
  * @method self withWebAuthnPolicyPasswordlessAuthenticatorAttachment(?string $value)
  * @method self withWebAuthnPolicyPasswordlessAvoidSameAuthenticatorRegister(?bool $value)
  * @method self withWebAuthnPolicyPasswordlessCreateTimeout(?int $value)
+ * @method self withWebAuthnPolicyPasswordlessExtraOrigins(?array $value)
  * @method self withWebAuthnPolicyPasswordlessRequireResidentKey(?string $value)
  * @method self withWebAuthnPolicyPasswordlessRpEntityName(?string $value)
  * @method self withWebAuthnPolicyPasswordlessRpId(?string $value)
@@ -392,11 +396,17 @@ class Realm extends Representation
         protected ?bool $webAuthnPolicyAvoidSameAuthenticatorRegister = null,
         protected ?int $webAuthnPolicyCreateTimeout = null,
         /** @var string[]|null */
+        #[Since('23.0.0')]
+        protected ?array $webAuthnPolicyExtraOrigins = null,
+        /** @var string[]|null */
         protected ?array $webAuthnPolicyPasswordlessAcceptableAaguids = null,
         protected ?string $webAuthnPolicyPasswordlessAttestationConveyancePreference = null,
         protected ?string $webAuthnPolicyPasswordlessAuthenticatorAttachment = null,
         protected ?bool $webAuthnPolicyPasswordlessAvoidSameAuthenticatorRegister = null,
         protected ?int $webAuthnPolicyPasswordlessCreateTimeout = null,
+        /** @var string[]|null */
+        #[Since('23.0.0')]
+        protected ?array $webAuthnPolicyPasswordlessExtraOrigins = null,
         protected ?string $webAuthnPolicyPasswordlessRequireResidentKey = null,
         protected ?string $webAuthnPolicyPasswordlessRpEntityName = null,
         protected ?string $webAuthnPolicyPasswordlessRpId = null,
