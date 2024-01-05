@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Attribute\Since;
+use Fschmtt\Keycloak\Attribute\Until;
 use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Type\Map;
 
@@ -43,6 +44,9 @@ class Group extends Representation
         protected ?array $realmRoles = null,
         #[Since('23.0.0')]
         protected ?int $subGroupCount = null,
+        #[Since('23.0.0')]
+        protected ?string $parentId = null,
+        #[Until('23.0.0')]
         protected ?GroupCollection $subGroups = null,
     ) {
     }

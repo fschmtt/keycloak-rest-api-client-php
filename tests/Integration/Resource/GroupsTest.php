@@ -20,6 +20,7 @@ class GroupsTest extends TestCase
         $groups = $this->getKeycloak()->groups();
 
         $importedGroupName = Uuid::uuid4()->toString();
+        $childGroupName = Uuid::uuid4()->toString();
         $updatedGroupName = Uuid::uuid4()->toString();
 
         // Create group
@@ -28,11 +29,15 @@ class GroupsTest extends TestCase
             new Group(name: $importedGroupName),
         );
 
+
         // Get all groups
         $allGroups = $groups->all('master');
         static::assertGreaterThanOrEqual(1, $allGroups->count());
         $group = $allGroups->first();
         static::assertInstanceOf(Group::class, $group);
+
+        //Creat child group
+        $groups->create('master', new Group(name: $childGroupName), $group->getId());
 
         // Search for single (imported) group
         $importedGroup = $groups->all('master', new Criteria([
@@ -40,6 +45,11 @@ class GroupsTest extends TestCase
         ]))->first();
         static::assertInstanceOf(Group::class, $importedGroup);
         static::assertSame($importedGroupName, $importedGroup->getName());
+
+        //get the child group
+        $childGroup = $groups->children('master', $importedGroup->getId())->first();
+        static::assertInstanceOf(Group::class, $childGroup);
+        static::assertSame($childGroup->getName(), $childGroupName);
 
         // Update (imported) group
         $groups->update('master', $importedGroup->getId(), $importedGroup->withName($updatedGroupName));
