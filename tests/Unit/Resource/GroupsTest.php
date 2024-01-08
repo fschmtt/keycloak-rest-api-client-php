@@ -57,7 +57,7 @@ class GroupsTest extends TestCase
             GroupCollection::class,
             [
                 'realm' => 'realm-with-groups',
-                'groupId' => 'child-group-id'
+                'groupId' => 'child-group-id',
             ],
         );
 
@@ -81,7 +81,6 @@ class GroupsTest extends TestCase
         static::assertCount(2, $groups);
         static::assertInstanceOf(Group::class, $groups->first());
         static::assertSame('group-1', $groups->first()->getId());
-
     }
 
     public function testGetGroup(): void
@@ -134,6 +133,33 @@ class GroupsTest extends TestCase
         );
 
         $groups->create('realm-with-groups', $group);
+    }
+
+    public function testCreateChildGroup(): void
+    {
+        $group = new Group(name: 'child-group');
+
+        $command = new Command(
+            '/admin/realms/{realm}/groups/{groupId}/children',
+            Method::POST,
+            [
+                'realm' => 'realm-with-groups',
+                'groupId' => 'parent-group-id',
+            ],
+            $group
+        );
+
+        $commandExecutor = $this->createMock(CommandExecutor::class);
+        $commandExecutor->expects(static::once())
+            ->method('executeCommand')
+            ->with($command);
+
+        $groups = new Groups(
+            $commandExecutor,
+            $this->createMock(QueryExecutor::class),
+        );
+
+        $groups->createChild('realm-with-groups', $group, 'parent-group-id');
     }
 
     public function testUpdateGroup(): void

@@ -37,7 +37,7 @@ class GroupsTest extends TestCase
         static::assertInstanceOf(Group::class, $group);
 
         //Creat child group
-        $groups->create('master', new Group(name: $childGroupName), $group->getId());
+        $groups->createChild('master', new Group(name: $childGroupName), $group->getId());
 
         // Search for single (imported) group
         $importedGroup = $groups->all('master', new Criteria([
@@ -50,7 +50,7 @@ class GroupsTest extends TestCase
         $childGroup = $groups->children('master', $importedGroup->getId())->first();
         static::assertInstanceOf(Group::class, $childGroup);
         static::assertSame($childGroup->getName(), $childGroupName);
-
+        
         // Update (imported) group
         $groups->update('master', $importedGroup->getId(), $importedGroup->withName($updatedGroupName));
 

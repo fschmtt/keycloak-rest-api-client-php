@@ -35,7 +35,7 @@ class Groups extends Resource
                 GroupCollection::class,
                 [
                     'realm' => $realm,
-                    'groupId' => $groupId
+                    'groupId' => $groupId,
                 ],
                 $criteria
             )
@@ -58,31 +58,31 @@ class Groups extends Resource
 
     public function create(string $realm, Group $group, ?string $parentGroupId = null): void
     {
-        if ($parentGroupId == null) {
-            $this->commandExecutor->executeCommand(
-                new Command(
-                    '/admin/realms/{realm}/groups',
-                    Method::POST,
-                    [
-                        'realm' => $realm,
-                    ],
-                    $group
-                )
-            );
-        } else {
-            $this->commandExecutor->executeCommand(
-                new Command(
-                    '/admin/realms/{realm}/groups/{groupId}/children',
-                    Method::POST,
-                    [
-                        'realm' => $realm,
-                        'groupId' => $parentGroupId
-                    ],
-                    $group
-                )
-            );
-        }
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms/{realm}/groups',
+                Method::POST,
+                [
+                    'realm' => $realm,
+                ],
+                $group
+            )
+        );
+    }
 
+    public function createChild(string $realm, Group $group, string $parentGroupId): void
+    {
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms/{realm}/groups/{groupId}/children',
+                Method::POST,
+                [
+                    'realm' => $realm,
+                    'groupId' => $parentGroupId,
+                ],
+                $group
+            )
+        );
     }
 
     public function update(string $realm, string $groupId, Group $updatedGroup): void
