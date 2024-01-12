@@ -22,4 +22,18 @@ trait IntegrationTestBehaviour
 
         return $this->keycloak;
     }
+
+    protected function skipIfKeycloakVersionIsLessThan(string $version): void
+    {
+        if (version_compare($this->getKeycloak()->getVersion(), $version, '<')) {
+            $this->markTestSkipped(sprintf('Keycloak version is less than %s', $version));
+        }
+    }
+
+    protected function skipIfKeycloakVersionIsGreaterThan(string $version): void
+    {
+        if (version_compare($this->getKeycloak()->getVersion(), $version, '>')) {
+            $this->markTestSkipped(sprintf('Keycloak version is greater than %s', $version));
+        }
+    }
 }

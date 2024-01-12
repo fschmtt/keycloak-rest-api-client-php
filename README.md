@@ -48,6 +48,51 @@ Keycloak 23.0.0 is running on Linux/5.10.25-linuxkit (amd64) with OpenJDK 64-Bit
 
 More examples can be found in the [examples](examples) directory.
 
+## Customization
+
+### Custom representations & resources
+
+You can register and use custom resources by providing your own representations and resources, e.g.:
+```php
+class MyCustomRepresentation extends \Fschmtt\Keycloak\Representation\Representation
+{
+    public function __construct(
+        protected ?string $id = null,
+        protected ?string $name = null,
+    ) {
+    }
+}
+
+class MyCustomResource extends \Fschmtt\Keycloak\Resource\Resource
+{
+    public function myCustomEndpoint(): MyCustomRepresentation
+    {
+        return $this->queryExecutor->executeQuery(
+            new \Fschmtt\Keycloak\Http\Query(
+                '/my-custom-endpoint',
+                MyCustomRepresentation::class,
+            )
+        );
+    }
+}
+```
+
+By extending the `Resource` class, you have access to both the `QueryExecutor` and `CommandExecutor`.
+The `CommandExecutor` is designed to run state-changing commands against the server (without returning a response);
+the `QueryExecutor` allows fetching resources and representations from the server.
+
+To use your custom resource, pass the fully-qualified class name (FQCN) to the `Keycloak::resource()` method. It provides you with an instance of your resource you can then work with:
+```php
+$keycloak = new Keycloak(
+    $_SERVER['KEYCLOAK_BASE_URL'] ?? 'http://keycloak:8080',
+    'admin',
+    'admin',
+);
+
+$myCustomResource = $keycloak->resource(MyCustomResource::class);
+$myCustomRepresentation = $myCustomResource->myCustomEndpoint();
+```
+
 ## Available Resources
 ### [Attack Detection](https://www.keycloak.org/docs-api/23.0.0/rest-api/index.html#_attack_detection_resource)
 | Endpoint | Response | API |

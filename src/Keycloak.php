@@ -14,6 +14,7 @@ use Fschmtt\Keycloak\Resource\AttackDetection;
 use Fschmtt\Keycloak\Resource\Clients;
 use Fschmtt\Keycloak\Resource\Groups;
 use Fschmtt\Keycloak\Resource\Realms;
+use Fschmtt\Keycloak\Resource\Resource;
 use Fschmtt\Keycloak\Resource\Roles;
 use Fschmtt\Keycloak\Resource\ServerInfo;
 use Fschmtt\Keycloak\Resource\Users;
@@ -53,6 +54,13 @@ class Keycloak
     public function getPassword(): string
     {
         return $this->password;
+    }
+
+    public function getVersion(): string
+    {
+        $this->fetchVersion();
+
+        return $this->version;
     }
 
     public function attackDetection(): AttackDetection
@@ -100,6 +108,17 @@ class Keycloak
         $this->fetchVersion();
 
         return new Roles($this->commandExecutor, $this->queryExecutor);
+    }
+
+    /**
+     * @param class-string<Resource> $resource
+     * @return Resource
+     */
+    public function resource(string $resource): Resource
+    {
+        $this->fetchVersion();
+
+        return new $resource($this->commandExecutor, $this->queryExecutor);
     }
 
     private function fetchVersion(): void
