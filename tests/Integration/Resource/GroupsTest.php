@@ -65,7 +65,7 @@ class GroupsTest extends TestCase
         $groups = $this->getKeycloak()->groups();
 
         // Create group
-        $groups->create('master', new Group(name: $importedGroupName),);
+        $groups->create('master', new Group(name: $importedGroupName));
         $group = $groups->all('master')->first();
         static::assertInstanceOf(Group::class, $group);
 
