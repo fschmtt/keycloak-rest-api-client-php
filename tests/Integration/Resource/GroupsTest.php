@@ -20,7 +20,6 @@ class GroupsTest extends TestCase
         $groups = $this->getKeycloak()->groups();
 
         $importedGroupName = Uuid::uuid4()->toString();
-        $childGroupName = Uuid::uuid4()->toString();
         $updatedGroupName = Uuid::uuid4()->toString();
 
         // Create group
@@ -29,15 +28,11 @@ class GroupsTest extends TestCase
             new Group(name: $importedGroupName),
         );
 
-
         // Get all groups
         $allGroups = $groups->all('master');
         static::assertGreaterThanOrEqual(1, $allGroups->count());
         $group = $allGroups->first();
         static::assertInstanceOf(Group::class, $group);
-
-        //Creat child group
-        $groups->createChild('master', new Group(name: $childGroupName), $group->getId());
 
         // Search for single (imported) group
         $importedGroup = $groups->all('master', new Criteria([
@@ -46,11 +41,6 @@ class GroupsTest extends TestCase
         static::assertInstanceOf(Group::class, $importedGroup);
         static::assertSame($importedGroupName, $importedGroup->getName());
 
-        //get the child group
-        $childGroup = $groups->children('master', $importedGroup->getId())->first();
-        static::assertInstanceOf(Group::class, $childGroup);
-        static::assertSame($childGroup->getName(), $childGroupName);
-        
         // Update (imported) group
         $groups->update('master', $importedGroup->getId(), $importedGroup->withName($updatedGroupName));
 
@@ -63,5 +53,29 @@ class GroupsTest extends TestCase
         } catch (Exception $e) {
             static::assertSame(404, $e->getCode());
         }
+    }
+
+    public function testCreateChildGroup(): void
+    {
+        $this->skipIfKeycloakVersionIsLessThan('23.0.0');
+
+        $importedGroupName = Uuid::uuid4()->toString();
+        $childGroupName = Uuid::uuid4()->toString();
+
+        $groups = $this->getKeycloak()->groups();
+
+        // Create group
+        $groups->create('master', new Group(name: $importedGroupName),);
+        $group = $groups->all('master')->first();
+        static::assertInstanceOf(Group::class, $group);
+
+        // Create child group
+        $groups->createChild('master', new Group(name: $childGroupName), $group->getId());
+        $childGroups = $groups->children('master', $group->getId());
+        static::assertCount(1, $childGroups);
+
+        $childGroup = $childGroups->first();
+        static::assertInstanceOf(Group::class, $childGroup);
+        static::assertSame($childGroupName, $childGroup->getName());
     }
 }
