@@ -55,6 +55,13 @@ class Keycloak
         return $this->password;
     }
 
+    public function getVersion(): string
+    {
+        $this->fetchVersion();
+
+        return $this->version;
+    }
+
     public function attackDetection(): AttackDetection
     {
         $this->fetchVersion();
