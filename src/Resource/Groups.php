@@ -56,7 +56,7 @@ class Groups extends Resource
         );
     }
 
-    public function create(string $realm, Group $group, ?string $parentGroupId = null): void
+    public function create(string $realm, Group $group): void
     {
         $this->commandExecutor->executeCommand(
             new Command(
