@@ -54,4 +54,28 @@ class GroupsTest extends TestCase
             static::assertSame(404, $e->getCode());
         }
     }
+
+    public function testCreateChildGroup(): void
+    {
+        $this->skipIfKeycloakVersionIsLessThan('23.0.0');
+
+        $importedGroupName = Uuid::uuid4()->toString();
+        $childGroupName = Uuid::uuid4()->toString();
+
+        $groups = $this->getKeycloak()->groups();
+
+        // Create group
+        $groups->create('master', new Group(name: $importedGroupName));
+        $group = $groups->all('master')->first();
+        static::assertInstanceOf(Group::class, $group);
+
+        // Create child group
+        $groups->createChild('master', new Group(name: $childGroupName), $group->getId());
+        $childGroups = $groups->children('master', $group->getId());
+        static::assertCount(1, $childGroups);
+
+        $childGroup = $childGroups->first();
+        static::assertInstanceOf(Group::class, $childGroup);
+        static::assertSame($childGroupName, $childGroup->getName());
+    }
 }

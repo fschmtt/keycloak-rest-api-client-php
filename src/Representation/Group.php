@@ -14,6 +14,7 @@ use Fschmtt\Keycloak\Type\Map;
  * @method Map|null getClientRoles()
  * @method string|null getId()
  * @method string|null getName()
+ * @method string|null getParentId()
  * @method string|null getPath()
  * @method string[]|null getRealmRoles()
  * @method int|null getSubGroupCount()
@@ -23,6 +24,7 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withClientRoles(?Map $clientRoles)
  * @method self withId(?string $id)
  * @method self withName(?string $name)
+ * @method self withParentId(?string $parentId)
  * @method self withPath(?string $path)
  * @method self withRealmRoles(?array $realmRoles)
  * @method self withSubGroupCount(?int $subGroupCount)
@@ -38,6 +40,8 @@ class Group extends Representation
         protected ?Map $clientRoles = null,
         protected ?string $id = null,
         protected ?string $name = null,
+        #[Since('23.0.0')]
+        protected ?string $parentId = null,
         protected ?string $path = null,
         /** @var string[]|null */
         protected ?array $realmRoles = null,

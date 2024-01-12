@@ -50,6 +50,39 @@ class GroupsTest extends TestCase
         static::assertSame('group-1', $groups->first()->getId());
     }
 
+    public function testGetGroupChildren(): void
+    {
+        $query = new Query(
+            '/admin/realms/{realm}/groups/{groupId}/children',
+            GroupCollection::class,
+            [
+                'realm' => 'realm-with-groups',
+                'groupId' => 'child-group-id',
+            ],
+        );
+
+        $queryExecutor = $this->createMock(QueryExecutor::class);
+        $queryExecutor->expects(static::once())
+            ->method('executeQuery')
+            ->with($query)
+            ->willReturn(
+                new GroupCollection([
+                    new Group(id: 'group-1'),
+                    new Group(id: 'group-2'),
+                ]),
+            );
+
+        $groups = new Groups(
+            $this->createMock(CommandExecutor::class),
+            $queryExecutor,
+        );
+        $groups = $groups->children('realm-with-groups', 'child-group-id');
+
+        static::assertCount(2, $groups);
+        static::assertInstanceOf(Group::class, $groups->first());
+        static::assertSame('group-1', $groups->first()->getId());
+    }
+
     public function testGetGroup(): void
     {
         $query = new Query(
@@ -100,6 +133,33 @@ class GroupsTest extends TestCase
         );
 
         $groups->create('realm-with-groups', $group);
+    }
+
+    public function testCreateChildGroup(): void
+    {
+        $group = new Group(name: 'child-group');
+
+        $command = new Command(
+            '/admin/realms/{realm}/groups/{groupId}/children',
+            Method::POST,
+            [
+                'realm' => 'realm-with-groups',
+                'groupId' => 'parent-group-id',
+            ],
+            $group
+        );
+
+        $commandExecutor = $this->createMock(CommandExecutor::class);
+        $commandExecutor->expects(static::once())
+            ->method('executeCommand')
+            ->with($command);
+
+        $groups = new Groups(
+            $commandExecutor,
+            $this->createMock(QueryExecutor::class),
+        );
+
+        $groups->createChild('realm-with-groups', $group, 'parent-group-id');
     }
 
     public function testUpdateGroup(): void
