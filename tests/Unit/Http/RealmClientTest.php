@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Test\Unit\Http;
 
 use DateTimeImmutable;
-use Fschmtt\Keycloak\Http\Client;
+use Fschmtt\Keycloak\Http\Client\RealmClient;
 use Fschmtt\Keycloak\Keycloak;
 use Fschmtt\Keycloak\OAuth\TokenStorage\InMemory as InMemoryTokenStorage;
 use Fschmtt\Keycloak\Test\Unit\TokenGenerator;
@@ -15,8 +15,8 @@ use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(Client::class)]
-class ClientTest extends TestCase
+#[CoversClass(RealmClient::class)]
+class RealmClientTest extends TestCase
 {
     use TokenGenerator;
 
@@ -34,14 +34,12 @@ class ClientTest extends TestCase
     public function testAuthorizesBeforeSendingRequest(): void
     {
         $accessToken = $this->generateToken((new DateTimeImmutable())->modify('+1 hour'));
-        $refreshToken = $this->generateToken((new DateTimeImmutable())->modify('+1 hour'));
 
         $authorizationResponse = new Response(
             status: 200,
             body: json_encode(
                 value: [
                     'access_token' => $accessToken->toString(),
-                    'refresh_token' => $refreshToken->toString(),
                 ],
                 flags: JSON_THROW_ON_ERROR
             ),
@@ -58,15 +56,14 @@ class ClientTest extends TestCase
         );
 
         $httpClient = $this->createMock(ClientInterface::class);
-        $httpClient->expects(static::exactly(3))
+        $httpClient->expects(static::exactly(2))
             ->method('request')
             ->willReturnOnConsecutiveCalls(
-                $this->throwException($this->createMock(ClientException::class)),
                 $authorizationResponse,
                 $realmsResponse,
             );
 
-        $client = new Client($this->keycloak, $httpClient, new InMemoryTokenStorage());
+        $client = new RealmClient($this->keycloak, $httpClient, new InMemoryTokenStorage(), 'master');
         $client->request('GET', '/admin/realms');
 
         static::assertTrue($client->isAuthorized());

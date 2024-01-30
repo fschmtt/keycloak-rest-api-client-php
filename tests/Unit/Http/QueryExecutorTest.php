@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Test\Unit\Http;
 
-use Fschmtt\Keycloak\Http\Client;
+use Fschmtt\Keycloak\Http\Client\RealmClient;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Http\QueryExecutor;
@@ -18,7 +18,7 @@ class QueryExecutorTest extends TestCase
 {
     public function testCallsClientWithQueryProperties(): void
     {
-        $client = $this->createMock(Client::class);
+        $client = $this->createMock(RealmClient::class);
         $client->expects(static::once())
             ->method('request')
             ->with(Method::GET->value, '/path/to/resource')

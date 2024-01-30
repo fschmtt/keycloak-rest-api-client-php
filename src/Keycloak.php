@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak;
 
-use Fschmtt\Keycloak\Http\Client;
+use Fschmtt\Keycloak\Http\Client\Client;
+use Fschmtt\Keycloak\Http\Client\RealmClient;
 use Fschmtt\Keycloak\Http\CommandExecutor;
 use Fschmtt\Keycloak\Http\PropertyFilter;
 use Fschmtt\Keycloak\Http\QueryExecutor;
@@ -30,12 +31,13 @@ class Keycloak
     private QueryExecutor $queryExecutor;
 
     public function __construct(
-        private readonly string $baseUrl,
-        private readonly string $username,
-        private readonly string $password,
+        private readonly string                $baseUrl,
+        private readonly string                $clientId,
+        private readonly string                $clientSecret,
+        private readonly string                $realm = 'master',
         private readonly TokenStorageInterface $tokenStorage = new InMemory(),
     ) {
-        $this->client = new Client($this, new GuzzleClient(), $this->tokenStorage);
+        $this->client = new RealmClient($this, new GuzzleClient(), $this->tokenStorage, $realm);
         $this->propertyFilter = new PropertyFilter($this->version);
         $this->commandExecutor = new CommandExecutor($this->client, $this->propertyFilter);
         $this->queryExecutor = new QueryExecutor($this->client, (new SerializerFactory())->create());
@@ -46,14 +48,19 @@ class Keycloak
         return $this->baseUrl;
     }
 
-    public function getUsername(): string
+    public function getClientId(): string
     {
-        return $this->username;
+        return $this->clientId;
     }
 
-    public function getPassword(): string
+    public function getClientSecret(): string
     {
-        return $this->password;
+        return $this->clientSecret;
+    }
+
+    public function getRealm(): string
+    {
+        return $this->realm;
     }
 
     public function getVersion(): string

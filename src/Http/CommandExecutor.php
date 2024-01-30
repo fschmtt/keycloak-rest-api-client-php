@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Http;
 
+use Fschmtt\Keycloak\Http\Client\Client;
 use Fschmtt\Keycloak\Json\JsonEncoder;
 use Fschmtt\Keycloak\Representation\Representation;
 
 class CommandExecutor
 {
     public function __construct(
-        private readonly Client $client,
+        private readonly Client         $client,
         private readonly PropertyFilter $propertyFilter
     ) {
     }

@@ -1,3 +1,6 @@
+Forked from [fschmtt/keycloak-rest-api-client-php](https://github.com/fschmtt/keycloak-rest-api-client-php).
+This repository has been modified to allow getting credentials for any client, not just the admin client.
+
 [![codecov](https://codecov.io/gh/fschmtt/keycloak-rest-api-client-php/graph/badge.svg?token=uDlQdqBF5V)](https://codecov.io/gh/fschmtt/keycloak-rest-api-client-php)
 ![PHP Analysis](https://github.com/fschmtt/keycloak-rest-api-client-php/actions/workflows/php-analysis.yml/badge.svg?branch=main)
 ![PHP Unit](https://github.com/fschmtt/keycloak-rest-api-client-php/actions/workflows/php-unit.yml/badge.svg?branch=main)
@@ -12,7 +15,7 @@ Inspired by [keycloak/keycloak-nodejs-admin-client](https://github.com/keycloak/
 ## Installation
 Install via Composer:
 ```bash
-composer require fschmtt/keycloak-rest-api-client-php
+composer require castoredc/keycloak-rest-api-client-php
 ```
 
 ## Usage
@@ -22,7 +25,8 @@ Example:
 $keycloak = new \Fschmtt\Keycloak\Keycloak(
     baseUrl: 'http://keycloak:8080',
     username: 'admin',
-    password: 'admin'
+    password: 'admin',
+    realm: 'master' # optional, defaults to 'master'
 );
 
 $serverInfo = $keycloak->serverInfo()->get();

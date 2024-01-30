@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Test\Unit\Http;
 
-use Fschmtt\Keycloak\Http\Client;
+use Fschmtt\Keycloak\Http\Client\RealmClient;
 use Fschmtt\Keycloak\Http\Command;
 use Fschmtt\Keycloak\Http\CommandExecutor;
 use Fschmtt\Keycloak\Http\Method;
@@ -20,7 +20,7 @@ class CommandExecutorTest extends TestCase
 {
     public function testCallsClientWithoutBodyIfCommandHasNoRepresentation(): void
     {
-        $client = $this->createMock(Client::class);
+        $client = $this->createMock(RealmClient::class);
         $client->expects(static::once())
             ->method('request')
             ->with(
@@ -53,7 +53,7 @@ class CommandExecutorTest extends TestCase
         );
         $payload = $command->getPayload();
 
-        $client = $this->createMock(Client::class);
+        $client = $this->createMock(RealmClient::class);
         $client->expects(static::once())
             ->method('request')
             ->with(
@@ -82,7 +82,7 @@ class CommandExecutorTest extends TestCase
             new Collection([$representation]),
         );
 
-        $client = $this->createMock(Client::class);
+        $client = $this->createMock(RealmClient::class);
         $client->expects(static::once())
             ->method('request')
             ->with(
