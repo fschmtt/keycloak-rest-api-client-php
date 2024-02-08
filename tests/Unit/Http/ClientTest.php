@@ -72,7 +72,7 @@ class ClientTest extends TestCase
         static::assertTrue($client->isAuthorized());
     }
 
-    public function testIsNotAuthorizedIfTokenStorageContainsNoAccessToken()
+    public function testIsNotAuthorizedIfTokenStorageContainsNoAccessToken(): void
     {
         $client = new Client(
             $this->keycloak,
@@ -83,7 +83,7 @@ class ClientTest extends TestCase
         static::assertFalse($client->isAuthorized());
     }
 
-    public function testIsNotAuthorizedIfTokenStorageContainsExpiredAccessToken()
+    public function testIsNotAuthorizedIfTokenStorageContainsExpiredAccessToken(): void
     {
         $accessToken = $this->generateToken((new DateTimeImmutable())->modify('-1 hour'));
 
@@ -99,7 +99,7 @@ class ClientTest extends TestCase
         static::assertFalse($client->isAuthorized());
     }
 
-    public function testIsAuthorizedIfTokenStorageContainsUnexpiredAccessToken()
+    public function testIsAuthorizedIfTokenStorageContainsUnexpiredAccessToken(): void
     {
         $accessToken = $this->generateToken((new DateTimeImmutable())->modify('+1 hour'));
 
