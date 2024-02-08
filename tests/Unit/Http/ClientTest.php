@@ -71,4 +71,47 @@ class ClientTest extends TestCase
 
         static::assertTrue($client->isAuthorized());
     }
+
+    public function testIsNotAuthorizedIfTokenStorageContainsNoAccessToken()
+    {
+        $client = new Client(
+            $this->keycloak,
+            $this->createMock(ClientInterface::class),
+            new InMemoryTokenStorage()
+        );
+
+        static::assertFalse($client->isAuthorized());
+    }
+
+    public function testIsNotAuthorizedIfTokenStorageContainsExpiredAccessToken()
+    {
+        $accessToken = $this->generateToken((new DateTimeImmutable())->modify('-1 hour'));
+
+        $tokenStorage = new InMemoryTokenStorage();
+        $tokenStorage->storeAccessToken($accessToken);
+
+        $client = new Client(
+            $this->keycloak,
+            $this->createMock(ClientInterface::class),
+            $tokenStorage
+        );
+
+        static::assertFalse($client->isAuthorized());
+    }
+
+    public function testIsAuthorizedIfTokenStorageContainsUnexpiredAccessToken()
+    {
+        $accessToken = $this->generateToken((new DateTimeImmutable())->modify('+1 hour'));
+
+        $tokenStorage = new InMemoryTokenStorage();
+        $tokenStorage->storeAccessToken($accessToken);
+
+        $client = new Client(
+            $this->keycloak,
+            $this->createMock(ClientInterface::class),
+            $tokenStorage
+        );
+
+        static::assertTrue($client->isAuthorized());
+    }
 }
