@@ -6,9 +6,9 @@ namespace Fschmtt\Keycloak\Http;
 
 use DateTime;
 use Fschmtt\Keycloak\Keycloak;
+use Fschmtt\Keycloak\OAuth\GrantType\RefreshToken;
 use Fschmtt\Keycloak\OAuth\TokenStorageInterface;
 use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\ClientException;
 use Lcobucci\JWT\Encoding\JoseEncoder;
 use Lcobucci\JWT\Token;
 use Psr\Http\Message\ResponseInterface;
@@ -68,29 +68,27 @@ class Client
      */
     private function fetchTokens(): array
     {
-        try {
+        if ($refreshToken = $this->tokenStorage->retrieveRefreshToken()) {
+            $refreshTokenGrantType = new RefreshToken(
+                $this->keycloak->getGrantType()->clientId,
+                $refreshToken->toString(),
+                $this->keycloak->getGrantType()->clientSecret,
+                $this->keycloak->getGrantType()->scope,
+            );
+
             $response = $this->httpClient->request(
                 'POST',
-                $this->keycloak->getBaseUrl() . '/realms/' . $this->keycloak->getRealm() . '/protocol/openid-connect/token',
+                $this->keycloak->getBaseUrl() . '/realms/' . $this->keycloak->getGrantType()->realm . '/protocol/openid-connect/token',
                 [
-                    'form_params' => [
-                        'refresh_token' => $this->tokenStorage->retrieveRefreshToken()?->toString(),
-                        'client_id' => 'admin-cli',
-                        'grant_type' => 'refresh_token',
-                    ],
+                    'form_params' => $refreshTokenGrantType->toRequestParams(),
                 ],
             );
-        } catch (ClientException $e) {
+        } else {
             $response = $this->httpClient->request(
                 'POST',
-                $this->keycloak->getBaseUrl() . '/realms/' . $this->keycloak->getRealm() . '/protocol/openid-connect/token',
+                $this->keycloak->getBaseUrl() . '/realms/' . $this->keycloak->getGrantType()->realm . '/protocol/openid-connect/token',
                 [
-                    'form_params' => [
-                        'username' => $this->keycloak->getUsername(),
-                        'password' => $this->keycloak->getPassword(),
-                        'client_id' => 'admin-cli',
-                        'grant_type' => 'password',
-                    ],
+                    'form_params' => $this->keycloak->getGrantType()->toRequestParams(),
                 ],
             );
         }

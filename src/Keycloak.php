@@ -7,6 +7,7 @@ namespace Fschmtt\Keycloak;
 use Fschmtt\Keycloak\Http\Client;
 use Fschmtt\Keycloak\Http\CommandExecutor;
 use Fschmtt\Keycloak\Http\QueryExecutor;
+use Fschmtt\Keycloak\OAuth\GrantType;
 use Fschmtt\Keycloak\OAuth\TokenStorage\InMemory;
 use Fschmtt\Keycloak\OAuth\TokenStorageInterface;
 use Fschmtt\Keycloak\Resource\AttackDetection;
@@ -35,13 +36,11 @@ class Keycloak
 
     public function __construct(
         private readonly string $baseUrl,
-        private readonly string $username,
-        private readonly string $password,
-        private readonly string $realm = 'master',
+        private readonly GrantType $grantType,
         private readonly TokenStorageInterface $tokenStorage = new InMemory(),
-        ?ClientInterface $guzzleClient = new GuzzleClient(),
+        ?ClientInterface $httpClient = new GuzzleClient(),
     ) {
-        $this->client = new Client($this, $guzzleClient, $this->tokenStorage);
+        $this->client = new Client($this, $httpClient, $this->tokenStorage);
         $this->serializer = new Serializer($this->version);
         $this->commandExecutor = new CommandExecutor($this->client, $this->serializer);
         $this->queryExecutor = new QueryExecutor($this->client, $this->serializer);
@@ -52,14 +51,9 @@ class Keycloak
         return $this->baseUrl;
     }
 
-    public function getUsername(): string
+    public function getGrantType(): GrantType
     {
-        return $this->username;
-    }
-
-    public function getPassword(): string
-    {
-        return $this->password;
+        return $this->grantType;
     }
 
     public function getVersion(): string
@@ -144,10 +138,5 @@ class Keycloak
         $this->version = $this->serverInfo()->get()->getSystemInfo()->getVersion();
         $this->serializer = new Serializer($this->version);
         $this->commandExecutor = new CommandExecutor($this->client, $this->serializer);
-    }
-
-    public function getRealm(): string
-    {
-        return $this->realm;
     }
 }

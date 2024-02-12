@@ -7,7 +7,8 @@ on:
 name: PHP Analysis
 
 jobs:
-  Analyze:
+  analyze:
+    name: 🔍 Analyze
     runs-on: ubuntu-latest
 
     strategy:
@@ -18,7 +19,7 @@ jobs:
       PHP_CS_FIXER_IGNORE_ENV: 1 # Remove when PHP 8.4 is officially supported by PHP CS Fixer
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: shivammathur/setup-php@v2
         with:
@@ -32,3 +33,22 @@ jobs:
 
       - name: Run PHP-CS-Fixer
         run: composer cs
+
+  bc_check:
+    name: 🕵🏼 Check Backwards Compatibility
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+
+      - name: Install dependencies
+        run: composer require --dev roave/backward-compatibility-check
+
+      - name: Run backwards compatibility check
+        run: vendor/bin/roave-backward-compatibility-check

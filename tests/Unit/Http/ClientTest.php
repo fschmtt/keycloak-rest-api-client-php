@@ -8,9 +8,9 @@ use DateTimeImmutable;
 use Fschmtt\Keycloak\Http\Client;
 use Fschmtt\Keycloak\Keycloak;
 use Fschmtt\Keycloak\OAuth\TokenStorage\InMemory as InMemoryTokenStorage;
+use Fschmtt\Keycloak\Test\Unit\Stub\Password;
 use Fschmtt\Keycloak\Test\Unit\TokenGenerator;
 use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Client as GuzzleClient;
@@ -29,11 +29,7 @@ class ClientTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->keycloak = new Keycloak(
-            'http://keycloak:8080',
-            'admin',
-            'admin',
-        );
+        $this->keycloak = new Keycloak('http://keycloak:8080', new Password());
     }
 
     public function testAuthorizesBeforeSendingRequest(): void
@@ -63,10 +59,9 @@ class ClientTest extends TestCase
         );
 
         $httpClient = $this->createMock(ClientInterface::class);
-        $httpClient->expects(static::exactly(3))
+        $httpClient->expects(static::exactly(2))
             ->method('request')
             ->willReturnOnConsecutiveCalls(
-                $this->throwException($this->createMock(ClientException::class)),
                 $authorizationResponse,
                 $realmsResponse,
             );
@@ -149,9 +144,7 @@ class ClientTest extends TestCase
         $history = [];
         $historyMiddleware = Middleware::history($history);
 
-        $tokenRequest = new Request('POST', 'http://keycloak:8080/realms/custom-realm/protocol/openid-connect/token');
         $mockHandler = new MockHandler([
-            new ClientException('Bad Request', $tokenRequest, new Response(400)),
             $authorizationResponse,
             $realmsResponse,
         ]);
@@ -163,9 +156,7 @@ class ClientTest extends TestCase
 
         $keycloak = new Keycloak(
             'http://keycloak:8080',
-            'admin',
-            'admin',
-            realm: 'custom-realm',
+            new Password(realm: 'custom-realm'),
         );
 
         $client = new Client($keycloak, $httpClient, new InMemoryTokenStorage());
