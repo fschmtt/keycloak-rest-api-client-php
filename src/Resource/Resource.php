@@ -6,9 +6,10 @@ namespace Fschmtt\Keycloak\Resource;
 
 use Fschmtt\Keycloak\Http\CommandExecutor;
 use Fschmtt\Keycloak\Http\QueryExecutor;
-use PHPUnit\Framework\Attributes\IgnoreClassForCodeCoverage;
 
-#[IgnoreClassForCodeCoverage(self::class)]
+/**
+ * @codeCoverageIgnore
+ */
 abstract class Resource
 {
     public function __construct(
