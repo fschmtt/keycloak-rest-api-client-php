@@ -28,6 +28,13 @@ class RealmsTest extends TestCase
         static::assertEquals('master', $realm->getRealm());
     }
 
+    public function testCanGetRealmKeys(): void
+    {
+        $realmkeys = $this->getKeycloak()->realms()->keys(realm: 'master');
+        static::assertArrayHasKey('AES', $realmkeys->getActive());
+        static::assertGreaterThan(1, $realmkeys->getKeyMetadataCollection()->count());
+    }
+
     public function testCanUpdateRealm(): void
     {
         $realm = $this->getKeycloak()->realms()->get(realm: 'master');
