@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Attribute\Since;
+
 /**
  * @method string|null getProviderId()
  * @method int|null getProviderPriority()
@@ -14,6 +16,7 @@ namespace Fschmtt\Keycloak\Representation;
  * @method string|null getPublicKey()
  * @method string|null getCertificate()
  * @method string|null getUse()
+ * @method int|null getValidTo()
  * @method self withProviderId(?string $providerId)
  * @method self withProviderPriority(?int $providerPriority)
  * @method self withKid(?string $kid)
@@ -23,6 +26,7 @@ namespace Fschmtt\Keycloak\Representation;
  * @method self withPublicKey(?string $publicKey)
  * @method self withCertificate(?string $certificate)
  * @method self withUse(?string $use)
+ * @method self withValidTo(?int $validTo)
  *
  * @codeCoverageIgnore
  */
@@ -38,6 +42,8 @@ class KeyMetadata extends Representation
         protected ?string $publicKey = null,
         protected ?string $certificate = null,
         protected ?string $use = null,
+        #[Since('23.0.0')]
+        protected ?int $validTo = null,
     ) {
     }
 }
