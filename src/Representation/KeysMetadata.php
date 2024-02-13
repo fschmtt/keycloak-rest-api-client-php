@@ -8,7 +8,7 @@ use Fschmtt\Keycloak\Collection\KeyMetadataCollection;
 
 /**
  * @method array|null getActive()
- * @method KeyMetadataCollection|null getKeyMetadataCollection()
+ * @method KeyMetadataCollection|null getKeys()
  * @method self withActive(?array $active)
  * @method self withKeyMetadataCollection(?KeyMetadataCollection $keys)
  *

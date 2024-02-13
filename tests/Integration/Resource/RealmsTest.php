@@ -32,7 +32,7 @@ class RealmsTest extends TestCase
     {
         $realmkeys = $this->getKeycloak()->realms()->keys(realm: 'master');
         static::assertArrayHasKey('AES', $realmkeys->getActive());
-        static::assertGreaterThan(1, $realmkeys->getKeyMetadataCollection()->count());
+        static::assertGreaterThan(1, $realmkeys->getKeys()->count());
     }
 
     public function testCanUpdateRealm(): void
