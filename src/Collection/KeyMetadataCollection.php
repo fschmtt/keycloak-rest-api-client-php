@@ -7,7 +7,7 @@ namespace Fschmtt\Keycloak\Collection;
 use Fschmtt\Keycloak\Representation\KeyMetadata;
 
 /**
- * @extends Collection<Credential>
+ * @extends Collection<KeyMetadata>
  *
  * @codeCoverageIgnore
  */

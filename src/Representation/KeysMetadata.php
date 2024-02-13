@@ -16,6 +16,10 @@ use Fschmtt\Keycloak\Collection\KeyMetadataCollection;
  */
 class KeysMetadata extends Representation
 {
+    /**
+     * @param string[]|null $active
+     * @param KeyMetadataCollection|null $keys
+     */
     public function __construct(
         protected ?array $active = null,
         protected ?KeyMetadataCollection $keys = null,
