@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
-use Fschmtt\Keycloak\Collection\ClientPolicyExecutorCollection;
-
 /**
  * @method string|null getProviderId()
  * @method int|null getProviderPriority()

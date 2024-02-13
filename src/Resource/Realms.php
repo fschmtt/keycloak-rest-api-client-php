@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Resource;
 
-use Fschmtt\Keycloak\Collection\KeysMetadataCollection;
 use Fschmtt\Keycloak\Collection\RealmCollection;
 use Fschmtt\Keycloak\Http\Command;
 use Fschmtt\Keycloak\Http\Criteria;
