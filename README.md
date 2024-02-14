@@ -128,6 +128,7 @@ $myCustomRepresentation = $myCustomResource->myCustomEndpoint();
 | `PUT /admin/realms/{realm}` | [Realm](src/Representation/Realm.php) | [Realms::update()](src/Resource/Realms.php) |
 | `DELETE /admin/realms/{realm}` | `n/a` | [Realms::delete()](src/Resource/Realms.php) |
 | `GET /admin/realms/{realm}/admin-events` | `array` | [Realms::adminEvents()](src/Resource/Realms.php) |
+| `GET /admin/realms/{realm}/keys` | [KeysMetadata](src/Representation/KeysMetadata.php) | [Realms::keys()](src/Resource/Realms.php)              |
 | `DELETE /admin/realms/{realm}/admin-events` | `n/a` | [Realms::deleteAdminEvents()](src/Resource/Realms.php) |
 | `POST /admin/realms/{realm}/clear-keys-cache` | `n/a` | [Realms::clearKeysCache()](src/Resource/Realms.php) |
 | `POST /admin/realms/{realm}/clear-realm-cache` | `n/a` | [Realms::clearRealmCache()](src/Resource/Realms.php) |

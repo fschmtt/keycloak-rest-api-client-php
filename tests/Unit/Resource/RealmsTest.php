@@ -10,6 +10,7 @@ use Fschmtt\Keycloak\Http\CommandExecutor;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Http\QueryExecutor;
+use Fschmtt\Keycloak\Representation\KeysMetadata;
 use Fschmtt\Keycloak\Representation\Realm;
 use Fschmtt\Keycloak\Resource\Realms;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -266,5 +267,29 @@ class RealmsTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
         $realms->clearUserCache('realm-with-cache');
+    }
+
+    public function testGetKeys(): void
+    {
+        $query = new Query(
+            '/admin/realms/{realm}/keys',
+            KeysMetadata::class,
+            [
+                'realm' => 'realm-with-keys',
+            ],
+        );
+
+        $queryExecutor = $this->createMock(QueryExecutor::class);
+        $queryExecutor->expects(static::once())
+            ->method('executeQuery')
+            ->with($query)
+            ->willReturn(new KeysMetadata());
+
+        $realms = new Realms(
+            $this->createMock(CommandExecutor::class),
+            $queryExecutor,
+        );
+
+        $realms->keys('realm-with-keys');
     }
 }

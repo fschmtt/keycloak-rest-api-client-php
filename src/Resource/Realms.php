@@ -9,6 +9,7 @@ use Fschmtt\Keycloak\Http\Command;
 use Fschmtt\Keycloak\Http\Criteria;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
+use Fschmtt\Keycloak\Representation\KeysMetadata;
 use Fschmtt\Keycloak\Representation\Realm;
 
 /**
@@ -92,6 +93,20 @@ class Realms extends Resource
             new Query(
                 '/admin/realms/{realm}/admin-events',
                 'array',
+                [
+                    'realm' => $realm,
+                ],
+                $criteria,
+            )
+        );
+    }
+    
+    public function keys(string $realm, ?Criteria $criteria = null): KeysMetadata
+    {
+        return $this->queryExecutor->executeQuery(
+            new Query(
+                '/admin/realms/{realm}/keys',
+                KeysMetadata::class,
                 [
                     'realm' => $realm,
                 ],
