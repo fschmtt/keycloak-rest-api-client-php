@@ -102,5 +102,6 @@ class PropertyFilterTest extends TestCase
         yield ['21.0.0'];
         yield ['22.0.0'];
         yield ['23.0.0'];
+        yield ['24.0.0'];
     }
 }
