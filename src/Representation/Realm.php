@@ -68,7 +68,8 @@ use Fschmtt\Keycloak\Type\Map;
  * @method int|null getEventsExpiration()
  * @method array|null getEventsListeners()
  * @method int|null getFailureFactor()
- * @method array|null getFederatedUsers()
+ * @method UserCollection|null getFederatedUsers()
+ * @method string|null getFirstBrokerLoginFlow()
  * @method GroupCollection|null getGroups()
  * @method string|null getId()
  * @method array|null getIdentityProviderMappers()
@@ -79,6 +80,7 @@ use Fschmtt\Keycloak\Type\Map;
  * @method bool|null getLoginWithEmailAllowed()
  * @method int|null getMaxDeltaTimeSeconds()
  * @method int|null getMaxFailureWaitSeconds()
+ * @method int|null getMaxTemporaryLockouts()
  * @method int|null getMinimumQuickLoginWaitSeconds()
  * @method int|null getNotBefore()
  * @method int|null getOauth2DeviceCodeLifespan()
@@ -193,7 +195,8 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withEventsExpiration(?int $value)
  * @method self withEventsListeners(?array $value)
  * @method self withFailureFactor(?int $value)
- * @method self withFederatedUsers(?array $value)
+ * @method self withFederatedUsers(?UserCollection $value)
+ * @method self withFirstBrokerLoginFlow(?string $value)
  * @method self withGroups(?GroupCollection $value)
  * @method self withId(?string $value)
  * @method self withIdentityProviderMappers(?array $value)
@@ -204,6 +207,7 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withLoginWithEmailAllowed(?bool $value)
  * @method self withMaxDeltaTimeSeconds(?int $value)
  * @method self withMaxFailureWaitSeconds(?int $value)
+ * @method self withMaxTemporaryLockouts(?int $value)
  * @method self withMinimumQuickLoginWaitSeconds(?int $value)
  * @method self withNotBefore(?int $value)
  * @method self withOauth2DeviceCodeLifespan(?int $value)
@@ -330,6 +334,8 @@ class Realm extends Representation
         protected ?array $eventsListeners = null,
         protected ?int $failureFactor = null,
         protected ?UserCollection $federatedUsers = null,
+        #[Since('24.0.0')]
+        protected ?string $firstBrokerLoginFlow = null,
         protected ?GroupCollection $groups = null,
         protected ?string $id = null,
         protected ?IdentityProviderMapperCollection $identityProviderMappers = null,
@@ -340,6 +346,8 @@ class Realm extends Representation
         protected ?bool $loginWithEmailAllowed = null,
         protected ?int $maxDeltaTimeSeconds = null,
         protected ?int $maxFailureWaitSeconds = null,
+        #[Since('24.0.0')]
+        protected ?int $maxTemporaryLockouts = null,
         protected ?int $minimumQuickLoginWaitSeconds = null,
         protected ?int $notBefore = null,
         protected ?int $oauth2DeviceCodeLifespan = null,
