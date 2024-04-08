@@ -11,7 +11,7 @@ use Fschmtt\Keycloak\Enum\DecisionStrategy;
 use Fschmtt\Keycloak\Enum\PolicyEnforcementMode;
 
 /**
- * @method bool|null getAllowRemoveResourceManagement()
+ * @method bool|null getAllowRemoteResourceManagement()
  * @method string|null getClientId()
  * @method DecisionStrategy|null getDecisionStrategy()
  * @method string|null getId()
@@ -20,7 +20,7 @@ use Fschmtt\Keycloak\Enum\PolicyEnforcementMode;
  * @method PolicyEnforcementMode|null getPolicyEnforcementMode()
  * @method ResourceCollection|null getResources()
  * @method ScopeCollection|null getScopes()
- * @method self withAllowRemoveResourceManagement(?bool $allowRemoveResourceManagement)
+ * @method self withAllowRemoteResourceManagement(?bool $allowRemoveResourceManagement)
  * @method self withClientId(?string $clientId)
  * @method self withDecisionStrategy(?DecisionStrategy $decisionStrategy)
  * @method self withId(?string $id)
@@ -35,7 +35,7 @@ use Fschmtt\Keycloak\Enum\PolicyEnforcementMode;
 class ResourceServer extends Representation
 {
     public function __construct(
-        protected ?bool $allowRemoveResourceManagement = null,
+        protected ?bool $allowRemoteResourceManagement = null,
         protected ?string $clientId = null,
         protected ?DecisionStrategy $decisionStrategy = null,
         protected ?string $id = null,
