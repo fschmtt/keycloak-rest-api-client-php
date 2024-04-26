@@ -15,6 +15,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: pcov
+
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
 
@@ -22,6 +27,8 @@ jobs:
         run: vendor/bin/phpunit --testsuite unit
 
       - name: Upload coverage reports
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
+          fail_ci_if_error: true
           files: phpunit.cobertura.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
