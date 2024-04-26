@@ -94,14 +94,14 @@ $myCustomRepresentation = $myCustomResource->myCustomEndpoint();
 ```
 
 ## Available Resources
-### [Attack Detection](https://www.keycloak.org/docs-api/24.0.0/rest-api/index.html#_attack_detection_resource)
+### [Attack Detection](https://www.keycloak.org/docs-api/24.0.0/rest-api/index.html#_attack_detection)
 | Endpoint | Response | API |
 |----------|----------|-----|
 | `DELETE /admin/realms/{realm}/attack-detection/brute-force/users` | `n/a` | [AttackDetection::clear()](src/Resource/AttackDetection.php) |
 | `GET /admin/realms/{realm}/attack-detection/brute-force/users/{userId}` | [Map](src/Type/Map.php) | [AttackDetection::userStatus()](src/Resource/AttackDetection.php) |
 | `DELETE /admin/realms/{realm}/attack-detection/brute-force/users/{userId}` | `n/a` | [AttackDetection::clearUser()](src/Resource/AttackDetection.php) |
 
-### [Clients](https://www.keycloak.org/docs-api/24.0.0/rest-api/index.html#_clients_resource)
+### [Clients](https://www.keycloak.org/docs-api/24.0.0/rest-api/index.html#_clients)
 | Endpoint | Response | API |
 |----------|----------|-----|
 | `GET /admin/realms/{realm}/clients` | [ClientCollection](src/Collection/ClientCollection.php) | [Clients::all()](src/Resource/Clients.php) |
@@ -109,7 +109,7 @@ $myCustomRepresentation = $myCustomResource->myCustomEndpoint();
 | `PUT /admin/realms/{realm}/clients/{id}` | [Client](src/Representation/Client.php) | [Clients::update()](src/Resource/Clients.php) |
 | `POST /admin/realms/{realm}/clients` | [Client](src/Representation/Client.php) | [Clients::import()](src/Resource/Clients.php) |
 
-### [Groups](https://www.keycloak.org/docs-api/24.0.0/rest-api/index.html#_clients_resource)
+### [Groups](https://www.keycloak.org/docs-api/24.0.0/rest-api/index.html#_clients)
 | Endpoint                                          | Response | API                                           |
 |---------------------------------------------------|----------|-----------------------------------------------|
 | `GET /admin/realms/{realm}/groups`                | [GroupCollection](src/Collection/GroupCollection.php) | [Groups::all()](src/Resource/Groups.php)      |
@@ -120,7 +120,7 @@ $myCustomRepresentation = $myCustomResource->myCustomEndpoint();
 | `POST /admin/realms/{realm}/groups/{id}/children` | `n/a` | [Groups::create()](src/Resource/Groups.php)   |
 | `DELETE /admin/realms/{realm}/groups`             | `n/a` | [Groups::delete()](src/Resource/Groups.php)   |
 
-### [Realms Admin](https://www.keycloak.org/docs-api/24.0.0/rest-api/index.html#_realms_admin_resource)
+### [Realms Admin](https://www.keycloak.org/docs-api/24.0.0/rest-api/index.html#_realms_admin)
 | Endpoint | Response | API |
 |----------|----------|-----|
 | `POST /admin/realms` | [Realm](src/Representation/Realm.php) | [Realms::import()](src/Resource/Realms.php) |
@@ -134,7 +134,7 @@ $myCustomRepresentation = $myCustomResource->myCustomEndpoint();
 | `POST /admin/realms/{realm}/clear-realm-cache` | `n/a` | [Realms::clearRealmCache()](src/Resource/Realms.php) |
 | `POST /admin/realms/{realm}/clear-user-cache` | `n/a` | [Realms::clearUserCache()](src/Resource/Realms.php) |
 
-### [Users](https://www.keycloak.org/docs-api/24.0.0/rest-api/index.html#_users_resource)
+### [Users](https://www.keycloak.org/docs-api/24.0.0/rest-api/index.html#_users)
 | Endpoint | Response | API |
 |----------|----------|-----|
 | `GET /admin/realms/{realm}/users` | [UserCollection](src/Collection/UserCollection.php) | [Users::all()](src/Resource/Users.php) |
@@ -152,7 +152,7 @@ $myCustomRepresentation = $myCustomResource->myCustomEndpoint();
 | `DELETE /{realm}/users/{id}/role-mappings/realm` | `n/a` | [Users::removeRealmRoles()](src/Resource/Users.php) |
 | `PUT /{realm}/users/{id}/execute-actions-email` | `n/a` | [Users::executeActionsEmail()](src/Resource/Users.php) |
 
-### [Roles](https://www.keycloak.org/docs-api/24.0.0/rest-api/index.html#_roles_resource)
+### [Roles](https://www.keycloak.org/docs-api/24.0.0/rest-api/index.html#_roles)
 | Endpoint | Response | API |
 |----------|----------|-----|
 | `GET /admin/realms/{realm}/roles` | [RoleCollection](src/Collection/RoleCollection.php) | [Roles::all()](src/Resource/Roles.php) |
@@ -160,7 +160,7 @@ $myCustomRepresentation = $myCustomResource->myCustomEndpoint();
 | `POST /admin/realms/{realm}/roles` | `n/a` | [Roles::create()](src/Resource/Roles.php) |
 | `DELETE /admin/realms/{realm}/roles/{roleName}` | `n/a` | [Roles::delete()](src/Resource/Roles.php) |
 
-### [Root](https://www.keycloak.org/docs-api/24.0.0/rest-api/index.html#_root_resource)
+### [Root](https://www.keycloak.org/docs-api/24.0.0/rest-api/index.html#_root)
 | Endpoint | Response | API |
 |----------|----------|-----|
 | `GET /admin/serverinfo` | [ServerInfo](src/Representation/ServerInfo.php) | [ServerInfo::get()](src/Resource/ServerInfo.php) |
