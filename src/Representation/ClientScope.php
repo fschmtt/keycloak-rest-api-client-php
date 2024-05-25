@@ -26,12 +26,12 @@ use Fschmtt\Keycloak\Type\Map;
 class ClientScope extends Representation
 {
     public function __construct(
-        protected ?Map $attributes,
-        protected ?string $description,
-        protected ?string $id,
-        protected ?string $name,
-        protected ?string $protocol,
-        protected ?ProtocolMapperCollection $protocolMappers
+        protected ?Map $attributes = null,
+        protected ?string $description = null,
+        protected ?string $id = null,
+        protected ?string $name = null,
+        protected ?string $protocol = null,
+        protected ?ProtocolMapperCollection $protocolMappers = null
     ) {
     }
 }

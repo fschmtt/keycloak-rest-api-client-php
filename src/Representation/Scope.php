@@ -13,12 +13,12 @@ use Fschmtt\Keycloak\Collection\ResourceCollection;
 class Scope extends Representation
 {
     public function __construct(
-        protected ?string $displayName,
-        protected ?string $iconUri,
-        protected ?string $id,
-        protected ?string $name,
-        protected ?PolicyCollection $policies,
-        protected ?ResourceCollection $resources,
+        protected ?string $displayName = null,
+        protected ?string $iconUri = null,
+        protected ?string $id = null,
+        protected ?string $name = null,
+        protected ?PolicyCollection $policies = null,
+        protected ?ResourceCollection $resources = null,
     ) {
     }
 }

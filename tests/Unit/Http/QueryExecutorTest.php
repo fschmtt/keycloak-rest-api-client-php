@@ -22,7 +22,7 @@ class QueryExecutorTest extends TestCase
         $client->expects(static::once())
             ->method('request')
             ->with(Method::GET->value, '/path/to/resource')
-            ->willReturn(new Response(body: json_encode([])));
+            ->willReturn(new Response(body: json_encode([], JSON_THROW_ON_ERROR)));
 
         $executor = new QueryExecutor($client, $this->createMock(Serializer::class));
         $executor->executeQuery(

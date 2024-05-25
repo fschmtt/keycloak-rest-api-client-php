@@ -6,6 +6,7 @@ namespace Fschmtt\Keycloak\Test\Unit\Serializer;
 
 use Fschmtt\Keycloak\Serializer\ArraySerializer;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(ArraySerializer::class)]
@@ -21,8 +22,8 @@ class ArraySerializerTest extends TestCase
 
     /**
      * @param array<mixed> $expected
-     * @dataProvider provideData
      */
+    #[DataProvider('provideData')]
     public function testSerialize(mixed $value, array $expected): void
     {
         $serializer = new ArraySerializer();

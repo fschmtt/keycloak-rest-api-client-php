@@ -9,41 +9,28 @@ namespace Fschmtt\Keycloak\Representation;
  */
 class SystemInfo extends Representation
 {
-    protected ?string $fileEncoding;
+    public function __construct(
+        protected ?string $fileEncoding = null,
+        protected ?string $javaHome = null,
+        protected ?string $javaRuntime = null,
+        protected ?string $javaVendor = null,
+        protected ?string $javaVersion = null,
+        protected ?string $javaVm = null,
+        protected ?string $javaVmVersion = null,
+        protected ?string $osArchitecture = null,
+        protected ?string $osName = null,
+        protected ?string $osVersion = null,
+        protected ?string $serverTime = null,
+        protected ?string $uptime = null,
+        protected ?int $uptimeMillis = null,
+        protected ?string $userDir = null,
+        protected ?string $userLocale = null,
+        protected ?string $userName = null,
+        protected ?string $userTimezone = null,
+        protected ?string $version = null,
+    ) {
+    }
 
-    protected ?string $javaHome;
-
-    protected ?string $javaRuntime;
-
-    protected ?string $javaVendor;
-
-    protected ?string $javaVersion;
-
-    protected ?string $javaVm;
-
-    protected ?string $javaVmVersion;
-
-    protected ?string $osArchitecture;
-
-    protected ?string $osName;
-
-    protected ?string $osVersion;
-
-    protected ?string $serverTime;
-
-    protected ?string $uptime;
-
-    protected ?int $uptimeMillis;
-
-    protected ?string $userDir;
-
-    protected ?string $userLocale;
-
-    protected ?string $userName;
-
-    protected ?string $userTimezone;
-
-    protected ?string $version;
 
     public function getUserLocale(): string
     {

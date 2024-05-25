@@ -17,12 +17,13 @@ abstract class Representation implements JsonSerializable
 {
     private ?Serializer $serializer = null;
 
+    abstract public function __construct();
+
     /**
      * @param array<mixed> $properties
      */
     final public static function from(array $properties): static
     {
-        /** @phpstan-ignore-next-line */
         $representation = new static();
 
         foreach ($properties as $property => $value) {

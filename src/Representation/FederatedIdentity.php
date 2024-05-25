@@ -17,9 +17,9 @@ namespace Fschmtt\Keycloak\Representation;
 class FederatedIdentity extends Representation
 {
     public function __construct(
-        protected ?string $identityProvider,
-        protected ?string $userId,
-        protected ?string $userName
+        protected ?string $identityProvider = null,
+        protected ?string $userId = null,
+        protected ?string $userName = null
     ) {
     }
 }

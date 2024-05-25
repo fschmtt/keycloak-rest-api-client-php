@@ -26,12 +26,15 @@ namespace Fschmtt\Keycloak\Representation;
  */
 class AuthenticationExecutionExport extends Representation
 {
-    protected ?string $authenticator;
-    protected ?string $authenticatorConfig;
-    protected ?bool $authenticatorFlow;
-    protected ?string $flowId;
-    protected ?string $id;
-    protected ?string $parentFlow;
-    protected ?int $priority;
-    protected ?string $requirement;
+    public function __construct(
+        protected ?string $authenticator = null,
+        protected ?string $authenticatorConfig = null,
+        protected ?bool $authenticatorFlow = null,
+        protected ?string $flowId = null,
+        protected ?string $id = null,
+        protected ?string $parentFlow = null,
+        protected ?int $priority = null,
+        protected ?string $requirement = null,
+    ) {
+    }
 }

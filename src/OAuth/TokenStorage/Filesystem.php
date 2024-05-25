@@ -61,7 +61,7 @@ class Filesystem implements TokenStorageInterface
 
         $token = @file_get_contents($this->accessTokenPath);
 
-        if ($token === false) {
+        if ($token === false || $token === '') {
             throw new TokenStorageException('Could not retrieve access token from filesystem');
         }
 
@@ -82,7 +82,7 @@ class Filesystem implements TokenStorageInterface
 
         $token = @file_get_contents($this->refreshTokenPath);
 
-        if ($token === false) {
+        if ($token === false || $token === '') {
             throw new TokenStorageException('Could not retrieve refresh token from filesystem');
         }
 

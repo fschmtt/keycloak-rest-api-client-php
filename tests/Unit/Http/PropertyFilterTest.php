@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Http\PropertyFilter;
 use Fschmtt\Keycloak\Test\Unit\Stub\Representation;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
@@ -26,9 +27,7 @@ class PropertyFilterTest extends TestCase
         static::assertArrayHasKey('since1500Until1800', $filteredProperties);
     }
 
-    /**
-     * @dataProvider supportedKeycloakVersions
-     */
+    #[DataProvider('supportedKeycloakVersions')]
     public function testFiltersOutPropertyWhichHasNotYetBeenIntroduced(string $version): void
     {
         $representation = new Representation();
@@ -41,9 +40,7 @@ class PropertyFilterTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider supportedKeycloakVersions
-     */
+    #[DataProvider('supportedKeycloakVersions')]
     public function testFiltersOutPropertyWhichHasBeenRemoved(string $version): void
     {
         $representation = new Representation();
@@ -56,9 +53,7 @@ class PropertyFilterTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider supportedKeycloakVersions
-     */
+    #[DataProvider('supportedKeycloakVersions')]
     public function testFiltersOutPropertyWhichHasBeenIntroducedAndRemoved(string $version): void
     {
         $representation = new Representation();

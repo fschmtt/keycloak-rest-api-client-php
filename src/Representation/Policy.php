@@ -43,22 +43,22 @@ use Fschmtt\Keycloak\Type\Map;
 class Policy extends Representation
 {
     public function __construct(
-        protected ?Map $config,
-        protected ?DecisionStrategy $decisionStrategy,
-        protected ?string $description,
-        protected ?string $id,
-        protected ?Logic $logic,
-        protected ?string $name,
-        protected ?string $owner,
+        protected ?Map $config = null,
+        protected ?DecisionStrategy $decisionStrategy = null,
+        protected ?string $description = null,
+        protected ?string $id = null,
+        protected ?Logic $logic = null,
+        protected ?string $name = null,
+        protected ?string $owner = null,
         /** @var string[]|null */
-        protected ?array $policies,
+        protected ?array $policies = null,
         /** @var string[]|null */
-        protected ?array $resources,
-        protected ?ResourceCollection $resourcesData,
+        protected ?array $resources = null,
+        protected ?ResourceCollection $resourcesData = null,
         /** @var string[]|null */
-        protected ?array $scopes,
-        protected ?ScopeCollection $scopesData,
-        protected ?string $type,
+        protected ?array $scopes = null,
+        protected ?ScopeCollection $scopesData = null,
+        protected ?string $type = null,
     ) {
     }
 }

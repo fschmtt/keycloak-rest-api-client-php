@@ -62,7 +62,7 @@ class Client
     }
 
     /**
-     * @return array{access_token: string, refresh_token: string}
+     * @return array{access_token: non-empty-string, refresh_token: non-empty-string}
      */
     private function fetchTokens(): array
     {

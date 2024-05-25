@@ -6,6 +6,7 @@ namespace Fschmtt\Keycloak\Test\Unit\Serializer;
 
 use Fschmtt\Keycloak\Serializer\IntegerSerializer;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(IntegerSerializer::class)]
@@ -19,9 +20,7 @@ class IntegerSerializerTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider provideData
-     */
+    #[DataProvider('provideData')]
     public function testSerialize(mixed $value, int $expected): void
     {
         $serializer = new IntegerSerializer();

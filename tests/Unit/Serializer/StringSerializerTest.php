@@ -7,6 +7,7 @@ namespace Fschmtt\Keycloak\Test\Unit\Serializer;
 use Fschmtt\Keycloak\Serializer\StringSerializer;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(StringSerializer::class)]
@@ -20,9 +21,7 @@ class StringSerializerTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider provideData
-     */
+    #[DataProvider('provideData')]
     public function testSerialize(mixed $value, string $expected): void
     {
         $serializer = new StringSerializer();

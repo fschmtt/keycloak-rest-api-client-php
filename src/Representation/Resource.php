@@ -13,16 +13,16 @@ use Fschmtt\Keycloak\Type\Map;
 class Resource extends Representation
 {
     public function __construct(
-        protected ?string $id,
-        protected ?Map $attributes,
-        protected ?string $displayName,
-        protected ?string $icon_uri,
-        protected ?string $name,
-        protected ?bool $ownerManagedAccess,
-        protected ?ScopeCollection $scopes,
-        protected ?string $type,
+        protected ?string $id = null,
+        protected ?Map $attributes = null,
+        protected ?string $displayName = null,
+        protected ?string $icon_uri = null,
+        protected ?string $name = null,
+        protected ?bool $ownerManagedAccess = null,
+        protected ?ScopeCollection $scopes = null,
+        protected ?string $type = null,
         /** @var string[]|null */
-        protected ?array $uris,
+        protected ?array $uris = null,
     ) {
     }
 }

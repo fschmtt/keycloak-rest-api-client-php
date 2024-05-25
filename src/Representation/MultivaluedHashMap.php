@@ -10,9 +10,9 @@ namespace Fschmtt\Keycloak\Representation;
 class MultivaluedHashMap extends Representation
 {
     public function __construct(
-        protected bool $empty,
-        protected float $loadFactor,
-        protected int $threshold,
+        protected ?bool $empty = null,
+        protected ?float $loadFactor = null,
+        protected ?int $threshold = null,
     ) {
     }
 }

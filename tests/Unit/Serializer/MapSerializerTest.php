@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Serializer\MapSerializer;
 use Fschmtt\Keycloak\Type\Map;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(MapSerializer::class)]
@@ -21,9 +22,7 @@ class MapSerializerTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider maps
-     */
+    #[DataProvider('maps')]
     public function testSerialize(mixed $value, Map $expected): void
     {
         $serializer = new MapSerializer();

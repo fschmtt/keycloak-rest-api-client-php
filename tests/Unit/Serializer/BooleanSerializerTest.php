@@ -6,6 +6,7 @@ namespace Fschmtt\Keycloak\Test\Unit\Serializer;
 
 use Fschmtt\Keycloak\Serializer\BooleanSerializer;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -20,9 +21,7 @@ class BooleanSerializerTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider provideData
-     */
+    #[DataProvider('provideData')]
     public function testSerialize(mixed $value, bool $expected): void
     {
         $serializer = new BooleanSerializer();

@@ -9,10 +9,13 @@ namespace Fschmtt\Keycloak\Representation;
  */
 class AddressClaimSet extends Representation
 {
-    protected ?string $country;
-    protected ?string $formatted;
-    protected ?string $locality;
-    protected ?string $postal_code;
-    protected ?string $region;
-    protected ?string $street_address;
+    public function __construct(
+        protected ?string $country = null,
+        protected ?string $formatted = null,
+        protected ?string $locality = null,
+        protected ?string $postal_code = null,
+        protected ?string $region = null,
+        protected ?string $street_address = null,
+    ) {
+    }
 }

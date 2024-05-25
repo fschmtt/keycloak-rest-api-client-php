@@ -21,7 +21,10 @@ class FilesystemTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->path = realpath(__DIR__);
+        $realpath = realpath(__DIR__);
+        static::assertIsString($realpath);
+
+        $this->path = $realpath;
         $this->storage = new Filesystem($this->path);
     }
 
