@@ -75,6 +75,9 @@ abstract class Collection implements Countable, IteratorAggregate, JsonSerializa
         $this->items[] = $item;
     }
 
+    /**
+     * @return T
+     */
     public function first(): ?Representation
     {
         return $this->items[0] ?? null;
