@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Test\Unit\Resource;
 
+use Fschmtt\Keycloak\Collection\CredentialCollection;
 use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Collection\RoleCollection;
 use Fschmtt\Keycloak\Collection\UserCollection;
@@ -422,5 +423,30 @@ class UsersTest extends TestCase
         );
 
         $users->executeActionsEmail('test-realm', 'test-user-id');
+    }
+
+    public function testCredentials(): void
+    {
+        $query = new Query(
+            '/admin/realms/{realm}/users/{userId}/credentials',
+            CredentialCollection::class,
+            [
+                'realm' => 'test-realm',
+                'userId' => 'test-user-id',
+            ],
+        );
+
+        $queryExecutor = $this->createMock(QueryExecutor::class);
+        $queryExecutor->expects(static::once())
+            ->method('executeQuery')
+            ->with($query)
+            ->willReturn(new CredentialCollection());
+
+        $users = new Users(
+            $this->createMock(CommandExecutor::class),
+            $queryExecutor,
+        );
+
+        $users->credentials('test-realm', 'test-user-id');
     }
 }
