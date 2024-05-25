@@ -14,7 +14,7 @@ $keycloak = new Keycloak(
 
 $resource = $keycloak->clients();
 $clients = $keycloak->clients()->all(realm: 'master');
-$client = $keycloak->clients()->get('master', $clients->first()->getId()); // @phpstan-ignore-line
+$client = $keycloak->clients()->get('master', $clients->first()->getId());
 
 echo sprintf('Client "%s" (%s) has the following redirect URIs:%s', $client->getClientId(), $client->getId(), PHP_EOL);
 
