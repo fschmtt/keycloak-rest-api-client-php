@@ -22,10 +22,10 @@ use Fschmtt\Keycloak\Attribute\Since;
 class CryptoInfo extends Representation
 {
     public function __construct(
-        /** @var string[] */
+        /** @var string[]|null */
         #[Since('22.0.0')]
         protected ?array $clientSignatureAsymmetricAlgorithms = null,
-        /** @var string[] */
+        /** @var string[]|null */
         #[Since('22.0.0')]
         protected ?array $clientSignatureSymmetricAlgorithms = null,
         protected ?string $cryptoProvider = null,

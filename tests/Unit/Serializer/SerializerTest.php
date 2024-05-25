@@ -17,6 +17,7 @@ use Fschmtt\Keycloak\Serializer\Serializer;
 use Fschmtt\Keycloak\Type\Map;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -38,9 +39,7 @@ class SerializerTest extends TestCase
         $this->serializer->serializes();
     }
 
-    /**
-     * @dataProvider provideKnownTypes
-     */
+    #[DataProvider('provideKnownTypes')]
     public function testSerializesKnownTypes(string $type, mixed $value, mixed $expected): void
     {
         static::assertEquals(

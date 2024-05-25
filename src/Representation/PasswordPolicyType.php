@@ -20,13 +20,12 @@ namespace Fschmtt\Keycloak\Representation;
  */
 class PasswordPolicyType extends Representation
 {
-    protected ?string $configType;
-
-    protected ?string $defaultValue;
-
-    protected ?string $displayName;
-
-    protected ?string $id;
-
-    protected ?bool $multipleSupported;
+    public function __construct(
+        protected ?string $configType = null,
+        protected ?string $defaultValue = null,
+        protected ?string $displayName = null,
+        protected ?string $id = null,
+        protected ?bool $multipleSupported = null,
+    ) {
+    }
 }

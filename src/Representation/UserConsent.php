@@ -15,11 +15,11 @@ namespace Fschmtt\Keycloak\Representation;
 class UserConsent extends Representation
 {
     public function __construct(
-        protected ?string $clientId,
-        protected ?int $createdDate,
+        protected ?string $clientId = null,
+        protected ?int $createdDate = null,
         /** @var string[]|null */
-        protected ?array $grantedClientScopes,
-        protected ?int $lastUpdatedDate,
+        protected ?array $grantedClientScopes = null,
+        protected ?int $lastUpdatedDate = null,
     ) {
     }
 }

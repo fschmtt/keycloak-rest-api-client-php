@@ -20,7 +20,7 @@ use Traversable;
 abstract class Collection implements Countable, IteratorAggregate, JsonSerializable
 {
     /**
-     * @var array<array-key, Representation>
+     * @var array<array-key, T>
      */
     protected array $items = [];
 
@@ -35,7 +35,7 @@ abstract class Collection implements Countable, IteratorAggregate, JsonSerializa
     }
 
     /**
-     * @return class-string<Representation>
+     * @return class-string<T>
      */
     abstract public static function getRepresentationClass(): string;
 
@@ -50,7 +50,7 @@ abstract class Collection implements Countable, IteratorAggregate, JsonSerializa
     }
 
     /**
-     * @return array<array-key, Representation>
+     * @return array<array-key, T>
      */
     public function jsonSerialize(): array
     {

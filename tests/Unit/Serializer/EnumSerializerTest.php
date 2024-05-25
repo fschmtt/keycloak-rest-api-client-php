@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Test\Unit\Serializer;
 
+use BackedEnum;
 use Fschmtt\Keycloak\Enum\Category;
 use Fschmtt\Keycloak\Enum\DecisionStrategy;
 use Fschmtt\Keycloak\Enum\Enum;
@@ -15,6 +16,7 @@ use Fschmtt\Keycloak\Enum\UseEnum;
 use Fschmtt\Keycloak\Serializer\EnumSerializer;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(EnumSerializer::class)]
@@ -29,8 +31,9 @@ class EnumSerializerTest extends TestCase
     }
 
     /**
-     * @dataProvider enums
+     * @param class-string<BackedEnum> $type
      */
+    #[DataProvider('enums')]
     public function testSerialize(string $type, mixed $value, Enum $expected): void
     {
         $serializer = new EnumSerializer();

@@ -8,6 +8,7 @@ use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Representation\Group;
 use Fschmtt\Keycloak\Type\Map;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(Group::class)]
@@ -43,8 +44,8 @@ class GroupTest extends TestCase
 
     /**
      * @param array<string, mixed> $properties
-     * @dataProvider provideProperties
      */
+    #[DataProvider('provideProperties')]
     public function testCanBeConstructedFromProperties(array $properties): void
     {
         $constructedGroup = Group::from($properties);
@@ -54,8 +55,8 @@ class GroupTest extends TestCase
 
     /**
      * @param array<mixed> $properties
-     * @dataProvider provideProperties
      */
+    #[DataProvider('provideProperties')]
     public function testCanBeBuilt(array $properties): void
     {
         $builtGroup = new Group();
