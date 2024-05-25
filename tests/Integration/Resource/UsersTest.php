@@ -167,6 +167,28 @@ class UsersTest extends TestCase
         static::assertNull($user);
     }
 
+    public function testGetUserCredentials(): void
+    {
+        $users = $this->getKeycloak()->users();
+        $username = Uuid::uuid4()->toString();
+
+        $users->create('master', new User(
+            credentials: new CredentialCollection([$this->createPasswordCredential('p4ssw0rd')]),
+            username: $username,
+        ));
+
+        $user = $this->searchUserByUsername($username);
+        static::assertInstanceOf(User::class, $user);
+
+        $credentials = $users->credentials('master', $user->getId());
+        static::assertInstanceOf(CredentialCollection::class, $credentials);
+
+        $users->delete('master', $user->getId());
+
+        $user = $this->searchUserByUsername($username);
+        static::assertNull($user);
+    }
+
     private function searchUserByUsername(string $username, string $realm = 'master'): ?User
     {
         /** @var User|null $user */

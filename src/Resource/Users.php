@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Resource;
 
+use Fschmtt\Keycloak\Collection\CredentialCollection;
 use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Collection\RoleCollection;
 use Fschmtt\Keycloak\Collection\UserCollection;
@@ -209,6 +210,20 @@ class Users extends Resource
             new Command(
                 '/admin/realms/{realm}/users/{userId}/execute-actions-email',
                 Method::PUT,
+                [
+                    'realm' => $realm,
+                    'userId' => $userId,
+                ]
+            )
+        );
+    }
+
+    public function credentials(string $realm, string $userId): CredentialCollection
+    {
+        return $this->queryExecutor->executeQuery(
+            new Query(
+                '/admin/realms/{realm}/users/{userId}/credentials',
+                CredentialCollection::class,
                 [
                     'realm' => $realm,
                     'userId' => $userId,
