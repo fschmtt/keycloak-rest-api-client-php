@@ -7,6 +7,7 @@ namespace Fschmtt\Keycloak\Representation;
 use Fschmtt\Keycloak\Collection\CredentialCollection;
 use Fschmtt\Keycloak\Collection\FederatedIdentityCollection;
 use Fschmtt\Keycloak\Collection\UserConsentCollection;
+use Fschmtt\Keycloak\Enum\RequiredAction;
 use Fschmtt\Keycloak\Type\Map;
 
 /**
@@ -86,7 +87,7 @@ class User extends Representation
         protected ?string $origin = null,
         /** @var string[]|null */
         protected ?array $realmRoles = null,
-        /** @var string[]|null */
+        /** @var RequiredAction[]|null */
         protected ?array $requiredActions = null,
         protected ?string $self = null,
         protected ?string $serviceAccountClientId = null,
