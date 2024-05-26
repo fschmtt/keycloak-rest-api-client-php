@@ -3,7 +3,7 @@
     "description": "PHP client to interact with Keycloak's Admin REST API.",
     "type": "library",
     "require": {
-        "php": "^8.2",
+        "php": "^8.1",
         "ext-json": "*",
         "guzzlehttp/guzzle": "^7.3",
         "lcobucci/jwt": "^4.1 || ^5.2"
