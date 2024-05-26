@@ -30,15 +30,15 @@ class Clients extends Resource
         );
     }
 
-    public function get(string $realm, string $clientId): ClientRepresentation
+    public function get(string $realm, string $clientUuid): ClientRepresentation
     {
         return $this->queryExecutor->executeQuery(
             new Query(
-                '/admin/realms/{realm}/clients/{clientId}',
+                '/admin/realms/{realm}/clients/{clientUuid}',
                 ClientRepresentation::class,
                 [
                     'realm' => $realm,
-                    'clientId' => $clientId,
+                    'clientUuid' => $clientUuid,
                 ]
             )
         );
@@ -60,15 +60,15 @@ class Clients extends Resource
         return $this->get($realm, $client->getId());
     }
 
-    public function update(string $realm, string $clientId, ClientRepresentation $updatedClient): ClientRepresentation
+    public function update(string $realm, string $clientUuid, ClientRepresentation $updatedClient): ClientRepresentation
     {
         $this->commandExecutor->executeCommand(
             new Command(
-                '/admin/realms/{realm}/clients/{clientId}',
+                '/admin/realms/{realm}/clients/{clientUuid}',
                 Method::PUT,
                 [
                     'realm' => $realm,
-                    'clientId' => $clientId,
+                    'clientUuid' => $clientUuid,
                 ],
                 $updatedClient,
             )
@@ -77,15 +77,15 @@ class Clients extends Resource
         return $this->get($realm, $updatedClient->getId());
     }
 
-    public function delete(string $realm, string $clientId): void
+    public function delete(string $realm, string $clientUuid): void
     {
         $this->commandExecutor->executeCommand(
             new Command(
-                '/admin/realms/{realm}/clients/{clientId}',
+                '/admin/realms/{realm}/clients/{clientUuid}',
                 Method::DELETE,
                 [
                     'realm' => $realm,
-                    'clientId' => $clientId,
+                    'clientUuid' => $clientUuid,
                 ],
             )
         );
@@ -94,15 +94,15 @@ class Clients extends Resource
     /**
      * @return UserSession[]
      */
-    public function getUserSessions(string $realm, string $clientId, ?Criteria $criteria = null): array
+    public function getUserSessions(string $realm, string $clientUuid, ?Criteria $criteria = null): array
     {
         return $this->queryExecutor->executeQuery(
             new Query(
-                '/admin/realms/{realm}/clients/{clientId}/user-sessions',
+                '/admin/realms/{realm}/clients/{clientUuid}/user-sessions',
                 'array',
                 [
                     'realm' => $realm,
-                    'clientId' => $clientId,
+                    'clientUuid' => $clientUuid,
                 ],
                 $criteria,
             )

@@ -53,11 +53,11 @@ class ClientsTest extends TestCase
     public function testGetClient(): void
     {
         $query = new Query(
-            '/admin/realms/{realm}/clients/{clientId}',
+            '/admin/realms/{realm}/clients/{clientUuid}',
             ClientRepresentation::class,
             [
                 'realm' => 'test-realm',
-                'clientId' => 'test-client',
+                'clientUuid' => 'test-client',
             ],
         );
 
@@ -88,11 +88,11 @@ class ClientsTest extends TestCase
         static::assertIsString($updatedClientId);
 
         $command = new Command(
-            '/admin/realms/{realm}/clients/{clientId}',
+            '/admin/realms/{realm}/clients/{clientUuid}',
             Method::PUT,
             [
                 'realm' => 'test-realm',
-                'clientId' => 'test-client',
+                'clientUuid' => 'test-client',
             ],
             $updatedClient,
         );
@@ -103,11 +103,11 @@ class ClientsTest extends TestCase
             ->with($command);
 
         $query = new Query(
-            '/admin/realms/{realm}/clients/{clientId}',
+            '/admin/realms/{realm}/clients/{clientUuid}',
             ClientRepresentation::class,
             [
                 'realm' => 'test-realm',
-                'clientId' => $updatedClientId,
+                'clientUuid' => $updatedClientId,
             ],
         );
 
@@ -152,11 +152,11 @@ class ClientsTest extends TestCase
             ->with($command);
 
         $query = new Query(
-            '/admin/realms/{realm}/clients/{clientId}',
+            '/admin/realms/{realm}/clients/{clientUuid}',
             ClientRepresentation::class,
             [
                 'realm' => 'test-realm',
-                'clientId' => $importedClientId,
+                'clientUuid' => $importedClientId,
             ],
         );
 
@@ -187,11 +187,11 @@ class ClientsTest extends TestCase
         static::assertIsString($deletedClientId);
 
         $command = new Command(
-            '/admin/realms/{realm}/clients/{clientId}',
+            '/admin/realms/{realm}/clients/{clientUuid}',
             Method::DELETE,
             [
                 'realm' => 'test-realm',
-                'clientId' => $deletedClientId,
+                'clientUuid' => $deletedClientId,
             ],
         );
 
@@ -216,11 +216,11 @@ class ClientsTest extends TestCase
         static::assertIsString($clientId);
 
         $query = new Query(
-            '/admin/realms/{realm}/clients/{clientId}/user-sessions',
+            '/admin/realms/{realm}/clients/{clientUuid}/user-sessions',
             'array',
             [
                 'realm' => 'test-realm',
-                'clientId' => $clientId,
+                'clientUuid' => $clientId,
             ],
         );
 
