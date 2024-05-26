@@ -13,6 +13,7 @@ jobs:
     strategy:
       matrix:
         keycloak: [13.0.0, 14.0.0, 15.0.0, 16.0.0, 17.0.0-legacy, 18.0.0-legacy]
+        php: [ 8.1 ]
 
     env:
       KEYCLOAK_VERSION: ${{ matrix.keycloak }}
@@ -33,7 +34,7 @@ jobs:
 
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: ${{ matrix.php }}
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
