@@ -88,7 +88,7 @@ By extending the `Resource` class, you have access to both the `QueryExecutor` a
 The `CommandExecutor` is designed to run state-changing commands against the server (without returning a response);
 the `QueryExecutor` allows fetching resources and representations from the server.
 
-To use your custom resource, pass the fully-qualified class name (FQCN) to the `Keycloak::resource()` method. 
+To use your custom resource, pass the fully-qualified class name (FQCN) to the `Keycloak::resource()` method.
 It provides you with an instance of your resource you can then work with:
 
 ```php
@@ -166,7 +166,7 @@ $myCustomRepresentation = $myCustomResource->myCustomEndpoint();
 | `POST /{realm}/users/{id}/role-mappings/realm`          | `n/a`                                                           | [Users::addRealmRoles()](src/Resource/Users.php)               |
 | `DELETE /{realm}/users/{id}/role-mappings/realm`        | `n/a`                                                           | [Users::removeRealmRoles()](src/Resource/Users.php)            |
 | `PUT /{realm}/users/{id}/execute-actions-email`         | `n/a`                                                           | [Users::executeActionsEmail()](src/Resource/Users.php)         |
-| `GET /admin/realms/{realm}/users/{userId}/credentials`         | [CredentialCollection](src/Collection/CredentialCollection.php) | [Users::credentials()](src/Resource/Users.php)                 |
+| `GET /admin/realms/{realm}/users/{userId}/credentials`  | [CredentialCollection](src/Collection/CredentialCollection.php) | [Users::credentials()](src/Resource/Users.php)                 |
 
 ### [Roles](https://www.keycloak.org/docs-api/24.0.0/rest-api/index.html#_roles)
 
