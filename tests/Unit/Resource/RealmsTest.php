@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Test\Unit\Resource;
 
 use Fschmtt\Keycloak\Collection\RealmCollection;
+use Fschmtt\Keycloak\Exception\FilesystemException;
 use Fschmtt\Keycloak\Http\Command;
 use Fschmtt\Keycloak\Http\CommandExecutor;
 use Fschmtt\Keycloak\Http\Method;
@@ -13,6 +14,7 @@ use Fschmtt\Keycloak\Http\QueryExecutor;
 use Fschmtt\Keycloak\Representation\KeysMetadata;
 use Fschmtt\Keycloak\Representation\Realm;
 use Fschmtt\Keycloak\Resource\Realms;
+use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -84,6 +86,142 @@ class RealmsTest extends TestCase
         $realm = $realms->import(new Realm(realm: 'imported-realm'));
 
         static::assertSame('imported-realm', $realm->getRealm());
+    }
+
+    public function testImportRealmFromSingleFile(): void
+    {
+        $fixture = 'tests/Fixtures/test-realm.json';
+        $json = file_get_contents($fixture);
+        $realm = Realm::fromJson($json);
+        $command = new Command(
+            '/admin/realms',
+            Method::POST,
+            [],
+            $realm,
+        );
+
+        $commandExecutor = $this->createMock(CommandExecutor::class);
+        $commandExecutor->expects(static::once())
+            ->method('executeCommand')
+            ->with($command);
+
+        $query = new Query(
+            '/admin/realms/{realm}',
+            Realm::class,
+            [
+                'realm' => 'test',
+            ],
+        );
+
+        $queryExecutor = $this->createMock(QueryExecutor::class);
+        $queryExecutor->expects(static::once())
+            ->method('executeQuery')
+            ->with($query)
+            ->willReturn($realm);
+
+        $realms = new Realms(
+            $commandExecutor,
+            $queryExecutor,
+        );
+        $realm = $realms->import($fixture);
+
+        static::assertSame('test', $realm->getRealm());
+    }
+
+    public function testImportRealmFromArrayFile(): void
+    {
+        $fixture = 'tests/Fixtures/import.json';
+        $json = file_get_contents($fixture);
+        $realms = json_decode($json, true);
+        $realmPayload = current(array_filter($realms, fn ($realm) => $realm['realm'] === 'test'));
+        $realm = Realm::fromJson(json_encode($realmPayload));
+        $command = new Command(
+            '/admin/realms',
+            Method::POST,
+            [],
+            $realm,
+        );
+
+        $commandExecutor = $this->createMock(CommandExecutor::class);
+        $commandExecutor->expects(static::once())
+            ->method('executeCommand')
+            ->with($command);
+
+        $query = new Query(
+            '/admin/realms/{realm}',
+            Realm::class,
+            [
+                'realm' => 'test',
+            ],
+        );
+
+        $queryExecutor = $this->createMock(QueryExecutor::class);
+        $queryExecutor->expects(static::once())
+            ->method('executeQuery')
+            ->with($query)
+            ->willReturn($realm);
+
+        $realms = new Realms(
+            $commandExecutor,
+            $queryExecutor,
+        );
+        $realm = $realms->import($fixture, 'test');
+
+        static::assertSame('test', $realm->getRealm());
+    }
+
+    public function testImportRealmFromArrayThrowsExceptionIfRealmIsNotSpecified(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $fixture = 'tests/Fixtures/import.json';
+
+        $commandExecutor = $this->createMock(CommandExecutor::class);
+
+        $queryExecutor = $this->createMock(QueryExecutor::class);
+
+        $realms = new Realms(
+            $commandExecutor,
+            $queryExecutor,
+        );
+        $realm = $realms->import($fixture);
+
+        static::assertSame('test', $realm->getRealm());
+    }
+
+    public function testImportRealmThrowsExceptionIfFileNotFound(): void
+    {
+        $this->expectException(FilesystemException::class);
+        $fixture = 'tests/Fixtures/non-existing-file.json';
+
+        $commandExecutor = $this->createMock(CommandExecutor::class);
+
+        $queryExecutor = $this->createMock(QueryExecutor::class);
+
+        $realms = new Realms(
+            $commandExecutor,
+            $queryExecutor,
+        );
+        $realm = $realms->import($fixture, 'test');
+
+        static::assertSame('test', $realm->getRealm());
+    }
+
+    public function testImportRealmThrowsExceptionIfPathIsDir(): void
+    {
+        $this->expectException(FilesystemException::class);
+        $fixture = 'tests/Fixtures';
+
+        $commandExecutor = $this->createMock(CommandExecutor::class);
+
+        $queryExecutor = $this->createMock(QueryExecutor::class);
+
+        $realms = new Realms(
+            $commandExecutor,
+            $queryExecutor,
+        );
+        $realm = $realms->import($fixture, 'test');
+
+        static::assertSame('test', $realm->getRealm());
     }
 
     public function testUpdateRealm(): void

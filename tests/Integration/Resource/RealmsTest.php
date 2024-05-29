@@ -50,10 +50,30 @@ class RealmsTest extends TestCase
     public function testCanImportRealm(): void
     {
         $realm = new Realm(id: 'testing-id', realm: 'testing-realm');
-        $realm = $this->getKeycloak()->realms()->import(realm: $realm);
+        $realm = $this->getKeycloak()->realms()->import(realmOrFile: $realm);
 
         static::assertEquals('testing-id', $realm->getId());
         static::assertEquals('testing-realm', $realm->getRealm());
+
+        static::assertCount(2, $this->keycloak->realms()->all());
+    }
+
+    public function testCanImportRealmFromFile(): void
+    {
+        $realm = $this->getKeycloak()->realms()->import(realmOrFile: 'tests/Fixtures/test-realm.json');
+
+        static::assertEquals('b6d9db69-39c9-489f-8d15-757bdc827e8d', $realm->getId());
+        static::assertEquals('test', $realm->getRealm());
+
+        static::assertCount(2, $this->keycloak->realms()->all());
+    }
+
+    public function testCanImportRealmFromArrayFile(): void
+    {
+        $realm = $this->getKeycloak()->realms()->import(realmOrFile: 'tests/Fixtures/import.json', name: 'test');
+
+        static::assertEquals('b6d9db69-39c9-489f-8d15-757bdc827e8d', $realm->getId());
+        static::assertEquals('test', $realm->getRealm());
 
         static::assertCount(2, $this->keycloak->realms()->all());
     }

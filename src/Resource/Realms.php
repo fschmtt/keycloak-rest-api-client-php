@@ -9,8 +9,11 @@ use Fschmtt\Keycloak\Http\Command;
 use Fschmtt\Keycloak\Http\Criteria;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
+use Fschmtt\Keycloak\Json\JsonDecoder;
 use Fschmtt\Keycloak\Representation\KeysMetadata;
 use Fschmtt\Keycloak\Representation\Realm;
+use Fschmtt\Keycloak\Uri\UriResolver;
+use InvalidArgumentException;
 
 /**
  * @phpstan-type AdminEvent array<mixed>
@@ -41,8 +44,16 @@ class Realms extends Resource
         );
     }
 
-    public function import(Realm $realm): Realm
+    /**
+     * @param Realm|string $realmOrFile Representation of the realm or path to the JSON file
+     * @param string|null $name Name of the realm. Only required if the first parameter is a path to a JSON file
+     * @return Realm
+     * @throws FilesystemException
+     * @throws JsonDecodeException
+     */
+    public function import(Realm|string $realmOrFile, ?string $name = null): Realm
     {
+        $realm = is_string($realmOrFile) ? $this->parseJson($realmOrFile, $name) : $realmOrFile;
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms',
@@ -53,6 +64,31 @@ class Realms extends Resource
         );
 
         return $this->get($realm->getRealm());
+    }
+
+    private function parseJson(string $path, ?string $name): Realm
+    {
+        $content = (new UriResolver())->resolve($path);
+        $data = (new JsonDecoder())->decode($content);
+        if (!array_is_list($data)) {
+            return Realm::from($data);
+        }
+        if ($name === null) {
+            throw new InvalidArgumentException('The name of the realm is required when importing from an array');
+        }
+
+        $result = null;
+        foreach ($data as $realm) {
+            if ($realm['realm'] === $name) {
+                $result = Realm::from($realm);
+            }
+        }
+
+        if ($result === null) {
+            throw new InvalidArgumentException('The realm with the given name was not found');
+        }
+
+        return $result;
     }
 
     public function update(string $realm, Realm $updatedRealm): Realm
