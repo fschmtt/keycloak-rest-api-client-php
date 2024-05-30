@@ -206,24 +206,6 @@ class RealmsTest extends TestCase
         static::assertSame('test', $realm->getRealm());
     }
 
-    public function testImportRealmThrowsExceptionIfPathIsDir(): void
-    {
-        $this->expectException(FilesystemException::class);
-        $fixture = 'tests/Fixtures';
-
-        $commandExecutor = $this->createMock(CommandExecutor::class);
-
-        $queryExecutor = $this->createMock(QueryExecutor::class);
-
-        $realms = new Realms(
-            $commandExecutor,
-            $queryExecutor,
-        );
-        $realm = $realms->import($fixture, 'test');
-
-        static::assertSame('test', $realm->getRealm());
-    }
-
     public function testUpdateRealm(): void
     {
         $updatedRealm = new Realm(realm: 'updated-realm', displayName: 'Updated Realm');

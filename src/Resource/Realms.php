@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Resource;
 
 use Fschmtt\Keycloak\Collection\RealmCollection;
+use Fschmtt\Keycloak\Exception\FilesystemException;
+use Fschmtt\Keycloak\Exception\JsonDecodeException;
 use Fschmtt\Keycloak\Http\Command;
 use Fschmtt\Keycloak\Http\Criteria;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
-use Fschmtt\Keycloak\Json\JsonDecoder;
 use Fschmtt\Keycloak\Representation\KeysMetadata;
 use Fschmtt\Keycloak\Representation\Realm;
 use Fschmtt\Keycloak\Uri\UriResolver;
@@ -45,15 +46,15 @@ class Realms extends Resource
     }
 
     /**
-     * @param Realm|string $realmOrFile Representation of the realm or path to the JSON file
+     * @param Realm|string $realmOrPath Representation of the realm or path to a file(.json, .zip) or a directory
      * @param string|null $name Name of the realm. Only required if the first parameter is a path to a JSON file
      * @return Realm
      * @throws FilesystemException
      * @throws JsonDecodeException
      */
-    public function import(Realm|string $realmOrFile, ?string $name = null): Realm
+    public function import(Realm|string $realmOrPath, ?string $name = null): Realm
     {
-        $realm = is_string($realmOrFile) ? $this->parseJson($realmOrFile, $name) : $realmOrFile;
+        $realm = is_string($realmOrPath) ? $this->parseJson($realmOrPath, $name) : $realmOrPath;
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms',
@@ -66,10 +67,13 @@ class Realms extends Resource
         return $this->get($realm->getRealm());
     }
 
+    /**
+     * @throws FilesystemException
+     * @throws JsonDecodeException
+     */
     private function parseJson(string $path, ?string $name): Realm
     {
-        $content = (new UriResolver())->resolve($path);
-        $data = (new JsonDecoder())->decode($content);
+        $data = (new UriResolver())->resolve($path);
         if (!array_is_list($data)) {
             return Realm::from($data);
         }

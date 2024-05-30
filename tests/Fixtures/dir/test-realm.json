@@ -378,47 +378,6 @@
   "webAuthnPolicyPasswordlessAvoidSameAuthenticatorRegister" : false,
   "webAuthnPolicyPasswordlessAcceptableAaguids" : [ ],
   "webAuthnPolicyPasswordlessExtraOrigins" : [ ],
-  "users" : [ {
-    "id" : "232fef8c-df92-4d0d-92ea-4fa1fe1a722d",
-    "username" : "service-account-default-client",
-    "emailVerified" : false,
-    "createdTimestamp" : 1716291776148,
-    "enabled" : true,
-    "totp" : false,
-    "serviceAccountClientId" : "default-client",
-    "credentials" : [ ],
-    "disableableCredentialTypes" : [ ],
-    "requiredActions" : [ ],
-    "realmRoles" : [ "default-roles-test" ],
-    "notBefore" : 0,
-    "groups" : [ ]
-  }, {
-    "id" : "64afa861c5c61f16f5d67a6d",
-    "username" : "user",
-    "firstName" : "Default",
-    "lastName" : "User",
-    "email" : "user@test.com",
-    "emailVerified" : true,
-    "attributes" : {
-      "organizationId" : [ "6" ]
-    },
-    "createdTimestamp" : 1716288111855,
-    "enabled" : true,
-    "totp" : false,
-    "credentials" : [ {
-      "id" : "6c22f7d9-60af-461c-b1a2-018a4dfe4d86",
-      "type" : "password",
-      "userLabel" : "Default password",
-      "createdDate" : 1716289238424,
-      "secretData" : "{\"value\":\"hpcHxLtv+7Mogku+AS/ZPROPloLc6ut7P+nqBG7idwSp9Oj5K7CaXdbqnQXe85yXCpA+BmqG3kYrZKLn3eWc2Q==\",\"salt\":\"1EYqncReqJiHuDmzA8zpzA==\",\"additionalParameters\":{}}",
-      "credentialData" : "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
-    } ],
-    "disableableCredentialTypes" : [ ],
-    "requiredActions" : [ ],
-    "realmRoles" : [ "default-roles-test" ],
-    "notBefore" : 0,
-    "groups" : [ ]
-  } ],
   "scopeMappings" : [ {
     "clientScope" : "offline_access",
     "roles" : [ "offline_access" ]

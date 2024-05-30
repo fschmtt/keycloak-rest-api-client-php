@@ -50,7 +50,7 @@ class RealmsTest extends TestCase
     public function testCanImportRealm(): void
     {
         $realm = new Realm(id: 'testing-id', realm: 'testing-realm');
-        $realm = $this->getKeycloak()->realms()->import(realmOrFile: $realm);
+        $realm = $this->getKeycloak()->realms()->import(realmOrPath: $realm);
 
         static::assertEquals('testing-id', $realm->getId());
         static::assertEquals('testing-realm', $realm->getRealm());
@@ -60,7 +60,7 @@ class RealmsTest extends TestCase
 
     public function testCanImportRealmFromFile(): void
     {
-        $realm = $this->getKeycloak()->realms()->import(realmOrFile: 'tests/Fixtures/test-realm.json');
+        $realm = $this->getKeycloak()->realms()->import(realmOrPath: 'tests/Fixtures/test-realm.json');
 
         static::assertEquals('b6d9db69-39c9-489f-8d15-757bdc827e8d', $realm->getId());
         static::assertEquals('test', $realm->getRealm());
@@ -70,7 +70,27 @@ class RealmsTest extends TestCase
 
     public function testCanImportRealmFromArrayFile(): void
     {
-        $realm = $this->getKeycloak()->realms()->import(realmOrFile: 'tests/Fixtures/import.json', name: 'test');
+        $realm = $this->getKeycloak()->realms()->import(realmOrPath: 'tests/Fixtures/import.json', name: 'test');
+
+        static::assertEquals('b6d9db69-39c9-489f-8d15-757bdc827e8d', $realm->getId());
+        static::assertEquals('test', $realm->getRealm());
+
+        static::assertCount(2, $this->keycloak->realms()->all());
+    }
+
+    public function testCanImportRealmFromDir(): void
+    {
+        $realm = $this->getKeycloak()->realms()->import(realmOrPath: 'tests/Fixtures/dir', name: 'test');
+
+        static::assertEquals('b6d9db69-39c9-489f-8d15-757bdc827e8d', $realm->getId());
+        static::assertEquals('test', $realm->getRealm());
+
+        static::assertCount(2, $this->keycloak->realms()->all());
+    }
+
+    public function testCanImportRealmFromZip(): void
+    {
+        $realm = $this->getKeycloak()->realms()->import(realmOrPath: 'tests/Fixtures/data.zip', name: 'test');
 
         static::assertEquals('b6d9db69-39c9-489f-8d15-757bdc827e8d', $realm->getId());
         static::assertEquals('test', $realm->getRealm());

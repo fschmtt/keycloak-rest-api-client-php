@@ -2077,11 +2077,11 @@
     "notBefore" : 0,
     "groups" : [ ]
   }, {
-    "id" : "64afa861c5c61f16f5d67a6d",
+    "id" : "6daab073-63fd-4d0d-b503-d2901af4f56a",
     "username" : "user",
     "firstName" : "Default",
     "lastName" : "User",
-    "email" : "test@test.com",
+    "email" : "user@test.com",
     "emailVerified" : true,
     "attributes" : {
       "organizationId" : [ "6" ]
