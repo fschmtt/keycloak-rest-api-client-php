@@ -21,7 +21,7 @@ jobs:
       XDEBUG_MODE: coverage
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - uses: shivammathur/setup-php@v2
         with:
