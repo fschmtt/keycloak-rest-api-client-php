@@ -12,6 +12,7 @@ use Fschmtt\Keycloak\Collection\ClientScopeCollection;
 use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Collection\IdentityProviderCollection;
 use Fschmtt\Keycloak\Collection\IdentityProviderMapperCollection;
+use Fschmtt\Keycloak\Collection\OrganizationCollection;
 use Fschmtt\Keycloak\Collection\ProtocolMapperCollection;
 use Fschmtt\Keycloak\Collection\RequiredActionProviderCollection;
 use Fschmtt\Keycloak\Collection\ScopeMappingCollection;
@@ -355,6 +356,10 @@ class Realm extends Representation
         protected ?int $offlineSessionIdleTimeout = null,
         protected ?int $offlineSessionMaxLifespan = null,
         protected ?bool $offlineSessionMaxLifespanEnabled = null,
+        #[Since('25.0.0')]
+        protected ?OrganizationCollection $organizations = null,
+        #[Since('25.0.0')]
+        protected ?bool $organizationsEnabled = null,
         protected ?string $otpPolicyAlgorithm = null,
         #[Since('20.0.0')]
         protected ?bool $otpPolicyCodeReusable = null,
