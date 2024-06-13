@@ -11,6 +11,7 @@ use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Http\QueryExecutor;
 use Fschmtt\Keycloak\Representation\Client as ClientRepresentation;
+use Fschmtt\Keycloak\Representation\Credential;
 use Fschmtt\Keycloak\Resource\Clients;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -240,6 +241,41 @@ class ClientsTest extends TestCase
         static::assertSame(
             $userSessions,
             $clients->getUserSessions('test-realm', $clientId)
+        );
+    }
+
+    public function testGetClientSecret(): void
+    {
+        $client = new ClientRepresentation(id: 'test-client');
+        $clientUuid = $client->getId();
+
+        static::assertIsString($clientUuid);
+
+        $credential = new Credential();
+
+        $query = new Query(
+            '/admin/realms/{realm}/clients/{clientUuid}/client-secret',
+            Credential::class,
+            [
+                'realm' => 'test-realm',
+                'clientUuid' => $clientUuid,
+            ],
+        );
+
+        $queryExecutor = $this->createMock(QueryExecutor::class);
+        $queryExecutor->expects(static::once())
+            ->method('executeQuery')
+            ->with($query)
+            ->willReturn($credential);
+
+        $clients = new Clients(
+            $this->createMock(CommandExecutor::class),
+            $queryExecutor,
+        );
+
+        static::assertSame(
+            $credential,
+            $clients->getClientSecret('test-realm', $clientUuid)
         );
     }
 }

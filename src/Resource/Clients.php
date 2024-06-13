@@ -10,6 +10,7 @@ use Fschmtt\Keycloak\Http\Criteria;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Representation\Client as ClientRepresentation;
+use Fschmtt\Keycloak\Representation\Credential;
 
 /**
  * @phpstan-type UserSession array<mixed>
@@ -105,6 +106,20 @@ class Clients extends Resource
                     'clientUuid' => $clientUuid,
                 ],
                 $criteria,
+            )
+        );
+    }
+
+    public function getClientSecret(string $realm, string $clientUuid): Credential
+    {
+        return $this->queryExecutor->executeQuery(
+            new Query(
+                '/admin/realms/{realm}/clients/{clientUuid}/client-secret',
+                Credential::class,
+                [
+                    'realm' => $realm,
+                    'clientUuid' => $clientUuid,
+                ]
             )
         );
     }

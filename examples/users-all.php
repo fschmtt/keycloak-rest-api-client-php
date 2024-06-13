@@ -19,4 +19,10 @@ echo sprintf('Realm "%s" has the following users:%s', $realm, PHP_EOL);
 
 foreach ($users as $user) {
     echo sprintf('-> User "%s"%s', $user->getUsername(), PHP_EOL);
+
+    echo sprintf('--> Required actions:%s', PHP_EOL);
+
+    foreach ($user->getRequiredActions() ?? [] as $requiredAction) {
+        echo sprintf('---> %s%s', $requiredAction, PHP_EOL);
+    }
 }
