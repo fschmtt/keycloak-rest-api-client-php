@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        keycloak: [17.0.0, 18.0.0, 19.0.0, 20.0.0, 21.0.0, 22.0.0, 22.0.5, 23.0.0, 24.0.0]
+        keycloak: [17.0.0, 18.0.0, 19.0.0, 20.0.0, 21.0.0, 22.0.0, 22.0.5, 23.0.0, 24.0.0, 25.0.0]
         php: [ 8.1 ]
 
     env:
@@ -50,6 +50,7 @@ jobs:
         uses: iFaxity/wait-on-action@v1
         with:
           resource: ${{ env.KEYCLOAK_BASE_URL }}
+          httpTimeout: 30000
 
       - name: Wait some more for Keycloak 24.0.0 zZz
         if: ${{ matrix.keycloak == '24.0.0' }}
