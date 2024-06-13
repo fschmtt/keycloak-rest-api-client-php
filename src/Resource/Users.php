@@ -209,6 +209,10 @@ class Users extends Resource
      */
     public function executeActionsEmail(string $realm, string $userId, ?array $actions = null, ?Criteria $criteria = null): void
     {
+        $payload = $actions ? [
+            'actions' => $actions,
+        ] : null;
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/users/{userId}/execute-actions-email',
@@ -217,9 +221,7 @@ class Users extends Resource
                     'realm' => $realm,
                     'userId' => $userId,
                 ],
-                $actions ?? [
-                    'action' => $actions,
-                ],
+                $payload,
                 $criteria,
             )
         );
