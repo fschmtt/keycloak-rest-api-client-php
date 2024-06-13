@@ -7,6 +7,9 @@ namespace Fschmtt\Keycloak\Http;
 use Fschmtt\Keycloak\Json\JsonEncoder;
 use Fschmtt\Keycloak\Representation\Representation;
 
+/**
+ * @internal
+ */
 class CommandExecutor
 {
     public function __construct(

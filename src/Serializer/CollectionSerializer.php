@@ -7,6 +7,9 @@ namespace Fschmtt\Keycloak\Serializer;
 use Fschmtt\Keycloak\Collection\Collection;
 use Fschmtt\Keycloak\Representation\Representation;
 
+/**
+ * @internal
+ */
 class CollectionSerializer implements SerializerInterface
 {
     public function serializes(): string

@@ -6,6 +6,9 @@ namespace Fschmtt\Keycloak\Serializer;
 
 use Fschmtt\Keycloak\Type\Map;
 
+/**
+ * @internal
+ */
 class MapSerializer implements SerializerInterface
 {
     public function serializes(): string

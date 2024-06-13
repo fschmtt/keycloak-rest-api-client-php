@@ -52,6 +52,7 @@ class CommandExecutorTest extends TestCase
             new Representation()
         );
         $payload = $command->getPayload();
+        static::assertInstanceOf(Representation::class, $payload);
 
         $client = $this->createMock(Client::class);
         $client->expects(static::once())

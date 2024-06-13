@@ -7,6 +7,9 @@ namespace Fschmtt\Keycloak\OAuth\TokenStorage;
 use Fschmtt\Keycloak\OAuth\TokenStorageInterface;
 use Lcobucci\JWT\Token;
 
+/**
+ * @internal
+ */
 class InMemory implements TokenStorageInterface
 {
     private ?Token $accessToken = null;
