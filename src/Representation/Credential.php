@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Type\Map;
+
 /**
  * @method int|null getCreatedDate()
  * @method string|null getCredentialData()
@@ -43,22 +45,24 @@ namespace Fschmtt\Keycloak\Representation;
 class Credential extends Representation
 {
     public function __construct(
-        protected ?int $createdDate = null,
-        protected ?string $credentialData = null,
         protected ?string $id = null,
-        protected ?int $priority = null,
-        protected ?string $secretData = null,
-        protected ?bool $temporary = null,
         protected ?string $type = null,
         protected ?string $userLabel = null,
+        protected ?int $createdDate = null,
+        protected ?string $secretData = null,
+        protected ?string $credentialData = null,
+        protected ?int $priority = null,
         protected ?string $value = null,
+        protected ?bool $temporary = null,
         protected ?string $device = null,
+        protected ?string $hashedSaltedValue = null,
         protected ?string $salt = null,
         protected ?int $hashIterations = null,
-        protected ?string $algorithm = null,
         protected ?int $counter = null,
+        protected ?string $algorithm = null,
         protected ?int $digits = null,
         protected ?int $period = null,
+        protected ?Map $config = null,
     ) {
     }
 }
