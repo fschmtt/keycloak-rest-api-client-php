@@ -60,4 +60,17 @@ class ClientsTest extends TestCase
 
         $resource->getUserSessions('master', $client->getId());
     }
+
+    public function testGetClientSecret(): void
+    {
+        $resource = $this->getKeycloak()->clients();
+
+        $client = $resource->all('master')->first();
+        static::assertInstanceOf(Client::class, $client);
+
+        $clientUuid = $client->getId();
+        static::assertIsString($clientUuid);
+
+        $credential = $resource->getClientSecret('master', $clientUuid);
+    }
 }

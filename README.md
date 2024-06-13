@@ -114,12 +114,13 @@ $myCustomRepresentation = $myCustomResource->myCustomEndpoint();
 
 ### [Clients](https://www.keycloak.org/docs-api/25.0.0/rest-api/index.html#_clients)
 
-| Endpoint                                          | Response                                                | API                                           |
-|---------------------------------------------------|---------------------------------------------------------|-----------------------------------------------|
-| `GET /admin/realms/{realm}/clients`               | [ClientCollection](src/Collection/ClientCollection.php) | [Clients::all()](src/Resource/Clients.php)    |
-| `GET /admin/realms/{realm}/clients/{client-uuid}` | [Client](src/Representation/Client.php)                 | [Clients::get()](src/Resource/Clients.php)    |
-| `PUT /admin/realms/{realm}/clients/{client-uuid}` | [Client](src/Representation/Client.php)                 | [Clients::update()](src/Resource/Clients.php) |
-| `POST /admin/realms/{realm}/clients`              | [Client](src/Representation/Client.php)                 | [Clients::import()](src/Resource/Clients.php) |
+| Endpoint                                                       | Response                                                | API                                                    |
+|----------------------------------------------------------------|---------------------------------------------------------|--------------------------------------------------------|
+| `GET /admin/realms/{realm}/clients`                            | [ClientCollection](src/Collection/ClientCollection.php) | [Clients::all()](src/Resource/Clients.php)             |
+| `GET /admin/realms/{realm}/clients/{client-uuid}`              | [Client](src/Representation/Client.php)                 | [Clients::get()](src/Resource/Clients.php)             |
+| `PUT /admin/realms/{realm}/clients/{client-uuid}`              | [Client](src/Representation/Client.php)                 | [Clients::update()](src/Resource/Clients.php)          |
+| `POST /admin/realms/{realm}/clients`                           | [Client](src/Representation/Client.php)                 | [Clients::import()](src/Resource/Clients.php)          |
+| `GET /admin/realms/{realm}/clients/{clientUuid}/client-secret` | [Client](src/Representation/Client.php)                 | [Clients::getClientSecret()](src/Resource/Clients.php) |
 
 ### [Groups](https://www.keycloak.org/docs-api/25.0.0/rest-api/index.html#_clients)
 
