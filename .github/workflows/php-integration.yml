@@ -50,6 +50,7 @@ jobs:
         uses: iFaxity/wait-on-action@v1
         with:
           resource: ${{ env.KEYCLOAK_BASE_URL }}
+          httpTimeout: 30000
 
       - name: Wait some more for Keycloak 24.0.0 zZz
         if: ${{ matrix.keycloak == '24.0.0' }}
