@@ -74,19 +74,19 @@ class GroupTest extends TestCase
     public static function provideProperties(): array
     {
         $group = [
-            'access' => [
+            'access' => new Map([
                 'acl-a',
                 'acl-b',
-            ],
-            'attributes' => [
+            ]),
+            'attributes' => new Map([
                 'attr-1',
                 'attr-2',
-            ],
-            'clientRoles' => [
+            ]),
+            'clientRoles' => new Map([
                 'client-role-x',
                 'client-role-y',
                 'client-role-z',
-            ],
+            ]),
             'id' => 'unique-id',
             'name' => 'unique-name',
             'path' => '/where/am/i',
@@ -96,7 +96,9 @@ class GroupTest extends TestCase
             ],
         ];
 
-        $group['subGroups'] = [$group];
+        $subGroup = Group::from($group);
+
+        $group['subGroups'] = new GroupCollection([$subGroup]);
 
         return [[$group]];
     }
