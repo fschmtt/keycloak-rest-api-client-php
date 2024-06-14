@@ -38,8 +38,9 @@ class Serializer
             new BackedEnumNormalizer(),
             new ArrayDenormalizer(),
             new CollectionDenormalizer($propertyNormalizer),
+            new MapNormalizer(),
             new AttributeNormalizer($propertyNormalizer, $keycloakVersion),
-            $propertyNormalizer
+            $propertyNormalizer,
         ], [
             new JsonEncoder(),
         ]);
