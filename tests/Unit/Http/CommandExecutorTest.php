@@ -8,8 +8,8 @@ use Fschmtt\Keycloak\Http\Client;
 use Fschmtt\Keycloak\Http\Command;
 use Fschmtt\Keycloak\Http\CommandExecutor;
 use Fschmtt\Keycloak\Http\Method;
-use Fschmtt\Keycloak\Http\PropertyFilter;
 use Fschmtt\Keycloak\Json\JsonEncoder;
+use Fschmtt\Keycloak\Serializer\Serializer;
 use Fschmtt\Keycloak\Test\Unit\Stub\Collection;
 use Fschmtt\Keycloak\Test\Unit\Stub\Representation;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -34,7 +34,7 @@ class CommandExecutorTest extends TestCase
                 ],
             );
 
-        $executor = new CommandExecutor($client, new PropertyFilter());
+        $executor = new CommandExecutor($client, new Serializer());
         $executor->executeCommand(
             new Command(
                 '/path/to/resource',
@@ -68,7 +68,7 @@ class CommandExecutorTest extends TestCase
                 ],
             );
 
-        $executor = new CommandExecutor($client, new PropertyFilter());
+        $executor = new CommandExecutor($client, new Serializer());
         $executor->executeCommand($command);
     }
 
@@ -97,7 +97,7 @@ class CommandExecutorTest extends TestCase
                 ],
             );
 
-        $executor = new CommandExecutor($client, new PropertyFilter());
+        $executor = new CommandExecutor($client, new Serializer());
         $executor->executeCommand($command);
     }
 
@@ -124,7 +124,7 @@ class CommandExecutorTest extends TestCase
                 ],
             );
 
-        $executor = new CommandExecutor($client, new PropertyFilter());
+        $executor = new CommandExecutor($client, new Serializer());
         $executor->executeCommand($command);
     }
 }

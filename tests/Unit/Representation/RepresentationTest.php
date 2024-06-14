@@ -133,11 +133,11 @@ class RepresentationTest extends TestCase
         $map = new Map($array);
 
         $representation = new Representation();
-        $representation = $representation->with('map', [
+        $representation = $representation->with('map', new Map([
             'key-1' => 'value-1',
             'key-2' => 'value-2',
             'key-3' => 'value-3',
-        ]);
+        ]));
 
         static::assertInstanceOf(Map::class, $representation->getMap());
         static::assertEquals($map, $representation->getMap());
