@@ -91,9 +91,6 @@ abstract class Representation implements JsonSerializable
     {
         $this->throwExceptionIfPropertyDoesNotExist($property);
 
-        $type = $this->getPropertyType($property);
-        $value = $this->getSerializer()->serialize($type, $value);
-
         $clone = clone $this;
         $clone->$property = $value;
 
@@ -132,7 +129,7 @@ abstract class Representation implements JsonSerializable
     private function getSerializer(): Serializer
     {
         if (!$this->serializer) {
-            $this->serializer = (new Factory())->create();
+            $this->serializer = new Serializer();
         }
 
         return $this->serializer;

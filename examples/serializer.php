@@ -47,3 +47,5 @@ $json = $response->getBody()->getContents();
 $realm = $serializer->deserialize($json, \Fschmtt\Keycloak\Representation\Realm::class, 'json');
 
 var_dump($serializer->serialize($realm, 'json'));
+
+var_dump($serializer->deserialize(['foo' => 'bar'],));
