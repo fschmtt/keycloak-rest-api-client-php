@@ -17,9 +17,14 @@ $metadataAwareNameConverter = new \Symfony\Component\Serializer\NameConverter\Me
 
 $propertyNormalizer = new \Symfony\Component\Serializer\Normalizer\PropertyNormalizer($classMetadataFactory, $metadataAwareNameConverter);
 
-$serializer = new Serializer(
-    [new BackedEnumNormalizer(), new \Fschmtt\Keycloak\Serializer\CollectionDenormalizer($propertyNormalizer), $propertyNormalizer],
-    [new JsonEncoder()],
+$serializer = new Serializer([
+    new BackedEnumNormalizer(),
+    new \Fschmtt\Keycloak\Serializer\CollectionDenormalizer($propertyNormalizer),
+    new \Fschmtt\Keycloak\Serializer\AttributeNormalizer($propertyNormalizer, '18.0.0'),
+    $propertyNormalizer
+], [
+    new JsonEncoder(),
+],
 );
 
 $tokenStorage = new \Fschmtt\Keycloak\OAuth\TokenStorage\InMemory();
@@ -35,14 +40,10 @@ $httpClient = new \Fschmtt\Keycloak\Http\Client(
     $tokenStorage,
 );
 
-$response = $httpClient->request('GET', '/admin/realms/master/clients/9d46e473-01b6-41e0-8dee-0077bea00514/authz/resource-server/resource');
+$response = $httpClient->request('GET', '/admin/realms/master');
 
 $json = $response->getBody()->getContents();
 
-$resourceServer = $serializer->deserialize($json, \Fschmtt\Keycloak\Collection\ResourceCollection::class, 'json');
+$realm = $serializer->deserialize($json, \Fschmtt\Keycloak\Representation\Realm::class, 'json');
 
-var_dump($resourceServer);
-
-var_dump($serializer->serialize($resourceServer, 'json'));
-
-
+var_dump($serializer->serialize($realm, 'json'));
