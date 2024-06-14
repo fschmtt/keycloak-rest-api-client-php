@@ -7,8 +7,8 @@
         "ext-json": "*",
         "guzzlehttp/guzzle": "^7.3",
         "lcobucci/jwt": "^4.1 || ^5.2",
-        "symfony/serializer": "^6.4",
-        "symfony/property-access": "^6.4"
+        "symfony/serializer": "^6.4 || ^7.1",
+        "symfony/property-access": "^6.4 || ^7.1"
     },
     "require-dev": {
         "phpmetrics/phpmetrics": "^2.7",
