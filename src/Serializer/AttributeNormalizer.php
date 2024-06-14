@@ -23,7 +23,11 @@ class AttributeNormalizer implements NormalizerInterface
     ) {
     }
 
-    public function normalize(mixed $object, ?string $format = null, array $context = []): array
+    /**
+     * @param array<string, mixed> $context
+     * @return array<mixed>
+     */
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $properties = $this->normalizer->normalize($object, $format, $context);
 
@@ -44,6 +48,9 @@ class AttributeNormalizer implements NormalizerInterface
         return $properties;
     }
 
+    /**
+     * @param array<string, mixed> $context
+     */
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof Representation;

@@ -46,9 +46,9 @@ class Serializer
         ]);
     }
 
-    public function serialize(mixed $data): string
+    public function serialize(mixed $data): ?string
     {
-        return $this->serializer->serialize($data, 'json');
+        return $data === null ? null : $this->serializer->serialize($data, 'json');
     }
 
     public function deserialize(string $type, mixed $data): mixed

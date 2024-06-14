@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Http;
 
-use Fschmtt\Keycloak\Json\JsonEncoder;
-use Fschmtt\Keycloak\Representation\Representation;
 use Fschmtt\Keycloak\Serializer\Serializer;
 
 class CommandExecutor

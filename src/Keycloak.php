@@ -6,7 +6,6 @@ namespace Fschmtt\Keycloak;
 
 use Fschmtt\Keycloak\Http\Client;
 use Fschmtt\Keycloak\Http\CommandExecutor;
-use Fschmtt\Keycloak\Http\PropertyFilter;
 use Fschmtt\Keycloak\Http\QueryExecutor;
 use Fschmtt\Keycloak\OAuth\TokenStorage\InMemory;
 use Fschmtt\Keycloak\OAuth\TokenStorageInterface;
@@ -18,7 +17,6 @@ use Fschmtt\Keycloak\Resource\Resource;
 use Fschmtt\Keycloak\Resource\Roles;
 use Fschmtt\Keycloak\Resource\ServerInfo;
 use Fschmtt\Keycloak\Resource\Users;
-use Fschmtt\Keycloak\Serializer\Factory as SerializerFactory;
 use Fschmtt\Keycloak\Serializer\Serializer;
 use GuzzleHttp\Client as GuzzleClient;
 

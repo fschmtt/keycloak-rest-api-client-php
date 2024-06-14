@@ -7,7 +7,6 @@ namespace Fschmtt\Keycloak\Representation;
 use BadMethodCallException;
 use Fschmtt\Keycloak\Exception\PropertyDoesNotExistException;
 use Fschmtt\Keycloak\Json\JsonDecoder;
-use Fschmtt\Keycloak\Serializer\Factory;
 use Fschmtt\Keycloak\Serializer\Serializer;
 use JsonSerializable;
 use ReflectionClass;
@@ -111,27 +110,5 @@ abstract class Representation implements JsonSerializable
                 )
             );
         }
-    }
-
-    private function getPropertyType(string $property): string
-    {
-        $reflectedClass = (new ReflectionClass($this));
-        $properties = $reflectedClass->getProperties(ReflectionProperty::IS_PROTECTED);
-
-        /** @var ReflectionProperty $prop */
-        $prop = array_values(array_filter($properties, function (ReflectionProperty $p) use ($property) {
-            return $p->getName() === $property;
-        }))[0];
-
-        return (string) $prop->getType();
-    }
-
-    private function getSerializer(): Serializer
-    {
-        if (!$this->serializer) {
-            $this->serializer = new Serializer();
-        }
-
-        return $this->serializer;
     }
 }

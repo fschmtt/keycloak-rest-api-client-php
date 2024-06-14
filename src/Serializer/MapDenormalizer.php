@@ -4,31 +4,25 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Serializer;
 
-use Fschmtt\Keycloak\Collection\Collection;
+use Fschmtt\Keycloak\Type\Map;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
-class CollectionDenormalizer implements DenormalizerInterface
+class MapDenormalizer implements DenormalizerInterface
 {
-    public function __construct(
-        private readonly DenormalizerInterface $denormalizer,
-    ) {
-    }
-
     /**
      * @param array<string, mixed> $context
      */
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        /** @var Collection $collection */
-        $collection = new $type();
-
-        foreach ($data as $representation) {
-            $collection->add(
-                $this->denormalizer->denormalize($representation, $collection::getRepresentationClass(), $format, $context)
-            );
+        if ($data instanceof Map) {
+            return $data;
         }
 
-        return $collection;
+        if (!is_array($data) || empty($data)) {
+            return new Map();
+        }
+
+        return new Map($data);
     }
 
     /**
@@ -36,13 +30,13 @@ class CollectionDenormalizer implements DenormalizerInterface
      */
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return is_subclass_of($type, Collection::class);
+        return $type === Map::class;
     }
 
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Collection::class => true,
+            Map::class => true,
         ];
     }
 }
