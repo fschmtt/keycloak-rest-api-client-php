@@ -6,6 +6,9 @@ namespace Fschmtt\Keycloak\Attribute;
 
 use Attribute;
 
+/**
+ * @internal
+ */
 #[Attribute]
 class Until
 {

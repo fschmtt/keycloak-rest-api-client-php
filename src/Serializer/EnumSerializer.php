@@ -7,6 +7,9 @@ namespace Fschmtt\Keycloak\Serializer;
 use BackedEnum;
 use Fschmtt\Keycloak\Enum\Enum;
 
+/**
+ * @internal
+ */
 class EnumSerializer implements SerializerInterface
 {
     public function serializes(): string

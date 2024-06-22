@@ -6,6 +6,9 @@ namespace Fschmtt\Keycloak\Exception;
 
 use Exception;
 
+/**
+ * @internal
+ */
 class ReadOnlyException extends Exception
 {
 }

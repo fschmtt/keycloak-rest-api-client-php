@@ -9,6 +9,9 @@ use Fschmtt\Keycloak\OAuth\TokenStorageInterface;
 use Lcobucci\JWT\Encoding\JoseEncoder;
 use Lcobucci\JWT\Token;
 
+/**
+ * @internal
+ */
 class Filesystem implements TokenStorageInterface
 {
     private string $accessTokenPath;

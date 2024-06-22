@@ -7,6 +7,9 @@ namespace Fschmtt\Keycloak\Http;
 use DateTimeInterface;
 use Stringable;
 
+/**
+ * @internal
+ */
 class Criteria
 {
     /**

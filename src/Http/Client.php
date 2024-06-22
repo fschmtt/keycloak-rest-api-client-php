@@ -13,6 +13,9 @@ use Lcobucci\JWT\Encoding\JoseEncoder;
 use Lcobucci\JWT\Token;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * @internal
+ */
 class Client
 {
     public function __construct(

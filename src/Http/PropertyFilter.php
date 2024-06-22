@@ -9,6 +9,9 @@ use Fschmtt\Keycloak\Attribute\Until;
 use Fschmtt\Keycloak\Representation\Representation;
 use ReflectionClass;
 
+/**
+ * @internal
+ */
 class PropertyFilter
 {
     /**

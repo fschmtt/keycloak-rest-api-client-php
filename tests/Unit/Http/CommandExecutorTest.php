@@ -52,6 +52,7 @@ class CommandExecutorTest extends TestCase
             new Representation()
         );
         $payload = $command->getPayload();
+        static::assertInstanceOf(Representation::class, $payload);
 
         $client = $this->createMock(Client::class);
         $client->expects(static::once())
@@ -90,6 +91,33 @@ class CommandExecutorTest extends TestCase
                 '/path/to/resource',
                 [
                     'body' => (new JsonEncoder())->encode([$representation->jsonSerialize()]),
+                    'headers' => [
+                        'Content-Type' => 'application/json',
+                    ],
+                ]
+            );
+
+        $executor = new CommandExecutor($client, new PropertyFilter());
+        $executor->executeCommand($command);
+    }
+
+    public function testCallsClientWithBodyIfCommandHasArrayPayload(): void
+    {
+        $command = new Command(
+            '/path/to/resource',
+            Method::PUT,
+            [],
+            $payload = ['UPDATE_PASSWORD', 'VERIFY_EMAIL'],
+        );
+
+        $client = $this->createMock(Client::class);
+        $client->expects(static::once())
+            ->method('request')
+            ->with(
+                Method::PUT->value,
+                '/path/to/resource',
+                [
+                    'body' => (new JsonEncoder())->encode($payload),
                     'headers' => [
                         'Content-Type' => 'application/json',
                     ],

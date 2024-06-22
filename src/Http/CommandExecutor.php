@@ -7,6 +7,9 @@ namespace Fschmtt\Keycloak\Http;
 use Fschmtt\Keycloak\Json\JsonEncoder;
 use Fschmtt\Keycloak\Representation\Representation;
 
+/**
+ * @internal
+ */
 class CommandExecutor
 {
     public function __construct(
@@ -31,19 +34,25 @@ class CommandExecutor
 
     protected function prepareBody(Command $command): ?string
     {
-        if ($command->getPayload() === null) {
+        $payload = $command->getPayload();
+
+        if ($payload === null) {
             return null;
         }
 
         $jsonEncoder = new JsonEncoder();
 
-        if ($command->getPayload() instanceof Representation) {
-            return $jsonEncoder->encode($this->propertyFilter->filter($command->getPayload()));
+        if (is_array($payload)) {
+            return $jsonEncoder->encode($payload);
+        }
+
+        if ($payload instanceof Representation) {
+            return $jsonEncoder->encode($this->propertyFilter->filter($payload));
         }
 
         $representations = [];
 
-        foreach ($command->getPayload() as $representation) {
+        foreach ($payload as $representation) {
             $representations[] = $this->propertyFilter->filter($representation);
         }
 
