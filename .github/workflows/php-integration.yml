@@ -27,13 +27,6 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
 
-      - name: Build Keycloak image
-        run: >
-          docker build
-          --build-arg KEYCLOAK_VERSION=${{ matrix.keycloak }}
-          -t keycloak:${{ matrix.keycloak }}
-          docker/keycloak
-
       - name: Start Keycloak container
         run: >
           docker run -d
@@ -41,7 +34,8 @@ jobs:
           -e KEYCLOAK_ADMIN=admin
           -e KEYCLOAK_ADMIN_PASSWORD=admin
           --name keycloak
-          keycloak:${{ matrix.keycloak }}
+          quay.io/keycloak/keycloak:${{ matrix.keycloak }}
+          start-dev
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
