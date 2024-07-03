@@ -20,6 +20,7 @@ use Fschmtt\Keycloak\Resource\ServerInfo;
 use Fschmtt\Keycloak\Resource\Users;
 use Fschmtt\Keycloak\Serializer\Factory as SerializerFactory;
 use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\ClientInterface;
 
 class Keycloak
 {
@@ -34,8 +35,9 @@ class Keycloak
         private readonly string $username,
         private readonly string $password,
         private readonly TokenStorageInterface $tokenStorage = new InMemory(),
+        ?ClientInterface $guzzleClient = null,
     ) {
-        $this->client = new Client($this, new GuzzleClient(), $this->tokenStorage);
+        $this->client = new Client($this, $guzzleClient ?? new GuzzleClient(), $this->tokenStorage);
         $this->propertyFilter = new PropertyFilter($this->version);
         $this->commandExecutor = new CommandExecutor($this->client, $this->propertyFilter);
         $this->queryExecutor = new QueryExecutor($this->client, (new SerializerFactory())->create());
