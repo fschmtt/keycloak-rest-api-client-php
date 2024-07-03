@@ -6,7 +6,6 @@ namespace Fschmtt\Keycloak;
 
 use Fschmtt\Keycloak\Http\Client;
 use Fschmtt\Keycloak\Http\CommandExecutor;
-use Fschmtt\Keycloak\Http\PropertyFilter;
 use Fschmtt\Keycloak\Http\QueryExecutor;
 use Fschmtt\Keycloak\OAuth\TokenStorage\InMemory;
 use Fschmtt\Keycloak\OAuth\TokenStorageInterface;
@@ -18,14 +17,14 @@ use Fschmtt\Keycloak\Resource\Resource;
 use Fschmtt\Keycloak\Resource\Roles;
 use Fschmtt\Keycloak\Resource\ServerInfo;
 use Fschmtt\Keycloak\Resource\Users;
-use Fschmtt\Keycloak\Serializer\Factory as SerializerFactory;
+use Fschmtt\Keycloak\Serializer\Serializer;
 use GuzzleHttp\Client as GuzzleClient;
 
 class Keycloak
 {
     private ?string $version = null;
     private Client $client;
-    private PropertyFilter $propertyFilter;
+    private Serializer $serializer;
     private CommandExecutor $commandExecutor;
     private QueryExecutor $queryExecutor;
 
@@ -36,9 +35,9 @@ class Keycloak
         private readonly TokenStorageInterface $tokenStorage = new InMemory(),
     ) {
         $this->client = new Client($this, new GuzzleClient(), $this->tokenStorage);
-        $this->propertyFilter = new PropertyFilter($this->version);
-        $this->commandExecutor = new CommandExecutor($this->client, $this->propertyFilter);
-        $this->queryExecutor = new QueryExecutor($this->client, (new SerializerFactory())->create());
+        $this->serializer = new Serializer($this->version);
+        $this->commandExecutor = new CommandExecutor($this->client, $this->serializer);
+        $this->queryExecutor = new QueryExecutor($this->client, $this->serializer);
     }
 
     public function getBaseUrl(): string
@@ -128,7 +127,7 @@ class Keycloak
         }
 
         $this->version = $this->serverInfo()->get()->getSystemInfo()->getVersion();
-        $this->propertyFilter = new PropertyFilter($this->version);
-        $this->commandExecutor = new CommandExecutor($this->client, $this->propertyFilter);
+        $this->serializer = new Serializer($this->version);
+        $this->commandExecutor = new CommandExecutor($this->client, $this->serializer);
     }
 }

@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Http;
 
-use Fschmtt\Keycloak\Json\JsonEncoder;
-use Fschmtt\Keycloak\Representation\Representation;
+use Fschmtt\Keycloak\Serializer\Serializer;
 
 class CommandExecutor
 {
     public function __construct(
         private readonly Client $client,
-        private readonly PropertyFilter $propertyFilter
+        private readonly Serializer $serializer
     ) {
     }
 
@@ -21,32 +20,11 @@ class CommandExecutor
             $command->getMethod()->value,
             $command->getPath(),
             [
-                'body' => $this->prepareBody($command),
+                'body' => $this->serializer->serialize($command->getPayload()),
                 'headers' => [
                     'Content-Type' => 'application/json',
                 ],
             ]
         );
-    }
-
-    protected function prepareBody(Command $command): ?string
-    {
-        if ($command->getPayload() === null) {
-            return null;
-        }
-
-        $jsonEncoder = new JsonEncoder();
-
-        if ($command->getPayload() instanceof Representation) {
-            return $jsonEncoder->encode($this->propertyFilter->filter($command->getPayload()));
-        }
-
-        $representations = [];
-
-        foreach ($command->getPayload() as $representation) {
-            $representations[] = $this->propertyFilter->filter($representation);
-        }
-
-        return $jsonEncoder->encode($representations);
     }
 }
