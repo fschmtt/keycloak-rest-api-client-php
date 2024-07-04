@@ -35,9 +35,9 @@ class Keycloak
         private readonly string $username,
         private readonly string $password,
         private readonly TokenStorageInterface $tokenStorage = new InMemory(),
-        ?ClientInterface $guzzleClient = null,
+        ?ClientInterface $guzzleClient = new GuzzleClient(),
     ) {
-        $this->client = new Client($this, $guzzleClient ?? new GuzzleClient(), $this->tokenStorage);
+        $this->client = new Client($this, $guzzleClient, $this->tokenStorage);
         $this->propertyFilter = new PropertyFilter($this->version);
         $this->commandExecutor = new CommandExecutor($this->client, $this->propertyFilter);
         $this->queryExecutor = new QueryExecutor($this->client, (new SerializerFactory())->create());
