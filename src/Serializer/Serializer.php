@@ -10,6 +10,9 @@ use Fschmtt\Keycloak\Enum\Enum;
 use Fschmtt\Keycloak\Exception\SerializerException;
 use Fschmtt\Keycloak\Representation\Representation;
 
+/**
+ * @internal
+ */
 class Serializer implements SerializerInterface
 {
     private const NATIVE_TYPES = [

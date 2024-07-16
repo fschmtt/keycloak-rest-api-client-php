@@ -11,6 +11,8 @@ use Traversable;
 use function count;
 
 /**
+ * @internal
+ *
  * @implements IteratorAggregate<string, mixed>
  */
 class Map extends Type implements Countable, IteratorAggregate

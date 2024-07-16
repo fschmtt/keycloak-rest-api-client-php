@@ -6,6 +6,9 @@ namespace Fschmtt\Keycloak\Type;
 
 use JsonSerializable;
 
+/**
+ * @internal
+ */
 abstract class Type implements JsonSerializable
 {
 }

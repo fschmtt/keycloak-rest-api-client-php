@@ -6,6 +6,9 @@ namespace Fschmtt\Keycloak\Serializer;
 
 use Fschmtt\Keycloak\Representation\Representation;
 
+/**
+ * @internal
+ */
 class RepresentationSerializer implements SerializerInterface
 {
     public function serializes(): string

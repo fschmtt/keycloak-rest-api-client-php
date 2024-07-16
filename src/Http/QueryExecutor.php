@@ -7,6 +7,9 @@ namespace Fschmtt\Keycloak\Http;
 use Fschmtt\Keycloak\Json\JsonDecoder;
 use Fschmtt\Keycloak\Serializer\Serializer;
 
+/**
+ * @internal
+ */
 class QueryExecutor
 {
     public function __construct(

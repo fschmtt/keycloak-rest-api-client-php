@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Test\Unit\Http;
 
 use Fschmtt\Keycloak\Http\Command;
+use Fschmtt\Keycloak\Http\Criteria;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Test\Unit\Stub\Collection;
 use Fschmtt\Keycloak\Test\Unit\Stub\Representation;
@@ -62,5 +63,25 @@ class CommandTest extends TestCase
                 (new Command('/path', $method))->getMethod()->value
             );
         }
+    }
+
+    public function testBuildsPathWithQueryIfCriteriaIsProvided(): void
+    {
+        static::assertSame(
+            '/admin/realms/master/users/user-uuid/execute-actions-email?client_id=foo&lifespan=600',
+            (new Command(
+                '/admin/realms/{realm}/users/{userId}/execute-actions-email',
+                Method::PUT,
+                [
+                    'realm' => 'master',
+                    'userId' => 'user-uuid',
+                ],
+                ['UPDATE_PASSWORD'],
+                new Criteria([
+                    'client_id' => 'foo',
+                    'lifespan' => 600,
+                ]),
+            ))->getPath()
+        );
     }
 }
