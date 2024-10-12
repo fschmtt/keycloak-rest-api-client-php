@@ -39,10 +39,13 @@ class Serializer
             ],
         );
 
+        $backedEnumNormalizer = new BackedEnumNormalizer();
+
         $this->serializer = new SymfonySerializer([
-            new BackedEnumNormalizer(),
+            $backedEnumNormalizer,
             new ArrayDenormalizer(),
             new CollectionDenormalizer($propertyNormalizer),
+            new EnumCollectionDenormalizer($backedEnumNormalizer),
             new MapNormalizer(),
             new AttributeNormalizer($propertyNormalizer, $keycloakVersion),
             $propertyNormalizer,

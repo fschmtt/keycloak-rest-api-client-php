@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Fschmtt\Keycloak\Enum\RequiredAction;
 use Fschmtt\Keycloak\Keycloak;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -22,7 +23,8 @@ foreach ($users as $user) {
 
     echo sprintf('--> Required actions:%s', PHP_EOL);
 
+    /** @var RequiredAction $requiredAction */
     foreach ($user->getRequiredActions() ?? [] as $requiredAction) {
-        echo sprintf('---> %s%s', $requiredAction, PHP_EOL);
+        echo sprintf('---> %s%s', $requiredAction->value, PHP_EOL);
     }
 }

@@ -7,7 +7,7 @@ namespace Fschmtt\Keycloak\Representation;
 use Fschmtt\Keycloak\Collection\CredentialCollection;
 use Fschmtt\Keycloak\Collection\FederatedIdentityCollection;
 use Fschmtt\Keycloak\Collection\UserConsentCollection;
-use Fschmtt\Keycloak\Enum\RequiredAction;
+use Fschmtt\Keycloak\Enum\RequiredActionCollection;
 use Fschmtt\Keycloak\Type\Map;
 
 /**
@@ -30,7 +30,7 @@ use Fschmtt\Keycloak\Type\Map;
  * @method int|null getNotBefore()
  * @method string|null getOrigin()
  * @method array|null getRealmRoles()
- * @method array|null getRequiredActions()
+ * @method RequiredActionCollection|null getRequiredActions()
  * @method string|null getSelf()
  * @method string|null getServiceAccountClientId()
  * @method bool|null getTotp()
@@ -54,7 +54,7 @@ use Fschmtt\Keycloak\Type\Map;
  * @method self withNotBefore(?int $notBefore)
  * @method self withOrigin(?string $origin)
  * @method self withRealmRoles(?array $realmRoles)
- * @method self withRequiredActions(?array $requiredActions)
+ * @method self withRequiredActions(?RequiredActionCollection $requiredActions)
  * @method self withSelf(?string $self)
  * @method self withServiceAccountClientId(?string $serviceAccountClientId)
  * @method self withTotp(?bool $totp)
@@ -87,8 +87,7 @@ class User extends Representation
         protected ?string $origin = null,
         /** @var string[]|null */
         protected ?array $realmRoles = null,
-        /** @var RequiredAction[]|null */
-        protected ?array $requiredActions = null,
+        protected ?RequiredActionCollection $requiredActions = null,
         protected ?string $self = null,
         protected ?string $serviceAccountClientId = null,
         protected ?bool $totp = null,
