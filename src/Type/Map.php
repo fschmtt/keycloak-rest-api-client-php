@@ -8,6 +8,7 @@ use ArrayIterator;
 use Countable;
 use IteratorAggregate;
 use Traversable;
+
 use function count;
 
 /**
@@ -21,9 +22,8 @@ class Map extends Type implements Countable, IteratorAggregate
      * @param array<mixed> $map
      */
     public function __construct(
-        private readonly array $map = []
-    ) {
-    }
+        private readonly array $map = [],
+    ) {}
 
     public function jsonSerialize(): object
     {

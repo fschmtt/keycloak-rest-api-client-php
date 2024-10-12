@@ -13,5 +13,5 @@ $keycloak = new Keycloak(
 );
 
 $keycloak->attackDetection()->clear(
-    realm: 'master'
+    realm: 'master',
 );

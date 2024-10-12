@@ -9,6 +9,4 @@ use Exception;
 /**
  * @internal
  */
-class JsonEncodeException extends Exception
-{
-}
+class JsonEncodeException extends Exception {}

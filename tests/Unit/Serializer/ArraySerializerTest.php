@@ -16,7 +16,7 @@ class ArraySerializerTest extends TestCase
     {
         static::assertSame(
             'array',
-            (new ArraySerializer())->serializes()
+            (new ArraySerializer())->serializes(),
         );
     }
 

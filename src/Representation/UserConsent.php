@@ -20,6 +20,5 @@ class UserConsent extends Representation
         /** @var string[]|null */
         protected ?array $grantedClientScopes = null,
         protected ?int $lastUpdatedDate = null,
-    ) {
-    }
+    ) {}
 }

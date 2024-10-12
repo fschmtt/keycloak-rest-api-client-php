@@ -22,8 +22,8 @@ class Roles extends Resource
                 [
                     'realm' => $realm,
                 ],
-                $criteria
-            )
+                $criteria,
+            ),
         );
     }
 
@@ -36,8 +36,8 @@ class Roles extends Resource
                 [
                     'realm' => $realm,
                     'roleName' => $roleName,
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -51,7 +51,7 @@ class Roles extends Resource
                     'realm' => $realm,
                 ],
                 $role,
-            )
+            ),
         );
     }
 
@@ -65,7 +65,7 @@ class Roles extends Resource
                     'realm' => $realm,
                     'roleName' => $roleName,
                 ],
-            )
+            ),
         );
     }
 }

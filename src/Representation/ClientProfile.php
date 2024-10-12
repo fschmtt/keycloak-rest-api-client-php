@@ -25,6 +25,5 @@ class ClientProfile extends Representation
         protected ?string $description = null,
         protected ?ClientPolicyExecutorCollection $executors = null,
         protected ?string $name = null,
-    ) {
-    }
+    ) {}
 }

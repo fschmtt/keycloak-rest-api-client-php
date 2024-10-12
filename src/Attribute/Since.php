@@ -13,7 +13,6 @@ use Attribute;
 class Since
 {
     public function __construct(
-        public readonly string $version
-    ) {
-    }
+        public readonly string $version,
+    ) {}
 }

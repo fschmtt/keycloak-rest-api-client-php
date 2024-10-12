@@ -28,8 +28,7 @@ class SystemInfo extends Representation
         protected ?string $userName = null,
         protected ?string $userTimezone = null,
         protected ?string $version = null,
-    ) {
-    }
+    ) {}
 
 
     public function getUserLocale(): string

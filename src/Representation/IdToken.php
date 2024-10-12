@@ -37,7 +37,5 @@ class IdToken extends Representation
     public const WEBSITE = 'website';
     public const ZONEINFO = 'zoneinfo';
 
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 }

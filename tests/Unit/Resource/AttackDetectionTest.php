@@ -24,7 +24,7 @@ class AttackDetectionTest extends TestCase
             Method::DELETE,
             [
                 'realm' => 'realm',
-            ]
+            ],
         );
 
         $commandExecutor = $this->createMock(CommandExecutor::class);
@@ -34,7 +34,7 @@ class AttackDetectionTest extends TestCase
 
         $attackDetection = new AttackDetection(
             $commandExecutor,
-            $this->createMock(QueryExecutor::class)
+            $this->createMock(QueryExecutor::class),
         );
         $attackDetection->clear('realm');
     }
@@ -47,7 +47,7 @@ class AttackDetectionTest extends TestCase
             [
                 'realm' => 'realm',
                 'userId' => 'userId',
-            ]
+            ],
         );
 
         $commandExecutor = $this->createMock(CommandExecutor::class);
@@ -57,7 +57,7 @@ class AttackDetectionTest extends TestCase
 
         $attackDetection = new AttackDetection(
             $commandExecutor,
-            $this->createMock(QueryExecutor::class)
+            $this->createMock(QueryExecutor::class),
         );
         $attackDetection->clearUser('realm', 'userId');
     }
@@ -70,7 +70,7 @@ class AttackDetectionTest extends TestCase
             [
                 'realm' => 'realm',
                 'userId' => 'userId',
-            ]
+            ],
         );
 
         $queryExecutor = $this->createMock(QueryExecutor::class);

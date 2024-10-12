@@ -26,6 +26,5 @@ class PasswordPolicyType extends Representation
         protected ?string $displayName = null,
         protected ?string $id = null,
         protected ?bool $multipleSupported = null,
-    ) {
-    }
+    ) {}
 }

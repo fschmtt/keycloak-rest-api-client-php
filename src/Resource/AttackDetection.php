@@ -19,8 +19,8 @@ class AttackDetection extends Resource
                 Method::DELETE,
                 [
                     'realm' => $realm,
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -33,8 +33,8 @@ class AttackDetection extends Resource
                 [
                     'realm' => $realm,
                     'userId' => $userId,
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -47,8 +47,8 @@ class AttackDetection extends Resource
                 [
                     'realm' => $realm,
                     'userId' => $userId,
-                ]
-            )
+                ],
+            ),
         );
     }
 }

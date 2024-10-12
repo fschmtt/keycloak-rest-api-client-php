@@ -18,7 +18,7 @@ class QueryTest extends TestCase
     {
         static::assertSame(
             Method::GET->value,
-            (new Query('', ''))->getMethod()->value
+            (new Query('', ''))->getMethod()->value,
         );
     }
 
@@ -32,8 +32,8 @@ class QueryTest extends TestCase
                 [
                     'realm' => 'master',
                     'groupId' => 'group-uuid',
-                ]
-            ))->getPath()
+                ],
+            ))->getPath(),
         );
     }
 
@@ -46,8 +46,8 @@ class QueryTest extends TestCase
                 GroupCollection::class,
                 [
                     'realm' => 'master',
-                ]
-            ))->getReturnType()
+                ],
+            ))->getReturnType(),
         );
     }
 
@@ -64,8 +64,8 @@ class QueryTest extends TestCase
                 new Criteria([
                     'username' => 'foo',
                     'exact' => true,
-                ])
-            ))->getPath()
+                ]),
+            ))->getPath(),
         );
     }
 
@@ -79,7 +79,7 @@ class QueryTest extends TestCase
                 [
                     'realm' => 'master',
                 ],
-            ))->getPath()
+            ))->getPath(),
         );
     }
 }

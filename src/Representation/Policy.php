@@ -59,6 +59,5 @@ class Policy extends Representation
         protected ?array $scopes = null,
         protected ?ScopeCollection $scopesData = null,
         protected ?string $type = null,
-    ) {
-    }
+    ) {}
 }

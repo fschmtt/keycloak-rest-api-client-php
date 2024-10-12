@@ -9,6 +9,5 @@ class OrganizationDomain extends Representation
     public function __construct(
         protected ?string $name = null,
         protected ?bool $verified = null,
-    ) {
-    }
+    ) {}
 }

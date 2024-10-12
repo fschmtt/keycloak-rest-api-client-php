@@ -49,6 +49,5 @@ class IdentityProvider extends Representation
         protected ?string $providerId = null,
         protected ?bool $storeToken = null,
         protected ?bool $trustEmail = null,
-    ) {
-    }
+    ) {}
 }

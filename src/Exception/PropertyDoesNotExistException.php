@@ -9,6 +9,4 @@ use Exception;
 /**
  * @internal
  */
-class PropertyDoesNotExistException extends Exception
-{
-}
+class PropertyDoesNotExistException extends Exception {}

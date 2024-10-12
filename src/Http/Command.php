@@ -20,8 +20,7 @@ class Command
         /** @var Representation|Collection|array<mixed>|null */
         private readonly Representation|Collection|array|null $payload = null,
         private readonly ?Criteria $criteria = null,
-    ) {
-    }
+    ) {}
 
     public function getMethod(): Method
     {
@@ -31,7 +30,7 @@ class Command
     public function getPath(): string
     {
         $placeholders = array_map(
-            static fn (string $parameter): string => '{' . $parameter . '}',
+            static fn(string $parameter): string => '{' . $parameter . '}',
             array_keys($this->parameters),
         );
 
@@ -40,7 +39,7 @@ class Command
         $path = str_replace(
             $placeholders,
             $values,
-            $this->path
+            $this->path,
         );
 
         return $path . $this->getQuery();

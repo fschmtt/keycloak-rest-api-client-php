@@ -119,7 +119,7 @@ class GroupsTest extends TestCase
             [
                 'realm' => 'realm-with-groups',
             ],
-            $group
+            $group,
         );
 
         $commandExecutor = $this->createMock(CommandExecutor::class);
@@ -146,7 +146,7 @@ class GroupsTest extends TestCase
                 'realm' => 'realm-with-groups',
                 'groupId' => 'parent-group-id',
             ],
-            $group
+            $group,
         );
 
         $commandExecutor = $this->createMock(CommandExecutor::class);
@@ -173,7 +173,7 @@ class GroupsTest extends TestCase
                 'realm' => 'realm-with-groups',
                 'groupId' => 'group-id',
             ],
-            $group
+            $group,
         );
 
         $commandExecutor = $this->createMock(CommandExecutor::class);

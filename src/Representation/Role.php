@@ -28,6 +28,5 @@ class Role extends Representation
         protected ?string $description = null,
         protected ?string $id = null,
         protected ?string $name = null,
-    ) {
-    }
+    ) {}
 }

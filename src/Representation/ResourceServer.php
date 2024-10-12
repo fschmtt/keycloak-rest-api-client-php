@@ -44,6 +44,5 @@ class ResourceServer extends Representation
         protected ?PolicyEnforcementMode $policyEnforcementMode = null,
         protected ?ResourceCollection $resources = null,
         protected ?ScopeCollection $scopes = null,
-    ) {
-    }
+    ) {}
 }

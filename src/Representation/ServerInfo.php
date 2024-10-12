@@ -50,6 +50,5 @@ class ServerInfo extends Representation
         protected ?Map $socialProviders = null,
         protected ?SystemInfo $systemInfo = null,
         protected ?Map $themes = null,
-    ) {
-    }
+    ) {}
 }

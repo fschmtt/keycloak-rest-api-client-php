@@ -37,6 +37,5 @@ class UserFederationProvider extends Representation
         protected ?int $lastSync = null,
         protected ?int $priority = null,
         protected ?string $providerName = null,
-    ) {
-    }
+    ) {}
 }

@@ -22,8 +22,8 @@ class Groups extends Resource
                 [
                     'realm' => $realm,
                 ],
-                $criteria
-            )
+                $criteria,
+            ),
         );
     }
 
@@ -37,8 +37,8 @@ class Groups extends Resource
                     'realm' => $realm,
                     'groupId' => $groupId,
                 ],
-                $criteria
-            )
+                $criteria,
+            ),
         );
     }
 
@@ -51,8 +51,8 @@ class Groups extends Resource
                 [
                     'realm' => $realm,
                     'groupId' => $groupId,
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -65,8 +65,8 @@ class Groups extends Resource
                 [
                     'realm' => $realm,
                 ],
-                $group
-            )
+                $group,
+            ),
         );
     }
 
@@ -80,8 +80,8 @@ class Groups extends Resource
                     'realm' => $realm,
                     'groupId' => $parentGroupId,
                 ],
-                $group
-            )
+                $group,
+            ),
         );
     }
 
@@ -95,8 +95,8 @@ class Groups extends Resource
                     'realm' => $realm,
                     'groupId' => $groupId,
                 ],
-                $updatedGroup
-            )
+                $updatedGroup,
+            ),
         );
     }
 
@@ -110,7 +110,7 @@ class Groups extends Resource
                     'realm' => $realm,
                     'groupId' => $groupId,
                 ],
-            )
+            ),
         );
     }
 }

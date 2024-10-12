@@ -63,6 +63,5 @@ class Credential extends Representation
         protected ?int $digits = null,
         protected ?int $period = null,
         protected ?Map $config = null,
-    ) {
-    }
+    ) {}
 }

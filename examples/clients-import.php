@@ -21,5 +21,5 @@ $random = bin2hex(random_bytes(length: 8));
 
 $resource->import(
     'master',
-    $client->withId(Uuid::uuid4()->toString())->withClientId('my-random-client-' . $random)
+    $client->withId(Uuid::uuid4()->toString())->withClientId('my-random-client-' . $random),
 );

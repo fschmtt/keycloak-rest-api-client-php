@@ -17,6 +17,5 @@ class ClientPolicyCondition extends Representation
     public function __construct(
         protected ?string $condition = null,
         protected ?JsonNode $configuration = null,
-    ) {
-    }
+    ) {}
 }

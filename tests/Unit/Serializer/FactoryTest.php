@@ -18,7 +18,7 @@ class FactoryTest extends TestCase
 
         static::assertInstanceOf(
             Serializer::class,
-            $serializer
+            $serializer,
         );
     }
 }

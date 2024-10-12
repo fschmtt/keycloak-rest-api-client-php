@@ -9,6 +9,4 @@ use Exception;
 /**
  * @internal
  */
-class ReadOnlyException extends Exception
-{
-}
+class ReadOnlyException extends Exception {}

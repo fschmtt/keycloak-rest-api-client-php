@@ -24,8 +24,8 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
 
-      - name: Run phpstan
-        run: vendor/bin/phpstan analyze
+      - name: Run PHPStan
+        run: composer phpstan
 
-      - name: Run ecs
-        run: vendor/bin/ecs check
+      - name: Run PHP-CS-Fixer
+        run: composer cs

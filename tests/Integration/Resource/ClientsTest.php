@@ -29,7 +29,7 @@ class ClientsTest extends TestCase
             'master',
             $client->withId(Uuid::uuid4()->toString())
                 ->withClientId('imported-client')
-                ->withDescription('Imported client')
+                ->withDescription('Imported client'),
         );
 
         // Get single (imported) client

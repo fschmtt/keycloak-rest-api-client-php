@@ -13,7 +13,6 @@ use Attribute;
 class Until
 {
     public function __construct(
-        public readonly string $version
-    ) {
-    }
+        public readonly string $version,
+    ) {}
 }

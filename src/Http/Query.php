@@ -15,8 +15,7 @@ class Query
         /** @var array<string, string> */
         private readonly array $parameters = [],
         private readonly ?Criteria $criteria = null,
-    ) {
-    }
+    ) {}
 
     public function getMethod(): Method
     {
@@ -26,7 +25,7 @@ class Query
     public function getPath(): string
     {
         $placeholders = array_map(
-            static fn (string $parameter): string => '{' . $parameter . '}',
+            static fn(string $parameter): string => '{' . $parameter . '}',
             array_keys($this->parameters),
         );
 
@@ -35,7 +34,7 @@ class Query
         $path = str_replace(
             $placeholders,
             $values,
-            $this->path
+            $this->path,
         );
 
         return $path . $this->getQuery();

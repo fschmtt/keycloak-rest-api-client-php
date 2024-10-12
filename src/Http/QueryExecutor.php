@@ -14,9 +14,8 @@ class QueryExecutor
 {
     public function __construct(
         private readonly Client $client,
-        private readonly Serializer $serializer
-    ) {
-    }
+        private readonly Serializer $serializer,
+    ) {}
 
     public function executeQuery(Query $query): mixed
     {
@@ -27,7 +26,7 @@ class QueryExecutor
 
         return $this->serializer->serialize(
             $query->getReturnType(),
-            (new JsonDecoder())->decode($response->getBody()->getContents())
+            (new JsonDecoder())->decode($response->getBody()->getContents()),
         );
     }
 }

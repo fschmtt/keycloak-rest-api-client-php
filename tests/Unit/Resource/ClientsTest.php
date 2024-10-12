@@ -47,7 +47,7 @@ class ClientsTest extends TestCase
 
         static::assertSame(
             $clientCollection,
-            $clients->all('test-realm')
+            $clients->all('test-realm'),
         );
     }
 
@@ -77,7 +77,7 @@ class ClientsTest extends TestCase
 
         static::assertSame(
             $client,
-            $clients->get('test-realm', 'test-client')
+            $clients->get('test-realm', 'test-client'),
         );
     }
 
@@ -127,7 +127,7 @@ class ClientsTest extends TestCase
 
         static::assertSame(
             $client,
-            $clients->update('test-realm', 'test-client', $updatedClient)
+            $clients->update('test-realm', 'test-client', $updatedClient),
         );
     }
 
@@ -176,7 +176,7 @@ class ClientsTest extends TestCase
 
         static::assertSame(
             $client,
-            $clients->import('test-realm', $importedClient)
+            $clients->import('test-realm', $importedClient),
         );
     }
 
@@ -240,7 +240,7 @@ class ClientsTest extends TestCase
 
         static::assertSame(
             $userSessions,
-            $clients->getUserSessions('test-realm', $clientId)
+            $clients->getUserSessions('test-realm', $clientId),
         );
     }
 
@@ -275,7 +275,7 @@ class ClientsTest extends TestCase
 
         static::assertSame(
             $credential,
-            $clients->getClientSecret('test-realm', $clientUuid)
+            $clients->getClientSecret('test-realm', $clientUuid),
         );
     }
 }

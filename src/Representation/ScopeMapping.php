@@ -16,6 +16,5 @@ class ScopeMapping extends Representation
         protected ?string $clientScope = null,
         /** @var string[]|null */
         protected ?array $roles = null,
-    ) {
-    }
+    ) {}
 }

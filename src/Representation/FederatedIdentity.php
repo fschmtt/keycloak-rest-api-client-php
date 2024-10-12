@@ -19,7 +19,6 @@ class FederatedIdentity extends Representation
     public function __construct(
         protected ?string $identityProvider = null,
         protected ?string $userId = null,
-        protected ?string $userName = null
-    ) {
-    }
+        protected ?string $userName = null,
+    ) {}
 }

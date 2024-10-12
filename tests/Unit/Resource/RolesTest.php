@@ -46,7 +46,7 @@ class RolesTest extends TestCase
 
         static::assertSame(
             $clientCollection,
-            $clients->all('test-realm')
+            $clients->all('test-realm'),
         );
     }
 
@@ -76,7 +76,7 @@ class RolesTest extends TestCase
 
         static::assertSame(
             $client,
-            $clients->get('test-realm', 'test-role')
+            $clients->get('test-realm', 'test-role'),
         );
     }
 

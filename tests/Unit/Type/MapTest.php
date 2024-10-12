@@ -17,7 +17,7 @@ class MapTest extends TestCase
 
         self::assertEquals(
             (object) [],
-            $map->jsonSerialize()
+            $map->jsonSerialize(),
         );
     }
 
@@ -33,7 +33,7 @@ class MapTest extends TestCase
 
         self::assertEquals(
             (object) $array,
-            $map->jsonSerialize()
+            $map->jsonSerialize(),
         );
     }
 

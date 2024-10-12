@@ -28,6 +28,5 @@ class ClientPolicy extends Representation
         protected ?string $name = null,
         /** @var string[]|null */
         protected ?array $profiles = null,
-    ) {
-    }
+    ) {}
 }

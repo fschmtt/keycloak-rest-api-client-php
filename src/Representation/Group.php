@@ -48,6 +48,5 @@ class Group extends Representation
         #[Since('23.0.0')]
         protected ?int $subGroupCount = null,
         protected ?GroupCollection $subGroups = null,
-    ) {
-    }
+    ) {}
 }

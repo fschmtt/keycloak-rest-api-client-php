@@ -34,6 +34,5 @@ class AuthenticationFlow extends Representation
         protected ?string $id = null,
         protected ?string $providerId = null,
         protected ?bool $topLevel = null,
-    ) {
-    }
+    ) {}
 }

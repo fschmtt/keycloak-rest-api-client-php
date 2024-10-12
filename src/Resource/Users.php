@@ -25,8 +25,8 @@ class Users extends Resource
                 [
                     'realm' => $realm,
                 ],
-                $criteria
-            )
+                $criteria,
+            ),
         );
     }
 
@@ -39,8 +39,8 @@ class Users extends Resource
                 [
                     'realm' => $realm,
                     'userId' => $userId,
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -54,7 +54,7 @@ class Users extends Resource
                     'realm' => $realm,
                 ],
                 $user,
-            )
+            ),
         );
     }
 
@@ -69,7 +69,7 @@ class Users extends Resource
                     'userId' => $userId,
                 ],
                 $updatedUser,
-            )
+            ),
         );
     }
 
@@ -83,7 +83,7 @@ class Users extends Resource
                     'realm' => $realm,
                     'userId' => $userId,
                 ],
-            )
+            ),
         );
     }
 
@@ -96,8 +96,8 @@ class Users extends Resource
                 [
                     'realm' => $realm,
                 ],
-                $criteria
-            )
+                $criteria,
+            ),
         );
     }
 
@@ -111,8 +111,8 @@ class Users extends Resource
                     'realm' => $realm,
                     'userId' => $userId,
                     'groupId' => $groupId,
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -126,8 +126,8 @@ class Users extends Resource
                     'realm' => $realm,
                     'userId' => $userId,
                     'groupId' => $groupId,
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -141,8 +141,8 @@ class Users extends Resource
                     'realm' => $realm,
                     'userId' => $userId,
                 ],
-                $criteria
-            )
+                $criteria,
+            ),
         );
     }
 
@@ -155,8 +155,8 @@ class Users extends Resource
                 [
                     'realm' => $realm,
                     'userId' => $userId,
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -169,8 +169,8 @@ class Users extends Resource
                 [
                     'realm' => $realm,
                     'userId' => $userId,
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -184,8 +184,8 @@ class Users extends Resource
                     'realm' => $realm,
                     'userId' => $userId,
                 ],
-                $roles
-            )
+                $roles,
+            ),
         );
     }
 
@@ -199,8 +199,8 @@ class Users extends Resource
                     'realm' => $realm,
                     'userId' => $userId,
                 ],
-                $roles
-            )
+                $roles,
+            ),
         );
     }
 
@@ -219,7 +219,7 @@ class Users extends Resource
                 ],
                 $actions,
                 $criteria,
-            )
+            ),
         );
     }
 
@@ -232,8 +232,8 @@ class Users extends Resource
                 [
                     'realm' => $realm,
                     'userId' => $userId,
-                ]
-            )
+                ],
+            ),
         );
     }
 }

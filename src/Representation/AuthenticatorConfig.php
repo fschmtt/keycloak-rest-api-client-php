@@ -22,6 +22,5 @@ class AuthenticatorConfig extends Representation
         protected ?string $alias = null,
         protected ?Map $config = null,
         protected ?string $id = null,
-    ) {
-    }
+    ) {}
 }

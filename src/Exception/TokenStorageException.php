@@ -7,6 +7,4 @@ namespace Fschmtt\Keycloak\Exception;
 /**
  * @internal
  */
-class TokenStorageException extends \RuntimeException
-{
-}
+class TokenStorageException extends \RuntimeException {}

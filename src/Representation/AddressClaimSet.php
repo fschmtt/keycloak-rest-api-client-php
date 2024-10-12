@@ -16,6 +16,5 @@ class AddressClaimSet extends Representation
         protected ?string $postal_code = null,
         protected ?string $region = null,
         protected ?string $street_address = null,
-    ) {
-    }
+    ) {}
 }

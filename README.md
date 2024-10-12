@@ -197,8 +197,8 @@ docker compose run --rm php php examples/serverinfo.php
 ### Composer scripts
 
 * `analyze`: Run phpstan analysis
-* `ecs`: Run Easy Coding Standard (ECS)
-* `ecs:fix`: Fix Easy Coding Standard (ECS) errors
+* `cs`: Check coding style (PHP CS Fixer)
+* `cs:fix`: Fix coding style issues (PHP CS Fixer)
 * `test`: Run unit and integration tests
 * `test:unit`: Run unit tests
 * `test:integration`: Run integration tests (requires a fresh and running Keycloak instance)

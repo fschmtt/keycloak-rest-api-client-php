@@ -15,7 +15,7 @@ class ServerInfo extends Resource
             new Query(
                 '/admin/serverinfo',
                 ServerInfoRepresentation::class,
-            )
+            ),
         );
     }
 }

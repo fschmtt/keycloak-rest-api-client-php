@@ -17,6 +17,5 @@ class ClientPolicyExecutor extends Representation
     public function __construct(
         protected ?JsonNode $configuration = null,
         protected ?string $executor = null,
-    ) {
-    }
+    ) {}
 }

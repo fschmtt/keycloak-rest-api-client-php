@@ -17,7 +17,7 @@ class StringSerializerTest extends TestCase
     {
         static::assertSame(
             'string',
-            (new StringSerializer())->serializes()
+            (new StringSerializer())->serializes(),
         );
     }
 

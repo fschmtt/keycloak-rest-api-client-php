@@ -24,7 +24,7 @@ class Realms extends Resource
                 '/admin/realms',
                 RealmCollection::class,
                 criteria: $criteria,
-            )
+            ),
         );
     }
 
@@ -37,7 +37,7 @@ class Realms extends Resource
                 [
                     'realm' => $realm,
                 ],
-            )
+            ),
         );
     }
 
@@ -49,7 +49,7 @@ class Realms extends Resource
                 Method::POST,
                 [],
                 $realm,
-            )
+            ),
         );
 
         return $this->get($realm->getRealm());
@@ -65,7 +65,7 @@ class Realms extends Resource
                     'realm' => $realm,
                 ],
                 $updatedRealm,
-            )
+            ),
         );
 
         return $this->get($updatedRealm->getRealm());
@@ -80,7 +80,7 @@ class Realms extends Resource
                 [
                     'realm' => $realm,
                 ],
-            )
+            ),
         );
     }
 
@@ -97,10 +97,10 @@ class Realms extends Resource
                     'realm' => $realm,
                 ],
                 $criteria,
-            )
+            ),
         );
     }
-    
+
     public function keys(string $realm, ?Criteria $criteria = null): KeysMetadata
     {
         return $this->queryExecutor->executeQuery(
@@ -111,7 +111,7 @@ class Realms extends Resource
                     'realm' => $realm,
                 ],
                 $criteria,
-            )
+            ),
         );
     }
 
@@ -124,7 +124,7 @@ class Realms extends Resource
                 [
                     'realm' => $realm,
                 ],
-            )
+            ),
         );
     }
 
@@ -137,7 +137,7 @@ class Realms extends Resource
                 [
                     'realm' => $realm,
                 ],
-            )
+            ),
         );
     }
 
@@ -150,7 +150,7 @@ class Realms extends Resource
                 [
                     'realm' => $realm,
                 ],
-            )
+            ),
         );
     }
 
@@ -163,7 +163,7 @@ class Realms extends Resource
                 [
                     'realm' => $realm,
                 ],
-            )
+            ),
         );
     }
 }

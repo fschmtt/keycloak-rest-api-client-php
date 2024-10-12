@@ -44,6 +44,5 @@ class KeyMetadata extends Representation
         protected ?string $use = null,
         #[Since('23.0.0')]
         protected ?int $validTo = null,
-    ) {
-    }
+    ) {}
 }

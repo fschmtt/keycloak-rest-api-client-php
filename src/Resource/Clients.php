@@ -27,7 +27,7 @@ class Clients extends Resource
                     'realm' => $realm,
                 ],
                 $criteria,
-            )
+            ),
         );
     }
 
@@ -40,8 +40,8 @@ class Clients extends Resource
                 [
                     'realm' => $realm,
                     'clientUuid' => $clientUuid,
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -55,7 +55,7 @@ class Clients extends Resource
                     'realm' => $realm,
                 ],
                 $client,
-            )
+            ),
         );
 
         return $this->get($realm, $client->getId());
@@ -72,7 +72,7 @@ class Clients extends Resource
                     'clientUuid' => $clientUuid,
                 ],
                 $updatedClient,
-            )
+            ),
         );
 
         return $this->get($realm, $updatedClient->getId());
@@ -88,7 +88,7 @@ class Clients extends Resource
                     'realm' => $realm,
                     'clientUuid' => $clientUuid,
                 ],
-            )
+            ),
         );
     }
 
@@ -106,7 +106,7 @@ class Clients extends Resource
                     'clientUuid' => $clientUuid,
                 ],
                 $criteria,
-            )
+            ),
         );
     }
 
@@ -119,8 +119,8 @@ class Clients extends Resource
                 [
                     'realm' => $realm,
                     'clientUuid' => $clientUuid,
-                ]
-            )
+                ],
+            ),
         );
     }
 }

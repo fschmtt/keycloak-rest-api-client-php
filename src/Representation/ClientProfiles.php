@@ -19,6 +19,5 @@ class ClientProfiles extends Representation
     public function __construct(
         protected ?ClientProfileCollection $profiles = null,
         protected ?ClientProfileCollection $globalProfiles = null,
-    ) {
-    }
+    ) {}
 }

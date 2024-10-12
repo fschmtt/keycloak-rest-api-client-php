@@ -22,6 +22,5 @@ class Feature extends Representation
         /** @var string[]|null $dependencies */
         protected ?array $dependencies = null,
         protected ?bool $enabled = null,
-    ) {
-    }
+    ) {}
 }

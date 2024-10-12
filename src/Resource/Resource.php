@@ -15,6 +15,5 @@ abstract class Resource
     public function __construct(
         protected readonly CommandExecutor $commandExecutor,
         protected readonly QueryExecutor $queryExecutor,
-    ) {
-    }
+    ) {}
 }

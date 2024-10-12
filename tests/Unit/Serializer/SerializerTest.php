@@ -52,7 +52,7 @@ class SerializerTest extends TestCase
     {
         $this->expectException(SerializerException::class);
         $this->expectExceptionMessage(
-            sprintf('No matching serializer found for type "%s"', stdClass::class)
+            sprintf('No matching serializer found for type "%s"', stdClass::class),
         );
 
         $this->serializer->serialize(stdClass::class, '');

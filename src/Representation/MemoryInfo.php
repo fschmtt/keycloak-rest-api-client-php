@@ -25,6 +25,5 @@ class MemoryInfo extends Representation
         protected ?string $totalFormated = null,
         protected ?int $used = null,
         protected ?string $usedFormated = null,
-    ) {
-    }
+    ) {}
 }

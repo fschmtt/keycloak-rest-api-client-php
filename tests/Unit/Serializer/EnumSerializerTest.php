@@ -26,7 +26,7 @@ class EnumSerializerTest extends TestCase
     {
         static::assertSame(
             Enum::class,
-            (new EnumSerializer())->serializes()
+            (new EnumSerializer())->serializes(),
         );
     }
 

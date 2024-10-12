@@ -35,6 +35,5 @@ class AuthenticationExecutionExport extends Representation
         protected ?string $parentFlow = null,
         protected ?int $priority = null,
         protected ?string $requirement = null,
-    ) {
-    }
+    ) {}
 }
