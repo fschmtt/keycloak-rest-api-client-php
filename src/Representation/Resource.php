@@ -6,6 +6,7 @@ namespace Fschmtt\Keycloak\Representation;
 
 use Fschmtt\Keycloak\Collection\ScopeCollection;
 use Fschmtt\Keycloak\Type\Map;
+use Symfony\Component\Serializer\Attribute\SerializedName;
 
 /**
  * @codeCoverageIgnore
@@ -13,6 +14,7 @@ use Fschmtt\Keycloak\Type\Map;
 class Resource extends Representation
 {
     public function __construct(
+        #[SerializedName('_id')]
         protected ?string $id = null,
         protected ?Map $attributes = null,
         protected ?string $displayName = null,

@@ -24,9 +24,13 @@ class QueryExecutor
             $query->getPath(),
         );
 
-        return $this->serializer->serialize(
+        if ($query->getReturnType() === 'array') {
+            return (new JsonDecoder())->decode($response->getBody()->getContents());
+        }
+
+        return $this->serializer->deserialize(
             $query->getReturnType(),
-            (new JsonDecoder())->decode($response->getBody()->getContents()),
+            $response->getBody()->getContents(),
         );
     }
 }

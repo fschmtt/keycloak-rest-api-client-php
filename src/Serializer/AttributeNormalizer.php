@@ -2,17 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Fschmtt\Keycloak\Http;
+namespace Fschmtt\Keycloak\Serializer;
 
+use ArrayObject;
 use Fschmtt\Keycloak\Attribute\Since;
 use Fschmtt\Keycloak\Attribute\Until;
 use Fschmtt\Keycloak\Representation\Representation;
 use ReflectionClass;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-/**
- * @internal
- */
-class PropertyFilter
+class AttributeNormalizer implements NormalizerInterface
 {
     /**
      * @var array<class-string<Representation>, array<string, array{since?: string, until?: string}>>
@@ -20,31 +19,51 @@ class PropertyFilter
     private array $filteredProperties = [];
 
     public function __construct(
-        private readonly ?string $version = null,
+        private readonly NormalizerInterface $normalizer,
+        private readonly ?string $keycloakVersion = null,
     ) {}
 
     /**
-     * @return array<string, mixed>
+     * @param array<string, mixed> $context
+     * @return array<mixed>
      */
-    public function filter(Representation $representation): array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
     {
-        $properties = $representation->jsonSerialize();
+        $properties = $this->normalizer->normalize($object, $format, $context);
 
-        if (!$this->version) {
+        if (!$this->keycloakVersion) {
             return $properties;
         }
 
-        foreach ($this->getFilteredProperties($representation) as $property => $versions) {
-            if (isset($versions['since']) && (int) $this->version < (int) $versions['since']) {
+        foreach ($this->getFilteredProperties($object) as $property => $versions) {
+            if (isset($versions['since']) && (int) $this->keycloakVersion < (int) $versions['since']) {
                 unset($properties[$property]);
             }
 
-            if (isset($versions['until']) && (int) $this->version > (int) $versions['until']) {
+            if (isset($versions['until']) && (int) $this->keycloakVersion > (int) $versions['until']) {
                 unset($properties[$property]);
             }
         }
 
         return $properties;
+    }
+
+    /**
+     * @param array<string, mixed> $context
+     */
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+    {
+        return $data instanceof Representation;
+    }
+
+    /**
+     * @return array<class-string|'*'|'object'|string, bool|null>
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Representation::class => true,
+        ];
     }
 
     /**
