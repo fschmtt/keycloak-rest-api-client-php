@@ -52,7 +52,7 @@ class UsersTest extends TestCase
 
         static::assertSame(
             $clientCollection,
-            $clients->all('test-realm')
+            $clients->all('test-realm'),
         );
     }
 
@@ -82,7 +82,7 @@ class UsersTest extends TestCase
 
         static::assertSame(
             $client,
-            $clients->get('test-realm', 'test-user')
+            $clients->get('test-realm', 'test-user'),
         );
     }
 
@@ -277,7 +277,7 @@ class UsersTest extends TestCase
 
         static::assertSame(
             $groupCollection,
-            $users->retrieveGroups('test-realm', 'test-user')
+            $users->retrieveGroups('test-realm', 'test-user'),
         );
     }
 
@@ -310,7 +310,7 @@ class UsersTest extends TestCase
 
         static::assertSame(
             $roleCollection,
-            $users->retrieveRealmRoles('test-realm', 'test-user')
+            $users->retrieveRealmRoles('test-realm', 'test-user'),
         );
     }
 
@@ -343,7 +343,7 @@ class UsersTest extends TestCase
 
         static::assertSame(
             $roleCollection,
-            $users->retrieveAvailableRealmRoles('test-realm', 'test-user')
+            $users->retrieveAvailableRealmRoles('test-realm', 'test-user'),
         );
     }
 

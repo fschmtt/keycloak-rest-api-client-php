@@ -37,7 +37,7 @@ class GroupTest extends TestCase
             name: 'unique-name',
             path: '/where/am/i',
             realmRoles: ['realm-role-a', 'realm-role-b'],
-            subGroups: new GroupCollection([$subGroup])
+            subGroups: new GroupCollection([$subGroup]),
         );
         $this->group->withId('unique-id');
     }

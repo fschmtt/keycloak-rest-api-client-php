@@ -18,7 +18,7 @@ class CollectionSerializerTest extends TestCase
     {
         static::assertSame(
             Collection::class,
-            (new CollectionSerializer())->serializes()
+            (new CollectionSerializer())->serializes(),
         );
     }
 

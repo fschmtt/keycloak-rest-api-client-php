@@ -36,7 +36,7 @@ class UsersTest extends TestCase
         // Create user
         $resource->create(
             'master',
-            new User(firstName: $importedFirstName, username: $importedUsername)
+            new User(firstName: $importedFirstName, username: $importedUsername),
         );
 
         // Search (imported) user

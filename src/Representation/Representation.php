@@ -36,7 +36,7 @@ abstract class Representation implements JsonSerializable
     public static function fromJson(string $json): static
     {
         return static::from(
-            (new JsonDecoder())->decode($json)
+            (new JsonDecoder())->decode($json),
         );
     }
 
@@ -111,7 +111,7 @@ abstract class Representation implements JsonSerializable
                     'Property "%s" does not exist in "%s"',
                     $property,
                     static::class,
-                )
+                ),
             );
         }
     }

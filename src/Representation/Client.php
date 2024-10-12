@@ -129,6 +129,5 @@ class Client extends Representation
         protected ?bool $surrogateAuthRequired = null,
         /** @var string[]|null */
         protected ?array $webOrigins = null,
-    ) {
-    }
+    ) {}
 }

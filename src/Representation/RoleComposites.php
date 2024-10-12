@@ -19,7 +19,6 @@ class RoleComposites extends Representation
 {
     public function __construct(
         protected ?Map $client = null,
-        protected ?RealmCollection $realm = null
-    ) {
-    }
+        protected ?RealmCollection $realm = null,
+    ) {}
 }

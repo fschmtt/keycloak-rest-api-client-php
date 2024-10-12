@@ -26,6 +26,5 @@ class ProfileInfo extends Representation
         protected ?string $name = null,
         /** @var string[]|null */
         protected ?array $previewFeatures = null,
-    ) {
-    }
+    ) {}
 }

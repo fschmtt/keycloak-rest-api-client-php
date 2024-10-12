@@ -432,6 +432,5 @@ class Realm extends Representation
         /** @var string[]|null */
         protected ?array $webAuthnPolicySignatureAlgorithms = null,
         protected ?string $webAuthnPolicyUserVerificationRequirement = null,
-    ) {
-    }
+    ) {}
 }

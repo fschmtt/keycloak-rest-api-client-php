@@ -28,6 +28,5 @@ class IdentityProviderMapper extends Representation
         protected ?string $identityProviderAlias = null,
         protected ?string $identityProviderMapper = null,
         protected ?string $name = null,
-    ) {
-    }
+    ) {}
 }

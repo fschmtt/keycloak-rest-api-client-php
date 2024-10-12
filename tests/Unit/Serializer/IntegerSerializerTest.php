@@ -16,7 +16,7 @@ class IntegerSerializerTest extends TestCase
     {
         static::assertSame(
             'int',
-            (new IntegerSerializer())->serializes()
+            (new IntegerSerializer())->serializes(),
         );
     }
 

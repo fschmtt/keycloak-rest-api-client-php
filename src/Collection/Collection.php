@@ -68,7 +68,7 @@ abstract class Collection implements Countable, IteratorAggregate, JsonSerializa
                     (new ReflectionClass(static::class))->getShortName(),
                     (new ReflectionClass($expectedRepresentationClass))->getShortName(),
                     (new ReflectionClass($item))->getShortName(),
-                )
+                ),
             );
         }
 

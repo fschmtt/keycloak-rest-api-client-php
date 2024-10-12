@@ -15,8 +15,7 @@ class MyCustomRepresentation extends \Fschmtt\Keycloak\Representation\Representa
     public function __construct(
         protected ?string $id = null,
         protected ?string $name = null,
-    ) {
-    }
+    ) {}
 }
 
 class MyCustomResource extends \Fschmtt\Keycloak\Resource\Resource
@@ -27,7 +26,7 @@ class MyCustomResource extends \Fschmtt\Keycloak\Resource\Resource
             new \Fschmtt\Keycloak\Http\Query(
                 '/my-custom-endpoint',
                 MyCustomRepresentation::class,
-            )
+            ),
         );
     }
 }

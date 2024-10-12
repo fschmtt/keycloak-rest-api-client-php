@@ -9,6 +9,4 @@ use JsonSerializable;
 /**
  * @internal
  */
-abstract class Type implements JsonSerializable
-{
-}
+abstract class Type implements JsonSerializable {}

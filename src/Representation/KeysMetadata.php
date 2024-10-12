@@ -23,6 +23,5 @@ class KeysMetadata extends Representation
     public function __construct(
         protected ?array $active = null,
         protected ?KeyMetadataCollection $keys = null,
-    ) {
-    }
+    ) {}
 }

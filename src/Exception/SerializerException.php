@@ -9,6 +9,4 @@ use Exception;
 /**
  * @internal
  */
-class SerializerException extends Exception
-{
-}
+class SerializerException extends Exception {}

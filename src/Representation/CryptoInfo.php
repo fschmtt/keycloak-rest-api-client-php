@@ -31,6 +31,5 @@ class CryptoInfo extends Representation
         protected ?string $cryptoProvider = null,
         /** @var string[]|null */
         protected ?array $supportedKeystoreTypes = null,
-    ) {
-    }
+    ) {}
 }

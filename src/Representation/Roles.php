@@ -20,6 +20,5 @@ class Roles extends Representation
         protected ?Map $client = null,
         /** @var string[]|null */
         protected ?array $realm = null,
-    ) {
-    }
+    ) {}
 }

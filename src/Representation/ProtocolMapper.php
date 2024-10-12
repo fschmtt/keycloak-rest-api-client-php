@@ -31,6 +31,5 @@ class ProtocolMapper extends Representation
         protected ?string $name = null,
         protected ?string $protocol = null,
         protected ?string $protocolMapper = null,
-    ) {
-    }
+    ) {}
 }

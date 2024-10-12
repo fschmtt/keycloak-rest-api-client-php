@@ -43,7 +43,7 @@ class ClientTest extends TestCase
                     'access_token' => $accessToken->toString(),
                     'refresh_token' => $refreshToken->toString(),
                 ],
-                flags: JSON_THROW_ON_ERROR
+                flags: JSON_THROW_ON_ERROR,
             ),
         );
 
@@ -53,7 +53,7 @@ class ClientTest extends TestCase
                 value: [
                     'realms' => [],
                 ],
-                flags: JSON_THROW_ON_ERROR
+                flags: JSON_THROW_ON_ERROR,
             ),
         );
 
@@ -77,7 +77,7 @@ class ClientTest extends TestCase
         $client = new Client(
             $this->keycloak,
             $this->createMock(ClientInterface::class),
-            new InMemoryTokenStorage()
+            new InMemoryTokenStorage(),
         );
 
         static::assertFalse($client->isAuthorized());
@@ -93,7 +93,7 @@ class ClientTest extends TestCase
         $client = new Client(
             $this->keycloak,
             $this->createMock(ClientInterface::class),
-            $tokenStorage
+            $tokenStorage,
         );
 
         static::assertFalse($client->isAuthorized());
@@ -109,7 +109,7 @@ class ClientTest extends TestCase
         $client = new Client(
             $this->keycloak,
             $this->createMock(ClientInterface::class),
-            $tokenStorage
+            $tokenStorage,
         );
 
         static::assertTrue($client->isAuthorized());

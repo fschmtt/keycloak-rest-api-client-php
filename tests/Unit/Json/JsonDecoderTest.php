@@ -25,7 +25,7 @@ class JsonDecoderTest extends TestCase
             [
                 'Hey' => 'I am a valid JSON string!',
             ],
-            $this->decoder->decode('{"Hey": "I am a valid JSON string!"}')
+            $this->decoder->decode('{"Hey": "I am a valid JSON string!"}'),
         );
     }
 

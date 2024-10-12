@@ -92,6 +92,5 @@ class User extends Representation
         protected ?string $serviceAccountClientId = null,
         protected ?bool $totp = null,
         protected ?string $username = null,
-    ) {
-    }
+    ) {}
 }

@@ -44,7 +44,7 @@ class RepresentationTest extends TestCase
         $modifiedRepresentation = $representation->withMap(
             new Map([
                 'key' => 'value',
-            ])
+            ]),
         );
 
         static::assertNull($representation->getMap());
@@ -98,7 +98,7 @@ class RepresentationTest extends TestCase
                 'since1500Until1800' => 'since1500Until1800-value',
                 'map' => null,
             ],
-            $representation->jsonSerialize()
+            $representation->jsonSerialize(),
         );
     }
 

@@ -18,7 +18,7 @@ class MapSerializerTest extends TestCase
     {
         static::assertSame(
             Map::class,
-            (new MapSerializer())->serializes()
+            (new MapSerializer())->serializes(),
         );
     }
 

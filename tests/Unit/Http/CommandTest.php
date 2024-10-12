@@ -26,7 +26,7 @@ class CommandTest extends TestCase
 
         static::assertSame(
             $representation,
-            (new Command('/path', Method::POST, [], $representation))->getPayload()
+            (new Command('/path', Method::POST, [], $representation))->getPayload(),
         );
     }
 
@@ -36,7 +36,7 @@ class CommandTest extends TestCase
 
         static::assertSame(
             $payload,
-            (new Command('/path', Method::POST, [], $payload))->getPayload()
+            (new Command('/path', Method::POST, [], $payload))->getPayload(),
         );
     }
 
@@ -50,8 +50,8 @@ class CommandTest extends TestCase
                 [
                     'realm' => 'master',
                     'groupId' => 'group-uuid',
-                ]
-            ))->getPath()
+                ],
+            ))->getPath(),
         );
     }
 
@@ -60,7 +60,7 @@ class CommandTest extends TestCase
         foreach (Method::cases() as $method) {
             static::assertSame(
                 $method->value,
-                (new Command('/path', $method))->getMethod()->value
+                (new Command('/path', $method))->getMethod()->value,
             );
         }
     }
@@ -81,7 +81,7 @@ class CommandTest extends TestCase
                     'client_id' => 'foo',
                     'lifespan' => 600,
                 ]),
-            ))->getPath()
+            ))->getPath(),
         );
     }
 }

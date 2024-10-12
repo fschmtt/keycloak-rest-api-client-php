@@ -25,7 +25,7 @@ class JsonEncoderTest extends TestCase
             '{"Hey":"I am a valid JSON string!"}',
             $this->decoder->encode([
                 'Hey' => 'I am a valid JSON string!',
-            ])
+            ]),
         );
     }
 

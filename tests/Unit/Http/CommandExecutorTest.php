@@ -31,15 +31,15 @@ class CommandExecutorTest extends TestCase
                     'headers' => [
                         'Content-Type' => 'application/json',
                     ],
-                ]
+                ],
             );
 
         $executor = new CommandExecutor($client, new PropertyFilter());
         $executor->executeCommand(
             new Command(
                 '/path/to/resource',
-                Method::DELETE
-            )
+                Method::DELETE,
+            ),
         );
     }
 
@@ -49,7 +49,7 @@ class CommandExecutorTest extends TestCase
             '/path/to/resource',
             Method::PUT,
             [],
-            new Representation()
+            new Representation(),
         );
         $payload = $command->getPayload();
         static::assertInstanceOf(Representation::class, $payload);
@@ -65,7 +65,7 @@ class CommandExecutorTest extends TestCase
                     'headers' => [
                         'Content-Type' => 'application/json',
                     ],
-                ]
+                ],
             );
 
         $executor = new CommandExecutor($client, new PropertyFilter());
@@ -94,7 +94,7 @@ class CommandExecutorTest extends TestCase
                     'headers' => [
                         'Content-Type' => 'application/json',
                     ],
-                ]
+                ],
             );
 
         $executor = new CommandExecutor($client, new PropertyFilter());
@@ -121,7 +121,7 @@ class CommandExecutorTest extends TestCase
                     'headers' => [
                         'Content-Type' => 'application/json',
                     ],
-                ]
+                ],
             );
 
         $executor = new CommandExecutor($client, new PropertyFilter());

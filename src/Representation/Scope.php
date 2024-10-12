@@ -19,6 +19,5 @@ class Scope extends Representation
         protected ?string $name = null,
         protected ?PolicyCollection $policies = null,
         protected ?ResourceCollection $resources = null,
-    ) {
-    }
+    ) {}
 }

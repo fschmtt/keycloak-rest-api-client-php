@@ -68,7 +68,7 @@ class Serializer implements SerializerInterface
         }
 
         throw new SerializerException(
-            message: sprintf('No matching serializer found for type "%s"', $type)
+            message: sprintf('No matching serializer found for type "%s"', $type),
         );
     }
 

@@ -13,6 +13,5 @@ class MultivaluedHashMap extends Representation
         protected ?bool $empty = null,
         protected ?float $loadFactor = null,
         protected ?int $threshold = null,
-    ) {
-    }
+    ) {}
 }

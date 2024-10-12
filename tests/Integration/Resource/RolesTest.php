@@ -27,7 +27,7 @@ class RolesTest extends TestCase
         // Create role
         $resource->create(
             'master',
-            new Role(name: 'test-role', description: 'test-role-description')
+            new Role(name: 'test-role', description: 'test-role-description'),
         );
 
         // Search (created) role

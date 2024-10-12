@@ -20,7 +20,7 @@ $realm = $keycloak->realms()->import(
         displayName: 'My Random Realm ' . $random,
         id: 'my-random-realm-' . $random,
         realm: 'my-random-realm-' . $random,
-    )
+    ),
 );
 
 $keycloak->realms()->delete($realm->getRealm());

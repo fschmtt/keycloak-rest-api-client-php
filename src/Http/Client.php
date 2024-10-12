@@ -22,8 +22,7 @@ class Client
         private readonly Keycloak $keycloak,
         private readonly ClientInterface $httpClient,
         private readonly TokenStorageInterface $tokenStorage,
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<string, mixed> $options
@@ -46,7 +45,7 @@ class Client
         return $this->httpClient->request(
             $method,
             $this->keycloak->getBaseUrl() . $path,
-            $options
+            $options,
         );
     }
 
@@ -92,7 +91,7 @@ class Client
                         'client_id' => 'admin-cli',
                         'grant_type' => 'password',
                     ],
-                ]
+                ],
             );
         }
 

@@ -17,7 +17,7 @@ class BooleanSerializerTest extends TestCase
     {
         static::assertSame(
             'bool',
-            (new BooleanSerializer())->serializes()
+            (new BooleanSerializer())->serializes(),
         );
     }
 

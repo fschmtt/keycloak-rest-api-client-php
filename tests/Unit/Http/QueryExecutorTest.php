@@ -29,7 +29,7 @@ class QueryExecutorTest extends TestCase
             new Query(
                 '/path/to/resource',
                 'array',
-            )
+            ),
         );
     }
 }

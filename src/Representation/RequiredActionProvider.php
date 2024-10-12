@@ -34,6 +34,5 @@ class RequiredActionProvider extends Representation
         protected ?string $name = null,
         protected ?bool $priority = null,
         protected ?string $providerId = null,
-    ) {
-    }
+    ) {}
 }

@@ -17,7 +17,7 @@ class RepresentationSerializerTest extends TestCase
     {
         static::assertSame(
             Representation::class,
-            (new RepresentationSerializer())->serializes()
+            (new RepresentationSerializer())->serializes(),
         );
     }
 

@@ -20,9 +20,8 @@ class PropertyFilter
     private array $filteredProperties = [];
 
     public function __construct(
-        private readonly ?string $version = null
-    ) {
-    }
+        private readonly ?string $version = null,
+    ) {}
 
     /**
      * @return array<string, mixed>

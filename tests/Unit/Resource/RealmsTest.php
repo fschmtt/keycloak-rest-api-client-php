@@ -34,7 +34,7 @@ class RealmsTest extends TestCase
                 new RealmCollection([
                     new Realm(realm: 'realm-1'),
                     new Realm(realm: 'realm-2'),
-                ])
+                ]),
             );
 
         $realms = new Realms(
@@ -74,7 +74,7 @@ class RealmsTest extends TestCase
             ->method('executeQuery')
             ->with($query)
             ->willReturn(
-                new Realm(realm: 'imported-realm')
+                new Realm(realm: 'imported-realm'),
             );
 
         $realms = new Realms(
@@ -120,7 +120,7 @@ class RealmsTest extends TestCase
                 new Realm(
                     displayName: 'Updated Realm',
                     realm: 'updated-realm',
-                )
+                ),
             );
 
         $realms = new Realms(

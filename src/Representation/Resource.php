@@ -23,6 +23,5 @@ class Resource extends Representation
         protected ?string $type = null,
         /** @var string[]|null */
         protected ?array $uris = null,
-    ) {
-    }
+    ) {}
 }

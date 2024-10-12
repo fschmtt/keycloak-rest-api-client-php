@@ -34,6 +34,5 @@ class JsonNode extends Representation
         protected ?bool $short = null,
         protected ?bool $textual = null,
         protected ?bool $valueNode = null,
-    ) {
-    }
+    ) {}
 }

@@ -14,9 +14,8 @@ class CommandExecutor
 {
     public function __construct(
         private readonly Client $client,
-        private readonly PropertyFilter $propertyFilter
-    ) {
-    }
+        private readonly PropertyFilter $propertyFilter,
+    ) {}
 
     public function executeCommand(Command $command): void
     {
@@ -28,7 +27,7 @@ class CommandExecutor
                 'headers' => [
                     'Content-Type' => 'application/json',
                 ],
-            ]
+            ],
         );
     }
 

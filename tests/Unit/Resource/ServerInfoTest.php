@@ -37,7 +37,7 @@ class ServerInfoTest extends TestCase
 
         static::assertSame(
             $serverInfoRepresentation,
-            $serverInfo->get()
+            $serverInfo->get(),
         );
     }
 }

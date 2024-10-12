@@ -31,7 +31,6 @@ class ClientScope extends Representation
         protected ?string $id = null,
         protected ?string $name = null,
         protected ?string $protocol = null,
-        protected ?ProtocolMapperCollection $protocolMappers = null
-    ) {
-    }
+        protected ?ProtocolMapperCollection $protocolMappers = null,
+    ) {}
 }

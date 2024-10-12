@@ -28,6 +28,5 @@ class UserFederationMapper extends Representation
         protected ?string $federationProviderDisplayName = null,
         protected ?string $id = null,
         protected ?string $name = null,
-    ) {
-    }
+    ) {}
 }

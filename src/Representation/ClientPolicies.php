@@ -15,7 +15,6 @@ use Fschmtt\Keycloak\Collection\ClientPolicyCollection;
 class ClientPolicies extends Representation
 {
     public function __construct(
-        protected ?ClientPolicyCollection $policies = null
-    ) {
-    }
+        protected ?ClientPolicyCollection $policies = null,
+    ) {}
 }
