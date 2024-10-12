@@ -9,6 +9,9 @@ use Fschmtt\Keycloak\Collection\OrganizationDomainCollection;
 use Fschmtt\Keycloak\Collection\UserCollection;
 use Fschmtt\Keycloak\Type\Map;
 
+/**
+ * @codeCoverageIgnore
+ */
 class Organization extends Representation
 {
     public function __construct(
