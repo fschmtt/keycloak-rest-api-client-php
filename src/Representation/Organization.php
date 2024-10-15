@@ -11,6 +11,27 @@ use Fschmtt\Keycloak\Collection\UserCollection;
 use Fschmtt\Keycloak\Type\Map;
 
 /**
+ * @method string|null getId()
+ * @method string|null getName()
+ * @method bool|null getEnabled()
+ * @method string|null getDescription()
+ * @method Map|null getAttributes()
+ * @method OrganizationDomainCollection|null getDomains()
+ * @method UserCollection|null getMembers()
+ * @method IdentityProviderCollection|null getIdentityProviders()
+ * @method string|null getAlias()
+ * @method string|null getRedirectUrl()
+ * @method self withId(?string $id)
+ * @method self withName(?string $name)
+ * @method self withEnabled(?bool $enabled)
+ * @method self withDescription(?string $description)
+ * @method self withAttributes(?Map $attributes)
+ * @method self withDomains(?OrganizationDomainCollection $domains)
+ * @method self withMembers(?UserCollection $members)
+ * @method self withIdentityProviders(?IdentityProviderCollection $identityProviders)
+ * @method self withAlias(?string $alias)
+ * @method self withRedirectUrl(?string $redirectUrl)
+ *
  * @codeCoverageIgnore
  */
 class Organization extends Representation
