@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Representation;
 
+use Fschmtt\Keycloak\Attribute\Since;
 use Fschmtt\Keycloak\Collection\IdentityProviderCollection;
 use Fschmtt\Keycloak\Collection\OrganizationDomainCollection;
 use Fschmtt\Keycloak\Collection\UserCollection;
@@ -23,5 +24,7 @@ class Organization extends Representation
         protected ?OrganizationDomainCollection $domains = null,
         protected ?UserCollection $members = null,
         protected ?IdentityProviderCollection $identityProviders = null,
+        #[Since('26.0.0')]
+        protected ?string $alias = null,
     ) {}
 }
