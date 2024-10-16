@@ -26,5 +26,7 @@ class Organization extends Representation
         protected ?IdentityProviderCollection $identityProviders = null,
         #[Since('26.0.0')]
         protected ?string $alias = null,
+        #[Since('26.0.0')]
+        protected ?string $redirectUrl = null,
     ) {}
 }
