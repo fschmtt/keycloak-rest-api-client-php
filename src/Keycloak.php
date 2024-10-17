@@ -27,7 +27,7 @@ use GuzzleHttp\ClientInterface;
 class Keycloak
 {
     private ?string $version = null;
-    private Client $client;
+    protected Client $client;
     private Serializer $serializer;
     private CommandExecutor $commandExecutor;
     private QueryExecutor $queryExecutor;
