@@ -12,6 +12,7 @@ use Fschmtt\Keycloak\OAuth\TokenStorageInterface;
 use Fschmtt\Keycloak\Resource\AttackDetection;
 use Fschmtt\Keycloak\Resource\Clients;
 use Fschmtt\Keycloak\Resource\Groups;
+use Fschmtt\Keycloak\Resource\Organizations;
 use Fschmtt\Keycloak\Resource\Realms;
 use Fschmtt\Keycloak\Resource\Resource;
 use Fschmtt\Keycloak\Resource\Roles;
@@ -112,6 +113,13 @@ class Keycloak
         $this->fetchVersion();
 
         return new Roles($this->commandExecutor, $this->queryExecutor);
+    }
+
+    public function organizations(): Organizations
+    {
+        $this->fetchVersion();
+
+        return new Organizations($this->commandExecutor, $this->queryExecutor);
     }
 
     /**
