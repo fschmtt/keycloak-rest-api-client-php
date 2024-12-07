@@ -101,7 +101,7 @@ class CommandExecutorTest extends TestCase
         $executor->executeCommand($command);
     }
 
-    public function testCallsClientWithBodyIfCommandHasArrayPayload(): void
+    public function testCallsClientWithFormParamsIfCommandHasArrayPayload(): void
     {
         $command = new Command(
             '/path/to/resource',
@@ -117,10 +117,7 @@ class CommandExecutorTest extends TestCase
                 Method::PUT->value,
                 '/path/to/resource',
                 [
-                    'body' => (new JsonEncoder())->encode($payload),
-                    'headers' => [
-                        'Content-Type' => 'application/json',
-                    ],
+                    'form_params' => $payload,
                 ],
             );
 

@@ -133,6 +133,15 @@ $myCustomRepresentation = $myCustomResource->myCustomEndpoint();
 | `POST /admin/realms/{realm}/groups/{id}/children` | `n/a`                                                 | [Groups::create()](src/Resource/Groups.php)   |
 | `DELETE /admin/realms/{realm}/groups`             | `n/a`                                                 | [Groups::delete()](src/Resource/Groups.php)   |
 
+### [Organizations](https://www.keycloak.org/docs-api/26.0.0/rest-api/index.html#_organizations)
+
+| Endpoint                                                            | Response                                                            | API                                                           |
+|---------------------------------------------------------------------|---------------------------------------------------------------------|---------------------------------------------------------------|
+| `GET /admin/realms/{realm}/organizations`                           | [OrganizationCollection](src/Collection/OrganizationCollection.php) | [Organizations::all()](src/Resource/Organizations.php)        |
+| `GET /admin/realms/{realm}/organizations/{id}`                      | [Organization](src/Representation/Organization.php)                 | [Organizations::get()](src/Resource/Organizations.php)        |
+| `DELETE /admin/realms/{realm}/organizations/{id}`                   | `n/a`                                                               | [Organizations::delete()](src/Resource/Organizations.php)     |
+| `POST /admin/realms/{realm}/organizations/{id}/members/invite-user` | `n/a`                                                               | [Organizations::inviteUser()](src/Resource/Organizations.php) |
+
 ### [Realms Admin](https://www.keycloak.org/docs-api/26.0.0/rest-api/index.html#_realms_admin)
 
 | Endpoint                                       | Response                                              | API                                                    |
