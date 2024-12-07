@@ -1,16 +1,10 @@
-/.devenv export-ignore
-/.direnv export-ignore
 /.github export-ignore
 /tests export-ignore
 
 /.editorconfig export-ignore
-/.envrc export-ignore
 /.gitattributes export-ignore
 /.gitignore export-ignore
 /.php-cs-fixer.dist.php export-ignore
 /compose.yaml export-ignore
-/devenv.lock export-ignore
-/devenv.nix export-ignore
-/devenv.yaml export-ignore
 /phpstan.neon export-ignore
 /phpunit.xml export-ignore
