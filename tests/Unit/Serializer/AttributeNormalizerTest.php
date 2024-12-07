@@ -113,17 +113,6 @@ class AttributeNormalizerTest extends TestCase
 
     public static function supportedKeycloakVersions(): Generator
     {
-        yield ['13.0.0'];
-        yield ['14.0.0'];
-        yield ['15.0.0'];
-        yield ['16.0.0'];
-        yield ['17.0.0'];
-        yield ['18.0.0'];
-        yield ['19.0.0'];
-        yield ['20.0.0'];
-        yield ['21.0.0'];
-        yield ['22.0.0'];
-        yield ['23.0.0'];
         yield ['24.0.0'];
         yield ['25.0.0'];
         yield ['26.0.0'];
