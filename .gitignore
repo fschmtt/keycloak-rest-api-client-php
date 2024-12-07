@@ -9,13 +9,6 @@ composer.lock
 .phpunit.result.cache
 phpunit.cobertura.xml
 
-# Devenv
-.devenv*
-devenv.local.nix
-
-# Direnv
-/.direnv/
-
 # PHP-CS-Fixer
 .php-cs-fixer.cache
 
