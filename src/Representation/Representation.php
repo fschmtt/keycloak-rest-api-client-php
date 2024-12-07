@@ -7,15 +7,12 @@ namespace Fschmtt\Keycloak\Representation;
 use BadMethodCallException;
 use Fschmtt\Keycloak\Exception\PropertyDoesNotExistException;
 use Fschmtt\Keycloak\Json\JsonDecoder;
-use Fschmtt\Keycloak\Serializer\Serializer;
 use JsonSerializable;
 use ReflectionClass;
 use ReflectionProperty;
 
 abstract class Representation implements JsonSerializable
 {
-    private ?Serializer $serializer = null;
-
     abstract public function __construct();
 
     /**
