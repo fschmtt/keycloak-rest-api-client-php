@@ -6,7 +6,7 @@ services:
     working_dir: /app
 
   keycloak:
-    image: quay.io/keycloak/keycloak:25.0.0
+    image: quay.io/keycloak/keycloak:26.0.0
     command: start-dev
     environment:
       KEYCLOAK_ADMIN: admin
