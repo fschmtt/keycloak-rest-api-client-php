@@ -8,10 +8,12 @@ use Fschmtt\Keycloak\Type\Map;
 
 /**
  * @method string|null getAlias()
- * @method Map|null getConfig()
- * @method string|null getId()
  * @method self withAlias(?string $alias)
+ *
+ * @method Map|null getConfig()
  * @method self withConfig(?Map $config)
+ *
+ * @method string|null getId()
  * @method self withId(?string $id)
  *
  * @codeCoverageIgnore

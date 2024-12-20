@@ -6,10 +6,12 @@ namespace Fschmtt\Keycloak\Representation;
 
 /**
  * @method string|null getIdentityProvider()
- * @method string|null getUserId()
- * @method string|null getUserName()
  * @method self withIdentityProvider(?string $identityProvider)
+ *
+ * @method string|null getUserId()
  * @method self withUserId(?string $userId)
+ *
+ * @method string|null getUserName()
  * @method self withUserName(?string $userName)
  *
  * @codeCoverageIgnore

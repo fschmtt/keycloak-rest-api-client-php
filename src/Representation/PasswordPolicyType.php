@@ -6,14 +6,18 @@ namespace Fschmtt\Keycloak\Representation;
 
 /**
  * @method string|null getConfigType()
- * @method string|null getDefaultValue()
- * @method string|null getDisplayName()
- * @method string|null getId()
- * @method bool|null getMultipleSupported()
  * @method self withConfigType(?string $configType)
+ *
+ * @method string|null getDefaultValue()
  * @method self withDefaultValue(?string $defaultValue)
+ *
+ * @method string|null getDisplayName()
  * @method self withDisplayName(?string $displayName)
+ *
+ * @method string|null getId()
  * @method self withId(?string $name)
+ *
+ * @method bool|null getMultipleSupported()
  * @method self withMultipleSupported(?bool $multipleSupported)
  *
  * @codeCoverageIgnore

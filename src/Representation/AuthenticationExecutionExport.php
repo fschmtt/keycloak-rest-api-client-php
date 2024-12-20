@@ -6,20 +6,27 @@ namespace Fschmtt\Keycloak\Representation;
 
 /**
  * @method string|null getAuthenticator()
- * @method string|null getAuthenticatorConfig()
- * @method bool|null getAuthenticatorFlow()
- * @method string|null getFlowId()
- * @method string|null getId()
- * @method string|null getParentFlow()
- * @method int|null getPriority()
- * @method string|null getRequirement()
  * @method self withAuthenticator(?string $authenticator)
+ *
+ * @method string|null getAuthenticatorConfig()
  * @method self withAuthenticatorConfig(?string $authenticatorConfig)
+ *
+ * @method bool|null getAuthenticatorFlow()
  * @method self withAuthenticatorFlow(?bool $authenticatorFlow)
+ *
+ * @method string|null getFlowId()
  * @method self withFlowId(?string $flowId)
+ *
+ * @method string|null getId()
  * @method self withId(?string $id)
+ *
+ * @method string|null getParentFlow()
  * @method self withParentFlow(?string $parentFlow)
+ *
+ * @method int|null getPriority()
  * @method self withPriority(?int $priority)
+ *
+ * @method string|null getRequirement()
  * @method self withRequirement(?string $requirement)
  *
  * @codeCoverageIgnore

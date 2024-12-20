@@ -7,20 +7,18 @@ namespace Fschmtt\Keycloak\Representation;
 use Fschmtt\Keycloak\Collection\KeyMetadataCollection;
 
 /**
- * @method array|null getActive()
+ * @method string[]|null getActive()
+ * @method self withActive(?string[] $active)
+ *
  * @method KeyMetadataCollection|null getKeys()
- * @method self withActive(?array $active)
  * @method self withKeyMetadataCollection(?KeyMetadataCollection $keys)
  *
  * @codeCoverageIgnore
  */
 class KeysMetadata extends Representation
 {
-    /**
-     * @param string[]|null $active
-     * @param KeyMetadataCollection|null $keys
-     */
     public function __construct(
+        /** @var string[]|null $active */
         protected ?array $active = null,
         protected ?KeyMetadataCollection $keys = null,
     ) {}

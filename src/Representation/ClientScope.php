@@ -10,14 +10,19 @@ use Fschmtt\Keycloak\Type\Map;
 /**
  * @method Map|null getAttributes()
  * @method self withAttributes(?Map $attributes)
+ *
  * @method string|null getDescription()
  * @method self withDescription(?string $description)
+ *
  * @method string|null getId()
  * @method self withId(?string $id)
+ *
  * @method string|null getName()
  * @method self withName(?string $name)
+ *
  * @method string|null getProtocol()
  * @method self withProtocol(?string $protocol)
+ *
  * @method ProtocolMapperCollection|null getProtocolMappers()
  * @method self withProtocolMappers(?ProtocolMapperCollection $protocolMappers)
  *

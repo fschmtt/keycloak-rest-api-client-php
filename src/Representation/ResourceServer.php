@@ -12,22 +12,30 @@ use Fschmtt\Keycloak\Enum\PolicyEnforcementMode;
 
 /**
  * @method bool|null getAllowRemoteResourceManagement()
- * @method string|null getClientId()
- * @method DecisionStrategy|null getDecisionStrategy()
- * @method string|null getId()
- * @method string|null getName()
- * @method PolicyCollection|null getPolicies()
- * @method PolicyEnforcementMode|null getPolicyEnforcementMode()
- * @method ResourceCollection|null getResources()
- * @method ScopeCollection|null getScopes()
  * @method self withAllowRemoteResourceManagement(?bool $allowRemoveResourceManagement)
+ *
+ * @method string|null getClientId()
  * @method self withClientId(?string $clientId)
+ *
+ * @method DecisionStrategy|null getDecisionStrategy()
  * @method self withDecisionStrategy(?DecisionStrategy $decisionStrategy)
+ *
+ * @method string|null getId()
  * @method self withId(?string $id)
+ *
+ * @method string|null getName()
  * @method self withName(?string $name)
+ *
+ * @method PolicyCollection|null getPolicies()
  * @method self withPolicies(?PolicyCollection $policies)
+ *
+ * @method PolicyEnforcementMode|null getPolicyEnforcementMode()
  * @method self withPolicyEnforcementMode(?PolicyEnforcementMode $policyEnforcementMode)
+ *
+ * @method ResourceCollection|null getResources()
  * @method self withResources(?ResourceCollection $resources)
+ *
+ * @method ScopeCollection|null getScopes()
  * @method self withScopes(?ScopeCollection $scopes)
  *
  * @codeCoverageIgnore

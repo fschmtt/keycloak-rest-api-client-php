@@ -7,13 +7,26 @@ namespace Fschmtt\Keycloak\Representation;
 use Fschmtt\Keycloak\Type\Map;
 
 /**
- * @method array|null getAttributes()
+ * @method Map|null getAttributes()
+ * @method self withAttributes(?Map $value)
+ *
  * @method bool|null getClientRole()
+ * @method self withClientRole(?bool $value)
+ *
  * @method bool|null getComposite()
+ * @method self withComposite(?bool $value)
+ *
  * @method RoleComposites|null getComposites()
+ * @method self withComposites(?RoleComposites $value)
+ *
  * @method string|null getContainerId()
+ * @method self withContainerId(?string $value)
+ *
  * @method string|null getDescription()
+ * @method self withDescription(?string $value)
+ *
  * @method string|null getName()
+ * @method self withName(?string $value)
  *
  * @codeCoverageIgnore
  */

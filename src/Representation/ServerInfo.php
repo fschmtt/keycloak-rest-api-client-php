@@ -10,22 +10,22 @@ use Fschmtt\Keycloak\Collection\PasswordPolicyTypeCollection;
 use Fschmtt\Keycloak\Type\Map;
 
 /**
- * @method array|null getBuiltinProtocolMappers()
- * @method array|null getClientImporters()
- * @method array|null getClientInstallations()
- * @method array|null getComponentTypes()
+ * @method Map|null getBuiltinProtocolMappers()
+ * @method Map|null getClientImporters()
+ * @method Map|null getClientInstallations()
+ * @method Map|null getComponentTypes()
  * @method CryptoInfo|null getCryptoInfo()
- * @method array|null getEnums()
+ * @method Map|null getEnums()
  * @method FeatureCollection|null getFeatures()
- * @method array|null getIdentityProviders()
+ * @method Map|null getIdentityProviders()
  * @method MemoryInfo|null getMemoryInfo()
  * @method PasswordPolicyType[]|null getPasswordPolicies()
- * @method array|null getProtocolMapperTypes()
+ * @method Map|null getProtocolMapperTypes()
  * @method ProfileInfo|null getProfileInfo()
- * @method array|null getProviders()
- * @method array|null getSocialProviders()
+ * @method Map|null getProviders()
+ * @method Map|null getSocialProviders()
  * @method SystemInfo|null getSystemInfo()
- * @method array|null getThemes()
+ * @method Map|null getThemes()
  *
  * @codeCoverageIgnore
  */

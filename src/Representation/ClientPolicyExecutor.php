@@ -6,8 +6,9 @@ namespace Fschmtt\Keycloak\Representation;
 
 /**
  * @method JsonNode|null getConfiguration()
- * @method string|null getExecutor()
  * @method self withConfiguration(?JsonNode $configuration)
+ *
+ * @method string|null getExecutor()
  * @method self withExecutor(?string $executor)
  *
  * @codeCoverageIgnore
