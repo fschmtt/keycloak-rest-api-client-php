@@ -9,26 +9,37 @@ use Fschmtt\Keycloak\Type\Map;
 /**
  * @method bool|null getAddReadTokenRoleOnCreate()
  * @method self withAddReadTokenRoleOnCreate(?bool $addReadTokenRoleOnCreate)
+ *
  * @method string|null getAlias()
  * @method self withAlias(?string $alias)
+ *
  * @method Map|null getConfig()
  * @method self withConfig(?Map $config)
+ *
  * @method string|null getDisplayName()
  * @method self withDisplayName(?string $displayName)
+ *
  * @method bool|null getEnabled()
  * @method self withEnabled(?bool $enabled)
+ *
  * @method string|null getFirstBrokerLoginFlowAlias()
  * @method self withFirstBrokerLoginFlowAlias(?string $firstBrokerLoginFlowAlias)
+ *
  * @method string|null getInternalId()
  * @method self withInternalId(?string $internalId)
+ *
  * @method bool|null getLinkOnly()
  * @method self withLinkOnly(?bool $linkOnly)
+ *
  * @method string|null getPostBrokerLoginFlowAlias()
  * @method self withPostBrokerLoginFlowAlias(?string $postBrokerLoginFlowAlias)
+ *
  * @method string|null getProviderId()
  * @method self withProviderId(?string $providerId)
+ *
  * @method bool|null getStoreToken()
  * @method self withStoreToken(?bool $storeToken)
+ *
  * @method bool|null getTrustEmail()
  * @method self withTrustEmail(?bool $trustEmail)
  *

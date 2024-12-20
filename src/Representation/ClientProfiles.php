@@ -8,9 +8,10 @@ use Fschmtt\Keycloak\Collection\ClientProfileCollection;
 
 /**
  * @method ClientProfileCollection|null getGlobalProfiles()
+ * @method self withGlobalProfiles(?ClientProfileCollection $globalProfiles)
+ *
  * @method ClientProfileCollection|null getProfiles()
- * @method self withGlobalProfiles(?array $globalProfiles)
- * @method self withProfiles(?array $profiles)
+ * @method self withProfiles(?ClientProfileCollection $profiles)
  *
  * @codeCoverageIgnore
  */

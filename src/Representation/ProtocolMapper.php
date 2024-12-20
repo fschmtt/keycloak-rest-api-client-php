@@ -8,16 +8,21 @@ use Fschmtt\Keycloak\Type\Map;
 
 /**
  * @method Map|null getConfig()
- * @method bool|null getConsentRequired()
- * @method string getId()
- * @method string getName()
- * @method string getProtocol()
- * @method string getProtocolMapper()
  * @method self withConfig(?Map $config)
+ *
+ * @method bool|null getConsentRequired()
  * @method self withConsentRequired(?bool $consentRequired)
+ *
+ * @method string getId()
  * @method self withId(?string $id)
+ *
+ * @method string getName()
  * @method self withName(?string $name)
+ *
+ * @method string getProtocol()
  * @method self withProtocol(?string $protocol)
+ *
+ * @method string getProtocolMapper()
  * @method self withProtocolMapper(?string $protocolMapper)
  *
  * @codeCoverageIgnore

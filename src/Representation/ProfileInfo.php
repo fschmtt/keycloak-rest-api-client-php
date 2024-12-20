@@ -6,13 +6,16 @@ namespace Fschmtt\Keycloak\Representation;
 
 /**
  * @method string[]|null getDisabledFeatures()
- * @method self withDisabledFeatures(?array $value)
+ * @method self withDisabledFeatures(?string[] $value)
+ *
  * @method string[]|null getExperimentalFeatures()
- * @method self withExperimentalFeatures(?array $value)
+ * @method self withExperimentalFeatures(?string[] $value)
+ *
  * @method string|null getName()
  * @method self withName(?string $value)
+ *
  * @method string[]|null getPreviewFeatures()
- * @method self withPreviewFeatures(?array $value)
+ * @method self withPreviewFeatures(?string[] $value)
  *
  * @codeCoverageIgnore
  */

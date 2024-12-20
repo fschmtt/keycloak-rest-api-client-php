@@ -9,8 +9,9 @@ use Fschmtt\Keycloak\Type\Map;
 
 /**
  * @method Map|null getClient()
- * @method RealmCollection|null getRealm()
  * @method self withClient(?Map $client)
+ *
+ * @method RealmCollection|null getRealm()
  * @method self withRealm(?RealmCollection $realm)
  *
  * @codeCoverageIgnore

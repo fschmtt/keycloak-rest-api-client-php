@@ -12,10 +12,10 @@
     },
     "require-dev": {
         "phpmetrics/phpmetrics": "^2.7",
-        "phpstan/phpstan": "^1.10",
+        "phpstan/phpstan": "^2.0",
         "ramsey/uuid": "^4.7",
         "phpunit/phpunit": "^10",
-        "phpstan/phpstan-deprecation-rules": "^1.1",
+        "phpstan/phpstan-deprecation-rules": "^2.0",
         "vimeo/psalm": "^0.3.14",
         "friendsofphp/php-cs-fixer": "^3.65"
     },

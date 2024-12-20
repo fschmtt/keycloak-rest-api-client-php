@@ -8,12 +8,15 @@ use Fschmtt\Keycloak\Collection\ClientPolicyExecutorCollection;
 
 /**
  * @method bool|null getBuiltin()
- * @method string|null getDescription()
- * @method ClientPolicyExecutorCollection|null getExecutors()
- * @method string|null getName()
  * @method self withBuiltin(?bool $enable)
- * @method self withDescription(?array $description)
+ *
+ * @method string|null getDescription()
+ * @method self withDescription(?string $description)
+ *
+ * @method ClientPolicyExecutorCollection|null getExecutors()
  * @method self withExecutors(?ClientPolicyExecutorCollection $executors)
+ *
+ * @method string|null getName()
  * @method self withName(?string $name)
  *
  * @codeCoverageIgnore

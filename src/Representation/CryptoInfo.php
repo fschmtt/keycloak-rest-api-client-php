@@ -8,13 +8,16 @@ use Fschmtt\Keycloak\Attribute\Since;
 
 /**
  * @method string[]|null getClientSignatureAsymmetricAlgorithms()
+ * @method self withClientSignatureAsymmetricAlgorithms(?string[] $value)
+ *
  * @method string[]|null getClientSignatureSymmetricAlgorithms()
+ * @method self withClientSignatureSymmetricAlgorithms(?string[] $value)
+ *
  * @method string|null getCryptoProvider()
- * @method string[]|null getSupportedKeystoreTypes()
- * @method self withClientSignatureAsymmetricAlgorithms(?array $value)
- * @method self withClientSignatureSymmetricAlgorithms(?array $value)
  * @method self withCryptoProvider(?string $value)
- * @method self withSupportedKeystoreTypes(?array $value)
+ *
+ * @method string[]|null getSupportedKeystoreTypes()
+ * @method self withSupportedKeystoreTypes(?string[] $value)
  *
  * @codeCoverageIgnore
  */

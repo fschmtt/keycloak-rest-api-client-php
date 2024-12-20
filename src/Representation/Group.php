@@ -10,25 +10,34 @@ use Fschmtt\Keycloak\Type\Map;
 
 /**
  * @method Map|null getAccess()
- * @method Map|null getAttributes()
- * @method Map|null getClientRoles()
- * @method string|null getId()
- * @method string|null getName()
- * @method string|null getParentId()
- * @method string|null getPath()
- * @method string[]|null getRealmRoles()
- * @method int|null getSubGroupCount()
- * @method Group[]|null getSubGroups()
  * @method self withAccess(?Map $access)
+ *
+ * @method Map|null getAttributes()
  * @method self withAttributes(?Map $attributes)
+ *
+ * @method Map|null getClientRoles()
  * @method self withClientRoles(?Map $clientRoles)
+ *
+ * @method string|null getId()
  * @method self withId(?string $id)
+ *
+ * @method string|null getName()
  * @method self withName(?string $name)
+ *
+ * @method string|null getParentId()
  * @method self withParentId(?string $parentId)
+ *
+ * @method string|null getPath()
  * @method self withPath(?string $path)
- * @method self withRealmRoles(?array $realmRoles)
+ *
+ * @method string[]|null getRealmRoles()
+ * @method self withRealmRoles(?string[] $realmRoles)
+ *
+ * @method int|null getSubGroupCount()
  * @method self withSubGroupCount(?int $subGroupCount)
- * @method self withSubGroups(?array $subGroups)
+ *
+ * @method GroupCollection|null getSubGroups()
+ * @method self withSubGroups(?GroupCollection[] $subGroups)
  *
  * @codeCoverageIgnore
  */

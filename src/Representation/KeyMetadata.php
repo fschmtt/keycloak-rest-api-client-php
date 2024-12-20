@@ -8,24 +8,33 @@ use Fschmtt\Keycloak\Attribute\Since;
 
 /**
  * @method string|null getProviderId()
- * @method int|null getProviderPriority()
- * @method string|null getKid()
- * @method string|null getStatus()
- * @method string|null getType()
- * @method string|null getAlgorithm()
- * @method string|null getPublicKey()
- * @method string|null getCertificate()
- * @method string|null getUse()
- * @method int|null getValidTo()
  * @method self withProviderId(?string $providerId)
+ *
+ * @method int|null getProviderPriority()
  * @method self withProviderPriority(?int $providerPriority)
+ *
+ * @method string|null getKid()
  * @method self withKid(?string $kid)
+ *
+ * @method string|null getStatus()
  * @method self withStatus(?string $status)
+ *
+ * @method string|null getType()
  * @method self withType(?string $type)
+ *
+ * @method string|null getAlgorithm()
  * @method self withAlgorithm(?string $algorithm)
+ *
+ * @method string|null getPublicKey()
  * @method self withPublicKey(?string $publicKey)
+ *
+ * @method string|null getCertificate()
  * @method self withCertificate(?string $certificate)
+ *
+ * @method string|null getUse()
  * @method self withUse(?string $use)
+ *
+ * @method int|null getValidTo()
  * @method self withValidTo(?int $validTo)
  *
  * @codeCoverageIgnore
