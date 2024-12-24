@@ -15,7 +15,9 @@ class MapNormalizer implements NormalizerInterface
      */
     public function normalize(mixed $object, ?string $format = null, array $context = []): ArrayObject
     {
-        return new ArrayObject($object);
+        assert($object instanceof Map);
+
+        return new ArrayObject($object->map);
     }
 
     /**
