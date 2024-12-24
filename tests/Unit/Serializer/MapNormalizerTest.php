@@ -17,40 +17,41 @@ class MapNormalizerTest extends TestCase
 {
     public function testSupportedTypes(): void
     {
-        $denormalizer = new MapNormalizer();
+        $normalizer = new MapNormalizer();
 
         static::assertSame(
             [Map::class => true],
-            $denormalizer->getSupportedTypes('json'),
+            $normalizer->getSupportedTypes('json'),
         );
     }
 
     public function testSupportsNormalization(): void
     {
-        $denormalizer = new MapNormalizer();
+        $normalizer = new MapNormalizer();
 
-        static::assertTrue($denormalizer->supportsNormalization(new Map()));
-        static::assertFalse($denormalizer->supportsNormalization([]));
+        static::assertTrue($normalizer->supportsNormalization(new Map()));
+        static::assertFalse($normalizer->supportsNormalization([]));
     }
+
     #[DataProvider('maps')]
     public function testNormalize(mixed $value, ArrayObject $expected): void
     {
-        $denormalizer = new MapNormalizer();
+        $normalizer = new MapNormalizer();
 
         self::assertEquals(
             $expected,
-            $denormalizer->normalize($value, Map::class),
+            $normalizer->normalize($value, Map::class),
         );
     }
 
     public static function maps(): Generator
     {
         yield 'filled array' => [
-            [
+            new Map([
                 'a' => 1,
                 'b' => 2,
                 'c' => 3,
-            ],
+            ]),
             new ArrayObject([
                 'a' => 1,
                 'b' => 2,
@@ -59,17 +60,8 @@ class MapNormalizerTest extends TestCase
         ];
 
         yield 'empty array' => [
-            [],
+            new Map([]),
             new ArrayObject(),
-        ];
-
-        yield Map::class => [
-            new ArrayObject([
-                'a' => 1,
-            ]),
-            new ArrayObject([
-                'a' => 1,
-            ]),
         ];
     }
 }

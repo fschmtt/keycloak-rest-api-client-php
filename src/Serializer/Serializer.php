@@ -44,6 +44,7 @@ class Serializer
             new ArrayDenormalizer(),
             new CollectionDenormalizer($propertyNormalizer),
             new MapNormalizer(),
+            new MapDenormalizer(),
             new AttributeNormalizer($propertyNormalizer, $keycloakVersion),
             $propertyNormalizer,
         ], [
