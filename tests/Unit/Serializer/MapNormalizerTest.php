@@ -8,6 +8,7 @@ use ArrayObject;
 use Fschmtt\Keycloak\Serializer\MapNormalizer;
 use Fschmtt\Keycloak\Type\Map;
 use Generator;
+use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -38,15 +39,25 @@ class MapNormalizerTest extends TestCase
     {
         $normalizer = new MapNormalizer();
 
-        self::assertEquals(
+        static::assertEquals(
             $expected,
             $normalizer->normalize($value, Map::class),
         );
     }
 
+    public function testThrowsIfDataIsNotAMap(): void
+    {
+        $normalizer = new MapNormalizer();
+
+        static::expectException(InvalidArgumentException::class);
+        static::expectExceptionMessage(sprintf('Data must be an instance of "%s"', Map::class));
+
+        $normalizer->normalize([]);
+    }
+
     public static function maps(): Generator
     {
-        yield 'filled array' => [
+        yield 'filled map' => [
             new Map([
                 'a' => 1,
                 'b' => 2,
@@ -59,8 +70,8 @@ class MapNormalizerTest extends TestCase
             ]),
         ];
 
-        yield 'empty array' => [
-            new Map([]),
+        yield 'empty map' => [
+            new Map(),
             new ArrayObject(),
         ];
     }

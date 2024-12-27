@@ -109,7 +109,7 @@ class RealmsTest extends TestCase
     {
         $realm = $this->getKeycloak()->realms()->get(realm: 'master');
 
-        static::assertNull($realm->getAttributes()->map['termsUrl']);
+        static::assertFalse($realm->getAttributes()->contains('termsUrl'));
 
         $realm = $realm->withAttributes(new Map([
             'termsUrl' => 'https://example.com/terms',
@@ -119,6 +119,6 @@ class RealmsTest extends TestCase
 
         $updatedRealm = $this->getKeycloak()->realms()->get(realm: $realm->getRealm());
 
-        static::assertEquals('https://example.com/terms', $updatedRealm->getAttributes()->map['termsUrl']);
+        static::assertEquals('https://example.com/terms', $updatedRealm->getAttributes()->get('termsUrl'));
     }
 }
