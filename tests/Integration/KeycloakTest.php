@@ -14,13 +14,13 @@ class KeycloakTest extends TestCase
     public function testFetchesKeycloakVersionBeforeResourceIsAccessedForTheFirstTime(): void
     {
         $reflection = new ReflectionClass($this->getKeycloak());
-        $version = $reflection->getProperty('version')->getValue($this->keycloak);
+        $version = $reflection->getProperty('version')->getValue($this->getKeycloak());
 
         static::assertNull($version);
 
-        $this->keycloak->realms();
+        $this->getKeycloak()->realms();
 
-        $version = $reflection->getProperty('version')->getValue($this->keycloak);
+        $version = $reflection->getProperty('version')->getValue($this->getKeycloak());
         static::assertIsString($version);
     }
 }

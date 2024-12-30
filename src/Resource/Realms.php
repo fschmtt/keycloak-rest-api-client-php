@@ -47,8 +47,7 @@ class Realms extends Resource
             new Command(
                 '/admin/realms',
                 Method::POST,
-                [],
-                $realm,
+                payload: $realm,
             ),
         );
 
