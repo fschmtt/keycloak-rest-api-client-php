@@ -7,6 +7,7 @@ namespace Fschmtt\Keycloak\Test\Integration\Resource;
 use Fschmtt\Keycloak\Collection\RealmCollection;
 use Fschmtt\Keycloak\Representation\Realm;
 use Fschmtt\Keycloak\Test\Integration\IntegrationTestBehaviour;
+use Fschmtt\Keycloak\Type\Map;
 use PHPUnit\Framework\TestCase;
 
 class RealmsTest extends TestCase
@@ -102,5 +103,22 @@ class RealmsTest extends TestCase
         $this->expectNotToPerformAssertions();
 
         $this->getKeycloak()->realms()->deleteAdminEvents('master');
+    }
+
+    public function testCanUpdateRealmAttributes(): void
+    {
+        $realm = $this->getKeycloak()->realms()->get(realm: 'master');
+
+        static::assertFalse($realm->getAttributes()->contains('termsUrl'));
+
+        $realm = $realm->withAttributes(new Map([
+            'termsUrl' => 'https://example.com/terms',
+        ]));
+
+        $this->getKeycloak()->realms()->update($realm->getRealm(), $realm);
+
+        $updatedRealm = $this->getKeycloak()->realms()->get(realm: $realm->getRealm());
+
+        static::assertEquals('https://example.com/terms', $updatedRealm->getAttributes()->get('termsUrl'));
     }
 }

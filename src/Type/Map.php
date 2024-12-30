@@ -7,22 +7,21 @@ namespace Fschmtt\Keycloak\Type;
 use ArrayIterator;
 use Countable;
 use IteratorAggregate;
+use OutOfBoundsException;
 use Traversable;
 
-use function count;
-
 /**
- * @internal
+ * @template T
  *
- * @implements IteratorAggregate<string, mixed>
+ * @implements IteratorAggregate<string, T>
  */
 class Map extends Type implements Countable, IteratorAggregate
 {
     /**
-     * @param array<mixed> $map
+     * @param array<string, T> $map
      */
     public function __construct(
-        private readonly array $map = [],
+        private array $map = [],
     ) {}
 
     public function jsonSerialize(): object
@@ -38,5 +37,45 @@ class Map extends Type implements Countable, IteratorAggregate
     public function count(): int
     {
         return count($this->map);
+    }
+
+    public function contains(string $key): bool
+    {
+        return array_key_exists($key, $this->map);
+    }
+
+    public function get(string $key): mixed
+    {
+        if (!$this->contains($key)) {
+            throw new OutOfBoundsException(sprintf('Key "%s" does not exist in map', $key));
+        }
+
+        return $this->map[$key];
+    }
+
+    public function with(string $key, mixed $value): self
+    {
+        $clone = clone $this;
+
+        $clone->map[$key] = $value;
+
+        return $clone;
+    }
+
+    public function without(string $key): self
+    {
+        $clone = clone $this;
+
+        unset($clone->map[$key]);
+
+        return $clone;
+    }
+
+    /**
+     * @return array<string, T>
+     */
+    public function getMap(): array
+    {
+        return $this->map;
     }
 }

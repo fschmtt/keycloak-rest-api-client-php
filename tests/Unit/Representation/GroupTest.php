@@ -19,9 +19,9 @@ class GroupTest extends TestCase
     protected function setUp(): void
     {
         $subGroup = new Group(
-            access: new Map(['acl-a', 'acl-b']),
-            attributes: new Map(['attr-1', 'attr-2']),
-            clientRoles: new Map(['client-role-x', 'client-role-y', 'client-role-z']),
+            access: new Map(['acl-a' => true, 'acl-b' => false]),
+            attributes: new Map(['attr-1' => 'val-1', 'attr-2' => 'val-2']),
+            clientRoles: new Map(['client-role-x' => ['foo', 'bar'], 'client-role-y' => ['foo', 'bar'], 'client-role-z' => ['foo', 'bar']]),
             id: 'unique-id',
             name: 'unique-name',
             path: '/where/am/i',
@@ -30,9 +30,9 @@ class GroupTest extends TestCase
         $subGroup->withId('unique-id');
 
         $this->group = new Group(
-            access: new Map(['acl-a', 'acl-b']),
-            attributes: new Map(['attr-1', 'attr-2']),
-            clientRoles: new Map(['client-role-x', 'client-role-y', 'client-role-z']),
+            access: new Map(['acl-a' => true, 'acl-b' => false]),
+            attributes: new Map(['attr-1' => 'val-1', 'attr-2' => 'val-2']),
+            clientRoles: new Map(['client-role-x' => ['foo', 'bar'], 'client-role-y' => ['foo', 'bar'], 'client-role-z' => ['foo', 'bar']]),
             id: 'unique-id',
             name: 'unique-name',
             path: '/where/am/i',
@@ -75,17 +75,17 @@ class GroupTest extends TestCase
     {
         $group = [
             'access' => new Map([
-                'acl-a',
-                'acl-b',
+                'acl-a' => true,
+                'acl-b' => false,
             ]),
             'attributes' => new Map([
-                'attr-1',
-                'attr-2',
+                'attr-1' => 'val-1',
+                'attr-2' => 'val-2',
             ]),
             'clientRoles' => new Map([
-                'client-role-x',
-                'client-role-y',
-                'client-role-z',
+                'client-role-x' => ['foo', 'bar'],
+                'client-role-y' => ['foo', 'bar'],
+                'client-role-z' => ['foo', 'bar'],
             ]),
             'id' => 'unique-id',
             'name' => 'unique-name',
