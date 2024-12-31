@@ -30,7 +30,7 @@ class Command
     public function getPath(): string
     {
         $placeholders = array_map(
-            static fn(string $parameter): string => '{' . $parameter . '}',
+            static fn (string $parameter): string => '{' . $parameter . '}',
             array_keys($this->parameters),
         );
 

@@ -10,6 +10,7 @@ $finder = (new PhpCsFixer\Finder())
 return (new PhpCsFixer\Config())
     ->setParallelConfig(ParallelConfigFactory::detect())
     ->setRules([
-        '@PER-CS' => true,
+        '@PER-CS2.0' => true,
+        '@PSR12' => true,
     ])
     ->setFinder($finder);
