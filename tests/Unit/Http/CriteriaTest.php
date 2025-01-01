@@ -62,7 +62,7 @@ class CriteriaTest extends TestCase
     public function testCanCreateCriteriaWithStringableCriterion(): void
     {
         $criteria = new Criteria([
-            'stringable' => new class implements Stringable {
+            'stringable' => new class () implements Stringable {
                 public function __toString(): string
                 {
                     return 'criterion';

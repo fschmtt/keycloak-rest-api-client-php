@@ -10,8 +10,6 @@ use Fschmtt\Keycloak\Representation\OrganizationDomain;
 use Fschmtt\Keycloak\Representation\Realm;
 use Fschmtt\Keycloak\Test\Integration\IntegrationTestBehaviour;
 use GuzzleHttp\Exception\ServerException;
-use PHPUnit\Framework\Attributes\AfterClass;
-use PHPUnit\Framework\Attributes\BeforeClass;
 use PHPUnit\Framework\TestCase;
 
 class OrganizationsTest extends TestCase
