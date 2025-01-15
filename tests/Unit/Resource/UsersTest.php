@@ -10,6 +10,7 @@ use Fschmtt\Keycloak\Collection\RoleCollection;
 use Fschmtt\Keycloak\Collection\UserCollection;
 use Fschmtt\Keycloak\Http\Command;
 use Fschmtt\Keycloak\Http\CommandExecutor;
+use Fschmtt\Keycloak\Http\ContentType;
 use Fschmtt\Keycloak\Http\Criteria;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
@@ -410,6 +411,7 @@ class UsersTest extends TestCase
                 'realm' => 'test-realm',
                 'userId' => 'test-user-id',
             ],
+            contentType: ContentType::JSON,
         );
 
         $commandExecutor = $this->createMock(CommandExecutor::class);
