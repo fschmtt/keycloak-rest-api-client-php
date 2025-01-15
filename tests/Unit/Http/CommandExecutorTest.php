@@ -118,6 +118,9 @@ class CommandExecutorTest extends TestCase
                 '/path/to/resource',
                 [
                     'form_params' => $payload,
+                    'headers' => [
+                        'Content-Type' => 'application/x-www-form-urlencoded',
+                    ],
                 ],
             );
 

@@ -20,11 +20,25 @@ class Command
         /** @var Representation|Collection|array<mixed>|null */
         private readonly Representation|Collection|array|null $payload = null,
         private readonly ?Criteria $criteria = null,
+        private readonly ?ContentType $contentType = null,
     ) {}
 
     public function getMethod(): Method
     {
         return $this->method;
+    }
+
+    public function getContentType(): ContentType
+    {
+        if ($this->contentType !== null) {
+            return $this->contentType;
+        }
+
+        if (is_array($this->payload)) {
+            return ContentType::FORM_DATA;
+        }
+
+        return ContentType::JSON;
     }
 
     public function getPath(): string
