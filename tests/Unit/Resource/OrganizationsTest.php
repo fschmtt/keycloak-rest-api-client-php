@@ -7,6 +7,7 @@ namespace Fschmtt\Keycloak\Test\Unit\Resource;
 use Fschmtt\Keycloak\Collection\OrganizationCollection;
 use Fschmtt\Keycloak\Http\Command;
 use Fschmtt\Keycloak\Http\CommandExecutor;
+use Fschmtt\Keycloak\Http\ContentType;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Http\QueryExecutor;
@@ -148,6 +149,7 @@ class OrganizationsTest extends TestCase
                 'firstName' => 'first name',
                 'lastName' => 'last name',
             ],
+            contentType: ContentType::FORM_PARAMS,
         );
 
         $commandExecutor = $this->createMock(CommandExecutor::class);

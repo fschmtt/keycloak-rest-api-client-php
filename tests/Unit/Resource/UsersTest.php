@@ -411,7 +411,6 @@ class UsersTest extends TestCase
                 'realm' => 'test-realm',
                 'userId' => 'test-user-id',
             ],
-            contentType: ContentType::JSON,
         );
 
         $commandExecutor = $this->createMock(CommandExecutor::class);

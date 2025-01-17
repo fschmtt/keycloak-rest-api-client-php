@@ -20,23 +20,15 @@ class CommandExecutor
 
     public function executeCommand(Command $command): void
     {
-        $contentType = $command->getContentType();
-        $payload = $command->getPayload();
-
-        $options = [
-            'headers' => [
-                'Content-Type' => $contentType->value,
+        $options = match ($command->getContentType()) {
+            ContentType::JSON => [
+                'body' => $this->serializer->serialize($command->getPayload()),
+                'headers' => [
+                    'Content-Type' => $command->getContentType()->value,
+                ]
             ],
-        ];
-
-        switch ($contentType) {
-            case ContentType::JSON:
-                $options['body'] = $this->serializer->serialize($payload);
-                break;
-            case ContentType::FORM_DATA:
-                $options['form_params'] = $payload;
-                break;
-        }
+            ContentType::FORM_PARAMS => ['form_params' => $command->getPayload()],
+        };
 
         $this->client->request(
             $command->getMethod()->value,

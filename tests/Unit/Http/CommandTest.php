@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Test\Unit\Http;
 
 use Fschmtt\Keycloak\Http\Command;
+use Fschmtt\Keycloak\Http\ContentType;
 use Fschmtt\Keycloak\Http\Criteria;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Test\Unit\Stub\Collection;
@@ -83,5 +84,19 @@ class CommandTest extends TestCase
                 ]),
             ))->getPath(),
         );
+    }
+
+    public function testContentTypeDefaultsToJson(): void
+    {
+        $command = new Command('/path', Method::GET);
+
+        static::assertSame(ContentType::JSON, $command->getContentType());
+    }
+
+    public function testContentTypeCanBeSetToFormParams(): void
+    {
+        $command = new Command('/path', Method::GET, contentType: ContentType::FORM_PARAMS);
+
+        static::assertSame(ContentType::FORM_PARAMS, $command->getContentType());
     }
 }
