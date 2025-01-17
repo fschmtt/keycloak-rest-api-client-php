@@ -189,6 +189,26 @@ class UsersTest extends TestCase
         static::assertNull($user);
     }
 
+    public function testExecuteActionsEmail(): void
+    {
+        $users = $this->getKeycloak()->users();
+        $username = Uuid::uuid4()->toString();
+
+        $users->create('master', new User(
+            username: $username,
+        ));
+
+        $user = $this->searchUserByUsername($username);
+        static::assertInstanceOf(User::class, $user);
+
+        $users->executeActionsEmail('master', $user->getId(), ['UPDATE_PASSWORD']);
+
+        $users->delete('master', $user->getId());
+
+        $user = $this->searchUserByUsername($username);
+        static::assertNull($user);
+    }
+
     private function searchUserByUsername(string $username, string $realm = 'master'): ?User
     {
         /** @var User|null $user */

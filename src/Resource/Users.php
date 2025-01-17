@@ -220,7 +220,6 @@ class Users extends Resource
                 ],
                 $actions,
                 $criteria,
-                ContentType::JSON,
             ),
         );
     }
