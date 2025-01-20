@@ -133,6 +133,8 @@ $myCustomRepresentation = $myCustomResource->myCustomEndpoint();
 | `POST /admin/realms/{realm}/groups`               | `n/a`                                                 | [Groups::create()](src/Resource/Groups.php)   |
 | `POST /admin/realms/{realm}/groups/{id}/children` | `n/a`                                                 | [Groups::create()](src/Resource/Groups.php)   |
 | `DELETE /admin/realms/{realm}/groups`             | `n/a`                                                 | [Groups::delete()](src/Resource/Groups.php)   |
+| `GET /admin/realms/{realm}/group-by-path/{path}`  | [Group](src/Representation/Group.php)                 | [Groups::byPath()](src/Resource/Groups.php)   |
+
 
 ### [Realms Admin](https://www.keycloak.org/docs-api/26.0.0/rest-api/index.html#_realms_admin)
 
