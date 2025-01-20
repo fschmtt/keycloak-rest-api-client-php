@@ -27,6 +27,20 @@ class Groups extends Resource
         );
     }
 
+    public function byPath(string $realm, string $path = ''): Group
+    {
+        return $this->queryExecutor->executeQuery(
+            new Query(
+                '/admin/realms/{realm}/group-by-path/{path}',
+                Group::class,
+                [
+                    'realm' => $realm,
+                    'path' => $path,
+                ]    
+            )
+        );
+    }
+
     public function children(string $realm, string $groupId, ?Criteria $criteria = null): GroupCollection
     {
         return $this->queryExecutor->executeQuery(
