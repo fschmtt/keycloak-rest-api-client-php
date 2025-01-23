@@ -7,6 +7,7 @@ namespace Fschmtt\Keycloak\Test\Unit\Http;
 use Fschmtt\Keycloak\Http\Client;
 use Fschmtt\Keycloak\Http\Command;
 use Fschmtt\Keycloak\Http\CommandExecutor;
+use Fschmtt\Keycloak\Http\ContentType;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Json\JsonEncoder;
 use Fschmtt\Keycloak\Serializer\Serializer;
@@ -43,7 +44,7 @@ class CommandExecutorTest extends TestCase
         );
     }
 
-    public function testCallsClientWithBodyIfCommandHasRepresentation(): void
+    public function testCallsClientWithJsonIfCommandHasRepresentation(): void
     {
         $command = new Command(
             '/path/to/resource',
@@ -101,13 +102,14 @@ class CommandExecutorTest extends TestCase
         $executor->executeCommand($command);
     }
 
-    public function testCallsClientWithFormParamsIfCommandHasArrayPayload(): void
+    public function testCallsClientWithFormParamsIfCommandFormParamContentType(): void
     {
         $command = new Command(
             '/path/to/resource',
             Method::PUT,
             [],
             $payload = ['UPDATE_PASSWORD', 'VERIFY_EMAIL'],
+            contentType: ContentType::FORM_PARAMS,
         );
 
         $client = $this->createMock(Client::class);

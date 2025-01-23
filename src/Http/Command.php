@@ -20,6 +20,7 @@ class Command
         /** @var Representation|Collection|array<mixed>|null */
         private readonly Representation|Collection|array|null $payload = null,
         private readonly ?Criteria $criteria = null,
+        private readonly ContentType $contentType = ContentType::JSON,
     ) {}
 
     public function getMethod(): Method
@@ -60,5 +61,10 @@ class Command
         }
 
         return '?' . http_build_query($this->criteria->jsonSerialize());
+    }
+
+    public function getContentType(): ContentType
+    {
+        return $this->contentType;
     }
 }

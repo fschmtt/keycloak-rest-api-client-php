@@ -20,29 +20,20 @@ class CommandExecutor
 
     public function executeCommand(Command $command): void
     {
-        $payload = $command->getPayload();
-
-        if (is_array($payload)) {
-            $this->client->request(
-                $command->getMethod()->value,
-                $command->getPath(),
-                [
-                    'form_params' => $payload,
+        $options = match ($command->getContentType()) {
+            ContentType::JSON => [
+                'body' => $this->serializer->serialize($command->getPayload()),
+                'headers' => [
+                    'Content-Type' => $command->getContentType()->value,
                 ],
-            );
-
-            return;
-        }
+            ],
+            ContentType::FORM_PARAMS => ['form_params' => $command->getPayload()],
+        };
 
         $this->client->request(
             $command->getMethod()->value,
             $command->getPath(),
-            [
-                'body' => $this->serializer->serialize($command->getPayload()),
-                'headers' => [
-                    'Content-Type' => 'application/json',
-                ],
-            ],
+            $options,
         );
     }
 }

@@ -6,6 +6,7 @@ namespace Fschmtt\Keycloak\Resource;
 
 use Fschmtt\Keycloak\Collection\OrganizationCollection;
 use Fschmtt\Keycloak\Http\Command;
+use Fschmtt\Keycloak\Http\ContentType;
 use Fschmtt\Keycloak\Http\Criteria;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
@@ -71,6 +72,7 @@ class Organizations extends Resource
                     'firstName' => $firstName,
                     'lastName' => $lastName,
                 ],
+                contentType: ContentType::FORM_PARAMS,
             ),
         );
     }
