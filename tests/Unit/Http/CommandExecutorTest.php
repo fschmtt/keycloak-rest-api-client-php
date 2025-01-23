@@ -31,7 +31,7 @@ class CommandExecutorTest extends TestCase
                     'body' => null,
                     'headers' => [
                         'Content-Type' => 'application/json',
-                    ]
+                    ],
                 ],
             );
 

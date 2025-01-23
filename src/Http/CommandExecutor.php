@@ -25,7 +25,7 @@ class CommandExecutor
                 'body' => $this->serializer->serialize($command->getPayload()),
                 'headers' => [
                     'Content-Type' => $command->getContentType()->value,
-                ]
+                ],
             ],
             ContentType::FORM_PARAMS => ['form_params' => $command->getPayload()],
         };
