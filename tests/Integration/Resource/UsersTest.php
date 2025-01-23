@@ -13,6 +13,7 @@ use Fschmtt\Keycloak\Representation\Group;
 use Fschmtt\Keycloak\Representation\Role;
 use Fschmtt\Keycloak\Representation\User;
 use Fschmtt\Keycloak\Test\Integration\IntegrationTestBehaviour;
+use GuzzleHttp\Exception\ServerException;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
@@ -195,13 +196,20 @@ class UsersTest extends TestCase
         $username = Uuid::uuid4()->toString();
 
         $users->create('master', new User(
+            email: 'john.doe@example.com',
+            enabled: true,
             username: $username,
         ));
 
         $user = $this->searchUserByUsername($username);
         static::assertInstanceOf(User::class, $user);
 
-        $users->executeActionsEmail('master', $user->getId(), ['UPDATE_PASSWORD']);
+        try {
+            $users->executeActionsEmail('master', $user->getId(), ['UPDATE_PASSWORD']);
+        } catch (ServerException $e) {
+            static::assertSame(500, $e->getResponse()->getStatusCode());
+            static::assertStringContainsString('Failed to send execute actions email', $e->getResponse()->getBody()->getContents());
+        }
 
         $users->delete('master', $user->getId());
 
