@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Resource;
 
 use Fschmtt\Keycloak\Collection\GroupCollection;
+use Fschmtt\Keycloak\Collection\UserCollection;
 use Fschmtt\Keycloak\Http\Command;
 use Fschmtt\Keycloak\Http\Criteria;
 use Fschmtt\Keycloak\Http\Method;
@@ -36,7 +37,7 @@ class Groups extends Resource
                 [
                     'realm' => $realm,
                     'path' => $path,
-                ]    
+                ]
             )
         );
     }
@@ -47,6 +48,21 @@ class Groups extends Resource
             new Query(
                 '/admin/realms/{realm}/groups/{groupId}/children',
                 GroupCollection::class,
+                [
+                    'realm' => $realm,
+                    'groupId' => $groupId,
+                ],
+                $criteria
+            )
+        );
+    }
+
+    public function members(string $realm, string $groupId, ?Criteria $criteria = null): UserCollection
+    {
+        return $this->queryExecutor->executeQuery(
+            new Query(
+                '/admin/realms/{realm}/groups/{groupId}/members',
+                UserCollection::class,
                 [
                     'realm' => $realm,
                     'groupId' => $groupId,
