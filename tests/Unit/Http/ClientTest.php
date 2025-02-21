@@ -7,6 +7,7 @@ namespace Fschmtt\Keycloak\Test\Unit\Http;
 use DateTimeImmutable;
 use Fschmtt\Keycloak\Http\Client;
 use Fschmtt\Keycloak\Keycloak;
+use Fschmtt\Keycloak\OAuth\GrantType\Password;
 use Fschmtt\Keycloak\OAuth\TokenStorage\InMemory as InMemoryTokenStorage;
 use Fschmtt\Keycloak\Test\Unit\TokenGenerator;
 use GuzzleHttp\ClientInterface;
@@ -25,9 +26,8 @@ class ClientTest extends TestCase
     protected function setUp(): void
     {
         $this->keycloak = new Keycloak(
-            'http://keycloak:8080',
-            'admin',
-            'admin',
+            baseUrl: 'http://keycloak:8080',
+            grantType: new Password('admin', 'admin'),
         );
     }
 
@@ -66,7 +66,12 @@ class ClientTest extends TestCase
                 $realmsResponse,
             );
 
-        $client = new Client($this->keycloak, $httpClient, new InMemoryTokenStorage());
+        $client = new Client(
+            $this->keycloak,
+            $httpClient,
+            new InMemoryTokenStorage(),
+            new Password('admin', 'admin'),
+        );
         $client->request('GET', '/admin/realms');
 
         static::assertTrue($client->isAuthorized());
@@ -78,6 +83,7 @@ class ClientTest extends TestCase
             $this->keycloak,
             $this->createMock(ClientInterface::class),
             new InMemoryTokenStorage(),
+            new Password('admin', 'admin'),
         );
 
         static::assertFalse($client->isAuthorized());
@@ -94,6 +100,7 @@ class ClientTest extends TestCase
             $this->keycloak,
             $this->createMock(ClientInterface::class),
             $tokenStorage,
+            new Password('admin', 'admin'),
         );
 
         static::assertFalse($client->isAuthorized());
@@ -110,6 +117,7 @@ class ClientTest extends TestCase
             $this->keycloak,
             $this->createMock(ClientInterface::class),
             $tokenStorage,
+            new Password('admin', 'admin'),
         );
 
         static::assertTrue($client->isAuthorized());
