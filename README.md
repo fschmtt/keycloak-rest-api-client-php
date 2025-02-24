@@ -24,8 +24,7 @@ Example:
 ```php
 $keycloak = new \Fschmtt\Keycloak\Keycloak(
     baseUrl: 'http://keycloak:8080',
-    username: 'admin',
-    password: 'admin'
+    new \Fschmtt\Keycloak\OAuth\GrantType\Password('admin', 'admin')
 );
 
 $serverInfo = $keycloak->serverInfo()->get();
@@ -93,8 +92,7 @@ It provides you with an instance of your resource you can then work with:
 ```php
 $keycloak = new Keycloak(
     $_SERVER['KEYCLOAK_BASE_URL'] ?? 'http://keycloak:8080',
-    'admin',
-    'admin',
+    new \Fschmtt\Keycloak\OAuth\GrantType\Password('admin', 'admin')
 );
 
 $myCustomResource = $keycloak->resource(MyCustomResource::class);
