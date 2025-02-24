@@ -58,10 +58,9 @@ class ClientTest extends TestCase
         );
 
         $httpClient = $this->createMock(ClientInterface::class);
-        $httpClient->expects(static::exactly(3))
+        $httpClient->expects(static::exactly(2))
             ->method('request')
             ->willReturnOnConsecutiveCalls(
-                $this->throwException($this->createMock(ClientException::class)),
                 $authorizationResponse,
                 $realmsResponse,
             );

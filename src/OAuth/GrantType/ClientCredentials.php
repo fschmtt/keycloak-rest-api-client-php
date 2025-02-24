@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\OAuth\GrantType;
 
 use Fschmtt\Keycloak\OAuth\GrantTypeInterface;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\GuzzleException;
+use JsonException;
 
 class ClientCredentials implements GrantTypeInterface
 {
@@ -13,18 +16,33 @@ class ClientCredentials implements GrantTypeInterface
         private readonly string $clientSecret,
     ) {}
 
-    public function getFetchTokenFormParams(): array
+    /**
+     * @throws GuzzleException
+     * @throws JsonException
+     */
+    public function fetchTokens(ClientInterface $httpClient, string $baseUrl, ?string $refreshToken = null): array
     {
-        return [
-            'grant_type' => 'client_credentials',
-            'client_id' => $this->clientId,
-            'client_secret' => $this->clientSecret,
-        ];
-    }
+        $response = $httpClient->request(
+            'POST',
+            $baseUrl . '/realms/master/protocol/openid-connect/token',
+            [
+                'form_params' => [
+                    'grant_type' => 'client_credentials',
+                    'client_id' => $this->clientId,
+                    'client_secret' => $this->clientSecret,
+                ],
+            ],
+        );
 
-    public function getRefreshTokenFormParams(?string $refreshToken): array
-    {
-        // client_credentials tokens cannot be refreshed, but you could return an empty array or throw an exception.
-        return [];
+        $tokens = json_decode(
+            $response->getBody()->getContents(),
+            associative: true,
+            flags: JSON_THROW_ON_ERROR,
+        );
+
+        return [
+            'access_token' => $tokens['access_token'],
+            'refresh_token' => null,
+        ];
     }
 }

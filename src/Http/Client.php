@@ -9,7 +9,6 @@ use Fschmtt\Keycloak\Keycloak;
 use Fschmtt\Keycloak\OAuth\GrantTypeInterface;
 use Fschmtt\Keycloak\OAuth\TokenStorageInterface;
 use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\ClientException;
 use Lcobucci\JWT\Encoding\JoseEncoder;
 use Lcobucci\JWT\Token;
 use Psr\Http\Message\ResponseInterface;
@@ -58,47 +57,21 @@ class Client
 
     private function authorize(): void
     {
-        $tokens = $this->fetchTokens();
-        $parser = (new Token\Parser(new JoseEncoder()));
-
-        $this->tokenStorage->storeAccessToken($parser->parse($tokens['access_token']));
-        $this->tokenStorage->storeRefreshToken($parser->parse($tokens['refresh_token']));
-    }
-
-    /**
-     * @return array{access_token: non-empty-string, refresh_token: non-empty-string}
-     */
-    private function fetchTokens(): array
-    {
-        try {
-            $response = $this->httpClient->request(
-                'POST',
-                $this->keycloak->getBaseUrl() . '/realms/master/protocol/openid-connect/token',
-                [
-                    'form_params' => $this->grantType->getRefreshTokenFormParams(
-                        $this->tokenStorage->retrieveRefreshToken()?->toString(),
-                    ),
-                ],
-            );
-        } catch (ClientException $e) {
-            $response = $this->httpClient->request(
-                'POST',
-                $this->keycloak->getBaseUrl() . '/realms/master/protocol/openid-connect/token',
-                [
-                    'form_params' => $this->grantType->getFetchTokenFormParams(),
-                ],
-            );
-        }
-
-        $tokens = json_decode(
-            $response->getBody()->getContents(),
-            true,
-            flags: JSON_THROW_ON_ERROR,
+        [
+            'access_token' => $accessToken,
+            'refresh_token' => $refreshToken,
+        ] = $this->grantType->fetchTokens(
+            $this->httpClient,
+            $this->keycloak->getBaseUrl(),
+            $this->tokenStorage->retrieveRefreshToken()?->toString(),
         );
 
-        return [
-            'access_token' => $tokens['access_token'],
-            'refresh_token' => $tokens['refresh_token'],
-        ];
+        $parser = (new Token\Parser(new JoseEncoder()));
+
+
+        $this->tokenStorage->storeAccessToken($parser->parse($accessToken));
+        if ($refreshToken) {
+            $this->tokenStorage->storeRefreshToken($parser->parse($refreshToken));
+        }
     }
 }

@@ -2,20 +2,12 @@
 
 namespace Fschmtt\Keycloak\OAuth;
 
+use GuzzleHttp\ClientInterface;
+
 interface GrantTypeInterface
 {
     /**
-     * Returns form parameters for fetching an access token.
-     *
-     * @return array<string, string>
+     * @return array{access_token: non-empty-string, refresh_token: non-empty-string|null}
      */
-    public function getFetchTokenFormParams(): array;
-
-    /**
-     * Returns form parameters for refreshing an access token.
-     *
-     * @param string|null $refreshToken
-     * @return array<string, string>
-     */
-    public function getRefreshTokenFormParams(?string $refreshToken): array;
+    public function fetchTokens(ClientInterface $httpClient, string $baseUrl, ?string $refreshToken = null): array;
 }
