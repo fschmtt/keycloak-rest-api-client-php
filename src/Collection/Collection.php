@@ -82,4 +82,12 @@ abstract class Collection implements Countable, IteratorAggregate, JsonSerializa
     {
         return $this->items[0] ?? null;
     }
+
+    /**
+     * @return array<array-key, T>
+     */
+    public function all(): array
+    {
+        return $this->items;
+    }
 }
