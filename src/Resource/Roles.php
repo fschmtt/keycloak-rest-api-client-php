@@ -68,4 +68,19 @@ class Roles extends Resource
             ),
         );
     }
+
+    public function update(string $realm, Role $role): void
+    {
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms/{realm}/roles/{roleName}',
+                Method::PUT,
+                [
+                    'realm' => $realm,
+                    'roleName' => $role->getName(),
+                ],
+                $role,
+            ),
+        );
+    }
 }

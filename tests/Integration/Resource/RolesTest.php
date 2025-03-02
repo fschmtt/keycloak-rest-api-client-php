@@ -14,7 +14,7 @@ class RolesTest extends TestCase
 {
     use IntegrationTestBehaviour;
 
-    public function testCreateRetrieveDeleteRole(): void
+    public function testCreateRetrieveUpdateDeleteRole(): void
     {
         $resource = $this->getKeycloak()->roles();
 
@@ -40,6 +40,9 @@ class RolesTest extends TestCase
         // Get single (created) role
         $role = $resource->get('master', 'test-role');
         static::assertSame('test-role', $role->getName());
+
+        // Update (created) role
+        $resource->update('master', $role->withDescription('updated-test-role-description'));
 
         // Delete (created) role
         $resource->delete('master', 'test-role');
