@@ -79,7 +79,7 @@ class GroupsTest extends TestCase
         static::assertSame($childGroupName, $childGroup->getName());
 
         // get child group by path
-        $pathGroup = $groups->byPath('master', $importedGroupName.'/'.$childGroupName);
+        $pathGroup = $groups->byPath('master', $importedGroupName . '/' . $childGroupName);
         static::assertInstanceOf(Group::class, $pathGroup);
         static::assertSame($childGroup->getId(), $pathGroup->getId());
     }

@@ -37,8 +37,8 @@ class Groups extends Resource
                 [
                     'realm' => $realm,
                     'path' => $path,
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -67,8 +67,8 @@ class Groups extends Resource
                     'realm' => $realm,
                     'groupId' => $groupId,
                 ],
-                $criteria
-            )
+                $criteria,
+            ),
         );
     }
 
