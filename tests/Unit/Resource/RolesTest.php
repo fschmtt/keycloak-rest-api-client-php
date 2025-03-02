@@ -134,4 +134,34 @@ class RolesTest extends TestCase
 
         $roles->delete('test-realm', $deletedRoleName);
     }
+
+    public function testUpdateRole(): void
+    {
+        $updatedRole = new Role(name: 'updated-role');
+        $updatedRoleName = $updatedRole->getName();
+
+        static::assertIsString($updatedRoleName);
+
+        $command = new Command(
+            '/admin/realms/{realm}/roles/{roleName}',
+            Method::PUT,
+            [
+                'realm' => 'test-realm',
+                'roleName' => $updatedRoleName,
+            ],
+            $updatedRole,
+        );
+
+        $commandExecutor = $this->createMock(CommandExecutor::class);
+        $commandExecutor->expects(static::once())
+            ->method('executeCommand')
+            ->with($command);
+
+        $roles = new Roles(
+            $commandExecutor,
+            $this->createMock(QueryExecutor::class),
+        );
+
+        $roles->update('test-realm', $updatedRole);
+    }
 }
