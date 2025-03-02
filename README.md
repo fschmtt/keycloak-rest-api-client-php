@@ -127,11 +127,14 @@ $myCustomRepresentation = $myCustomResource->myCustomEndpoint();
 | ------------------------------------------------- | ----------------------------------------------------- | --------------------------------------------- |
 | `GET /admin/realms/{realm}/groups`                | [GroupCollection](src/Collection/GroupCollection.php) | [Groups::all()](src/Resource/Groups.php)      |
 | `GET /admin/realms/{realm}/groups/{id}/children`  | [GroupCollection](src/Collection/GroupCollection.php) | [Groups::children()](src/Resource/Groups.php) |
+| `GET /admin/realms/{realm}/groups/{id}/members`   | [UserCollection](src/Collection/UserCollection.php)   | [Groups::members()](src/Resource/Groups.php)  |
 | `GET /admin/realms/{realm}/groups/{id}`           | [Group](src/Representation/Group.php)                 | [Groups::get()](src/Resource/Groups.php)      |
 | `PUT /admin/realms/{realm}/groups/{id}`           | `n/a`                                                 | [Groups::update()](src/Resource/Groups.php)   |
 | `POST /admin/realms/{realm}/groups`               | `n/a`                                                 | [Groups::create()](src/Resource/Groups.php)   |
 | `POST /admin/realms/{realm}/groups/{id}/children` | `n/a`                                                 | [Groups::create()](src/Resource/Groups.php)   |
 | `DELETE /admin/realms/{realm}/groups`             | `n/a`                                                 | [Groups::delete()](src/Resource/Groups.php)   |
+| `GET /admin/realms/{realm}/group-by-path/{path}`  | [Group](src/Representation/Group.php)                 | [Groups::byPath()](src/Resource/Groups.php)   |
+
 
 ### [Organizations](https://www.keycloak.org/docs-api/26.0.0/rest-api/index.html#_organizations)
 
