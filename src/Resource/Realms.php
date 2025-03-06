@@ -11,6 +11,7 @@ use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Representation\KeysMetadata;
 use Fschmtt\Keycloak\Representation\Realm;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @phpstan-type AdminEvent array<mixed>
@@ -70,9 +71,9 @@ class Realms extends Resource
         return $this->get($updatedRealm->getRealm());
     }
 
-    public function delete(string $realm): void
+    public function delete(string $realm): ResponseInterface
     {
-        $this->commandExecutor->executeCommand(
+        return $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}',
                 Method::DELETE,
@@ -114,9 +115,9 @@ class Realms extends Resource
         );
     }
 
-    public function deleteAdminEvents(string $realm): void
+    public function deleteAdminEvents(string $realm): ResponseInterface
     {
-        $this->commandExecutor->executeCommand(
+        return $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/admin-events',
                 Method::DELETE,
@@ -127,9 +128,9 @@ class Realms extends Resource
         );
     }
 
-    public function clearKeysCache(string $realm): void
+    public function clearKeysCache(string $realm): ResponseInterface
     {
-        $this->commandExecutor->executeCommand(
+        return $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/clear-keys-cache',
                 Method::POST,
@@ -140,9 +141,9 @@ class Realms extends Resource
         );
     }
 
-    public function clearRealmCache(string $realm): void
+    public function clearRealmCache(string $realm): ResponseInterface
     {
-        $this->commandExecutor->executeCommand(
+        return $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/clear-realm-cache',
                 Method::POST,
@@ -153,9 +154,9 @@ class Realms extends Resource
         );
     }
 
-    public function clearUserCache(string $realm): void
+    public function clearUserCache(string $realm): ResponseInterface
     {
-        $this->commandExecutor->executeCommand(
+        return $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/clear-user-cache',
                 Method::POST,

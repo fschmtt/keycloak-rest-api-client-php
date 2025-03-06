@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Http;
 
 use Fschmtt\Keycloak\Serializer\Serializer;
+use Psr\Http\Message\ResponseInterface;
 
 use function is_array;
 
@@ -18,7 +19,7 @@ class CommandExecutor
         private readonly Serializer $serializer,
     ) {}
 
-    public function executeCommand(Command $command): void
+    public function executeCommand(Command $command): ResponseInterface
     {
         $options = match ($command->getContentType()) {
             ContentType::JSON => [
@@ -30,10 +31,6 @@ class CommandExecutor
             ContentType::FORM_PARAMS => ['form_params' => $command->getPayload()],
         };
 
-        $this->client->request(
-            $command->getMethod()->value,
-            $command->getPath(),
-            $options,
-        );
+        return $this->client->request($command->getMethod()->value, $command->getPath(), $options);
     }
 }

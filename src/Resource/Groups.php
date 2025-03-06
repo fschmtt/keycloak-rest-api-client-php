@@ -11,6 +11,8 @@ use Fschmtt\Keycloak\Http\Criteria;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Representation\Group;
+use GuzzleHttp\Psr7\Uri;
+use Psr\Http\Message\ResponseInterface;
 
 class Groups extends Resource
 {
@@ -86,9 +88,9 @@ class Groups extends Resource
         );
     }
 
-    public function create(string $realm, Group $group): void
+    public function create(string $realm, Group $group): Group
     {
-        $this->commandExecutor->executeCommand(
+        $response = $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/groups',
                 Method::POST,
@@ -98,11 +100,19 @@ class Groups extends Resource
                 $group,
             ),
         );
+
+        $groupId = $this->getIdFromResponse($response);
+
+        if (null === $groupId) {
+            throw new \RuntimeException('Could not extract group id from response');
+        }
+
+        return $this->get($realm, $groupId);
     }
 
-    public function createChild(string $realm, Group $group, string $parentGroupId): void
+    public function createChild(string $realm, Group $group, string $parentGroupId): Group
     {
-        $this->commandExecutor->executeCommand(
+        $response = $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/groups/{groupId}/children',
                 Method::POST,
@@ -113,11 +123,19 @@ class Groups extends Resource
                 $group,
             ),
         );
+
+        $groupId = $this->getIdFromResponse($response);
+
+        if (null === $groupId) {
+            throw new \RuntimeException('Could not extract group id from response');
+        }
+
+        return $this->get($realm, $groupId);
     }
 
-    public function update(string $realm, string $groupId, Group $updatedGroup): void
+    public function update(string $realm, string $groupId, Group $updatedGroup): ResponseInterface
     {
-        $this->commandExecutor->executeCommand(
+        return $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/groups/{groupId}',
                 Method::PUT,
@@ -130,9 +148,9 @@ class Groups extends Resource
         );
     }
 
-    public function delete(string $realm, string $groupId): void
+    public function delete(string $realm, string $groupId): ResponseInterface
     {
-        $this->commandExecutor->executeCommand(
+        return $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/groups/{groupId}',
                 Method::DELETE,
@@ -142,5 +160,15 @@ class Groups extends Resource
                 ],
             ),
         );
+    }
+
+    public function getIdFromResponse(ResponseInterface $response): ?string
+    {
+        //Location: http://keycloak:8080/admin/realms/{realm}/groups/1ccce35d-eeac-4eb7-90ec-268abc98c864
+        $location = $response->getHeaderLine('Location');
+
+        preg_match('~/groups/(?<id>[a-z0-9\-]+)$~', $location, $matches);
+
+        return $matches['id'] ?? null;
     }
 }

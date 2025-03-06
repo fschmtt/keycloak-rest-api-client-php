@@ -10,6 +10,7 @@ use Fschmtt\Keycloak\Http\Criteria;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Representation\Role;
+use Psr\Http\Message\ResponseInterface;
 
 class Roles extends Resource
 {
@@ -41,7 +42,7 @@ class Roles extends Resource
         );
     }
 
-    public function create(string $realm, Role $role): void
+    public function create(string $realm, Role $role): Role
     {
         $this->commandExecutor->executeCommand(
             new Command(
@@ -53,11 +54,13 @@ class Roles extends Resource
                 $role,
             ),
         );
+
+        return $this->get($realm, $role->getName());
     }
 
-    public function delete(string $realm, string $roleName): void
+    public function delete(string $realm, string $roleName): ResponseInterface
     {
-        $this->commandExecutor->executeCommand(
+        return $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/roles/{roleName}',
                 Method::DELETE,
@@ -69,7 +72,7 @@ class Roles extends Resource
         );
     }
 
-    public function update(string $realm, Role $role): void
+    public function update(string $realm, Role $role): Role
     {
         $this->commandExecutor->executeCommand(
             new Command(
@@ -82,5 +85,7 @@ class Roles extends Resource
                 $role,
             ),
         );
+
+        return $this->get($realm, $role->getName());
     }
 }

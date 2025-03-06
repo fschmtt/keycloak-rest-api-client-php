@@ -14,6 +14,7 @@ use Fschmtt\Keycloak\Http\QueryExecutor;
 use Fschmtt\Keycloak\Representation\Group;
 use Fschmtt\Keycloak\Representation\User;
 use Fschmtt\Keycloak\Resource\Groups;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -127,14 +128,24 @@ class GroupsTest extends TestCase
         $commandExecutor = $this->createMock(CommandExecutor::class);
         $commandExecutor->expects(static::once())
             ->method('executeCommand')
-            ->with($command);
+            ->with($command)
+            ->willReturn(new Response(204, [
+                'Location' => '/admin/realms/realm-with-groups/groups/uuid',
+            ]));
 
-        $groups = new Groups(
-            $commandExecutor,
-            $this->createMock(QueryExecutor::class),
-        );
+        $groups = $this->getMockBuilder(Groups::class)
+            ->setConstructorArgs([$commandExecutor, $this->createMock(QueryExecutor::class)])
+            ->onlyMethods(['get'])
+            ->getMock();
+        $groups->expects(static::once())
+            ->method('get')
+            ->with('realm-with-groups', 'uuid')
+            ->willReturn(new Group(id: 'uuid'));
 
-        $groups->create('realm-with-groups', $group);
+        $group = $groups->create('realm-with-groups', $group);
+
+        self::assertInstanceOf(Group::class, $group);
+        self::assertSame('uuid', $group->getId());
     }
 
     public function testCreateChildGroup(): void
@@ -154,14 +165,24 @@ class GroupsTest extends TestCase
         $commandExecutor = $this->createMock(CommandExecutor::class);
         $commandExecutor->expects(static::once())
             ->method('executeCommand')
-            ->with($command);
+            ->with($command)
+            ->willReturn(new Response(204, [
+                'Location' => '/admin/realms/realm-with-groups/groups/uuid',
+            ]));
 
-        $groups = new Groups(
-            $commandExecutor,
-            $this->createMock(QueryExecutor::class),
-        );
+        $groups = $this->getMockBuilder(Groups::class)
+            ->setConstructorArgs([$commandExecutor, $this->createMock(QueryExecutor::class)])
+            ->onlyMethods(['get'])
+            ->getMock();
+        $groups->expects(static::once())
+            ->method('get')
+            ->with('realm-with-groups', 'uuid')
+            ->willReturn(new Group(id: 'uuid'));
 
-        $groups->createChild('realm-with-groups', $group, 'parent-group-id');
+        $group = $groups->createChild('realm-with-groups', $group, 'parent-group-id');
+
+        self::assertInstanceOf(Group::class, $group);
+        self::assertSame('uuid', $group->getId());
     }
 
     public function testUpdateGroup(): void
@@ -181,14 +202,17 @@ class GroupsTest extends TestCase
         $commandExecutor = $this->createMock(CommandExecutor::class);
         $commandExecutor->expects(static::once())
             ->method('executeCommand')
-            ->with($command);
+            ->with($command)
+            ->willReturn($mockResponse = new Response());
 
         $groups = new Groups(
             $commandExecutor,
             $this->createMock(QueryExecutor::class),
         );
 
-        $groups->update('realm-with-groups', $group->getId(), $group);
+        $response = $groups->update('realm-with-groups', $group->getId(), $group);
+
+        $this->assertSame($mockResponse, $response);
     }
 
     public function testDeleteGroup(): void
@@ -207,14 +231,17 @@ class GroupsTest extends TestCase
         $commandExecutor = $this->createMock(CommandExecutor::class);
         $commandExecutor->expects(static::once())
             ->method('executeCommand')
-            ->with($command);
+            ->with($command)
+            ->willReturn($mockResponse = new Response());
 
         $groups = new Groups(
             $commandExecutor,
             $this->createMock(QueryExecutor::class),
         );
 
-        $groups->delete('realm-with-groups', $group->getId());
+        $response = $groups->delete('realm-with-groups', $group->getId());
+
+        $this->assertSame($mockResponse, $response);
     }
 
     public function testByPath(): void
@@ -267,5 +294,72 @@ class GroupsTest extends TestCase
 
         $members = $groups->members('realm-with-groups', 'group-1');
         static::assertCount(1, $members);
+    }
+
+    public function testCreateGroupWithoutResponseHeaderLocation(): void
+    {
+        $group = new Group(name: 'child-group');
+
+        $command = new Command(
+            '/admin/realms/{realm}/groups',
+            Method::POST,
+            [
+                'realm' => 'realm-with-groups',
+            ],
+            $group,
+        );
+
+        $commandExecutor = $this->createMock(CommandExecutor::class);
+        $commandExecutor->expects(static::once())
+            ->method('executeCommand')
+            ->with($command)
+            ->willReturn(new Response(204, [
+                // 'Location' => '/admin/realms/realm-with-groups/groups/uuid',
+            ]));
+
+        $groups = new Groups(
+            $commandExecutor,
+            $this->createMock(QueryExecutor::class),
+        );
+
+        self::expectExceptionMessage('Could not extract group id from response');
+
+        $groups->create('realm-with-groups', $group);
+
+        self::fail('Expected exception not thrown');
+    }
+
+    public function testCreateChildGroupWithoutResponseHeaderLocation(): void
+    {
+        $group = new Group(name: 'child-group');
+
+        $command = new Command(
+            '/admin/realms/{realm}/groups/{groupId}/children',
+            Method::POST,
+            [
+                'realm' => 'realm-with-groups',
+                'groupId' => 'parent-group-id',
+            ],
+            $group,
+        );
+
+        $commandExecutor = $this->createMock(CommandExecutor::class);
+        $commandExecutor->expects(static::once())
+            ->method('executeCommand')
+            ->with($command)
+            ->willReturn(new Response(204, [
+                // 'Location' => '/admin/realms/realm-with-groups/groups/uuid',
+            ]));
+
+        $groups = new Groups(
+            $commandExecutor,
+            $this->createMock(QueryExecutor::class),
+        );
+
+        self::expectExceptionMessage('Could not extract group id from response');
+
+        $groups->createChild('realm-with-groups', $group, 'parent-group-id');
+
+        self::fail('Expected exception not thrown');
     }
 }

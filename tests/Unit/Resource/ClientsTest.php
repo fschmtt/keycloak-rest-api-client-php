@@ -13,6 +13,7 @@ use Fschmtt\Keycloak\Http\QueryExecutor;
 use Fschmtt\Keycloak\Representation\Client as ClientRepresentation;
 use Fschmtt\Keycloak\Representation\Credential;
 use Fschmtt\Keycloak\Resource\Clients;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -199,14 +200,17 @@ class ClientsTest extends TestCase
         $commandExecutor = $this->createMock(CommandExecutor::class);
         $commandExecutor->expects(static::once())
             ->method('executeCommand')
-            ->with($command);
+            ->with($command)
+            ->willReturn(new Response(204));
 
         $clients = new Clients(
             $commandExecutor,
             $this->createMock(QueryExecutor::class),
         );
 
-        $clients->delete('test-realm', $deletedClientId);
+        $response = $clients->delete('test-realm', $deletedClientId);
+
+        static::assertSame(204, $response->getStatusCode());
     }
 
     public function testGetUserSessions(): void

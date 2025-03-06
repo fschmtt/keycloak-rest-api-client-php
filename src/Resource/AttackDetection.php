@@ -8,12 +8,13 @@ use Fschmtt\Keycloak\Http\Command;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Type\Map;
+use Psr\Http\Message\ResponseInterface;
 
 class AttackDetection extends Resource
 {
-    public function clear(string $realm): void
+    public function clear(string $realm): ResponseInterface
     {
-        $this->commandExecutor->executeCommand(
+        return $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/attack-detection/brute-force/users',
                 Method::DELETE,

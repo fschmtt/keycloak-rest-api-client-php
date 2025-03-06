@@ -15,6 +15,7 @@ use Fschmtt\Keycloak\Representation\Organization;
 use Fschmtt\Keycloak\Resource\AttackDetection;
 use Fschmtt\Keycloak\Resource\Organizations;
 use Fschmtt\Keycloak\Type\Map;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -99,20 +100,30 @@ class OrganizationsTest extends TestCase
         $commandExecutor = $this->createMock(CommandExecutor::class);
         $commandExecutor->expects(static::once())
             ->method('executeCommand')
-            ->with($command);
+            ->with($command)
+            ->willReturn(new Response(204, [
+                'Location' => '/admin/realms/test-realm/organizations/uuid',
+            ]));
 
-        $organizations = new Organizations(
-            $commandExecutor,
-            $this->createMock(QueryExecutor::class),
+        $organizations = $this->getMockBuilder(Organizations::class)
+            ->setConstructorArgs([$commandExecutor, $this->createMock(QueryExecutor::class)])
+            ->onlyMethods(['get'])
+            ->getMock();
+        $organizations->expects(static::once())
+            ->method('get')
+            ->with('test-realm', 'uuid')
+            ->willReturn($createdOrganization);
+
+        $organization = $organizations->create('test-realm', $createdOrganization);
+
+        static::assertSame(
+            $createdOrganization->getId(),
+            $organization->getId(),
         );
-
-        $organizations->create('test-realm', $createdOrganization);
     }
 
     public function testDeleteOrganization(): void
     {
-        $deletedOrganization = new Organization(id: 'uuid', name: 'test-organization-1');
-
         $command = new Command(
             '/admin/realms/{realm}/organizations/{id}',
             Method::DELETE,
@@ -125,14 +136,17 @@ class OrganizationsTest extends TestCase
         $commandExecutor = $this->createMock(CommandExecutor::class);
         $commandExecutor->expects(static::once())
             ->method('executeCommand')
-            ->with($command);
+            ->with($command)
+            ->willReturn(new Response(204));
 
         $organizations = new Organizations(
             $commandExecutor,
             $this->createMock(QueryExecutor::class),
         );
 
-        $organizations->delete('test-realm', 'uuid');
+        $response = $organizations->delete('test-realm', 'uuid');
+
+        static::assertSame(204, $response->getStatusCode());
     }
 
     public function testInviteUser(): void
@@ -155,13 +169,49 @@ class OrganizationsTest extends TestCase
         $commandExecutor = $this->createMock(CommandExecutor::class);
         $commandExecutor->expects(static::once())
             ->method('executeCommand')
-            ->with($command);
+            ->with($command)
+            ->willReturn(new Response(204));
 
         $organizations = new Organizations(
             $commandExecutor,
             $this->createMock(QueryExecutor::class),
         );
 
-        $organizations->inviteUser('test-realm', 'uuid', 'email', 'first name', 'last name');
+        $response = $organizations->inviteUser('test-realm', 'uuid', 'email', 'first name', 'last name');
+
+        static::assertSame(204, $response->getStatusCode());
+    }
+
+    public function testCreateOrganizationWithoutResponseHeaderLocation(): void
+    {
+        $createdOrganization = new Organization(id: 'uuid', name: 'test-organization-1');
+
+        $command = new Command(
+            '/admin/realms/{realm}/organizations',
+            Method::POST,
+            [
+                'realm' => 'test-realm',
+            ],
+            $createdOrganization,
+        );
+
+        $commandExecutor = $this->createMock(CommandExecutor::class);
+        $commandExecutor->expects(static::once())
+            ->method('executeCommand')
+            ->with($command)
+            ->willReturn(new Response(204, [
+                //'Location' => '/admin/realms/test-realm/organizations/uuid',
+            ]));
+
+        $organizations = new Organizations(
+            $commandExecutor,
+            $this->createMock(QueryExecutor::class),
+        );
+
+        self::expectExceptionMessage('Could not extract organization id from response');
+
+        $organizations->create('test-realm', $createdOrganization);
+
+        self::fail('Expected exception not thrown');
     }
 }

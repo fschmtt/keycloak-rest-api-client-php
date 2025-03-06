@@ -19,6 +19,7 @@ use Fschmtt\Keycloak\Representation\Group;
 use Fschmtt\Keycloak\Representation\Role;
 use Fschmtt\Keycloak\Representation\User;
 use Fschmtt\Keycloak\Resource\Users;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -103,14 +104,26 @@ class UsersTest extends TestCase
         $commandExecutor = $this->createMock(CommandExecutor::class);
         $commandExecutor->expects(static::once())
             ->method('executeCommand')
-            ->with($command);
+            ->with($command)
+            ->willReturn(new Response(201, [
+                'Location' => '/admin/realms/test-realm/users/uuid',
+            ]));
 
-        $users = new Users(
-            $commandExecutor,
-            $this->createMock(QueryExecutor::class),
-        );
+        $users = $this->getMockBuilder(Users::class)
+                    ->setConstructorArgs([
+                        $commandExecutor,
+                        $this->createMock(QueryExecutor::class),
+                    ])
+                    ->onlyMethods(['get'])
+                    ->getMock();
+        $users->expects(static::once())
+            ->method('get')
+            ->with('test-realm', 'uuid')
+            ->willReturn($createdUser);
 
-        $users->create('test-realm', $createdUser);
+        $user = $users->create('test-realm', $createdUser);
+
+        static::assertSame('uuid', $user->getId());
     }
 
     public function testDeleteUser(): void
@@ -132,14 +145,17 @@ class UsersTest extends TestCase
         $commandExecutor = $this->createMock(CommandExecutor::class);
         $commandExecutor->expects(static::once())
             ->method('executeCommand')
-            ->with($command);
+            ->with($command)
+            ->willReturn(new Response(204));
 
         $users = new Users(
             $commandExecutor,
             $this->createMock(QueryExecutor::class),
         );
 
-        $users->delete('test-realm', $deletedUserId);
+        $response = $users->delete('test-realm', $deletedUserId);
+
+        static::assertSame(204, $response->getStatusCode());
     }
 
     public function testUpdateUser(): void
@@ -159,14 +175,30 @@ class UsersTest extends TestCase
         $commandExecutor = $this->createMock(CommandExecutor::class);
         $commandExecutor->expects(static::once())
             ->method('executeCommand')
-            ->with($command);
+            ->with($command)
+            ->willReturn(new Response(204));
+
+        $queryExecutor = $this->createMock(QueryExecutor::class);
+        $queryExecutor->expects(static::once())
+            ->method('executeQuery')
+            ->with(new Query(
+                '/admin/realms/{realm}/users/{userId}',
+                User::class,
+                [
+                    'realm' => 'test-realm',
+                    'userId' => 'test-user',
+                ],
+            ))
+            ->willReturn($updatedUser);
 
         $users = new Users(
             $commandExecutor,
-            $this->createMock(QueryExecutor::class),
+            $queryExecutor,
         );
 
-        $users->update('test-realm', 'test-user', $updatedUser);
+        $user = $users->update('test-realm', 'test-user', $updatedUser);
+
+        static::assertSame('new-username', $user->getUsername());
     }
 
     public function testSearchUser(): void
@@ -196,7 +228,9 @@ class UsersTest extends TestCase
             $queryExecutor,
         );
 
-        $users->search('test-realm', $criteria);
+        $users = $users->search('test-realm', $criteria);
+
+        static::assertInstanceOf(UserCollection::class, $users);
     }
 
     public function testJoinGroup(): void
@@ -214,14 +248,17 @@ class UsersTest extends TestCase
         $commandExecutor = $this->createMock(CommandExecutor::class);
         $commandExecutor->expects(static::once())
             ->method('executeCommand')
-            ->with($command);
+            ->with($command)
+            ->willReturn(new Response(204));
 
         $users = new Users(
             $commandExecutor,
             $this->createMock(QueryExecutor::class),
         );
 
-        $users->joinGroup('test-realm', 'test-user', 'test-group');
+        $response = $users->joinGroup('test-realm', 'test-user', 'test-group');
+
+        static::assertSame(204, $response->getStatusCode());
     }
 
     public function testLeaveGroup(): void
@@ -239,14 +276,17 @@ class UsersTest extends TestCase
         $commandExecutor = $this->createMock(CommandExecutor::class);
         $commandExecutor->expects(static::once())
             ->method('executeCommand')
-            ->with($command);
+            ->with($command)
+            ->willReturn(new Response(204));
 
         $users = new Users(
             $commandExecutor,
             $this->createMock(QueryExecutor::class),
         );
 
-        $users->leaveGroup('test-realm', 'test-user', 'test-group');
+        $response = $users->leaveGroup('test-realm', 'test-user', 'test-group');
+
+        static::assertSame(204, $response->getStatusCode());
     }
 
     public function testRetrieveGroups(): void
@@ -365,14 +405,17 @@ class UsersTest extends TestCase
         $commandExecutor = $this->createMock(CommandExecutor::class);
         $commandExecutor->expects(static::once())
             ->method('executeCommand')
-            ->with($command);
+            ->with($command)
+            ->willReturn(new Response(204));
 
         $users = new Users(
             $commandExecutor,
             $this->createMock(QueryExecutor::class),
         );
 
-        $users->addRealmRoles('test-realm', 'test-user', $roles);
+        $response = $users->addRealmRoles('test-realm', 'test-user', $roles);
+
+        static::assertSame(204, $response->getStatusCode());
     }
 
     public function testRemoveRealmRoles(): void
@@ -392,14 +435,17 @@ class UsersTest extends TestCase
         $commandExecutor = $this->createMock(CommandExecutor::class);
         $commandExecutor->expects(static::once())
             ->method('executeCommand')
-            ->with($command);
+            ->with($command)
+            ->willReturn(new Response(204));
 
         $users = new Users(
             $commandExecutor,
             $this->createMock(QueryExecutor::class),
         );
 
-        $users->removeRealmRoles('test-realm', 'test-user', $roles);
+        $response = $users->removeRealmRoles('test-realm', 'test-user', $roles);
+
+        static::assertSame(204, $response->getStatusCode());
     }
 
     public function testExecuteActionsEmail(): void
@@ -416,14 +462,17 @@ class UsersTest extends TestCase
         $commandExecutor = $this->createMock(CommandExecutor::class);
         $commandExecutor->expects(static::once())
             ->method('executeCommand')
-            ->with($command);
+            ->with($command)
+            ->willReturn(new Response(204));
 
         $users = new Users(
             $commandExecutor,
             $this->createMock(QueryExecutor::class),
         );
 
-        $users->executeActionsEmail('test-realm', 'test-user-id');
+        $response = $users->executeActionsEmail('test-realm', 'test-user-id');
+
+        static::assertSame(204, $response->getStatusCode());
     }
 
     public function testCredentials(): void
@@ -448,6 +497,41 @@ class UsersTest extends TestCase
             $queryExecutor,
         );
 
-        $users->credentials('test-realm', 'test-user-id');
+        $credentials = $users->credentials('test-realm', 'test-user-id');
+
+        static::assertInstanceOf(CredentialCollection::class, $credentials);
+    }
+
+    public function testCreateUserWithoutResponseLocation(): void
+    {
+        $createdUser = new User(id: 'uuid', username: 'imported-user');
+
+        $command = new Command(
+            '/admin/realms/{realm}/users',
+            Method::POST,
+            [
+                'realm' => 'test-realm',
+            ],
+            $createdUser,
+        );
+
+        $commandExecutor = $this->createMock(CommandExecutor::class);
+        $commandExecutor->expects(static::once())
+            ->method('executeCommand')
+            ->with($command)
+            ->willReturn(new Response(201, [
+                //'Location' => '/admin/realms/test-realm/users/uuid',
+            ]));
+
+        $users = new Users(
+            $commandExecutor,
+            $this->createMock(QueryExecutor::class),
+        );
+
+        self::expectExceptionMessage('Could not extract user id from response');
+
+        $users->create('test-realm', $createdUser);
+
+        static::fail('Expected exception not thrown');
     }
 }

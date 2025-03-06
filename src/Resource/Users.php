@@ -14,6 +14,7 @@ use Fschmtt\Keycloak\Http\Criteria;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Representation\User as UserRepresentation;
+use Psr\Http\Message\ResponseInterface;
 
 class Users extends Resource
 {
@@ -45,9 +46,9 @@ class Users extends Resource
         );
     }
 
-    public function create(string $realm, UserRepresentation $user): void
+    public function create(string $realm, UserRepresentation $user): UserRepresentation
     {
-        $this->commandExecutor->executeCommand(
+        $response = $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/users',
                 Method::POST,
@@ -57,9 +58,17 @@ class Users extends Resource
                 $user,
             ),
         );
+
+        $userId = $this->getIdFromResponse($response);
+
+        if ($userId === null) {
+            throw new \RuntimeException('Could not extract user id from response');
+        }
+
+        return $this->get($realm, $userId);
     }
 
-    public function update(string $realm, string $userId, UserRepresentation $updatedUser): void
+    public function update(string $realm, string $userId, UserRepresentation $updatedUser): UserRepresentation
     {
         $this->commandExecutor->executeCommand(
             new Command(
@@ -72,11 +81,13 @@ class Users extends Resource
                 $updatedUser,
             ),
         );
+
+        return $this->get($realm, $userId);
     }
 
-    public function delete(string $realm, string $userId): void
+    public function delete(string $realm, string $userId): ResponseInterface
     {
-        $this->commandExecutor->executeCommand(
+        return $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/users/{userId}',
                 Method::DELETE,
@@ -102,9 +113,9 @@ class Users extends Resource
         );
     }
 
-    public function joinGroup(string $realm, string $userId, string $groupId): void
+    public function joinGroup(string $realm, string $userId, string $groupId): ResponseInterface
     {
-        $this->commandExecutor->executeCommand(
+        return $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/users/{userId}/groups/{groupId}',
                 Method::PUT,
@@ -117,9 +128,9 @@ class Users extends Resource
         );
     }
 
-    public function leaveGroup(string $realm, string $userId, string $groupId): void
+    public function leaveGroup(string $realm, string $userId, string $groupId): ResponseInterface
     {
-        $this->commandExecutor->executeCommand(
+        return $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/users/{userId}/groups/{groupId}',
                 Method::DELETE,
@@ -175,9 +186,9 @@ class Users extends Resource
         );
     }
 
-    public function addRealmRoles(string $realm, string $userId, RoleCollection $roles): void
+    public function addRealmRoles(string $realm, string $userId, RoleCollection $roles): ResponseInterface
     {
-        $this->commandExecutor->executeCommand(
+        return $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/users/{userId}/role-mappings/realm',
                 Method::POST,
@@ -190,9 +201,9 @@ class Users extends Resource
         );
     }
 
-    public function removeRealmRoles(string $realm, string $userId, RoleCollection $roles): void
+    public function removeRealmRoles(string $realm, string $userId, RoleCollection $roles): ResponseInterface
     {
-        $this->commandExecutor->executeCommand(
+        return $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/users/{userId}/role-mappings/realm',
                 Method::DELETE,
@@ -208,9 +219,9 @@ class Users extends Resource
     /**
      * @param list<string>|null $actions
      */
-    public function executeActionsEmail(string $realm, string $userId, ?array $actions = null, ?Criteria $criteria = null): void
+    public function executeActionsEmail(string $realm, string $userId, ?array $actions = null, ?Criteria $criteria = null): ResponseInterface
     {
-        $this->commandExecutor->executeCommand(
+        return $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/users/{userId}/execute-actions-email',
                 Method::PUT,
@@ -236,5 +247,15 @@ class Users extends Resource
                 ],
             ),
         );
+    }
+
+    public function getIdFromResponse(ResponseInterface $response): ?string
+    {
+        //Location: http://keycloak:8080/admin/realms/master/users/999a5022-e757-4f5f-ba0e-1d3ccd601c34
+        $location = $response->getHeaderLine('Location');
+
+        preg_match('~/users/(?<id>[a-z0-9\-]+)$~', $location, $matches);
+
+        return $matches['id'] ?? null;
     }
 }

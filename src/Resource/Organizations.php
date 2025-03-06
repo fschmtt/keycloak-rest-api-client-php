@@ -11,6 +11,7 @@ use Fschmtt\Keycloak\Http\Criteria;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Representation\Organization;
+use Psr\Http\Message\ResponseInterface;
 
 class Organizations extends Resource
 {
@@ -37,9 +38,9 @@ class Organizations extends Resource
         );
     }
 
-    public function create(string $realm, Organization $organization): void
+    public function create(string $realm, Organization $organization): Organization
     {
-        $this->commandExecutor->executeCommand(
+        $response = $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/organizations',
                 Method::POST,
@@ -47,11 +48,19 @@ class Organizations extends Resource
                 $organization,
             ),
         );
+
+        $id = $this->getIdFromResponse($response);
+
+        if ($id === null) {
+            throw new \RuntimeException('Could not extract organization id from response');
+        }
+
+        return $this->get($realm, $id);
     }
 
-    public function delete(string $realm, string $id): void
+    public function delete(string $realm, string $id): ResponseInterface
     {
-        $this->commandExecutor->executeCommand(
+        return $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/organizations/{id}',
                 Method::DELETE,
@@ -60,9 +69,9 @@ class Organizations extends Resource
         );
     }
 
-    public function inviteUser(string $realm, string $id, string $email, string $firstName, string $lastName): void
+    public function inviteUser(string $realm, string $id, string $email, string $firstName, string $lastName): ResponseInterface
     {
-        $this->commandExecutor->executeCommand(
+        return $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/organizations/{id}/members/invite-user',
                 Method::POST,
@@ -75,5 +84,15 @@ class Organizations extends Resource
                 contentType: ContentType::FORM_PARAMS,
             ),
         );
+    }
+
+    public function getIdFromResponse(ResponseInterface $response): ?string
+    {
+        //Location: http://keycloak:8080/admin/realms/master/organizations/b1651206-a558-453f-afc6-e329f9bacb8c
+        $location = $response->getHeaderLine('Location');
+
+        preg_match('~/organizations/(?<id>[a-z0-9\-]+)$~', $location, $matches);
+
+        return $matches['id'] ?? null;
     }
 }

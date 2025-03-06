@@ -13,6 +13,7 @@ use Fschmtt\Keycloak\Http\QueryExecutor;
 use Fschmtt\Keycloak\Representation\KeysMetadata;
 use Fschmtt\Keycloak\Representation\Realm;
 use Fschmtt\Keycloak\Resource\Realms;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -145,13 +146,17 @@ class RealmsTest extends TestCase
         $commandExecutor = $this->createMock(CommandExecutor::class);
         $commandExecutor->expects(static::once())
             ->method('executeCommand')
-            ->with($command);
+            ->with($command)
+            ->willReturn(new Response(204));
 
         $realms = new Realms(
             $commandExecutor,
             $this->createMock(QueryExecutor::class),
         );
-        $realms->delete('to-be-deleted-realm');
+
+        $response = $realms->delete('to-be-deleted-realm');
+
+        static::assertSame(204, $response->getStatusCode());
     }
 
     public function testGetAdminEvents(): void
@@ -194,13 +199,17 @@ class RealmsTest extends TestCase
         $commandExecutor = $this->createMock(CommandExecutor::class);
         $commandExecutor->expects(static::once())
             ->method('executeCommand')
-            ->with($command);
+            ->with($command)
+            ->willReturn(new Response(204));
 
         $realms = new Realms(
             $commandExecutor,
             $this->createMock(QueryExecutor::class),
         );
-        $realms->deleteAdminEvents('realm-with-admin-events');
+
+        $response = $realms->deleteAdminEvents('realm-with-admin-events');
+
+        static::assertSame(204, $response->getStatusCode());
     }
 
     public function testClearKeysCache(): void
@@ -216,13 +225,17 @@ class RealmsTest extends TestCase
         $commandExecutor = $this->createMock(CommandExecutor::class);
         $commandExecutor->expects(static::once())
             ->method('executeCommand')
-            ->with($command);
+            ->with($command)
+            ->willReturn(new Response(204));
 
         $realms = new Realms(
             $commandExecutor,
             $this->createMock(QueryExecutor::class),
         );
-        $realms->clearKeysCache('realm-with-cache');
+
+        $response = $realms->clearKeysCache('realm-with-cache');
+
+        static::assertSame(204, $response->getStatusCode());
     }
 
     public function testClearRealmCache(): void
@@ -238,13 +251,17 @@ class RealmsTest extends TestCase
         $commandExecutor = $this->createMock(CommandExecutor::class);
         $commandExecutor->expects(static::once())
             ->method('executeCommand')
-            ->with($command);
+            ->with($command)
+            ->willReturn(new Response(204));
 
         $realms = new Realms(
             $commandExecutor,
             $this->createMock(QueryExecutor::class),
         );
-        $realms->clearRealmCache('realm-with-cache');
+
+        $response = $realms->clearRealmCache('realm-with-cache');
+
+        static::assertSame(204, $response->getStatusCode());
     }
 
     public function testClearUserCache(): void
@@ -260,13 +277,17 @@ class RealmsTest extends TestCase
         $commandExecutor = $this->createMock(CommandExecutor::class);
         $commandExecutor->expects(static::once())
             ->method('executeCommand')
-            ->with($command);
+            ->with($command)
+            ->willReturn(new Response(204));
 
         $realms = new Realms(
             $commandExecutor,
             $this->createMock(QueryExecutor::class),
         );
-        $realms->clearUserCache('realm-with-cache');
+
+        $response = $realms->clearUserCache('realm-with-cache');
+
+        static::assertSame(204, $response->getStatusCode());
     }
 
     public function testGetKeys(): void
@@ -290,6 +311,8 @@ class RealmsTest extends TestCase
             $queryExecutor,
         );
 
-        $realms->keys('realm-with-keys');
+        $keys = $realms->keys('realm-with-keys');
+
+        static::assertInstanceOf(KeysMetadata::class, $keys);
     }
 }

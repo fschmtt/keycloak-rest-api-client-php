@@ -12,6 +12,7 @@ use Fschmtt\Keycloak\Http\Query;
 use Fschmtt\Keycloak\Http\QueryExecutor;
 use Fschmtt\Keycloak\Representation\Role;
 use Fschmtt\Keycloak\Resource\Roles;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -98,12 +99,18 @@ class RolesTest extends TestCase
             ->method('executeCommand')
             ->with($command);
 
-        $roles = new Roles(
-            $commandExecutor,
-            $this->createMock(QueryExecutor::class),
-        );
+        $roles = $this->getMockBuilder(Roles::class)
+            ->setConstructorArgs([$commandExecutor, $this->createMock(QueryExecutor::class)])
+            ->onlyMethods(['get'])
+            ->getMock();
+        $roles->expects(static::once())
+            ->method('get')
+            ->with('test-realm', $createdRole->getName())
+            ->willReturn($createdRole);
 
-        $roles->create('test-realm', $createdRole);
+        $role = $roles->create('test-realm', $createdRole);
+
+        static::assertSame($createdRole->getName(), $role->getName());
     }
 
     public function testDeleteRole(): void
@@ -125,14 +132,17 @@ class RolesTest extends TestCase
         $commandExecutor = $this->createMock(CommandExecutor::class);
         $commandExecutor->expects(static::once())
             ->method('executeCommand')
-            ->with($command);
+            ->with($command)
+            ->willReturn(new Response(204));
 
         $roles = new Roles(
             $commandExecutor,
             $this->createMock(QueryExecutor::class),
         );
 
-        $roles->delete('test-realm', $deletedRoleName);
+        $response = $roles->delete('test-realm', $deletedRoleName);
+
+        static::assertSame(204, $response->getStatusCode());
     }
 
     public function testUpdateRole(): void
@@ -157,11 +167,17 @@ class RolesTest extends TestCase
             ->method('executeCommand')
             ->with($command);
 
-        $roles = new Roles(
-            $commandExecutor,
-            $this->createMock(QueryExecutor::class),
-        );
+        $roles = $this->getMockBuilder(Roles::class)
+            ->setConstructorArgs([$commandExecutor, $this->createMock(QueryExecutor::class)])
+            ->onlyMethods(['get'])
+            ->getMock();
+        $roles->expects(static::once())
+            ->method('get')
+            ->with('test-realm', $updatedRole->getName())
+            ->willReturn($updatedRole);
 
-        $roles->update('test-realm', $updatedRole);
+        $role = $roles->update('test-realm', $updatedRole);
+
+        static::assertSame($updatedRole->getName(), $role->getName());
     }
 }
