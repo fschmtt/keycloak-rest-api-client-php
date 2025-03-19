@@ -36,6 +36,6 @@ class AuthenticationExecutionExport extends Representation
         protected ?string $flowAlias = null,
         protected ?int $priority = null,
         protected ?string $requirement = null,
-        protected ?bool $userSetupAllowed = null
+        protected ?bool $userSetupAllowed = null,
     ) {}
 }
