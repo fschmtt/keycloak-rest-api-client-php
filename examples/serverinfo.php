@@ -3,13 +3,13 @@
 declare(strict_types=1);
 
 use Fschmtt\Keycloak\Keycloak;
+use Fschmtt\Keycloak\OAuth\GrantType\Password;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $keycloak = new Keycloak(
-    $_SERVER['KEYCLOAK_BASE_URL'] ?? 'http://keycloak:8080',
-    'admin',
-    'admin',
+    baseUrl: $_SERVER['KEYCLOAK_BASE_URL'] ?? 'http://keycloak:8080',
+    grantType: new Password('admin', 'admin'),
 );
 
 $serverInfo = $keycloak->serverInfo()->get();
