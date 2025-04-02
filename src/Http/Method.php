@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Http;
 
-/**
- * @internal
- */
 enum Method: string
 {
     case GET = 'GET';
