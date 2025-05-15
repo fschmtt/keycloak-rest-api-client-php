@@ -1,0 +1,28 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '''
+				#^Call to deprecated method __construct\(\) of class Lcobucci\\JWT\\Token\\Builder\:
+				Deprecated since v5\.5, please use \{@see self\:\:new\(\)\} instead$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: tests/Unit/Http/ClientTest.php
+
+		-
+			message: '''
+				#^Call to deprecated method __construct\(\) of class Lcobucci\\JWT\\Token\\Builder\:
+				Deprecated since v5\.5, please use \{@see self\:\:new\(\)\} instead$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: tests/Unit/OAuth/TokenStorage/FilesystemTest.php
+
+		-
+			message: '''
+				#^Call to deprecated method __construct\(\) of class Lcobucci\\JWT\\Token\\Builder\:
+				Deprecated since v5\.5, please use \{@see self\:\:new\(\)\} instead$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: tests/Unit/OAuth/TokenStorage/InMemoryTest.php
