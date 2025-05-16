@@ -8,5 +8,5 @@ parameters:
     - examples
 
 includes:
-	- phpstan-baseline.neon
-    - vendor/phpstan/phpstan-deprecation-rules/rules.neon
+  - phpstan-baseline.neon
+  - vendor/phpstan/phpstan-deprecation-rules/rules.neon
