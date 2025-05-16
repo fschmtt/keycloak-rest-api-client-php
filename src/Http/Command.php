@@ -7,9 +7,6 @@ namespace Fschmtt\Keycloak\Http;
 use Fschmtt\Keycloak\Collection\Collection;
 use Fschmtt\Keycloak\Representation\Representation;
 
-/**
- * @internal
- */
 class Command
 {
     public function __construct(
