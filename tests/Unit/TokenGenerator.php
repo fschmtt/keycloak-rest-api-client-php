@@ -16,12 +16,13 @@ trait TokenGenerator
 {
     private function generateToken(DateTimeImmutable $expiresAt): Token
     {
+        // @phpstan-ignore-next-line
         $tokenBuilder = (new Builder(new JoseEncoder(), ChainedFormatter::default()));
         $algorithm = new Sha256();
         $signingKey = InMemory::plainText(random_bytes(32));
 
         return $tokenBuilder
-            ->issuedAt(new \DateTimeImmutable())
+            ->issuedAt(new DateTimeImmutable())
             ->expiresAt($expiresAt)
             ->getToken($algorithm, $signingKey);
     }
