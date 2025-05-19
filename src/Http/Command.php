@@ -47,7 +47,7 @@ class Command
     }
 
     /**
-     * @return Representation|Collection|array<mixed>|null
+     * @return Representation|Collection|array<mixed>|string|null
      */
     public function getPayload(): Representation|Collection|array|string|null
     {

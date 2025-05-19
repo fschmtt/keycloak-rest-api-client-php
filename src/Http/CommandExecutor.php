@@ -6,8 +6,6 @@ namespace Fschmtt\Keycloak\Http;
 
 use Fschmtt\Keycloak\Serializer\Serializer;
 
-use function is_array;
-
 /**
  * @internal
  */
@@ -20,14 +18,16 @@ class CommandExecutor
 
     public function executeCommand(Command $command): void
     {
+        $payload = $command->getPayload();
+
         $options = match ($command->getContentType()) {
             ContentType::JSON => [
-                'body' => $this->serializer->serialize($command->getPayload()),
+                'body' => is_string($payload) ? $payload : $this->serializer->serialize($payload),
                 'headers' => [
                     'Content-Type' => $command->getContentType()->value,
                 ],
             ],
-            ContentType::FORM_PARAMS => ['form_params' => $command->getPayload()],
+            ContentType::FORM_PARAMS => ['form_params' => $payload],
         };
 
         $this->client->request(

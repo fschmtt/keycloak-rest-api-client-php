@@ -126,4 +126,31 @@ class CommandExecutorTest extends TestCase
         $executor = new CommandExecutor($client, new Serializer());
         $executor->executeCommand($command);
     }
+
+    public function testCallsClientWithUnserializedStringAsBodyIfPayloadIsString(): void
+    {
+        $command = new Command(
+            '/path/to/resource',
+            Method::PUT,
+            [],
+            $payload = 'string',
+        );
+
+        $client = $this->createMock(Client::class);
+        $client->expects(static::once())
+            ->method('request')
+            ->with(
+                Method::PUT->value,
+                '/path/to/resource',
+                [
+                    'body' => $payload,
+                    'headers' => [
+                        'Content-Type' => 'application/json',
+                    ],
+                ],
+            );
+
+        $executor = new CommandExecutor($client, new Serializer());
+        $executor->executeCommand($command);
+    }
 }
