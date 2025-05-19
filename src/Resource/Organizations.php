@@ -76,4 +76,17 @@ class Organizations extends Resource
             ),
         );
     }
+
+    public function addUser(string $realm, string $organizationId, string $userId): void
+    {
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms/{realm}/organizations/{organizationId}/members',
+                Method::POST,
+                ['realm' => $realm, 'organizationId' => $organizationId],
+                payload: $userId,
+                contentType: ContentType::JSON,
+            ),
+        );
+    }
 }
