@@ -5,22 +5,29 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Test\Integration\Resource;
 
 use Fschmtt\Keycloak\Collection\OrganizationDomainCollection;
+use Fschmtt\Keycloak\Http\Criteria;
 use Fschmtt\Keycloak\Representation\Organization;
 use Fschmtt\Keycloak\Representation\OrganizationDomain;
 use Fschmtt\Keycloak\Representation\Realm;
+use Fschmtt\Keycloak\Representation\User;
 use Fschmtt\Keycloak\Test\Integration\IntegrationTestBehaviour;
 use GuzzleHttp\Exception\ServerException;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 class OrganizationsTest extends TestCase
 {
     use IntegrationTestBehaviour;
+
     private const REALM = 'organizations-tests';
+
+    protected function setUp(): void
+    {
+        $this->skipIfKeycloakVersionIsLessThan('26.0.0');
+    }
 
     public function testOrganizations(): void
     {
-        $this->skipIfKeycloakVersionIsLessThan('26.0.0');
-
         // Create realm
         $this->getKeycloak()->realms()->import(new Realm(realm: self::REALM, organizationsEnabled: true));
 
@@ -64,6 +71,9 @@ class OrganizationsTest extends TestCase
             );
         }
 
+        // Create user and add it to the organization
+        $this->getKeycloak()->organizations()->addUser(self::REALM, $organization->getId(), $this->createAndGetUser()->getId());
+
         // Delete newly created organization
         $this->getKeycloak()->organizations()->delete(self::REALM, $organizations->first()->getId());
         $organizations = $this->getKeycloak()->organizations()->all(self::REALM);
@@ -71,5 +81,19 @@ class OrganizationsTest extends TestCase
 
         // Delete realm
         $this->getKeycloak()->realms()->delete(self::REALM);
+    }
+
+    private function createAndGetUser(): User
+    {
+        $users = $this->getKeycloak()->users();
+
+        $users->create(self::REALM, new User(
+            username: $username = Uuid::uuid4()->toString(),
+        ));
+
+        return $users->search(self::REALM, new Criteria([
+            'username' => $username,
+            'exact' => true,
+        ]))->first();
     }
 }
