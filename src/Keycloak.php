@@ -7,6 +7,8 @@ namespace Fschmtt\Keycloak;
 use Fschmtt\Keycloak\Http\Client;
 use Fschmtt\Keycloak\Http\CommandExecutor;
 use Fschmtt\Keycloak\Http\QueryExecutor;
+use Fschmtt\Keycloak\OAuth\GrantType\Password;
+use Fschmtt\Keycloak\OAuth\GrantTypeInterface;
 use Fschmtt\Keycloak\OAuth\TokenStorage\InMemory;
 use Fschmtt\Keycloak\OAuth\TokenStorageInterface;
 use Fschmtt\Keycloak\Resource\AttackDetection;
@@ -33,14 +35,37 @@ class Keycloak
     private CommandExecutor $commandExecutor;
     private QueryExecutor $queryExecutor;
 
+    /**
+     * @param string $username (Deprecated) Username for password grant. Use $grantType instead.
+     * @param string $password (Deprecated) Password for password grant. Use $grantType instead.
+     */
     public function __construct(
         private readonly string $baseUrl,
-        private readonly string $username,
-        private readonly string $password,
+        string $username = "",
+        string $password = "",
         private readonly TokenStorageInterface $tokenStorage = new InMemory(),
         ?ClientInterface $guzzleClient = new GuzzleClient(),
+        ?GrantTypeInterface $grantType = null,
     ) {
-        $this->client = new Client($this, $guzzleClient, $this->tokenStorage);
+        if ($username !== "") {
+            trigger_deprecation(
+                'fschmtt/keycloak-rest-api-client-php',
+                '0.31.0',
+                'The $username parameter is deprecated. Use $grantType instead.',
+            );
+        }
+
+        if ($password !== "") {
+            trigger_deprecation(
+                'fschmtt/keycloak-rest-api-client-php',
+                '0.31.0',
+                'The $password parameter is deprecated. Use $grantType instead.',
+            );
+        }
+
+        $grantType = $grantType ?? new Password($username, $password);
+
+        $this->client = new Client($this, $guzzleClient, $this->tokenStorage, $grantType);
         $this->serializer = new Serializer($this->version);
         $this->commandExecutor = new CommandExecutor($this->client, $this->serializer);
         $this->queryExecutor = new QueryExecutor($this->client, $this->serializer);
@@ -49,16 +74,6 @@ class Keycloak
     public function getBaseUrl(): string
     {
         return $this->baseUrl;
-    }
-
-    public function getUsername(): string
-    {
-        return $this->username;
-    }
-
-    public function getPassword(): string
-    {
-        return $this->password;
     }
 
     public function getVersion(): string
