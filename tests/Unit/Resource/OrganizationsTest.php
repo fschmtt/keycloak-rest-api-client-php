@@ -164,4 +164,29 @@ class OrganizationsTest extends TestCase
 
         $organizations->inviteUser('test-realm', 'uuid', 'email', 'first name', 'last name');
     }
+
+    public function testAddUser(): void
+    {
+        $command = new Command(
+            '/admin/realms/{realm}/organizations/{organizationId}/members',
+            Method::POST,
+            [
+                'realm' => 'test-realm',
+                'organizationId' => 'organization-id',
+            ],
+            'user-id',
+        );
+
+        $commandExecutor = $this->createMock(CommandExecutor::class);
+        $commandExecutor->expects(static::once())
+            ->method('executeCommand')
+            ->with($command);
+
+        $organizations = new Organizations(
+            $commandExecutor,
+            $this->createMock(QueryExecutor::class),
+        );
+
+        $organizations->addUser('test-realm', 'organization-id', 'user-id');
+    }
 }
