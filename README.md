@@ -106,7 +106,7 @@ $myCustomRepresentation = $myCustomResource->myCustomEndpoint();
 ### [Attack Detection](https://www.keycloak.org/docs-api/26.0.0/rest-api/index.html#_attack_detection)
 
 | Endpoint                                                                   | Response                | API                                                               |
-| -------------------------------------------------------------------------- | ----------------------- | ----------------------------------------------------------------- |
+|----------------------------------------------------------------------------|-------------------------|-------------------------------------------------------------------|
 | `DELETE /admin/realms/{realm}/attack-detection/brute-force/users`          | `n/a`                   | [AttackDetection::clear()](src/Resource/AttackDetection.php)      |
 | `GET /admin/realms/{realm}/attack-detection/brute-force/users/{userId}`    | [Map](src/Type/Map.php) | [AttackDetection::userStatus()](src/Resource/AttackDetection.php) |
 | `DELETE /admin/realms/{realm}/attack-detection/brute-force/users/{userId}` | `n/a`                   | [AttackDetection::clearUser()](src/Resource/AttackDetection.php)  |
@@ -114,7 +114,7 @@ $myCustomRepresentation = $myCustomResource->myCustomEndpoint();
 ### [Clients](https://www.keycloak.org/docs-api/26.0.0/rest-api/index.html#_clients)
 
 | Endpoint                                                       | Response                                                | API                                                    |
-| -------------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------ |
+|----------------------------------------------------------------|---------------------------------------------------------|--------------------------------------------------------|
 | `GET /admin/realms/{realm}/clients`                            | [ClientCollection](src/Collection/ClientCollection.php) | [Clients::all()](src/Resource/Clients.php)             |
 | `GET /admin/realms/{realm}/clients/{client-uuid}`              | [Client](src/Representation/Client.php)                 | [Clients::get()](src/Resource/Clients.php)             |
 | `PUT /admin/realms/{realm}/clients/{client-uuid}`              | [Client](src/Representation/Client.php)                 | [Clients::update()](src/Resource/Clients.php)          |
@@ -124,7 +124,7 @@ $myCustomRepresentation = $myCustomResource->myCustomEndpoint();
 ### [Groups](https://www.keycloak.org/docs-api/26.0.0/rest-api/index.html#_clients)
 
 | Endpoint                                          | Response                                              | API                                           |
-| ------------------------------------------------- | ----------------------------------------------------- | --------------------------------------------- |
+|---------------------------------------------------|-------------------------------------------------------|-----------------------------------------------|
 | `GET /admin/realms/{realm}/groups`                | [GroupCollection](src/Collection/GroupCollection.php) | [Groups::all()](src/Resource/Groups.php)      |
 | `GET /admin/realms/{realm}/groups/{id}/children`  | [GroupCollection](src/Collection/GroupCollection.php) | [Groups::children()](src/Resource/Groups.php) |
 | `GET /admin/realms/{realm}/groups/{id}/members`   | [UserCollection](src/Collection/UserCollection.php)   | [Groups::members()](src/Resource/Groups.php)  |
@@ -135,21 +135,21 @@ $myCustomRepresentation = $myCustomResource->myCustomEndpoint();
 | `DELETE /admin/realms/{realm}/groups`             | `n/a`                                                 | [Groups::delete()](src/Resource/Groups.php)   |
 | `GET /admin/realms/{realm}/group-by-path/{path}`  | [Group](src/Representation/Group.php)                 | [Groups::byPath()](src/Resource/Groups.php)   |
 
-
 ### [Organizations](https://www.keycloak.org/docs-api/26.0.0/rest-api/index.html#_organizations)
 
 | Endpoint                                                            | Response                                                            | API                                                           |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------- |
+|---------------------------------------------------------------------|---------------------------------------------------------------------|---------------------------------------------------------------|
 | `GET /admin/realms/{realm}/organizations`                           | [OrganizationCollection](src/Collection/OrganizationCollection.php) | [Organizations::all()](src/Resource/Organizations.php)        |
 | `GET /admin/realms/{realm}/organizations/{id}`                      | [Organization](src/Representation/Organization.php)                 | [Organizations::get()](src/Resource/Organizations.php)        |
 | `POST /admin/realms/{realm}/organizations`                          | `n/a`                                                               | [Organizations::create()](src/Resource/Organizations.php)     |
 | `DELETE /admin/realms/{realm}/organizations/{id}`                   | `n/a`                                                               | [Organizations::delete()](src/Resource/Organizations.php)     |
 | `POST /admin/realms/{realm}/organizations/{id}/members/invite-user` | `n/a`                                                               | [Organizations::inviteUser()](src/Resource/Organizations.php) |
+| `POST /admin/realms/{realm}/organizations/{id}/members`             | `n/a`                                                               | [Organizations::addUser()](src/Resource/Organizations.php)    |
 
 ### [Realms Admin](https://www.keycloak.org/docs-api/26.0.0/rest-api/index.html#_realms_admin)
 
 | Endpoint                                       | Response                                              | API                                                    |
-| ---------------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------ |
+|------------------------------------------------|-------------------------------------------------------|--------------------------------------------------------|
 | `POST /admin/realms`                           | [Realm](src/Representation/Realm.php)                 | [Realms::import()](src/Resource/Realms.php)            |
 | `GET /admin/realms`                            | [RealmCollection](src/Collection/RealmCollection.php) | [Realms::all()](src/Resource/Realms.php)               |
 | `PUT /admin/realms/{realm}`                    | [Realm](src/Representation/Realm.php)                 | [Realms::update()](src/Resource/Realms.php)            |
@@ -164,7 +164,7 @@ $myCustomRepresentation = $myCustomResource->myCustomEndpoint();
 ### [Users](https://www.keycloak.org/docs-api/26.0.0/rest-api/index.html#_users)
 
 | Endpoint                                                | Response                                                        | API                                                            |
-| ------------------------------------------------------- | --------------------------------------------------------------- | -------------------------------------------------------------- |
+|---------------------------------------------------------|-----------------------------------------------------------------|----------------------------------------------------------------|
 | `GET /admin/realms/{realm}/users`                       | [UserCollection](src/Collection/UserCollection.php)             | [Users::all()](src/Resource/Users.php)                         |
 | `POST /admin/realms/{realm}/users`                      | `n/a`                                                           | [Users::create()](src/Resource/Users.php)                      |
 | `GET /admin/realms/{realm}/users/{userId}`              | [User](src/Representation/User.php)                             | [Users::get()](src/Resource/Users.php)                         |
@@ -184,7 +184,7 @@ $myCustomRepresentation = $myCustomResource->myCustomEndpoint();
 ### [Roles](https://www.keycloak.org/docs-api/26.0.0/rest-api/index.html#_roles)
 
 | Endpoint                                        | Response                                            | API                                       |
-| ----------------------------------------------- | --------------------------------------------------- | ----------------------------------------- |
+|-------------------------------------------------|-----------------------------------------------------|-------------------------------------------|
 | `GET /admin/realms/{realm}/roles`               | [RoleCollection](src/Collection/RoleCollection.php) | [Roles::all()](src/Resource/Roles.php)    |
 | `GET /admin/realms/{realm}/roles/{roleName}`    | [Role](src/Representation/Role.php)                 | [Roles::get()](src/Resource/Roles.php)    |
 | `POST /admin/realms/{realm}/roles`              | `n/a`                                               | [Roles::create()](src/Resource/Roles.php) |
@@ -193,7 +193,7 @@ $myCustomRepresentation = $myCustomResource->myCustomEndpoint();
 ### [Root](https://www.keycloak.org/docs-api/26.0.0/rest-api/index.html#_root)
 
 | Endpoint                | Response                                        | API                                              |
-| ----------------------- | ----------------------------------------------- | ------------------------------------------------ |
+|-------------------------|-------------------------------------------------|--------------------------------------------------|
 | `GET /admin/serverinfo` | [ServerInfo](src/Representation/ServerInfo.php) | [ServerInfo::get()](src/Resource/ServerInfo.php) |
 
 ## Local development and testing
