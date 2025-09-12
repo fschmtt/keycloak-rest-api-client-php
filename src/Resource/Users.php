@@ -9,7 +9,6 @@ use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Collection\RoleCollection;
 use Fschmtt\Keycloak\Collection\UserCollection;
 use Fschmtt\Keycloak\Http\Command;
-use Fschmtt\Keycloak\Http\ContentType;
 use Fschmtt\Keycloak\Http\Criteria;
 use Fschmtt\Keycloak\Http\Method;
 use Fschmtt\Keycloak\Http\Query;
@@ -199,6 +198,69 @@ class Users extends Resource
                 [
                     'realm' => $realm,
                     'userId' => $userId,
+                ],
+                $roles,
+            ),
+        );
+    }
+
+
+    public function retrieveClientRoles(string $realm, string $userId, string $clientUuid): RoleCollection
+    {
+        return $this->queryExecutor->executeQuery(
+            new Query(
+                '/admin/realms/{realm}/users/{userId}/role-mappings/clients/{clientUuid}',
+                RoleCollection::class,
+                [
+                    'realm' => $realm,
+                    'userId' => $userId,
+                    'clientUuid' => $clientUuid,
+                ],
+            ),
+        );
+    }
+
+    public function retrieveAvailableClientRoles(string $realm, string $userId, string $clientUuid): RoleCollection
+    {
+        return $this->queryExecutor->executeQuery(
+            new Query(
+                '/admin/realms/{realm}/users/{userId}/role-mappings/clients/{clientUuid}/available',
+                RoleCollection::class,
+                [
+                    'realm' => $realm,
+                    'userId' => $userId,
+                    'clientUuid' => $clientUuid,
+                ],
+            ),
+        );
+    }
+
+    public function addClientRoles(string $realm, string $userId, RoleCollection $roles, string $clientUuid): void
+    {
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms/{realm}/users/{userId}/role-mappings/clients/{clientUuid}',
+                Method::POST,
+                [
+                    'realm' => $realm,
+                    'userId' => $userId,
+                    'clientUuid' => $clientUuid,
+                ],
+                $roles,
+            ),
+        );
+    }
+
+    public function removeClientRoles(string $realm, string $userId, RoleCollection $roles, string $clientUuid): void
+    {
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms/{realm}/users/{userId}/role-mappings/clients/{clientUuid}',
+                Method::DELETE,
+                [
+                    'realm' => $realm,
+                    'userId' => $userId,
+                    'clientUuid' => $clientUuid,
                 ],
                 $roles,
             ),

@@ -155,6 +155,56 @@ class UsersTest extends TestCase
         }
     }
 
+    public function testAddRemoveClientRoleUser(): void
+    {
+        $users = $this->getKeycloak()->users();
+        $user = $users->all('master')->first();
+        static::assertInstanceOf(User::class, $user);
+
+        $clients = $this->getKeycloak()->clients()->all('master');
+
+        $clientWithAvailableRole = null;
+        $availableRoles = null;
+
+        foreach ($clients as $client) {
+            $available = $users->retrieveAvailableClientRoles('master', $user->getId(), $client->getId());
+            if ($available->count() > 0) {
+                $clientWithAvailableRole = $client;
+                $availableRoles = $available;
+                break;
+            }
+        }
+
+        static::assertNotNull($clientWithAvailableRole);
+        static::assertNotNull($availableRoles);
+
+        $roles = $users->retrieveClientRoles('master', $user->getId(), $clientWithAvailableRole->getId());
+        $rolesCount = $roles->count();
+
+        $availableRolesCount = $availableRoles->count();
+        static::assertGreaterThanOrEqual(1, $availableRolesCount);
+        $role = $availableRoles->first();
+        static::assertInstanceOf(Role::class, $role);
+
+        $users->addClientRoles('master', $user->getId(), new RoleCollection([$role]), $clientWithAvailableRole->getId());
+
+        $roles = $users->retrieveClientRoles('master', $user->getId(), $clientWithAvailableRole->getId());
+        static::assertEquals($rolesCount + 1, $roles->count());
+        static::assertContainsEquals($role, $roles);
+
+        $availableRoles = $users->retrieveAvailableClientRoles('master', $user->getId(), $clientWithAvailableRole->getId());
+        static::assertEquals($availableRolesCount - 1, $availableRoles->count());
+
+        $users->removeClientRoles('master', $user->getId(), new RoleCollection([$role]), $clientWithAvailableRole->getId());
+
+        $roles = $users->retrieveClientRoles('master', $user->getId(), $clientWithAvailableRole->getId());
+        static::assertEquals($rolesCount, $roles->count());
+        static::assertNotContainsEquals($role, $roles);
+
+        $availableRoles = $users->retrieveAvailableClientRoles('master', $user->getId(), $clientWithAvailableRole->getId());
+        static::assertEquals($availableRolesCount, $availableRoles->count());
+    }
+
     public function testCreateUserWithPasswordCredential(): void
     {
         $users = $this->getKeycloak()->users();
