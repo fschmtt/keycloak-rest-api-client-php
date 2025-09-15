@@ -13,6 +13,10 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -142,28 +146,20 @@ class ClientTest extends TestCase
             ),
         );
 
-        $httpClient = $this->createMock(ClientInterface::class);
-        $httpClient->expects(static::exactly(3))
-            ->method('request')
-            ->with(
-                static::callback(function (string $method, string $uri) {
-                    static $callCount = 0;
-                    $callCount++;
-                    
-                    if ($callCount === 2) { // Second call should be the authorization request
-                        static::assertStringContainsString('custom-realm', $uri);
-                        static::assertStringNotContainsString('master', $uri);
-                    }
-                    
-                    return true;
-                }),
-                static::anything()
-            )
-            ->willReturnOnConsecutiveCalls(
-                $this->throwException($this->createMock(ClientException::class)),
-                $authorizationResponse,
-                $realmsResponse,
-            );
+        $history = [];
+        $historyMiddleware = Middleware::history($history);
+
+        $tokenRequest = new Request('POST', 'http://keycloak:8080/realms/custom-realm/protocol/openid-connect/token');
+        $mockHandler = new MockHandler([
+            new ClientException('Bad Request', $tokenRequest, new Response(400)),
+            $authorizationResponse,
+            $realmsResponse,
+        ]);
+
+        $handlerStack = HandlerStack::create($mockHandler);
+        $handlerStack->push($historyMiddleware);
+
+        $httpClient = new GuzzleClient(['handler' => $handlerStack]);
 
         $keycloak = new Keycloak(
             'http://keycloak:8080',
@@ -173,7 +169,24 @@ class ClientTest extends TestCase
         );
 
         $client = new Client($keycloak, $httpClient, new InMemoryTokenStorage());
+
         $client->request('GET', '/admin/realms');
+
+        // Verify that any token endpoint call uses the configured realm in the URL
+        static::assertNotEmpty($history);
+        $tokenCalls = array_values(array_filter((array) $history, function (array $transaction): bool {
+            /** @var Request $request */
+            $request = $transaction['request'];
+            return str_contains((string) $request->getUri(), '/protocol/openid-connect/token');
+        }));
+        static::assertNotEmpty($tokenCalls);
+        foreach ($tokenCalls as $transaction) {
+            /** @var Request $request */
+            $request = $transaction['request'];
+            $authUri = (string) $request->getUri();
+            static::assertStringContainsString('/realms/custom-realm/', $authUri);
+            static::assertStringNotContainsString('/realms/master/', $authUri);
+        }
 
         static::assertTrue($client->isAuthorized());
     }
