@@ -71,7 +71,7 @@ class Client
         try {
             $response = $this->httpClient->request(
                 'POST',
-                $this->keycloak->getBaseUrl() . '/realms/master/protocol/openid-connect/token',
+                $this->keycloak->getBaseUrl() . '/realms/' . $this->keycloak->getRealm() . '/protocol/openid-connect/token',
                 [
                     'form_params' => [
                         'refresh_token' => $this->tokenStorage->retrieveRefreshToken()?->toString(),
@@ -83,7 +83,7 @@ class Client
         } catch (ClientException $e) {
             $response = $this->httpClient->request(
                 'POST',
-                $this->keycloak->getBaseUrl() . '/realms/master/protocol/openid-connect/token',
+                $this->keycloak->getBaseUrl() . '/realms/' . $this->keycloak->getRealm() . '/protocol/openid-connect/token',
                 [
                     'form_params' => [
                         'username' => $this->keycloak->getUsername(),

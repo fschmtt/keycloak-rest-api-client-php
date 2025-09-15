@@ -12,6 +12,7 @@ use Fschmtt\Keycloak\Test\Unit\TokenGenerator;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Psr7\Request;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -111,6 +112,68 @@ class ClientTest extends TestCase
             $this->createMock(ClientInterface::class),
             $tokenStorage,
         );
+
+        static::assertTrue($client->isAuthorized());
+    }
+
+    public function testAuthenticatesUsingConfiguredRealm(): void
+    {
+        $accessToken = $this->generateToken((new DateTimeImmutable())->modify('+1 hour'));
+        $refreshToken = $this->generateToken((new DateTimeImmutable())->modify('+1 hour'));
+
+        $authorizationResponse = new Response(
+            status: 200,
+            body: json_encode(
+                value: [
+                    'access_token' => $accessToken->toString(),
+                    'refresh_token' => $refreshToken->toString(),
+                ],
+                flags: JSON_THROW_ON_ERROR,
+            ),
+        );
+
+        $realmsResponse = new Response(
+            status: 200,
+            body: json_encode(
+                value: [
+                    'realms' => [],
+                ],
+                flags: JSON_THROW_ON_ERROR,
+            ),
+        );
+
+        $httpClient = $this->createMock(ClientInterface::class);
+        $httpClient->expects(static::exactly(3))
+            ->method('request')
+            ->with(
+                static::callback(function (string $method, string $uri) {
+                    static $callCount = 0;
+                    $callCount++;
+                    
+                    if ($callCount === 2) { // Second call should be the authorization request
+                        static::assertStringContainsString('custom-realm', $uri);
+                        static::assertStringNotContainsString('master', $uri);
+                    }
+                    
+                    return true;
+                }),
+                static::anything()
+            )
+            ->willReturnOnConsecutiveCalls(
+                $this->throwException($this->createMock(ClientException::class)),
+                $authorizationResponse,
+                $realmsResponse,
+            );
+
+        $keycloak = new Keycloak(
+            'http://keycloak:8080',
+            'admin',
+            'admin',
+            realm: 'custom-realm',
+        );
+
+        $client = new Client($keycloak, $httpClient, new InMemoryTokenStorage());
+        $client->request('GET', '/admin/realms');
 
         static::assertTrue($client->isAuthorized());
     }
