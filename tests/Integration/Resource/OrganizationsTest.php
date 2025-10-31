@@ -78,9 +78,9 @@ class OrganizationsTest extends TestCase
         $updatedOrganization = new Organization(
             name: 'updated-organization',
             domains: new OrganizationDomainCollection([
-                                                          new OrganizationDomain('foo.bar.updated', true),
-                                                          new OrganizationDomain('bar.foo.updated', false),
-                                                      ]),
+                new OrganizationDomain('foo.bar.updated', true),
+                new OrganizationDomain('bar.foo.updated', false),
+            ]),
         );
         $this->getKeycloak()->organizations()->update(self::REALM, $organizations->first()->getId(), $updatedOrganization);
         $organizations = $this->getKeycloak()->organizations()->all(self::REALM);
