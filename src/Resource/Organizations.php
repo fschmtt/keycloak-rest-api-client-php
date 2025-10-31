@@ -53,7 +53,7 @@ class Organizations extends Resource
     {
         $this->commandExecutor->executeCommand(
             new Command(
-                '/admin/realms/{realm}/organizations/{$id}',
+                '/admin/realms/{realm}/organizations/{id}',
                 Method::PUT,
                 [
                     'realm' => $realm,
