@@ -74,6 +74,19 @@ class OrganizationsTest extends TestCase
         // Create user and add it to the organization
         $this->getKeycloak()->organizations()->addUser(self::REALM, $organization->getId(), $this->createAndGetUser()->getId());
 
+        // Update organization
+        $updatedOrganization = new Organization(
+            name: 'updated-organization',
+            domains: new OrganizationDomainCollection([
+                                                          new OrganizationDomain('foo.bar.updated', true),
+                                                          new OrganizationDomain('bar.foo.updated', false),
+                                                      ]),
+        );
+        $this->getKeycloak()->organizations()->update(self::REALM, $organizations->first()->getId(), $updatedOrganization);
+        $organizations = $this->getKeycloak()->organizations()->all(self::REALM);
+        static::assertCount(1, $organizations);
+        static::assertSame($updatedOrganization->getName(), $organizations->first()->getName());
+
         // Delete newly created organization
         $this->getKeycloak()->organizations()->delete(self::REALM, $organizations->first()->getId());
         $organizations = $this->getKeycloak()->organizations()->all(self::REALM);
