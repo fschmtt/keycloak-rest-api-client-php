@@ -49,6 +49,21 @@ class Organizations extends Resource
         );
     }
 
+    public function update(string $realm, string $id, Organization $organization): void
+    {
+        $this->commandExecutor->executeCommand(
+            new Command(
+                '/admin/realms/{realm}/organizations/{id}',
+                Method::PUT,
+                [
+                    'realm' => $realm,
+                    'id' => $id,
+                ],
+                $organization,
+            ),
+        );
+    }
+
     public function delete(string $realm, string $id): void
     {
         $this->commandExecutor->executeCommand(
