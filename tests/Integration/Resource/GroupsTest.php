@@ -16,7 +16,7 @@ class GroupsTest extends TestCase
 {
     use IntegrationTestBehaviour;
 
-    private const REALM = 'groups-tests';
+    private const REALM = 'groups-test';
 
     public static function setUpBeforeClass(): void
     {

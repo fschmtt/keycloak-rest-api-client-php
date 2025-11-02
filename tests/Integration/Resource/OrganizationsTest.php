@@ -19,7 +19,7 @@ class OrganizationsTest extends TestCase
 {
     use IntegrationTestBehaviour;
 
-    private const REALM = 'organizations-tests';
+    private const REALM = 'organizations-test';
 
     protected function setUp(): void
     {
