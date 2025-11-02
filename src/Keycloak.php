@@ -37,6 +37,7 @@ class Keycloak
         private readonly string $baseUrl,
         private readonly string $username,
         private readonly string $password,
+        private readonly string $realm = 'master',
         private readonly TokenStorageInterface $tokenStorage = new InMemory(),
         ?ClientInterface $guzzleClient = new GuzzleClient(),
     ) {
@@ -143,5 +144,10 @@ class Keycloak
         $this->version = $this->serverInfo()->get()->getSystemInfo()->getVersion();
         $this->serializer = new Serializer($this->version);
         $this->commandExecutor = new CommandExecutor($this->client, $this->serializer);
+    }
+
+    public function getRealm(): string
+    {
+        return $this->realm;
     }
 }

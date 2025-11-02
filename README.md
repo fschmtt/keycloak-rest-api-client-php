@@ -25,7 +25,8 @@ Example:
 $keycloak = new \Fschmtt\Keycloak\Keycloak(
     baseUrl: 'http://keycloak:8080',
     username: 'admin',
-    password: 'admin'
+    password: 'admin',
+    realm: 'master'
 );
 
 $serverInfo = $keycloak->serverInfo()->get();
@@ -50,6 +51,8 @@ will print e.g.
 ```text
 Keycloak 26.0.0 is running on Linux/5.10.25-linuxkit (amd64) with OpenJDK 64-Bit Server VM/11.0.11 since 0 days, 2 hours, 37 minutes, 7 seconds and is currently using 139 MB of 512 MB (28 %) memory.
 ```
+
+You can authenticate against a specific realm by passing it via the `realm` parameter when constructing the `Keycloak` instance.
 
 More examples can be found in the [examples](examples) directory.
 
@@ -164,23 +167,27 @@ $myCustomRepresentation = $myCustomResource->myCustomEndpoint();
 
 ### [Users](https://www.keycloak.org/docs-api/26.0.0/rest-api/index.html#_users)
 
-| Endpoint                                                | Response                                                        | API                                                            |
-|---------------------------------------------------------|-----------------------------------------------------------------|----------------------------------------------------------------|
-| `GET /admin/realms/{realm}/users`                       | [UserCollection](src/Collection/UserCollection.php)             | [Users::all()](src/Resource/Users.php)                         |
-| `POST /admin/realms/{realm}/users`                      | `n/a`                                                           | [Users::create()](src/Resource/Users.php)                      |
-| `GET /admin/realms/{realm}/users/{userId}`              | [User](src/Representation/User.php)                             | [Users::get()](src/Resource/Users.php)                         |
-| `PUT /admin/realms/{realm}/users/{userId}`              | `n/a`                                                           | [Users::update()](src/Resource/Users.php)                      |
-| `DELETE /admin/realms/{realm}/users/{userId}`           | `n/a`                                                           | [Users::delete()](src/Resource/Users.php)                      |
-| `GET /admin/realms/{realm}/users`                       | [UserCollection](src/Collection/UserCollection.php)             | [Users::search()](src/Resource/Users.php)                      |
-| `PUT /{realm}/users/{id}/groups/{groupId}`              | `n/a`                                                           | [Users::joinGroup()](src/Resource/Users.php)                   |
-| `DELETE /{realm}/users/{id}/groups/{groupId}`           | `n/a`                                                           | [Users::leaveGroup()](src/Resource/Users.php)                  |
-| `GET /{realm}/users/{id}/groups`                        | [GroupCollection](src/Collection/GroupCollection.php)           | [Users::retrieveGroups()](src/Resource/Users.php)              |
-| `GET /{realm}/users/{id}/role-mappings/realm`           | [RoleCollection](src/Collection/RoleCollection.php)             | [Users::retrieveRealmRoles()](src/Resource/Users.php)          |
-| `GET /{realm}/users/{id}/role-mappings/realm/available` | [RoleCollection](src/Collection/RoleCollection.php)             | [Users::retrieveAvailableRealmRoles()](src/Resource/Users.php) |
-| `POST /{realm}/users/{id}/role-mappings/realm`          | `n/a`                                                           | [Users::addRealmRoles()](src/Resource/Users.php)               |
-| `DELETE /{realm}/users/{id}/role-mappings/realm`        | `n/a`                                                           | [Users::removeRealmRoles()](src/Resource/Users.php)            |
-| `PUT /{realm}/users/{id}/execute-actions-email`         | `n/a`                                                           | [Users::executeActionsEmail()](src/Resource/Users.php)         |
-| `GET /admin/realms/{realm}/users/{userId}/credentials`  | [CredentialCollection](src/Collection/CredentialCollection.php) | [Users::credentials()](src/Resource/Users.php)                 |
+| Endpoint                                                                             | Response                                                        | API                                                            |
+|--------------------------------------------------------------------------------------|-----------------------------------------------------------------|----------------------------------------------------------------|
+| `GET /admin/realms/{realm}/users`                                                    | [UserCollection](src/Collection/UserCollection.php)             | [Users::all()](src/Resource/Users.php)                         |
+| `POST /admin/realms/{realm}/users`                                                   | `n/a`                                                           | [Users::create()](src/Resource/Users.php)                      |
+| `GET /admin/realms/{realm}/users/{userId}`                                           | [User](src/Representation/User.php)                             | [Users::get()](src/Resource/Users.php)                         |
+| `PUT /admin/realms/{realm}/users/{userId}`                                           | `n/a`                                                           | [Users::update()](src/Resource/Users.php)                      |
+| `DELETE /admin/realms/{realm}/users/{userId}`                                        | `n/a`                                                           | [Users::delete()](src/Resource/Users.php)                      |
+| `GET /admin/realms/{realm}/users`                                                    | [UserCollection](src/Collection/UserCollection.php)             | [Users::search()](src/Resource/Users.php)                      |
+| `PUT /admin/realms/{realm}/users/{userId}/groups/{groupId}`                          | `n/a`                                                           | [Users::joinGroup()](src/Resource/Users.php)                   |
+| `DELETE /admin/realms/{realm}/users/{userId}/groups/{groupId}`                       | `n/a`                                                           | [Users::leaveGroup()](src/Resource/Users.php)                  |
+| `GET /admin/realms/{realm}/users/{userId}/groups`                                    | [GroupCollection](src/Collection/GroupCollection.php)           | [Users::retrieveGroups()](src/Resource/Users.php)              |
+| `GET /admin/realms/{realm}/users/{userId}/role-mappings/realm`                       | [RoleCollection](src/Collection/RoleCollection.php)             | [Users::retrieveRealmRoles()](src/Resource/Users.php)          |
+| `GET /admin/realms/{realm}/users/{userId}/role-mappings/realm/available`             | [RoleCollection](src/Collection/RoleCollection.php)             | [Users::retrieveAvailableRealmRoles()](src/Resource/Users.php) |
+| `POST /admin/realms/{realm}/users/{userId}/role-mappings/realm`                      | `n/a`                                                           | [Users::addRealmRoles()](src/Resource/Users.php)               |
+| `DELETE /admin/realms/{realm}/users/{userId}/role-mappings/realm`                    | `n/a`                                                           | [Users::removeRealmRoles()](src/Resource/Users.php)            |
+| `GET /admin/realms/{realm}/users/{userId}/role-mappings/clients/{clientUuid}`        | [RoleCollection](src/Collection/RoleCollection.php)             | [Users::retrieveClientRoles()](src/Resource/Users.php)         |
+| `GET /admin/realms/{realm}/users/{userId}/role-mappings/clients/{clientUuid}/available` | [RoleCollection](src/Collection/RoleCollection.php)          | [Users::retrieveAvailableClientRoles()](src/Resource/Users.php) |
+| `POST /admin/realms/{realm}/users/{userId}/role-mappings/clients/{clientUuid}`       | `n/a`                                                           | [Users::addClientRoles()](src/Resource/Users.php)              |
+| `DELETE /admin/realms/{realm}/users/{userId}/role-mappings/clients/{clientUuid}`     | `n/a`                                                           | [Users::removeClientRoles()](src/Resource/Users.php)           |
+| `PUT /admin/realms/{realm}/users/{userId}/execute-actions-email`                     | `n/a`                                                           | [Users::executeActionsEmail()](src/Resource/Users.php)         |
+| `GET /admin/realms/{realm}/users/{userId}/credentials`                               | [CredentialCollection](src/Collection/CredentialCollection.php) | [Users::credentials()](src/Resource/Users.php)                 |
 
 ### [Roles](https://www.keycloak.org/docs-api/26.0.0/rest-api/index.html#_roles)
 
