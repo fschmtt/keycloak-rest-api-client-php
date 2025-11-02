@@ -145,6 +145,7 @@ $myCustomRepresentation = $myCustomResource->myCustomEndpoint();
 | `DELETE /admin/realms/{realm}/organizations/{id}`                   | `n/a`                                                               | [Organizations::delete()](src/Resource/Organizations.php)     |
 | `POST /admin/realms/{realm}/organizations/{id}/members/invite-user` | `n/a`                                                               | [Organizations::inviteUser()](src/Resource/Organizations.php) |
 | `POST /admin/realms/{realm}/organizations/{id}/members`             | `n/a`                                                               | [Organizations::addUser()](src/Resource/Organizations.php)    |
+| `PUT /admin/realms/{realm}/organizations/{id}`                      | `n/a`                                                               | [Organizations::update()](src/Resource/Organizations.php)     |
 
 ### [Realms Admin](https://www.keycloak.org/docs-api/26.0.0/rest-api/index.html#_realms_admin)
 
