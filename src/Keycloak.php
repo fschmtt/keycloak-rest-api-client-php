@@ -34,12 +34,30 @@ class Keycloak
     private CommandExecutor $commandExecutor;
     private QueryExecutor $queryExecutor;
 
+    /**
+     * @deprecated tag:v1.0.0 Use the Builder class to create Keycloak instances instead.
+     * @see \Fschmtt\Keycloak\Builder
+     */
     public function __construct(
         private readonly string $baseUrl,
-        private readonly GrantType $grantType,
+        /** @deprecated tag:v1.0.0 Will be removed. */
+        private readonly ?string $username = null,
+        /** @deprecated tag:v1.0.0 Will be removed. */
+        private readonly ?string $password = null,
+        /** @deprecated tag:v1.0.0 Will be removed. */
+        private readonly ?string $realm = null,
         private readonly TokenStorageInterface $tokenStorage = new InMemory(),
         ?ClientInterface $httpClient = new GuzzleClient(),
+        private readonly ?GrantType $grantType = null,
     ) {
+        if ($this->username || $this->password || $this->realm) {
+            trigger_deprecation(
+                'fschmtt/keycloak-rest-api-client-php',
+                'v1.0.0',
+                'Passing a password grant type (username, password and realm) to the Keycloak instance is deprecated. Use Builder::withGrantType() instead.',
+            );
+        }
+
         $this->client = new Client($this, $httpClient, $this->tokenStorage);
         $this->serializer = new Serializer($this->version);
         $this->commandExecutor = new CommandExecutor($this->client, $this->serializer);
@@ -51,7 +69,25 @@ class Keycloak
         return $this->baseUrl;
     }
 
-    public function getGrantType(): GrantType
+    /**
+     * @deprecated tag:v1.0.0 Use Keycloak::getGrantType() to access grant type details.
+     * @see Keycloak::getGrantType()
+     */
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    /**
+     * @deprecated tag:v1.0.0 Use Keycloak::getGrantType() to access grant type details.
+     * @see Keycloak::getGrantType()
+     */
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function getGrantType(): ?GrantType
     {
         return $this->grantType;
     }
@@ -61,6 +97,14 @@ class Keycloak
         $this->fetchVersion();
 
         return $this->version;
+    }
+
+    /**
+     * @deprecated tag:v1.0.0
+     */
+    public function getRealm(): ?string
+    {
+        return $this->realm;
     }
 
     public function attackDetection(): AttackDetection

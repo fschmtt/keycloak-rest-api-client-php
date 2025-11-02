@@ -29,7 +29,11 @@ class ClientTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->keycloak = new Keycloak('http://keycloak:8080', new Password());
+        // @phpstan-ignore method.deprecated
+        $this->keycloak = new Keycloak(
+            'http://keycloak:8080',
+            grantType: new Password(),
+        );
     }
 
     public function testAuthorizesBeforeSendingRequest(): void
@@ -154,9 +158,10 @@ class ClientTest extends TestCase
 
         $httpClient = new GuzzleClient(['handler' => $handlerStack]);
 
+        // @phpstan-ignore method.deprecated
         $keycloak = new Keycloak(
             'http://keycloak:8080',
-            new Password(realm: 'custom-realm'),
+            grantType: new Password(realm: 'custom-realm'),
         );
 
         $client = new Client($keycloak, $httpClient, new InMemoryTokenStorage());

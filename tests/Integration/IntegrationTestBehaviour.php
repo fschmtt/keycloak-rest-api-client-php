@@ -14,9 +14,10 @@ trait IntegrationTestBehaviour
     public static function getKeycloak(): Keycloak
     {
         if (!self::$keycloak) {
+            // @phpstan-ignore method.deprecated
             self::$keycloak = new Keycloak(
                 $_SERVER['KEYCLOAK_BASE_URL'] ?? 'http://keycloak:8080',
-                GrantType::password('admin', 'admin'),
+                grantType: GrantType::password('admin', 'admin'),
             );
         }
 

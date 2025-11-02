@@ -6,6 +6,7 @@ namespace Fschmtt\Keycloak\Http;
 
 use DateTime;
 use Fschmtt\Keycloak\Keycloak;
+use Fschmtt\Keycloak\OAuth\GrantType;
 use Fschmtt\Keycloak\OAuth\GrantType\RefreshToken;
 use Fschmtt\Keycloak\OAuth\TokenStorageInterface;
 use GuzzleHttp\ClientInterface;
@@ -18,11 +19,27 @@ use Psr\Http\Message\ResponseInterface;
  */
 class Client
 {
+    private GrantType $grantType;
+
     public function __construct(
         private readonly Keycloak $keycloak,
         private readonly ClientInterface $httpClient,
         private readonly TokenStorageInterface $tokenStorage,
-    ) {}
+    ) {
+        if ($grantType = $this->keycloak->getGrantType()) {
+            $this->grantType = $grantType;
+        } else {
+            $this->grantType = GrantType::password(
+                // @phpstan-ignore method.deprecated
+                $this->keycloak->getUsername() ?? throw new \InvalidArgumentException('Username must be provided'),
+                // @phpstan-ignore method.deprecated
+                $this->keycloak->getPassword() ?? throw new \InvalidArgumentException('Password must be provided'),
+                'admin-cli',
+                // @phpstan-ignore method.deprecated
+                $this->keycloak->getRealm() ?? throw new \InvalidArgumentException('Realm must be provided'),
+            );
+        }
+    }
 
     /**
      * @param array<string, mixed> $options
@@ -70,15 +87,15 @@ class Client
     {
         if ($refreshToken = $this->tokenStorage->retrieveRefreshToken()) {
             $refreshTokenGrantType = new RefreshToken(
-                $this->keycloak->getGrantType()->clientId,
+                $this->grantType->clientId,
                 $refreshToken->toString(),
-                $this->keycloak->getGrantType()->clientSecret,
-                $this->keycloak->getGrantType()->scope,
+                $this->grantType->clientSecret,
+                $this->grantType->scope,
             );
 
             $response = $this->httpClient->request(
                 'POST',
-                $this->keycloak->getBaseUrl() . '/realms/' . $this->keycloak->getGrantType()->realm . '/protocol/openid-connect/token',
+                $this->keycloak->getBaseUrl() . '/realms/' . $this->grantType->realm . '/protocol/openid-connect/token',
                 [
                     'form_params' => $refreshTokenGrantType->toRequestParams(),
                 ],
@@ -86,9 +103,9 @@ class Client
         } else {
             $response = $this->httpClient->request(
                 'POST',
-                $this->keycloak->getBaseUrl() . '/realms/' . $this->keycloak->getGrantType()->realm . '/protocol/openid-connect/token',
+                $this->keycloak->getBaseUrl() . '/realms/' . $this->grantType->realm . '/protocol/openid-connect/token',
                 [
-                    'form_params' => $this->keycloak->getGrantType()->toRequestParams(),
+                    'form_params' => $this->grantType->toRequestParams(),
                 ],
             );
         }

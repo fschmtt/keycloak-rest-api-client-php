@@ -68,11 +68,12 @@ class Builder
             throw new BuilderException('Grant type is not set');
         }
 
+        // @phpstan-ignore method.deprecated
         return new Keycloak(
             baseUrl: $this->baseUrl,
-            grantType: $this->grantType,
             tokenStorage: $this->tokenStorage,
             httpClient: $this->httpClient,
+            grantType: $this->grantType,
         );
     }
 }
