@@ -43,7 +43,7 @@ class RealmsTest extends TestCase
         static::assertFalse($realm->getRegistrationAllowed());
 
         $realm = $realm->withRegistrationAllowed(true);
-        $realm = $this->keycloak->realms()->update($realm->getRealm(), $realm);
+        $realm = $this->getKeycloak()->realms()->update($realm->getRealm(), $realm);
 
         static::assertTrue($realm->getRegistrationAllowed());
     }
@@ -56,7 +56,7 @@ class RealmsTest extends TestCase
         static::assertEquals('testing-id', $realm->getId());
         static::assertEquals('testing-realm', $realm->getRealm());
 
-        static::assertCount(2, $this->keycloak->realms()->all());
+        static::assertCount(2, $this->getKeycloak()->realms()->all());
     }
 
     public function testCanClearCaches(): void
