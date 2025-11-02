@@ -22,6 +22,8 @@ use Fschmtt\Keycloak\Resource\Users;
 use Fschmtt\Keycloak\Serializer\Serializer;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\ClientInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @codeCoverageIgnore
@@ -49,6 +51,7 @@ class Keycloak
         private readonly TokenStorageInterface $tokenStorage = new InMemory(),
         ?ClientInterface $httpClient = new GuzzleClient(),
         private readonly ?GrantType $grantType = null,
+        private readonly EventDispatcherInterface $eventDispatcher = new EventDispatcher(),
     ) {
         if ($this->username || $this->password || $this->realm) {
             trigger_deprecation(
@@ -60,7 +63,7 @@ class Keycloak
 
         $this->client = new Client($this, $httpClient, $this->tokenStorage);
         $this->serializer = new Serializer($this->version);
-        $this->commandExecutor = new CommandExecutor($this->client, $this->serializer);
+        $this->commandExecutor = new CommandExecutor($this->client, $this->serializer, $this->eventDispatcher);
         $this->queryExecutor = new QueryExecutor($this->client, $this->serializer);
     }
 
@@ -181,6 +184,6 @@ class Keycloak
 
         $this->version = $this->serverInfo()->get()->getSystemInfo()->getVersion();
         $this->serializer = new Serializer($this->version);
-        $this->commandExecutor = new CommandExecutor($this->client, $this->serializer);
+        $this->commandExecutor = new CommandExecutor($this->client, $this->serializer, $this->eventDispatcher);
     }
 }

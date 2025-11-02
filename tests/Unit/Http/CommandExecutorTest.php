@@ -15,6 +15,7 @@ use Fschmtt\Keycloak\Test\Unit\Stub\Collection;
 use Fschmtt\Keycloak\Test\Unit\Stub\Representation;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 #[CoversClass(CommandExecutor::class)]
 class CommandExecutorTest extends TestCase
@@ -35,7 +36,7 @@ class CommandExecutorTest extends TestCase
                 ],
             );
 
-        $executor = new CommandExecutor($client, new Serializer());
+        $executor = new CommandExecutor($client, new Serializer(), new EventDispatcher());
         $executor->executeCommand(
             new Command(
                 '/path/to/resource',
@@ -69,7 +70,7 @@ class CommandExecutorTest extends TestCase
                 ],
             );
 
-        $executor = new CommandExecutor($client, new Serializer());
+        $executor = new CommandExecutor($client, new Serializer(), new EventDispatcher());
         $executor->executeCommand($command);
     }
 
@@ -98,7 +99,7 @@ class CommandExecutorTest extends TestCase
                 ],
             );
 
-        $executor = new CommandExecutor($client, new Serializer());
+        $executor = new CommandExecutor($client, new Serializer(), new EventDispatcher());
         $executor->executeCommand($command);
     }
 
@@ -123,7 +124,7 @@ class CommandExecutorTest extends TestCase
                 ],
             );
 
-        $executor = new CommandExecutor($client, new Serializer());
+        $executor = new CommandExecutor($client, new Serializer(), new EventDispatcher());
         $executor->executeCommand($command);
     }
 
@@ -150,7 +151,7 @@ class CommandExecutorTest extends TestCase
                 ],
             );
 
-        $executor = new CommandExecutor($client, new Serializer());
+        $executor = new CommandExecutor($client, new Serializer(), new EventDispatcher());
         $executor->executeCommand($command);
     }
 }

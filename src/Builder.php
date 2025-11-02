@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak;
 
+use Fschmtt\Keycloak\Event\KeycloakEvent;
 use Fschmtt\Keycloak\Exception\BuilderException;
 use Fschmtt\Keycloak\OAuth\GrantType;
 use Fschmtt\Keycloak\OAuth\TokenStorage\InMemory as InMemoryTokenStorage;
 use Fschmtt\Keycloak\OAuth\TokenStorageInterface;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\ClientInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Builder
 {
@@ -21,10 +24,13 @@ class Builder
 
     private ClientInterface $httpClient;
 
+    private EventDispatcherInterface $eventDispatcher;
+
     public function __construct()
     {
         $this->tokenStorage = new InMemoryTokenStorage();
         $this->httpClient = new GuzzleClient();
+        $this->eventDispatcher = new EventDispatcher();
     }
 
     public function withBaseUrl(string $baseUrl): self
@@ -56,6 +62,18 @@ class Builder
     }
 
     /**
+     * @param array<class-string<KeycloakEvent>, callable> $listeners
+     */
+    public function withEventListeners(array $listeners): self
+    {
+        foreach ($listeners as $event => $listener) {
+            $this->eventDispatcher->addListener($event, $listener);
+        }
+
+        return $this;
+    }
+
+    /**
      * @throws BuilderException
      */
     public function build(): Keycloak
@@ -74,6 +92,7 @@ class Builder
             tokenStorage: $this->tokenStorage,
             httpClient: $this->httpClient,
             grantType: $this->grantType,
+            eventDispatcher: $this->eventDispatcher,
         );
     }
 }

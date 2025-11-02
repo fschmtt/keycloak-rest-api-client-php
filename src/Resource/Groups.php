@@ -6,6 +6,7 @@ namespace Fschmtt\Keycloak\Resource;
 
 use Fschmtt\Keycloak\Collection\GroupCollection;
 use Fschmtt\Keycloak\Collection\UserCollection;
+use Fschmtt\Keycloak\Event\GroupCreatedEvent;
 use Fschmtt\Keycloak\Http\Command;
 use Fschmtt\Keycloak\Http\Criteria;
 use Fschmtt\Keycloak\Http\Method;
@@ -96,6 +97,7 @@ class Groups extends Resource
                     'realm' => $realm,
                 ],
                 $group,
+                event: GroupCreatedEvent::class,
             ),
         );
     }
