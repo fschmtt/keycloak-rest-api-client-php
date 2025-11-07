@@ -31,12 +31,12 @@ class Client
         } else {
             $this->grantType = GrantType::password(
                 // @phpstan-ignore method.deprecated
-                $this->keycloak->getUsername() ?? throw new \InvalidArgumentException('Username must be provided'),
+                $this->keycloak->getUsername() ?? throw new \InvalidArgumentException('Username must be provided when using legacy credentials'),
                 // @phpstan-ignore method.deprecated
-                $this->keycloak->getPassword() ?? throw new \InvalidArgumentException('Password must be provided'),
+                $this->keycloak->getPassword() ?? throw new \InvalidArgumentException('Password must be provided when using legacy credentials'),
                 'admin-cli',
                 // @phpstan-ignore method.deprecated
-                $this->keycloak->getRealm() ?? throw new \InvalidArgumentException('Realm must be provided'),
+                $this->keycloak->getRealm() ?? throw new \InvalidArgumentException('Realm must be provided when using legacy credentials'),
             );
         }
     }
@@ -93,6 +93,7 @@ class Client
             $refreshTokenGrantType = new RefreshToken(
                 $this->grantType->clientId,
                 $refreshToken->toString(),
+                $this->grantType->realm,
                 $this->grantType->clientSecret,
                 $this->grantType->scope,
             );
