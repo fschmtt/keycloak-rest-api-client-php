@@ -77,11 +77,15 @@ class Client
         $parser = (new Token\Parser(new JoseEncoder()));
 
         $this->tokenStorage->storeAccessToken($parser->parse($tokens['access_token']));
-        $this->tokenStorage->storeRefreshToken($parser->parse($tokens['refresh_token']));
+
+        if ($tokens['refresh_token']) {
+            // The refresh token could be null if the grant type (e.g. client credentials) does not support it
+            $this->tokenStorage->storeRefreshToken($parser->parse($tokens['refresh_token']));
+        }
     }
 
     /**
-     * @return array{access_token: non-empty-string, refresh_token: non-empty-string}
+     * @return array{access_token: non-empty-string, refresh_token: non-empty-string|null}
      */
     private function fetchTokens(): array
     {
@@ -118,7 +122,7 @@ class Client
 
         return [
             'access_token' => $tokens['access_token'],
-            'refresh_token' => $tokens['refresh_token'],
+            'refresh_token' => $tokens['refresh_token'] ?? null,
         ];
     }
 }
