@@ -9,6 +9,7 @@ name: PHP Integration (Keycloak compatibility)
 jobs:
   Integration:
     runs-on: ubuntu-latest
+    name: 🧩 Integration Tests
 
     strategy:
       matrix:
@@ -21,7 +22,7 @@ jobs:
       XDEBUG_MODE: coverage
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: shivammathur/setup-php@v2
         with:

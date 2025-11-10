@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Test\Integration;
 
 use Fschmtt\Keycloak\Keycloak;
+use Fschmtt\Keycloak\OAuth\GrantType;
 
 trait IntegrationTestBehaviour
 {
@@ -13,10 +14,10 @@ trait IntegrationTestBehaviour
     public static function getKeycloak(): Keycloak
     {
         if (!self::$keycloak) {
+            // @phpstan-ignore method.deprecated
             self::$keycloak = new Keycloak(
                 $_SERVER['KEYCLOAK_BASE_URL'] ?? 'http://keycloak:8080',
-                'admin',
-                'admin',
+                grantType: GrantType::password('admin', 'admin'),
             );
         }
 

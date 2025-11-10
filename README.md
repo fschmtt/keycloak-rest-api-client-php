@@ -22,11 +22,10 @@ composer require fschmtt/keycloak-rest-api-client-php
 Example:
 
 ```php
-$keycloak = new \Fschmtt\Keycloak\Keycloak(
-    baseUrl: 'http://keycloak:8080',
-    username: 'admin',
-    password: 'admin',
-    realm: 'master'
+$keycloak = (new \Fschmtt\Keycloak\Builder())
+    ->withBaseUrl('http://keycloak:8080')
+    ->withGrantType(\Fschmtt\Keycloak\OAuth\GrantType::password('admin', 'admin'))
+    ->build();
 );
 
 $serverInfo = $keycloak->serverInfo()->get();

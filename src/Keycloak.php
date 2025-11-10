@@ -7,6 +7,7 @@ namespace Fschmtt\Keycloak;
 use Fschmtt\Keycloak\Http\Client;
 use Fschmtt\Keycloak\Http\CommandExecutor;
 use Fschmtt\Keycloak\Http\QueryExecutor;
+use Fschmtt\Keycloak\OAuth\GrantType;
 use Fschmtt\Keycloak\OAuth\TokenStorage\InMemory;
 use Fschmtt\Keycloak\OAuth\TokenStorageInterface;
 use Fschmtt\Keycloak\Resource\AttackDetection;
@@ -33,15 +34,31 @@ class Keycloak
     private CommandExecutor $commandExecutor;
     private QueryExecutor $queryExecutor;
 
+    /**
+     * @deprecated tag:v1.0.0 Use the Builder class to create Keycloak instances instead.
+     * @see \Fschmtt\Keycloak\Builder
+     */
     public function __construct(
         private readonly string $baseUrl,
-        private readonly string $username,
-        private readonly string $password,
-        private readonly string $realm = 'master',
+        /** @deprecated tag:v1.0.0 Will be removed. */
+        private readonly ?string $username = null,
+        /** @deprecated tag:v1.0.0 Will be removed. */
+        private readonly ?string $password = null,
+        /** @deprecated tag:v1.0.0 Will be removed. */
+        private readonly ?string $realm = null,
         private readonly TokenStorageInterface $tokenStorage = new InMemory(),
-        ?ClientInterface $guzzleClient = new GuzzleClient(),
+        ?ClientInterface $httpClient = new GuzzleClient(),
+        private readonly ?GrantType $grantType = null,
     ) {
-        $this->client = new Client($this, $guzzleClient, $this->tokenStorage);
+        if ($this->username || $this->password || $this->realm) {
+            trigger_deprecation(
+                'fschmtt/keycloak-rest-api-client-php',
+                'v0.39.0',
+                'Passing a password grant type (username, password and realm) to the Keycloak instance is deprecated. Use Builder::withGrantType() instead.',
+            );
+        }
+
+        $this->client = new Client($this, $httpClient, $this->tokenStorage);
         $this->serializer = new Serializer($this->version);
         $this->commandExecutor = new CommandExecutor($this->client, $this->serializer);
         $this->queryExecutor = new QueryExecutor($this->client, $this->serializer);
@@ -52,14 +69,27 @@ class Keycloak
         return $this->baseUrl;
     }
 
-    public function getUsername(): string
+    /**
+     * @deprecated tag:v1.0.0 Use Keycloak::getGrantType() to access grant type details.
+     * @see Keycloak::getGrantType()
+     */
+    public function getUsername(): ?string
     {
         return $this->username;
     }
 
-    public function getPassword(): string
+    /**
+     * @deprecated tag:v1.0.0 Use Keycloak::getGrantType() to access grant type details.
+     * @see Keycloak::getGrantType()
+     */
+    public function getPassword(): ?string
     {
         return $this->password;
+    }
+
+    public function getGrantType(): ?GrantType
+    {
+        return $this->grantType;
     }
 
     public function getVersion(): string
@@ -67,6 +97,14 @@ class Keycloak
         $this->fetchVersion();
 
         return $this->version;
+    }
+
+    /**
+     * @deprecated tag:v1.0.0
+     */
+    public function getRealm(): ?string
+    {
+        return $this->realm;
     }
 
     public function attackDetection(): AttackDetection
@@ -144,10 +182,5 @@ class Keycloak
         $this->version = $this->serverInfo()->get()->getSystemInfo()->getVersion();
         $this->serializer = new Serializer($this->version);
         $this->commandExecutor = new CommandExecutor($this->client, $this->serializer);
-    }
-
-    public function getRealm(): string
-    {
-        return $this->realm;
     }
 }

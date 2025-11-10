@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 
-use Fschmtt\Keycloak\Keycloak;
+use Fschmtt\Keycloak\Builder;
+use Fschmtt\Keycloak\OAuth\GrantType;
 
 /**
  * @method string|null getId()
@@ -31,11 +32,10 @@ class MyCustomResource extends \Fschmtt\Keycloak\Resource\Resource
     }
 }
 
-$keycloak = new Keycloak(
-    $_SERVER['KEYCLOAK_BASE_URL'] ?? 'http://keycloak:8080',
-    'admin',
-    'admin',
-);
+$keycloak = (new Builder())
+    ->withBaseUrl($_SERVER['KEYCLOAK_BASE_URL'] ?? 'http://keycloak:8080')
+    ->withGrantType(GrantType::password('admin', 'admin'))
+    ->build();
 
 /** @var MyCustomResource $myCustomResource */
 $myCustomResource = $keycloak->resource(MyCustomResource::class);

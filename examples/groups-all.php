@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-use Fschmtt\Keycloak\Keycloak;
+use Fschmtt\Keycloak\Builder;
+use Fschmtt\Keycloak\OAuth\GrantType;
 use Fschmtt\Keycloak\Representation\Group;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$keycloak = new Keycloak(
-    baseUrl: $_SERVER['KEYCLOAK_BASE_URL'] ?? 'http://keycloak:8080',
-    username: 'admin',
-    password: 'admin',
-);
+$keycloak = (new Builder())
+    ->withBaseUrl($_SERVER['KEYCLOAK_BASE_URL'] ?? 'http://keycloak:8080')
+    ->withGrantType(GrantType::password('admin', 'admin'))
+    ->build();
 
 $realm = 'master';
 $groups = $keycloak->groups()->all($realm);
