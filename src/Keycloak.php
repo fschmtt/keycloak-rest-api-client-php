@@ -53,7 +53,7 @@ class Keycloak
         if ($this->username || $this->password || $this->realm) {
             trigger_deprecation(
                 'fschmtt/keycloak-rest-api-client-php',
-                'v1.0.0',
+                'v0.39.0',
                 'Passing a password grant type (username, password and realm) to the Keycloak instance is deprecated. Use Builder::withGrantType() instead.',
             );
         }
