@@ -26,7 +26,6 @@ $keycloak = (new \Fschmtt\Keycloak\Builder())
     ->withBaseUrl('http://keycloak:8080')
     ->withGrantType(\Fschmtt\Keycloak\OAuth\GrantType::password('admin', 'admin'))
     ->build();
-);
 
 $serverInfo = $keycloak->serverInfo()->get();
 
