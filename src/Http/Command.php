@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fschmtt\Keycloak\Http;
 
 use Fschmtt\Keycloak\Collection\Collection;
+use Fschmtt\Keycloak\Event\KeycloakEvent;
 use Fschmtt\Keycloak\Representation\Representation;
 
 class Command
@@ -18,6 +19,8 @@ class Command
         private readonly Representation|Collection|array|string|null $payload = null,
         private readonly ?Criteria $criteria = null,
         private readonly ContentType $contentType = ContentType::JSON,
+        /** @var class-string<KeycloakEvent> */
+        private readonly ?string $event = null,
     ) {}
 
     public function getMethod(): Method
@@ -63,5 +66,13 @@ class Command
     public function getContentType(): ContentType
     {
         return $this->contentType;
+    }
+
+    /**
+     * @return class-string<KeycloakEvent>|null
+     */
+    public function getEvent(): ?string
+    {
+        return $this->event;
     }
 }
