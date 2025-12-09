@@ -51,7 +51,6 @@ abstract class Representation implements JsonSerializable
         $properties = $reflectedClass->getProperties(ReflectionProperty::IS_PROTECTED);
 
         foreach ($properties as $property) {
-            $property->setAccessible(true);
             $serializable[$property->getName()] = ($property->getValue($this) instanceof JsonSerializable)
                 ? $property->getValue($this)->jsonSerialize()
                 : $property->getValue($this);
