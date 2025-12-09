@@ -99,7 +99,6 @@ class AttributeNormalizerTest extends TestCase
         $normalizer = new AttributeNormalizer(new PropertyNormalizer(), '20.0.0');
 
         $reflection = new ReflectionClass($normalizer);
-        $reflection->getProperty('filteredProperties')->setAccessible(true);
 
         $memoizedFilteredProperties = $reflection->getProperty('filteredProperties')->getValue($normalizer);
         static::assertArrayNotHasKey($representation::class, $memoizedFilteredProperties);
