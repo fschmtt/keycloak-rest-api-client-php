@@ -33,6 +33,9 @@ use Fschmtt\Keycloak\Type\Map;
  *
  * @method string|null getPostBrokerLoginFlowAlias()
  * @method self withPostBrokerLoginFlowAlias(?string $postBrokerLoginFlowAlias)
+ * 
+ * @method bool|null getHideOnLogin()
+ * @method self withHideOnLogin(?bool $hideOnLogin)
  *
  * @method string|null getProviderId()
  * @method self withProviderId(?string $providerId)
