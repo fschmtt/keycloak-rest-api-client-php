@@ -34,6 +34,9 @@ use Fschmtt\Keycloak\Type\Map;
  * @method string|null getPostBrokerLoginFlowAlias()
  * @method self withPostBrokerLoginFlowAlias(?string $postBrokerLoginFlowAlias)
  *
+ * @method bool|null getHideOnLogin()
+ * @method self withHideOnLogin(?bool $hideOnLogin)
+ *
  * @method string|null getProviderId()
  * @method self withProviderId(?string $providerId)
  *
@@ -54,6 +57,7 @@ class IdentityProvider extends Representation
         protected ?string $displayName = null,
         protected ?bool $enabled = null,
         protected ?string $firstBrokerLoginFlowAlias = null,
+        protected ?bool $hideOnLogin = null,
         protected ?string $internalId = null,
         protected ?bool $linkOnly = null,
         protected ?string $postBrokerLoginFlowAlias = null,
