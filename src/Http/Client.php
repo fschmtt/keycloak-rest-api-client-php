@@ -91,8 +91,8 @@ class Client
     {
         if ($refreshToken = $this->tokenStorage->retrieveRefreshToken()) {
             $refreshTokenGrantType = new RefreshToken(
-                $this->grantType->clientId,
                 $refreshToken->toString(),
+                $this->grantType->clientId,
                 $this->grantType->realm,
                 $this->grantType->clientSecret,
                 $this->grantType->scope,
