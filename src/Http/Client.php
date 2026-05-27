@@ -68,7 +68,7 @@ class Client
 
     public function isAuthorized(): bool
     {
-        return $this->tokenStorage->retrieveAccessToken()?->isExpired(new DateTime()) === false;
+        return $this->tokenStorage->retrieveAccessToken()?->isExpired((new DateTime())->add(new \DateInterval("PT30S"))) === false;
     }
 
     private function authorize(): void
