@@ -121,6 +121,58 @@ class ClientTest extends TestCase
         static::assertTrue($client->isAuthorized());
     }
 
+    public function testIsNotAuthorizedIfTokenExpiresWithinGracePeriod(): void
+    {
+        $accessToken = $this->generateToken((new DateTimeImmutable())->modify('+15 seconds'));
+
+        $tokenStorage = new InMemoryTokenStorage();
+        $tokenStorage->storeAccessToken($accessToken);
+
+        $client = new Client(
+            $this->keycloak,
+            $this->createMock(ClientInterface::class),
+            $tokenStorage,
+        );
+
+        static::assertFalse($client->isAuthorized());
+    }
+
+    public function testIsAuthorizedIfTokenExpiresAfterGracePeriod(): void
+    {
+        $accessToken = $this->generateToken((new DateTimeImmutable())->modify('+60 seconds'));
+
+        $tokenStorage = new InMemoryTokenStorage();
+        $tokenStorage->storeAccessToken($accessToken);
+
+        $client = new Client(
+            $this->keycloak,
+            $this->createMock(ClientInterface::class),
+            $tokenStorage,
+        );
+
+        static::assertTrue($client->isAuthorized());
+    }
+
+    public function testReAuthorizesWhenTokenIsWithinGracePeriod(): void
+    {
+        $expiringAccessToken = $this->generateToken((new DateTimeImmutable())->modify('+15 seconds'));
+        $refreshToken = $this->generateToken((new DateTimeImmutable())->modify('+1 hour'));
+
+        $tokenStorage = new InMemoryTokenStorage();
+        $tokenStorage->storeAccessToken($expiringAccessToken);
+        $tokenStorage->storeRefreshToken($refreshToken);
+
+        $guzzleClient = new GuzzleClient(['handler' => new MockHandler([
+            $this->generateTokenResponse(),
+            new Response(),
+        ])]);
+
+        $client = new Client($this->keycloak, $guzzleClient, $tokenStorage);
+        $client->request('GET', '/admin/realms');
+
+        static::assertNotEquals($expiringAccessToken->toString(), $tokenStorage->retrieveAccessToken()->toString());
+    }
+
     public function testAuthenticatesUsingConfiguredRealm(): void
     {
         $accessToken = $this->generateToken((new DateTimeImmutable())->modify('+1 hour'));
