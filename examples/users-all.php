@@ -8,11 +8,11 @@ use Fschmtt\Keycloak\OAuth\GrantType;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $keycloak = (new Builder())
-    ->withBaseUrl($_SERVER['KEYCLOAK_BASE_URL'] ?? 'http://qa.idp.aeb.com')
-    ->withGrantType(GrantType::clientCredentials('keycloak-admin-client', 'keycloak-admin-client'))
+    ->withBaseUrl($_SERVER['KEYCLOAK_BASE_URL'] ?? 'http://keycloak:8080')
+    ->withGrantType(GrantType::password('admin', 'admin'))
     ->build();
 
-$realm = 'aeb';
+$realm = 'master';
 $users = $keycloak->users()->all(realm: $realm);
 
 echo sprintf('Realm "%s" has the following users:%s', $realm, PHP_EOL);
