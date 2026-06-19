@@ -19,6 +19,56 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(Clients::class)]
 class ClientsTest extends TestCase
 {
+    public function testGetAllClientsUsesDefaultRealmIfNoneIsPassed(): void
+    {
+        $query = new Query(
+            '/admin/realms/{realm}/clients',
+            ClientCollection::class,
+            [
+                'realm' => 'default-realm',
+            ],
+        );
+
+        $queryExecutor = $this->createMock(QueryExecutor::class);
+        $queryExecutor->expects(static::once())
+            ->method('executeQuery')
+            ->with($query)
+            ->willReturn(new ClientCollection());
+
+        $clients = new Clients(
+            $this->createMock(CommandExecutor::class),
+            $queryExecutor,
+            'default-realm',
+        );
+
+        $clients->all();
+    }
+
+    public function testGetAllClientsAllowsRealmOverride(): void
+    {
+        $query = new Query(
+            '/admin/realms/{realm}/clients',
+            ClientCollection::class,
+            [
+                'realm' => 'override-realm',
+            ],
+        );
+
+        $queryExecutor = $this->createMock(QueryExecutor::class);
+        $queryExecutor->expects(static::once())
+            ->method('executeQuery')
+            ->with($query)
+            ->willReturn(new ClientCollection());
+
+        $clients = new Clients(
+            $this->createMock(CommandExecutor::class),
+            $queryExecutor,
+            'default-realm',
+        );
+
+        $clients->all(realm: 'override-realm');
+    }
+
     public function testGetAllClients(): void
     {
         $query = new Query(
@@ -47,7 +97,7 @@ class ClientsTest extends TestCase
 
         static::assertSame(
             $clientCollection,
-            $clients->all('test-realm'),
+            $clients->all(realm: 'test-realm'),
         );
     }
 
@@ -77,7 +127,7 @@ class ClientsTest extends TestCase
 
         static::assertSame(
             $client,
-            $clients->get('test-realm', 'test-client'),
+            $clients->get('test-client', 'test-realm'),
         );
     }
 
@@ -127,7 +177,7 @@ class ClientsTest extends TestCase
 
         static::assertSame(
             $client,
-            $clients->update('test-realm', 'test-client', $updatedClient),
+            $clients->update('test-client', $updatedClient, 'test-realm'),
         );
     }
 
@@ -176,7 +226,7 @@ class ClientsTest extends TestCase
 
         static::assertSame(
             $client,
-            $clients->import('test-realm', $importedClient),
+            $clients->import($importedClient, 'test-realm'),
         );
     }
 
@@ -206,7 +256,7 @@ class ClientsTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
 
-        $clients->delete('test-realm', $deletedClientId);
+        $clients->delete($deletedClientId, 'test-realm');
     }
 
     public function testGetUserSessions(): void
@@ -240,7 +290,7 @@ class ClientsTest extends TestCase
 
         static::assertSame(
             $userSessions,
-            $clients->getUserSessions('test-realm', $clientId),
+            $clients->getUserSessions($clientId, realm: 'test-realm'),
         );
     }
 
@@ -275,7 +325,7 @@ class ClientsTest extends TestCase
 
         static::assertSame(
             $credential,
-            $clients->getClientSecret('test-realm', $clientUuid),
+            $clients->getClientSecret($clientUuid, 'test-realm'),
         );
     }
 }

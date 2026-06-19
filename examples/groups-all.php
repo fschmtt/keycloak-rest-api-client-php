@@ -14,7 +14,7 @@ $keycloak = (new Builder())
     ->build();
 
 $realm = 'master';
-$groups = $keycloak->groups()->all($realm);
+$groups = $keycloak->groups()->all(realm: $realm);
 
 echo sprintf('Realm "%s" has the following groups:%s', $realm, PHP_EOL);
 

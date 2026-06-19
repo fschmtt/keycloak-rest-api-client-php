@@ -15,6 +15,8 @@ class Builder
 {
     private ?string $baseUrl = null;
 
+    private ?string $defaultRealm = null;
+
     private ?GrantType $grantType = null;
 
     private TokenStorageInterface $tokenStorage;
@@ -30,6 +32,13 @@ class Builder
     public function withBaseUrl(string $baseUrl): self
     {
         $this->baseUrl = $baseUrl;
+
+        return $this;
+    }
+
+    public function withRealm(string $realm): self
+    {
+        $this->defaultRealm = $realm;
 
         return $this;
     }
@@ -74,6 +83,7 @@ class Builder
             tokenStorage: $this->tokenStorage,
             httpClient: $this->httpClient,
             grantType: $this->grantType,
+            defaultRealm: $this->defaultRealm
         );
     }
 }

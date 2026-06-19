@@ -53,7 +53,7 @@ class UsersTest extends TestCase
 
         static::assertSame(
             $clientCollection,
-            $clients->all('test-realm'),
+            $clients->all(realm: 'test-realm'),
         );
     }
 
@@ -83,7 +83,7 @@ class UsersTest extends TestCase
 
         static::assertSame(
             $client,
-            $clients->get('test-realm', 'test-user'),
+            $clients->get('test-user', 'test-realm'),
         );
     }
 
@@ -110,7 +110,7 @@ class UsersTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
 
-        $users->create('test-realm', $createdUser);
+        $users->create($createdUser, 'test-realm');
     }
 
     public function testDeleteUser(): void
@@ -139,7 +139,7 @@ class UsersTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
 
-        $users->delete('test-realm', $deletedUserId);
+        $users->delete($deletedUserId, 'test-realm');
     }
 
     public function testUpdateUser(): void
@@ -166,7 +166,7 @@ class UsersTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
 
-        $users->update('test-realm', 'test-user', $updatedUser);
+        $users->update('test-user', $updatedUser, 'test-realm');
     }
 
     public function testSearchUser(): void
@@ -196,7 +196,7 @@ class UsersTest extends TestCase
             $queryExecutor,
         );
 
-        $users->search('test-realm', $criteria);
+        $users->search($criteria, 'test-realm');
     }
 
     public function testJoinGroup(): void
@@ -221,7 +221,7 @@ class UsersTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
 
-        $users->joinGroup('test-realm', 'test-user', 'test-group');
+        $users->joinGroup('test-user', 'test-group', 'test-realm');
     }
 
     public function testLeaveGroup(): void
@@ -246,7 +246,7 @@ class UsersTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
 
-        $users->leaveGroup('test-realm', 'test-user', 'test-group');
+        $users->leaveGroup('test-user', 'test-group', 'test-realm');
     }
 
     public function testRetrieveGroups(): void
@@ -278,7 +278,7 @@ class UsersTest extends TestCase
 
         static::assertSame(
             $groupCollection,
-            $users->retrieveGroups('test-realm', 'test-user'),
+            $users->retrieveGroups('test-user', realm: 'test-realm'),
         );
     }
 
@@ -311,7 +311,7 @@ class UsersTest extends TestCase
 
         static::assertSame(
             $roleCollection,
-            $users->retrieveRealmRoles('test-realm', 'test-user'),
+            $users->retrieveRealmRoles('test-user', 'test-realm'),
         );
     }
 
@@ -344,7 +344,7 @@ class UsersTest extends TestCase
 
         static::assertSame(
             $roleCollection,
-            $users->retrieveAvailableRealmRoles('test-realm', 'test-user'),
+            $users->retrieveAvailableRealmRoles('test-user', 'test-realm'),
         );
     }
 
@@ -372,7 +372,7 @@ class UsersTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
 
-        $users->addRealmRoles('test-realm', 'test-user', $roles);
+        $users->addRealmRoles('test-user', $roles, 'test-realm');
     }
 
     public function testRemoveRealmRoles(): void
@@ -399,7 +399,7 @@ class UsersTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
 
-        $users->removeRealmRoles('test-realm', 'test-user', $roles);
+        $users->removeRealmRoles('test-user', $roles, 'test-realm');
     }
 
     public function testExecuteActionsEmail(): void
@@ -423,7 +423,7 @@ class UsersTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
 
-        $users->executeActionsEmail('test-realm', 'test-user-id');
+        $users->executeActionsEmail('test-user-id', realm: 'test-realm');
     }
 
     public function testCredentials(): void
@@ -448,6 +448,6 @@ class UsersTest extends TestCase
             $queryExecutor,
         );
 
-        $users->credentials('test-realm', 'test-user-id');
+        $users->credentials('test-user-id', 'test-realm');
     }
 }

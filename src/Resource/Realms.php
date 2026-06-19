@@ -28,8 +28,10 @@ class Realms extends Resource
         );
     }
 
-    public function get(string $realm): Realm
+    public function get(?string $realm = null): Realm
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}',
@@ -54,8 +56,10 @@ class Realms extends Resource
         return $this->get($realm->getRealm());
     }
 
-    public function update(string $realm, Realm $updatedRealm): Realm
+    public function update(Realm $updatedRealm, ?string $realm = null): Realm
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}',
@@ -70,8 +74,10 @@ class Realms extends Resource
         return $this->get($updatedRealm->getRealm());
     }
 
-    public function delete(string $realm): void
+    public function delete(?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}',
@@ -86,8 +92,10 @@ class Realms extends Resource
     /**
      * @return AdminEvent[]
      */
-    public function adminEvents(string $realm, ?Criteria $criteria = null): array
+    public function adminEvents(?Criteria $criteria = null, ?string $realm = null): array
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}/admin-events',
@@ -100,8 +108,10 @@ class Realms extends Resource
         );
     }
 
-    public function keys(string $realm, ?Criteria $criteria = null): KeysMetadata
+    public function keys(?Criteria $criteria = null, ?string $realm = null): KeysMetadata
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}/keys',
@@ -114,8 +124,10 @@ class Realms extends Resource
         );
     }
 
-    public function deleteAdminEvents(string $realm): void
+    public function deleteAdminEvents(?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/admin-events',
@@ -127,8 +139,10 @@ class Realms extends Resource
         );
     }
 
-    public function clearKeysCache(string $realm): void
+    public function clearKeysCache(?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/clear-keys-cache',
@@ -140,8 +154,10 @@ class Realms extends Resource
         );
     }
 
-    public function clearRealmCache(string $realm): void
+    public function clearRealmCache(?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/clear-realm-cache',
@@ -153,8 +169,10 @@ class Realms extends Resource
         );
     }
 
-    public function clearUserCache(string $realm): void
+    public function clearUserCache(?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/clear-user-cache',

@@ -11,8 +11,10 @@ use Fschmtt\Keycloak\Type\Map;
 
 class AttackDetection extends Resource
 {
-    public function clear(string $realm): void
+    public function clear(?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/attack-detection/brute-force/users',
@@ -24,8 +26,10 @@ class AttackDetection extends Resource
         );
     }
 
-    public function userStatus(string $realm, string $userId): Map
+    public function userStatus(string $userId, ?string $realm = null): Map
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}/attack-detection/brute-force/users/{userId}',
@@ -38,8 +42,10 @@ class AttackDetection extends Resource
         );
     }
 
-    public function clearUser(string $realm, string $userId): void
+    public function clearUser(string $userId, ?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/attack-detection/brute-force/users/{userId}',

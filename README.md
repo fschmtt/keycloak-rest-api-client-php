@@ -24,6 +24,7 @@ Example:
 ```php
 $keycloak = (new \Fschmtt\Keycloak\Builder())
     ->withBaseUrl('http://keycloak:8080')
+    ->withRealm('master')
     ->withGrantType(\Fschmtt\Keycloak\OAuth\GrantType::password('admin', 'admin'))
     ->build();
 
@@ -53,6 +54,17 @@ Keycloak 26.0.0 is running on Linux/5.10.25-linuxkit (amd64) with OpenJDK 64-Bit
 You can authenticate against a specific realm by passing it via the `realm` parameter when constructing the `Keycloak` instance.
 
 More examples can be found in the [examples](examples) directory.
+
+If a default realm is configured via `Builder::withRealm()`, realm-scoped methods can use it automatically.
+You can still override it per call by passing a realm explicitly:
+
+```php
+// Uses default realm configured in the builder
+$clients = $keycloak->clients()->all();
+
+// Override default realm for a single call
+$otherClients = $keycloak->clients()->all(realm: 'other-realm');
+```
 
 ## Customization
 

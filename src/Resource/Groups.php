@@ -14,8 +14,10 @@ use Fschmtt\Keycloak\Representation\Group;
 
 class Groups extends Resource
 {
-    public function all(string $realm, ?Criteria $criteria = null): GroupCollection
+    public function all(?Criteria $criteria = null, ?string $realm = null): GroupCollection
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}/groups',
@@ -28,8 +30,10 @@ class Groups extends Resource
         );
     }
 
-    public function byPath(string $realm, string $path = ''): Group
+    public function byPath(string $path = '', ?string $realm = null): Group
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}/group-by-path/{path}',
@@ -42,8 +46,10 @@ class Groups extends Resource
         );
     }
 
-    public function children(string $realm, string $groupId, ?Criteria $criteria = null): GroupCollection
+    public function children(string $groupId, ?Criteria $criteria = null, ?string $realm = null): GroupCollection
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}/groups/{groupId}/children',
@@ -57,8 +63,10 @@ class Groups extends Resource
         );
     }
 
-    public function members(string $realm, string $groupId, ?Criteria $criteria = null): UserCollection
+    public function members(string $groupId, ?Criteria $criteria = null, ?string $realm = null): UserCollection
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}/groups/{groupId}/members',
@@ -72,8 +80,10 @@ class Groups extends Resource
         );
     }
 
-    public function get(string $realm, string $groupId): Group
+    public function get(string $groupId, ?string $realm = null): Group
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}/groups/{groupId}',
@@ -86,8 +96,10 @@ class Groups extends Resource
         );
     }
 
-    public function create(string $realm, Group $group): void
+    public function create(Group $group, ?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/groups',
@@ -100,8 +112,10 @@ class Groups extends Resource
         );
     }
 
-    public function createChild(string $realm, Group $group, string $parentGroupId): void
+    public function createChild(Group $group, string $parentGroupId, ?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/groups/{groupId}/children',
@@ -115,8 +129,10 @@ class Groups extends Resource
         );
     }
 
-    public function update(string $realm, string $groupId, Group $updatedGroup): void
+    public function update(string $groupId, Group $updatedGroup, ?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/groups/{groupId}',
@@ -130,8 +146,10 @@ class Groups extends Resource
         );
     }
 
-    public function delete(string $realm, string $groupId): void
+    public function delete(string $groupId, ?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/groups/{groupId}',

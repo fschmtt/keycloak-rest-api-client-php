@@ -43,7 +43,7 @@ class RealmsTest extends TestCase
         static::assertFalse($realm->getRegistrationAllowed());
 
         $realm = $realm->withRegistrationAllowed(true);
-        $realm = $this->getKeycloak()->realms()->update($realm->getRealm(), $realm);
+        $realm = $this->getKeycloak()->realms()->update($realm, $realm->getRealm());
 
         static::assertTrue($realm->getRegistrationAllowed());
     }
@@ -93,7 +93,7 @@ class RealmsTest extends TestCase
 
     public function testCanGetAdminEvents(): void
     {
-        $adminEvents = $this->getKeycloak()->realms()->adminEvents('master');
+        $adminEvents = $this->getKeycloak()->realms()->adminEvents(realm: 'master');
 
         static::assertEmpty($adminEvents);
     }
@@ -115,7 +115,7 @@ class RealmsTest extends TestCase
             'termsUrl' => 'https://example.com/terms',
         ]));
 
-        $this->getKeycloak()->realms()->update($realm->getRealm(), $realm);
+        $this->getKeycloak()->realms()->update($realm, $realm->getRealm());
 
         $updatedRealm = $this->getKeycloak()->realms()->get(realm: $realm->getRealm());
 

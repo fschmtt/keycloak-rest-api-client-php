@@ -45,7 +45,7 @@ class GroupsTest extends TestCase
             $this->createMock(CommandExecutor::class),
             $queryExecutor,
         );
-        $groups = $groups->all('realm-with-groups');
+        $groups = $groups->all(realm: 'realm-with-groups');
 
         static::assertCount(2, $groups);
         static::assertInstanceOf(Group::class, $groups->first());
@@ -78,7 +78,7 @@ class GroupsTest extends TestCase
             $this->createMock(CommandExecutor::class),
             $queryExecutor,
         );
-        $groups = $groups->children('realm-with-groups', 'child-group-id');
+        $groups = $groups->children('child-group-id', realm: 'realm-with-groups');
 
         static::assertCount(2, $groups);
         static::assertInstanceOf(Group::class, $groups->first());
@@ -107,7 +107,7 @@ class GroupsTest extends TestCase
             $queryExecutor,
         );
 
-        $group = $groups->get('realm-with-groups', 'group-1');
+        $group = $groups->get('group-1', 'realm-with-groups');
         static::assertSame('group-1', $group->getId());
     }
 
@@ -134,7 +134,7 @@ class GroupsTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
 
-        $groups->create('realm-with-groups', $group);
+        $groups->create($group, 'realm-with-groups');
     }
 
     public function testCreateChildGroup(): void
@@ -161,7 +161,7 @@ class GroupsTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
 
-        $groups->createChild('realm-with-groups', $group, 'parent-group-id');
+        $groups->createChild($group, 'parent-group-id', 'realm-with-groups');
     }
 
     public function testUpdateGroup(): void
@@ -188,7 +188,7 @@ class GroupsTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
 
-        $groups->update('realm-with-groups', $group->getId(), $group);
+        $groups->update($group->getId(), $group, 'realm-with-groups');
     }
 
     public function testDeleteGroup(): void
@@ -214,7 +214,7 @@ class GroupsTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
 
-        $groups->delete('realm-with-groups', $group->getId());
+        $groups->delete($group->getId(), 'realm-with-groups');
     }
 
     public function testByPath(): void
@@ -239,7 +239,7 @@ class GroupsTest extends TestCase
             $queryExecutor,
         );
 
-        $group = $groups->byPath('realm-with-groups', 'path/to/group');
+        $group = $groups->byPath('path/to/group', 'realm-with-groups');
         static::assertSame('group-1', $group->getId());
     }
 
@@ -265,7 +265,7 @@ class GroupsTest extends TestCase
             $queryExecutor,
         );
 
-        $members = $groups->members('realm-with-groups', 'group-1');
+        $members = $groups->members('group-1', realm: 'realm-with-groups');
         static::assertCount(1, $members);
     }
 }
