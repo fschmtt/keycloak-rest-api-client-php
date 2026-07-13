@@ -83,7 +83,7 @@ class Builder
             tokenStorage: $this->tokenStorage,
             httpClient: $this->httpClient,
             grantType: $this->grantType,
-            defaultRealm: $this->defaultRealm
+            defaultRealm: $this->defaultRealm,
         );
     }
 }
