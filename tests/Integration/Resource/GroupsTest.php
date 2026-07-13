@@ -36,29 +36,29 @@ class GroupsTest extends TestCase
         $updatedGroupName = Uuid::uuid4()->toString();
 
         // Create group
-        $groups->create(self::REALM, new Group(name: $importedGroupName));
+        $groups->create(new Group(name: $importedGroupName), realm: self::REALM);
 
         // Get all groups
-        $allGroups = $groups->all(self::REALM);
+        $allGroups = $groups->all(realm: self::REALM);
         static::assertGreaterThanOrEqual(1, $allGroups->count());
         $group = $allGroups->first();
         static::assertInstanceOf(Group::class, $group);
 
         // Search for single (imported) group
-        $importedGroup = $groups->all(self::REALM, new Criteria([
+        $importedGroup = $groups->all(new Criteria([
             'name' => $importedGroupName,
-        ]))->first();
+        ]), realm: self::REALM)->first();
         static::assertInstanceOf(Group::class, $importedGroup);
         static::assertSame($importedGroupName, $importedGroup->getName());
 
         // Update (imported) group
-        $groups->update(self::REALM, $importedGroup->getId(), $importedGroup->withName($updatedGroupName));
+        $groups->update($importedGroup->getId(), $importedGroup->withName($updatedGroupName), realm: self::REALM);
 
         // Delete (imported) user
-        $groups->delete(self::REALM, $importedGroup->getId());
+        $groups->delete($importedGroup->getId(), realm: self::REALM);
 
         try {
-            $groups->get(self::REALM, $importedGroup->getId());
+            $groups->get($importedGroup->getId(), realm: self::REALM);
             static::fail('Group should not exist anymore');
         } catch (Exception $e) {
             static::assertSame(404, $e->getCode());
@@ -75,13 +75,13 @@ class GroupsTest extends TestCase
         $groups = $this->getKeycloak()->groups();
 
         // Create group
-        $groups->create(self::REALM, new Group(name: $importedGroupName));
-        $group = $groups->all(self::REALM)->first();
+        $groups->create(new Group(name: $importedGroupName), realm: self::REALM);
+        $group = $groups->all(realm: self::REALM)->first();
         static::assertInstanceOf(Group::class, $group);
 
         // Create child group
-        $groups->createChild(self::REALM, new Group(name: $childGroupName), $group->getId());
-        $childGroups = $groups->children(self::REALM, $group->getId());
+        $groups->createChild(new Group(name: $childGroupName), $group->getId(), realm: self::REALM);
+        $childGroups = $groups->children($group->getId(), realm: self::REALM);
         static::assertCount(1, $childGroups);
 
         $childGroup = $childGroups->first();
@@ -89,7 +89,7 @@ class GroupsTest extends TestCase
         static::assertSame($childGroupName, $childGroup->getName());
 
         // get child group by path
-        $pathGroup = $groups->byPath(self::REALM, $importedGroupName . '/' . $childGroupName);
+        $pathGroup = $groups->byPath($importedGroupName . '/' . $childGroupName, realm: self::REALM);
         static::assertInstanceOf(Group::class, $pathGroup);
         static::assertSame($childGroup->getId(), $pathGroup->getId());
     }
