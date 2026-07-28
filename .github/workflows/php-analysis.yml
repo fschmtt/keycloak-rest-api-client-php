@@ -19,7 +19,7 @@ jobs:
       PHP_CS_FIXER_IGNORE_ENV: 1 # Remove when PHP 8.4 is officially supported by PHP CS Fixer
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - uses: shivammathur/setup-php@v2
         with:
@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 

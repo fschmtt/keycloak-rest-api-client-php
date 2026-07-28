@@ -18,7 +18,7 @@ jobs:
         php: [ 8.2, 8.3, 8.4, 8.5 ]
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - uses: shivammathur/setup-php@v2
         with:
@@ -32,7 +32,7 @@ jobs:
         run: vendor/bin/phpunit --testsuite unit
 
       - name: Upload coverage reports
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
         with:
           fail_ci_if_error: true
           files: phpunit.cobertura.xml
