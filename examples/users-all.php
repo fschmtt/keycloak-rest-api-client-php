@@ -13,7 +13,7 @@ $keycloak = (new Builder())
     ->build();
 
 $realm = 'master';
-$users = $keycloak->users()->all($realm);
+$users = $keycloak->users()->all(realm: $realm);
 
 echo sprintf('Realm "%s" has the following users:%s', $realm, PHP_EOL);
 

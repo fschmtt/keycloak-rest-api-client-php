@@ -12,9 +12,9 @@ $keycloak = (new Builder())
     ->withGrantType(GrantType::password('admin', 'admin'))
     ->build();
 
-$realm = $keycloak->realms()->get('master');
+$realm = $keycloak->realms()->get(realm: 'master');
 
-$adminEvents = $keycloak->realms()->adminEvents($realm->getRealm());
+$adminEvents = $keycloak->realms()->adminEvents(realm: $realm->getRealm());
 
 echo sprintf('The following %d admin events happened on realm "%s":%s', count($adminEvents), $realm->getRealm(), PHP_EOL);
 

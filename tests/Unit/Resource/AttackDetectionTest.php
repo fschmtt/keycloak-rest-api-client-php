@@ -59,7 +59,7 @@ class AttackDetectionTest extends TestCase
             $commandExecutor,
             $this->createMock(QueryExecutor::class),
         );
-        $attackDetection->clearUser('realm', 'userId');
+        $attackDetection->clearUser('userId', 'realm');
     }
 
     public function testGetAttackDetectionForSingleUserInRealm(): void
@@ -83,6 +83,6 @@ class AttackDetectionTest extends TestCase
             $this->createMock(CommandExecutor::class),
             $queryExecutor,
         );
-        $attackDetection->userStatus('realm', 'userId');
+        $attackDetection->userStatus('userId', 'realm');
     }
 }

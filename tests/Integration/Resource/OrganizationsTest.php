@@ -32,7 +32,7 @@ class OrganizationsTest extends TestCase
         $this->getKeycloak()->realms()->import(new Realm(realm: self::REALM, organizationsEnabled: true));
 
         // No organizations exist yet in realm
-        $organizations = $this->getKeycloak()->organizations()->all(self::REALM);
+        $organizations = $this->getKeycloak()->organizations()->all(realm: self::REALM);
         static::assertCount(0, $organizations);
 
         // Create a new organization in realm
@@ -43,24 +43,24 @@ class OrganizationsTest extends TestCase
                 new OrganizationDomain('bar.foo', false),
             ]),
         );
-        $this->getKeycloak()->organizations()->create(self::REALM, $createdOrganization);
+        $this->getKeycloak()->organizations()->create($createdOrganization, realm: self::REALM);
 
-        $organizations = $this->getKeycloak()->organizations()->all(self::REALM);
+        $organizations = $this->getKeycloak()->organizations()->all(realm: self::REALM);
         static::assertCount(1, $organizations);
         static::assertSame($createdOrganization->getName(), $organizations->first()->getName());
 
         // Get newly created organization
-        $organization = $this->getKeycloak()->organizations()->get(self::REALM, $organizations->first()->getId());
+        $organization = $this->getKeycloak()->organizations()->get($organizations->first()->getId(), realm: self::REALM);
         static::assertSame($createdOrganization->getName(), $organization->getName());
 
         try {
             // Invite user to newly created organization
             $this->getKeycloak()->organizations()->inviteUser(
-                self::REALM,
                 $organizations->first()->getId(),
                 'john@doe.com',
                 'John',
                 'Doe',
+                realm: self::REALM,
             );
         } catch (ServerException $e) {
             // Error is expected as SMTP is not configured
@@ -72,15 +72,15 @@ class OrganizationsTest extends TestCase
         }
 
         // Create user and add it to the organization
-        $this->getKeycloak()->organizations()->addUser(self::REALM, $organization->getId(), $this->createAndGetUser()->getId());
+        $this->getKeycloak()->organizations()->addUser($organization->getId(), $this->createAndGetUser()->getId(), realm: self::REALM);
 
         // Update organization
         $updatedOrganization = $organization->withDomains(new OrganizationDomainCollection([
             new OrganizationDomain('foo.bar.updated', true),
             new OrganizationDomain('bar.foo.updated', false),
         ]));
-        $this->getKeycloak()->organizations()->update(self::REALM, $organization->getId(), $updatedOrganization);
-        $organizations = $this->getKeycloak()->organizations()->all(self::REALM);
+        $this->getKeycloak()->organizations()->update($organization->getId(), $updatedOrganization, realm: self::REALM);
+        $organizations = $this->getKeycloak()->organizations()->all(realm: self::REALM);
         static::assertCount(1, $organizations);
         static::assertSame($updatedOrganization->getName(), $organizations->first()->getName());
         $domains = $organizations->first()->getDomains();
@@ -91,8 +91,8 @@ class OrganizationsTest extends TestCase
         ], array_map(static fn (OrganizationDomain $domain) => $domain->getName(), $domains->all()));
 
         // Delete newly created organization
-        $this->getKeycloak()->organizations()->delete(self::REALM, $organizations->first()->getId());
-        $organizations = $this->getKeycloak()->organizations()->all(self::REALM);
+        $this->getKeycloak()->organizations()->delete($organizations->first()->getId(), realm: self::REALM);
+        $organizations = $this->getKeycloak()->organizations()->all(realm: self::REALM);
         static::assertCount(0, $organizations);
 
         // Delete realm
@@ -103,13 +103,13 @@ class OrganizationsTest extends TestCase
     {
         $users = $this->getKeycloak()->users();
 
-        $users->create(self::REALM, new User(
+        $users->create(new User(
             username: $username = Uuid::uuid4()->toString(),
-        ));
+        ), realm: self::REALM);
 
-        return $users->search(self::REALM, new Criteria([
+        return $users->search(new Criteria([
             'username' => $username,
             'exact' => true,
-        ]))->first();
+        ]), realm: self::REALM)->first();
     }
 }

@@ -14,7 +14,7 @@ $keycloak = (new Builder())
 
 $resource = $keycloak->clients();
 $clients = $keycloak->clients()->all(realm: 'master');
-$client = $keycloak->clients()->get('master', $clients->first()->getId());
+$client = $keycloak->clients()->get($clients->first()->getId(), 'master');
 
 echo sprintf('Client "%s" (%s) has the following redirect URIs:%s', $client->getClientId(), $client->getId(), PHP_EOL);
 
@@ -22,7 +22,7 @@ foreach ($client->getRedirectUris() as $redirectUri) {
     echo sprintf('-> Redirect URI "%s"%s', $redirectUri, PHP_EOL);
 }
 
-$userSessions = $resource->getUserSessions('master', $client->getId());
+$userSessions = $resource->getUserSessions($client->getId(), realm: 'master');
 
 echo sprintf('Client "%s" (%s) has the following %d user sessions:%s', $client->getClientId(), $client->getId(), count($userSessions), PHP_EOL);
 

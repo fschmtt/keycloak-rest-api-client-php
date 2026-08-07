@@ -33,6 +33,7 @@ class Keycloak
     private Serializer $serializer;
     private CommandExecutor $commandExecutor;
     private QueryExecutor $queryExecutor;
+    private readonly ?string $defaultRealm;
 
     /**
      * @deprecated tag:v1.0.0 Use the Builder class to create Keycloak instances instead.
@@ -49,6 +50,7 @@ class Keycloak
         private readonly TokenStorageInterface $tokenStorage = new InMemory(),
         ?ClientInterface $httpClient = new GuzzleClient(),
         private readonly ?GrantType $grantType = null,
+        ?string $defaultRealm = null,
     ) {
         if ($this->username || $this->password || $this->realm) {
             trigger_deprecation(
@@ -62,6 +64,7 @@ class Keycloak
         $this->serializer = new Serializer($this->version);
         $this->commandExecutor = new CommandExecutor($this->client, $this->serializer);
         $this->queryExecutor = new QueryExecutor($this->client, $this->serializer);
+        $this->defaultRealm = $defaultRealm ?? $this->realm;
     }
 
     public function getBaseUrl(): string
@@ -107,58 +110,63 @@ class Keycloak
         return $this->realm;
     }
 
+    public function getDefaultRealm(): ?string
+    {
+        return $this->defaultRealm;
+    }
+
     public function attackDetection(): AttackDetection
     {
         $this->fetchVersion();
 
-        return new AttackDetection($this->commandExecutor, $this->queryExecutor);
+        return new AttackDetection($this->commandExecutor, $this->queryExecutor, $this->defaultRealm);
     }
 
     public function serverInfo(): ServerInfo
     {
-        return new ServerInfo($this->commandExecutor, $this->queryExecutor);
+        return new ServerInfo($this->commandExecutor, $this->queryExecutor, $this->defaultRealm);
     }
 
     public function realms(): Realms
     {
         $this->fetchVersion();
 
-        return new Realms($this->commandExecutor, $this->queryExecutor);
+        return new Realms($this->commandExecutor, $this->queryExecutor, $this->defaultRealm);
     }
 
     public function clients(): Clients
     {
         $this->fetchVersion();
 
-        return new Clients($this->commandExecutor, $this->queryExecutor);
+        return new Clients($this->commandExecutor, $this->queryExecutor, $this->defaultRealm);
     }
 
     public function users(): Users
     {
         $this->fetchVersion();
 
-        return new Users($this->commandExecutor, $this->queryExecutor);
+        return new Users($this->commandExecutor, $this->queryExecutor, $this->defaultRealm);
     }
 
     public function groups(): Groups
     {
         $this->fetchVersion();
 
-        return new Groups($this->commandExecutor, $this->queryExecutor);
+        return new Groups($this->commandExecutor, $this->queryExecutor, $this->defaultRealm);
     }
 
     public function roles(): Roles
     {
         $this->fetchVersion();
 
-        return new Roles($this->commandExecutor, $this->queryExecutor);
+        return new Roles($this->commandExecutor, $this->queryExecutor, $this->defaultRealm);
     }
 
     public function organizations(): Organizations
     {
         $this->fetchVersion();
 
-        return new Organizations($this->commandExecutor, $this->queryExecutor);
+        return new Organizations($this->commandExecutor, $this->queryExecutor, $this->defaultRealm);
     }
 
     /**
@@ -170,7 +178,7 @@ class Keycloak
     {
         $this->fetchVersion();
 
-        return new $resource($this->commandExecutor, $this->queryExecutor);
+        return new $resource($this->commandExecutor, $this->queryExecutor, $this->defaultRealm);
     }
 
     private function fetchVersion(): void

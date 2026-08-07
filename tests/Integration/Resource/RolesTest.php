@@ -19,36 +19,36 @@ class RolesTest extends TestCase
         $resource = $this->getKeycloak()->roles();
 
         // Get all roles
-        $allRoles = $resource->all('master');
+        $allRoles = $resource->all(realm: 'master');
         static::assertGreaterThanOrEqual(1, $allRoles->count());
         $role = $allRoles->first();
         static::assertInstanceOf(Role::class, $role);
 
         // Create role
         $resource->create(
-            'master',
             new Role(name: 'test-role', description: 'test-role-description'),
+            'master',
         );
 
         // Search (created) role
-        $role = $resource->all('master', new Criteria([
+        $role = $resource->all(new Criteria([
             'search' => 'test-role',
-        ]))->first();
+        ]), 'master')->first();
         static::assertInstanceOf(Role::class, $role);
         static::assertEquals('test-role', $role->getName());
 
         // Get single (created) role
-        $role = $resource->get('master', 'test-role');
+        $role = $resource->get('test-role', 'master');
         static::assertSame('test-role', $role->getName());
 
         // Update (created) role
-        $resource->update('master', $role->withDescription('updated-test-role-description'));
+        $resource->update($role->withDescription('updated-test-role-description'), 'master');
 
         // Delete (created) role
-        $resource->delete('master', 'test-role');
+        $resource->delete('test-role', 'master');
 
         try {
-            $resource->get('master', 'test-role');
+            $resource->get('test-role', 'master');
             static::fail('Role should not exist anymore');
         } catch (Exception $e) {
             static::assertSame(404, $e->getCode());

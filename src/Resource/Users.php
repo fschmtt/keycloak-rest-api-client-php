@@ -16,8 +16,10 @@ use Fschmtt\Keycloak\Representation\User as UserRepresentation;
 
 class Users extends Resource
 {
-    public function all(string $realm, ?Criteria $criteria = null): UserCollection
+    public function all(?Criteria $criteria = null, ?string $realm = null): UserCollection
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}/users',
@@ -30,8 +32,10 @@ class Users extends Resource
         );
     }
 
-    public function get(string $realm, string $userId): UserRepresentation
+    public function get(string $userId, ?string $realm = null): UserRepresentation
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}/users/{userId}',
@@ -44,8 +48,10 @@ class Users extends Resource
         );
     }
 
-    public function create(string $realm, UserRepresentation $user): void
+    public function create(UserRepresentation $user, ?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/users',
@@ -58,8 +64,10 @@ class Users extends Resource
         );
     }
 
-    public function update(string $realm, string $userId, UserRepresentation $updatedUser): void
+    public function update(string $userId, UserRepresentation $updatedUser, ?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/users/{userId}',
@@ -73,8 +81,10 @@ class Users extends Resource
         );
     }
 
-    public function delete(string $realm, string $userId): void
+    public function delete(string $userId, ?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/users/{userId}',
@@ -87,8 +97,10 @@ class Users extends Resource
         );
     }
 
-    public function search(string $realm, ?Criteria $criteria = null): UserCollection
+    public function search(?Criteria $criteria = null, ?string $realm = null): UserCollection
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}/users',
@@ -101,8 +113,10 @@ class Users extends Resource
         );
     }
 
-    public function joinGroup(string $realm, string $userId, string $groupId): void
+    public function joinGroup(string $userId, string $groupId, ?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/users/{userId}/groups/{groupId}',
@@ -116,8 +130,10 @@ class Users extends Resource
         );
     }
 
-    public function leaveGroup(string $realm, string $userId, string $groupId): void
+    public function leaveGroup(string $userId, string $groupId, ?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/users/{userId}/groups/{groupId}',
@@ -131,8 +147,10 @@ class Users extends Resource
         );
     }
 
-    public function retrieveGroups(string $realm, string $userId, ?Criteria $criteria = null): GroupCollection
+    public function retrieveGroups(string $userId, ?Criteria $criteria = null, ?string $realm = null): GroupCollection
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}/users/{userId}/groups',
@@ -146,8 +164,10 @@ class Users extends Resource
         );
     }
 
-    public function retrieveRealmRoles(string $realm, string $userId): RoleCollection
+    public function retrieveRealmRoles(string $userId, ?string $realm = null): RoleCollection
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}/users/{userId}/role-mappings/realm',
@@ -160,8 +180,10 @@ class Users extends Resource
         );
     }
 
-    public function retrieveAvailableRealmRoles(string $realm, string $userId): RoleCollection
+    public function retrieveAvailableRealmRoles(string $userId, ?string $realm = null): RoleCollection
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}/users/{userId}/role-mappings/realm/available',
@@ -174,8 +196,10 @@ class Users extends Resource
         );
     }
 
-    public function addRealmRoles(string $realm, string $userId, RoleCollection $roles): void
+    public function addRealmRoles(string $userId, RoleCollection $roles, ?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/users/{userId}/role-mappings/realm',
@@ -189,8 +213,10 @@ class Users extends Resource
         );
     }
 
-    public function removeRealmRoles(string $realm, string $userId, RoleCollection $roles): void
+    public function removeRealmRoles(string $userId, RoleCollection $roles, ?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/users/{userId}/role-mappings/realm',
@@ -205,8 +231,10 @@ class Users extends Resource
     }
 
 
-    public function retrieveClientRoles(string $realm, string $userId, string $clientUuid): RoleCollection
+    public function retrieveClientRoles(string $userId, string $clientUuid, ?string $realm = null): RoleCollection
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}/users/{userId}/role-mappings/clients/{clientUuid}',
@@ -220,8 +248,10 @@ class Users extends Resource
         );
     }
 
-    public function retrieveAvailableClientRoles(string $realm, string $userId, string $clientUuid): RoleCollection
+    public function retrieveAvailableClientRoles(string $userId, string $clientUuid, ?string $realm = null): RoleCollection
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}/users/{userId}/role-mappings/clients/{clientUuid}/available',
@@ -235,8 +265,10 @@ class Users extends Resource
         );
     }
 
-    public function addClientRoles(string $realm, string $userId, RoleCollection $roles, string $clientUuid): void
+    public function addClientRoles(string $userId, RoleCollection $roles, string $clientUuid, ?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/users/{userId}/role-mappings/clients/{clientUuid}',
@@ -251,8 +283,10 @@ class Users extends Resource
         );
     }
 
-    public function removeClientRoles(string $realm, string $userId, RoleCollection $roles, string $clientUuid): void
+    public function removeClientRoles(string $userId, RoleCollection $roles, string $clientUuid, ?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/users/{userId}/role-mappings/clients/{clientUuid}',
@@ -270,8 +304,10 @@ class Users extends Resource
     /**
      * @param list<string>|null $actions
      */
-    public function executeActionsEmail(string $realm, string $userId, ?array $actions = null, ?Criteria $criteria = null): void
+    public function executeActionsEmail(string $userId, ?array $actions = null, ?Criteria $criteria = null, ?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/users/{userId}/execute-actions-email',
@@ -286,8 +322,10 @@ class Users extends Resource
         );
     }
 
-    public function credentials(string $realm, string $userId): CredentialCollection
+    public function credentials(string $userId, ?string $realm = null): CredentialCollection
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}/users/{userId}/credentials',

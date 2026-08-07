@@ -13,8 +13,10 @@ use Fschmtt\Keycloak\Representation\Role;
 
 class Roles extends Resource
 {
-    public function all(string $realm, ?Criteria $criteria = null): RoleCollection
+    public function all(?Criteria $criteria = null, ?string $realm = null): RoleCollection
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}/roles',
@@ -27,8 +29,10 @@ class Roles extends Resource
         );
     }
 
-    public function get(string $realm, string $roleName): Role
+    public function get(string $roleName, ?string $realm = null): Role
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}/roles/{roleName}',
@@ -41,8 +45,10 @@ class Roles extends Resource
         );
     }
 
-    public function create(string $realm, Role $role): void
+    public function create(Role $role, ?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/roles',
@@ -55,8 +61,10 @@ class Roles extends Resource
         );
     }
 
-    public function delete(string $realm, string $roleName): void
+    public function delete(string $roleName, ?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/roles/{roleName}',
@@ -69,8 +77,10 @@ class Roles extends Resource
         );
     }
 
-    public function update(string $realm, Role $role): void
+    public function update(Role $role, ?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/roles/{roleName}',

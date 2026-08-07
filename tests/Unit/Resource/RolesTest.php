@@ -46,7 +46,7 @@ class RolesTest extends TestCase
 
         static::assertSame(
             $clientCollection,
-            $clients->all('test-realm'),
+            $clients->all(realm: 'test-realm'),
         );
     }
 
@@ -76,7 +76,7 @@ class RolesTest extends TestCase
 
         static::assertSame(
             $client,
-            $clients->get('test-realm', 'test-role'),
+            $clients->get('test-role', 'test-realm'),
         );
     }
 
@@ -103,7 +103,7 @@ class RolesTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
 
-        $roles->create('test-realm', $createdRole);
+        $roles->create($createdRole, 'test-realm');
     }
 
     public function testDeleteRole(): void
@@ -132,7 +132,7 @@ class RolesTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
 
-        $roles->delete('test-realm', $deletedRoleName);
+        $roles->delete($deletedRoleName, 'test-realm');
     }
 
     public function testUpdateRole(): void
@@ -162,6 +162,6 @@ class RolesTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
 
-        $roles->update('test-realm', $updatedRole);
+        $roles->update($updatedRole, 'test-realm');
     }
 }

@@ -49,7 +49,7 @@ class OrganizationsTest extends TestCase
 
         static::assertSame(
             $organizationCollection,
-            $organizations->all('test-realm'),
+            $organizations->all(realm: 'test-realm'),
         );
     }
 
@@ -79,7 +79,7 @@ class OrganizationsTest extends TestCase
 
         static::assertSame(
             $organization,
-            $organizations->get('test-realm', 'test-organization-1'),
+            $organizations->get('test-organization-1', 'test-realm'),
         );
     }
 
@@ -106,7 +106,7 @@ class OrganizationsTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
 
-        $organizations->create('test-realm', $createdOrganization);
+        $organizations->create($createdOrganization, 'test-realm');
     }
 
     public function testDeleteOrganization(): void
@@ -132,7 +132,7 @@ class OrganizationsTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
 
-        $organizations->delete('test-realm', 'uuid');
+        $organizations->delete('uuid', 'test-realm');
     }
 
     public function testInviteUser(): void
@@ -162,7 +162,7 @@ class OrganizationsTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
 
-        $organizations->inviteUser('test-realm', 'uuid', 'email', 'first name', 'last name');
+        $organizations->inviteUser('uuid', 'email', 'first name', 'last name', 'test-realm');
     }
 
     public function testAddUser(): void
@@ -187,6 +187,6 @@ class OrganizationsTest extends TestCase
             $this->createMock(QueryExecutor::class),
         );
 
-        $organizations->addUser('test-realm', 'organization-id', 'user-id');
+        $organizations->addUser('organization-id', 'user-id', 'test-realm');
     }
 }

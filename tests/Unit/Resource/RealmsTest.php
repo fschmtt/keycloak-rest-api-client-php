@@ -127,7 +127,7 @@ class RealmsTest extends TestCase
             $commandExecutor,
             $queryExecutor,
         );
-        $realm = $realms->update('to-be-updated-realm', $updatedRealm);
+        $realm = $realms->update($updatedRealm, 'to-be-updated-realm');
 
         static::assertSame('Updated Realm', $realm->getDisplayName());
     }
@@ -176,7 +176,7 @@ class RealmsTest extends TestCase
             $this->createMock(CommandExecutor::class),
             $queryExecutor,
         );
-        $adminEvents = $realms->adminEvents('realm-with-admin-events');
+        $adminEvents = $realms->adminEvents(realm: 'realm-with-admin-events');
 
         static::assertCount(2, $adminEvents);
     }
@@ -290,6 +290,6 @@ class RealmsTest extends TestCase
             $queryExecutor,
         );
 
-        $realms->keys('realm-with-keys');
+        $realms->keys(realm: 'realm-with-keys');
     }
 }

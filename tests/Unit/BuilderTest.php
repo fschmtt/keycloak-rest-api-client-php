@@ -6,6 +6,7 @@ namespace Fschmtt\Keycloak\Test\Unit;
 
 use Fschmtt\Keycloak\Builder;
 use Fschmtt\Keycloak\Exception\BuilderException;
+use Fschmtt\Keycloak\OAuth\GrantType;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -31,5 +32,16 @@ class BuilderTest extends TestCase
         $this->expectExceptionMessage('Grant type is not set');
 
         $builder->build();
+    }
+
+    public function testBuildWithConfiguredDefaultRealm(): void
+    {
+        $keycloak = (new Builder())
+            ->withBaseUrl('http://keycloak:8080')
+            ->withRealm('my-default-realm')
+            ->withGrantType(GrantType::password('admin', 'admin'))
+            ->build();
+
+        static::assertSame('my-default-realm', $keycloak->getDefaultRealm());
     }
 }

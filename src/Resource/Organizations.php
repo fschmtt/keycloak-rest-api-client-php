@@ -14,8 +14,10 @@ use Fschmtt\Keycloak\Representation\Organization;
 
 class Organizations extends Resource
 {
-    public function all(string $realm, ?Criteria $criteria = null): OrganizationCollection
+    public function all(?Criteria $criteria = null, ?string $realm = null): OrganizationCollection
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}/organizations',
@@ -26,8 +28,10 @@ class Organizations extends Resource
         );
     }
 
-    public function get(string $realm, string $id): Organization
+    public function get(string $id, ?string $realm = null): Organization
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}/organizations/{id}',
@@ -37,8 +41,10 @@ class Organizations extends Resource
         );
     }
 
-    public function create(string $realm, Organization $organization): void
+    public function create(Organization $organization, ?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/organizations',
@@ -49,8 +55,10 @@ class Organizations extends Resource
         );
     }
 
-    public function update(string $realm, string $id, Organization $organization): void
+    public function update(string $id, Organization $organization, ?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/organizations/{id}',
@@ -64,8 +72,10 @@ class Organizations extends Resource
         );
     }
 
-    public function delete(string $realm, string $id): void
+    public function delete(string $id, ?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/organizations/{id}',
@@ -75,8 +85,10 @@ class Organizations extends Resource
         );
     }
 
-    public function inviteUser(string $realm, string $id, string $email, string $firstName, string $lastName): void
+    public function inviteUser(string $id, string $email, string $firstName, string $lastName, ?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/organizations/{id}/members/invite-user',
@@ -92,8 +104,10 @@ class Organizations extends Resource
         );
     }
 
-    public function addUser(string $realm, string $organizationId, string $userId): void
+    public function addUser(string $organizationId, string $userId, ?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/organizations/{organizationId}/members',

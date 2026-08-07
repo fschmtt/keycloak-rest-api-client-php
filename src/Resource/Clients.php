@@ -17,8 +17,10 @@ use Fschmtt\Keycloak\Representation\Credential;
  */
 class Clients extends Resource
 {
-    public function all(string $realm, ?Criteria $criteria = null): ClientCollection
+    public function all(?Criteria $criteria = null, ?string $realm = null): ClientCollection
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}/clients',
@@ -31,8 +33,10 @@ class Clients extends Resource
         );
     }
 
-    public function get(string $realm, string $clientUuid): ClientRepresentation
+    public function get(string $clientUuid, ?string $realm = null): ClientRepresentation
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}/clients/{clientUuid}',
@@ -45,8 +49,10 @@ class Clients extends Resource
         );
     }
 
-    public function import(string $realm, ClientRepresentation $client): ClientRepresentation
+    public function import(ClientRepresentation $client, ?string $realm = null): ClientRepresentation
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/clients',
@@ -58,11 +64,13 @@ class Clients extends Resource
             ),
         );
 
-        return $this->get($realm, $client->getId());
+        return $this->get($client->getId(), $realm);
     }
 
-    public function update(string $realm, string $clientUuid, ClientRepresentation $updatedClient): ClientRepresentation
+    public function update(string $clientUuid, ClientRepresentation $updatedClient, ?string $realm = null): ClientRepresentation
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/clients/{clientUuid}',
@@ -75,11 +83,13 @@ class Clients extends Resource
             ),
         );
 
-        return $this->get($realm, $updatedClient->getId());
+        return $this->get($updatedClient->getId(), $realm);
     }
 
-    public function delete(string $realm, string $clientUuid): void
+    public function delete(string $clientUuid, ?string $realm = null): void
     {
+        $realm = $this->resolveRealm($realm);
+
         $this->commandExecutor->executeCommand(
             new Command(
                 '/admin/realms/{realm}/clients/{clientUuid}',
@@ -95,8 +105,10 @@ class Clients extends Resource
     /**
      * @return UserSession[]
      */
-    public function getUserSessions(string $realm, string $clientUuid, ?Criteria $criteria = null): array
+    public function getUserSessions(string $clientUuid, ?Criteria $criteria = null, ?string $realm = null): array
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}/clients/{clientUuid}/user-sessions',
@@ -110,8 +122,10 @@ class Clients extends Resource
         );
     }
 
-    public function getClientSecret(string $realm, string $clientUuid): Credential
+    public function getClientSecret(string $clientUuid, ?string $realm = null): Credential
     {
+        $realm = $this->resolveRealm($realm);
+
         return $this->queryExecutor->executeQuery(
             new Query(
                 '/admin/realms/{realm}/clients/{clientUuid}/client-secret',

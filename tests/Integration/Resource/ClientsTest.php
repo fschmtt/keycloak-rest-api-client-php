@@ -19,32 +19,32 @@ class ClientsTest extends TestCase
         $resource = $this->getKeycloak()->clients();
 
         // Get all clients
-        $allClients = $resource->all('master');
+        $allClients = $resource->all(realm: 'master');
         static::assertGreaterThanOrEqual(1, $allClients->count());
         $client = $allClients->first();
         static::assertInstanceOf(Client::class, $client);
 
         // Import client
         $importedClient = $resource->import(
-            'master',
             $client->withId(Uuid::uuid4()->toString())
                 ->withClientId('imported-client')
                 ->withDescription('Imported client'),
+            'master',
         );
 
         // Get single (imported) client
-        $importedClient = $resource->get('master', $importedClient->getId());
+        $importedClient = $resource->get($importedClient->getId(), 'master');
         static::assertSame('Imported client', $importedClient->getDescription());
 
         // Update (imported) client
-        $updatedClient = $resource->update('master', $importedClient->getId(), $importedClient->withDescription('Updated client'));
+        $updatedClient = $resource->update($importedClient->getId(), $importedClient->withDescription('Updated client'), 'master');
         static::assertSame('Updated client', $updatedClient->getDescription());
 
         // Delete (imported) client
-        $resource->delete('master', $updatedClient->getId());
+        $resource->delete($updatedClient->getId(), 'master');
 
         try {
-            $resource->get('master', $updatedClient->getId());
+            $resource->get($updatedClient->getId(), 'master');
             static::fail('Client should not exist anymore');
         } catch (Exception $e) {
             static::assertSame(404, $e->getCode());
@@ -55,22 +55,22 @@ class ClientsTest extends TestCase
     {
         $resource = $this->getKeycloak()->clients();
 
-        $client = $resource->all('master')->first();
+        $client = $resource->all(realm: 'master')->first();
         static::assertInstanceOf(Client::class, $client);
 
-        $resource->getUserSessions('master', $client->getId());
+        $resource->getUserSessions($client->getId(), realm: 'master');
     }
 
     public function testGetClientSecret(): void
     {
         $resource = $this->getKeycloak()->clients();
 
-        $client = $resource->all('master')->first();
+        $client = $resource->all(realm: 'master')->first();
         static::assertInstanceOf(Client::class, $client);
 
         $clientUuid = $client->getId();
         static::assertIsString($clientUuid);
 
-        $credential = $resource->getClientSecret('master', $clientUuid);
+        $credential = $resource->getClientSecret($clientUuid, 'master');
     }
 }
