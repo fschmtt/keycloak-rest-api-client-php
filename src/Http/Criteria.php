@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak\Http;
 
+use BackedEnum;
 use DateTimeInterface;
 use Stringable;
 
@@ -42,6 +43,12 @@ class Criteria
 
             if ($value instanceof DateTimeInterface) {
                 $serialized[$key] = $value->format('Y-m-d');
+
+                continue;
+            }
+
+            if ($value instanceof BackedEnum) {
+                $serialized[$key] = $value->value;
 
                 continue;
             }

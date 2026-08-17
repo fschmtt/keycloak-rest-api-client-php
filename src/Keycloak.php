@@ -28,7 +28,7 @@ use GuzzleHttp\ClientInterface;
  */
 class Keycloak
 {
-    private ?string $version = null;
+    private ?string $version;
     private Client $client;
     private Serializer $serializer;
     private CommandExecutor $commandExecutor;
@@ -49,6 +49,7 @@ class Keycloak
         private readonly TokenStorageInterface $tokenStorage = new InMemory(),
         ?ClientInterface $httpClient = new GuzzleClient(),
         private readonly ?GrantType $grantType = null,
+        ?string $version = null,
     ) {
         if ($this->username || $this->password || $this->realm) {
             trigger_deprecation(
@@ -58,6 +59,7 @@ class Keycloak
             );
         }
 
+        $this->version = $version;
         $this->client = new Client($this, $httpClient, $this->tokenStorage);
         $this->serializer = new Serializer($this->version);
         $this->commandExecutor = new CommandExecutor($this->client, $this->serializer);
@@ -182,5 +184,6 @@ class Keycloak
         $this->version = $this->serverInfo()->get()->getSystemInfo()->getVersion();
         $this->serializer = new Serializer($this->version);
         $this->commandExecutor = new CommandExecutor($this->client, $this->serializer);
+        $this->queryExecutor = new QueryExecutor($this->client, $this->serializer);
     }
 }
