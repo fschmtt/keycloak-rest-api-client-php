@@ -17,6 +17,8 @@ class Builder
 
     private ?GrantType $grantType = null;
 
+    private ?string $version = null;
+
     private TokenStorageInterface $tokenStorage;
 
     private ClientInterface $httpClient;
@@ -37,6 +39,13 @@ class Builder
     public function withGrantType(GrantType $grantType): self
     {
         $this->grantType = $grantType;
+
+        return $this;
+    }
+
+    public function withVersion(string $version): self
+    {
+        $this->version = $version;
 
         return $this;
     }
@@ -74,6 +83,7 @@ class Builder
             tokenStorage: $this->tokenStorage,
             httpClient: $this->httpClient,
             grantType: $this->grantType,
+            version: $this->version,
         );
     }
 }

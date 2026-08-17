@@ -7,7 +7,7 @@ namespace Fschmtt\Keycloak\Representation;
 use Fschmtt\Keycloak\Attribute\Since;
 use Fschmtt\Keycloak\Collection\IdentityProviderCollection;
 use Fschmtt\Keycloak\Collection\OrganizationDomainCollection;
-use Fschmtt\Keycloak\Collection\UserCollection;
+use Fschmtt\Keycloak\Collection\OrganizationMemberCollection;
 use Fschmtt\Keycloak\Type\Map;
 
 /**
@@ -29,8 +29,8 @@ use Fschmtt\Keycloak\Type\Map;
  * @method OrganizationDomainCollection|null getDomains()
  * @method self withDomains(?OrganizationDomainCollection $domains)
  *
- * @method UserCollection|null getMembers()
- * @method self withMembers(?UserCollection $members)
+ * @method OrganizationMemberCollection|null getMembers()
+ * @method self withMembers(?OrganizationMemberCollection $members)
  *
  * @method IdentityProviderCollection|null getIdentityProviders()
  * @method self withIdentityProviders(?IdentityProviderCollection $identityProviders)
@@ -52,7 +52,7 @@ class Organization extends Representation
         protected ?string $description = null,
         protected ?Map $attributes = null,
         protected ?OrganizationDomainCollection $domains = null,
-        protected ?UserCollection $members = null,
+        protected ?OrganizationMemberCollection $members = null,
         protected ?IdentityProviderCollection $identityProviders = null,
         #[Since('26.0.0')]
         protected ?string $alias = null,
