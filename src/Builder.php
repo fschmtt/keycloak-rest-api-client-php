@@ -21,6 +21,8 @@ class Builder
 
     private ClientInterface $httpClient;
 
+    private ?string $version = null;
+
     public function __construct()
     {
         $this->tokenStorage = new InMemoryTokenStorage();
@@ -58,6 +60,20 @@ class Builder
     /**
      * @throws BuilderException
      */
+    public function withVersion(string $version): self
+    {
+        if (trim($version) === '') {
+            throw new BuilderException('Version must not be empty');
+        }
+
+        $this->version = $version;
+
+        return $this;
+    }
+
+    /**
+     * @throws BuilderException
+     */
     public function build(): Keycloak
     {
         if (!$this->baseUrl) {
@@ -74,6 +90,7 @@ class Builder
             tokenStorage: $this->tokenStorage,
             httpClient: $this->httpClient,
             grantType: $this->grantType,
+            version: $this->version,
         );
     }
 }

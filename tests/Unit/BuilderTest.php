@@ -6,7 +6,10 @@ namespace Fschmtt\Keycloak\Test\Unit;
 
 use Fschmtt\Keycloak\Builder;
 use Fschmtt\Keycloak\Exception\BuilderException;
+use Fschmtt\Keycloak\OAuth\GrantType;
+use GuzzleHttp\ClientInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(Builder::class)]
@@ -31,5 +34,44 @@ class BuilderTest extends TestCase
         $this->expectExceptionMessage('Grant type is not set');
 
         $builder->build();
+    }
+
+    #[DataProvider('emptyVersionProvider')]
+    public function testThrowsExceptionIfVersionIsEmpty(string $version): void
+    {
+        $builder = new Builder();
+
+        $this->expectException(BuilderException::class);
+        $this->expectExceptionMessage('Version must not be empty');
+
+        $builder->withVersion($version);
+    }
+
+    public static function emptyVersionProvider(): \Generator
+    {
+        yield 'empty string' => [''];
+        yield 'whitespace only' => ['   '];
+    }
+
+    public function testWithVersionIsFluent(): void
+    {
+        $builder = new Builder();
+
+        static::assertSame($builder, $builder->withVersion('26.7.2'));
+    }
+
+    public function testPinnedVersionIsUsedWithoutAnyHttpRequest(): void
+    {
+        $httpClient = $this->createMock(ClientInterface::class);
+        $httpClient->expects(static::never())->method('request');
+
+        $keycloak = (new Builder())
+            ->withBaseUrl('http://keycloak:8080')
+            ->withGrantType(GrantType::clientCredentials('my-client', 'my-secret', 'my-realm'))
+            ->withHttpClient($httpClient)
+            ->withVersion('26.7.2')
+            ->build();
+
+        static::assertSame('26.7.2', $keycloak->getVersion());
     }
 }

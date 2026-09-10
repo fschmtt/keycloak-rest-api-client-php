@@ -54,6 +54,32 @@ You can authenticate against a specific realm by passing it via the `realm` para
 
 More examples can be found in the [examples](examples) directory.
 
+### Keycloak version detection
+
+On first use the client determines the Keycloak version by calling `/admin/serverinfo`. The version
+is only used to strip properties that your server does not know yet from outgoing payloads.
+
+Since Keycloak 26.4 that endpoint withholds system information from insufficiently privileged
+accounts: 26.4 restricted it to administrators of the master realm, while 26.5 and later gate it on
+the `manage-realm` role in the account's own realm. When the version cannot be determined the client
+carries on without it and sends every property, which is what it would have done anyway on those
+versions. Only `$keycloak->getVersion()`, which cannot answer without it, throws a
+`VersionDetectionException`.
+
+You can pin the version to skip the request entirely:
+
+```php
+$keycloak = (new \Fschmtt\Keycloak\Builder())
+    ->withBaseUrl('http://keycloak:8080')
+    ->withGrantType(\Fschmtt\Keycloak\OAuth\GrantType::clientCredentials('my-client', 'my-secret', 'my-realm'))
+    ->withVersion('26.7.2')
+    ->build();
+```
+
+Only the major version is significant, so `'26'`, `'26.7'` and `'26.7.2'` behave identically. If you
+pin it, keep it in sync with your server when you upgrade — a pinned version that is lower than the
+server's will withhold properties the server actually supports.
+
 ## Customization
 
 ### Custom representations & resources
