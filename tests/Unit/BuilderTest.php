@@ -36,21 +36,15 @@ class BuilderTest extends TestCase
         $builder->build();
     }
 
-    #[DataProvider('emptyVersionProvider')]
-    public function testThrowsExceptionIfVersionIsEmpty(string $version): void
+    #[DataProvider('invalidVersionProvider')]
+    public function testThrowsExceptionIfVersionDoesNotFollowPattern(string $version): void
     {
         $builder = new Builder();
 
         $this->expectException(BuilderException::class);
-        $this->expectExceptionMessage('Version must not be empty');
+        $this->expectExceptionMessage(sprintf('Version must follow the pattern x.y.z (e.g. 26.7.2), got "%s"', $version));
 
         $builder->withVersion($version);
-    }
-
-    public static function emptyVersionProvider(): \Generator
-    {
-        yield 'empty string' => [''];
-        yield 'whitespace only' => ['   '];
     }
 
     public function testWithVersionIsFluent(): void
@@ -73,5 +67,19 @@ class BuilderTest extends TestCase
             ->build();
 
         static::assertSame('26.7.2', $keycloak->getVersion());
+    }
+
+    public static function invalidVersionProvider(): \Generator
+    {
+        yield 'empty string' => [''];
+        yield 'whitespace only' => ['   '];
+        yield 'major only' => ['26'];
+        yield 'major and minor only' => ['26.7'];
+        yield 'too many segments' => ['26.7.2.1'];
+        yield 'suffix' => ['26.7.2-SNAPSHOT'];
+        yield 'leading v' => ['v26.7.2'];
+        yield 'surrounding whitespace' => [' 26.7.2 '];
+        yield 'trailing newline' => ["26.7.2\n"];
+        yield 'non-numeric segment' => ['26.x.2'];
     }
 }

@@ -58,12 +58,14 @@ class Builder
     }
 
     /**
+     * Pins the Keycloak version (x.y.z, e.g. 26.7.2) so it is not detected at runtime via API (GET /admin/serverinfo).
+     *
      * @throws BuilderException
      */
     public function withVersion(string $version): self
     {
-        if (trim($version) === '') {
-            throw new BuilderException('Version must not be empty');
+        if (preg_match('/^\d+\.\d+\.\d+$/D', $version) !== 1) {
+            throw new BuilderException(sprintf('Version must follow the pattern x.y.z (e.g. 26.7.2), got "%s"', $version));
         }
 
         $this->version = $version;

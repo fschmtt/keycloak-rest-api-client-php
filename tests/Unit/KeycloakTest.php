@@ -62,23 +62,29 @@ class KeycloakTest extends TestCase
     /**
      * @param array<string, mixed> $serverInfo
      */
-    #[DataProvider('undetectableServerInfoProvider')]
-    public function testResourceAccessorsStillWorkWhenVersionIsNotDetectable(array $serverInfo): void
+    #[DataProvider('undetectableServerInfoAndAccessorProvider')]
+    public function testResourceAccessorsThrowWhenVersionIsNotDetectable(array $serverInfo, string $accessor): void
     {
         $keycloak = $this->createKeycloak([
             $this->tokenResponse(),
             $this->serverInfoResponse($serverInfo),
         ]);
 
-        $keycloak->users();
-        $keycloak->groups();
-        $keycloak->roles();
-        $keycloak->clients();
-        $keycloak->realms();
-        $keycloak->organizations();
-        $keycloak->attackDetection();
+        $this->expectException(VersionDetectionException::class);
+        $this->expectExceptionMessage('Could not determine the Keycloak version');
 
-        static::assertSame(1, $this->countServerInfoRequests());
+        $keycloak->{$accessor}();
+    }
+
+    public static function undetectableServerInfoAndAccessorProvider(): \Generator
+    {
+        $accessors = ['users', 'groups', 'roles', 'clients', 'realms', 'organizations', 'attackDetection'];
+
+        foreach (self::undetectableServerInfoProvider() as $case => [$serverInfo]) {
+            foreach ($accessors as $accessor) {
+                yield "{$case}, {$accessor}()" => [$serverInfo, $accessor];
+            }
+        }
     }
 
     public function testDetectedVersionIsWiredIntoEveryExecutor(): void
@@ -96,25 +102,24 @@ class KeycloakTest extends TestCase
         static::assertSame($serializer, $this->readProperty($this->readProperty($keycloak, 'queryExecutor'), 'serializer'));
     }
 
-    /**
-     * @param array<string, mixed> $serverInfo
-     */
-    #[DataProvider('undetectableServerInfoProvider')]
-    public function testDoesNotRetryFailedDetection(array $serverInfo): void
+    public function testRetriesDetectionAfterFailure(): void
     {
-        // Queue five responses; a non-memoised failure would consume more than one
         $keycloak = $this->createKeycloak([
             $this->tokenResponse(),
-            ...array_fill(0, 5, $this->serverInfoResponse($serverInfo)),
+            $this->serverInfoResponse(['profileInfo' => []]),
+            $this->serverInfoResponse(['systemInfo' => ['version' => '26.7.2']]),
         ]);
 
-        $keycloak->users();
-        $keycloak->groups();
-        $keycloak->roles();
-        $keycloak->clients();
-        $keycloak->realms();
+        try {
+            $keycloak->users();
+            static::fail('Expected a VersionDetectionException');
+        } catch (VersionDetectionException) {
+        }
 
-        static::assertSame(1, $this->countServerInfoRequests());
+        $keycloak->users();
+
+        static::assertSame('26.7.2', $keycloak->getVersion());
+        static::assertSame(2, $this->countServerInfoRequests());
     }
 
     /**
