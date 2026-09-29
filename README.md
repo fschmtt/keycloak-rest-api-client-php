@@ -54,6 +54,20 @@ You can authenticate against a specific realm by passing it via the `realm` para
 
 More examples can be found in the [examples](examples) directory.
 
+### Version detection
+
+The client detects the Keycloak version via `GET /admin/serverinfo`. This requires the `manage-realm` role; otherwise a `VersionDetectionException` is thrown.
+
+Alternatively, you can set and pint the version manually (`x.y.z`) to skip detection:
+
+```php
+$keycloak = (new \Fschmtt\Keycloak\Builder())
+    ->withBaseUrl('http://keycloak:8080')
+    ->withGrantType(\Fschmtt\Keycloak\OAuth\GrantType::password('admin', 'admin'))
+    ->withVersion('26.7.2')
+    ->build();
+```
+
 ## Customization
 
 ### Custom representations & resources

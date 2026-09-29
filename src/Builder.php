@@ -21,6 +21,8 @@ class Builder
 
     private ClientInterface $httpClient;
 
+    private ?string $version = null;
+
     public function __construct()
     {
         $this->tokenStorage = new InMemoryTokenStorage();
@@ -56,6 +58,22 @@ class Builder
     }
 
     /**
+     * Pins the Keycloak version (x.y.z, e.g. 26.7.2) so it is not detected at runtime via API (GET /admin/serverinfo).
+     *
+     * @throws BuilderException
+     */
+    public function withVersion(string $version): self
+    {
+        if (preg_match('/^\d+\.\d+\.\d+$/D', $version) !== 1) {
+            throw new BuilderException(sprintf('Version must follow the pattern x.y.z (e.g. 26.7.2), got "%s"', $version));
+        }
+
+        $this->version = $version;
+
+        return $this;
+    }
+
+    /**
      * @throws BuilderException
      */
     public function build(): Keycloak
@@ -74,6 +92,7 @@ class Builder
             tokenStorage: $this->tokenStorage,
             httpClient: $this->httpClient,
             grantType: $this->grantType,
+            version: $this->version,
         );
     }
 }

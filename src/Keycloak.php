@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fschmtt\Keycloak;
 
+use Fschmtt\Keycloak\Exception\VersionDetectionException;
 use Fschmtt\Keycloak\Http\Client;
 use Fschmtt\Keycloak\Http\CommandExecutor;
 use Fschmtt\Keycloak\Http\QueryExecutor;
@@ -28,7 +29,6 @@ use GuzzleHttp\ClientInterface;
  */
 class Keycloak
 {
-    private ?string $version = null;
     private Client $client;
     private Serializer $serializer;
     private CommandExecutor $commandExecutor;
@@ -49,6 +49,7 @@ class Keycloak
         private readonly TokenStorageInterface $tokenStorage = new InMemory(),
         ?ClientInterface $httpClient = new GuzzleClient(),
         private readonly ?GrantType $grantType = null,
+        private ?string $version = null,
     ) {
         if ($this->username || $this->password || $this->realm) {
             trigger_deprecation(
@@ -92,11 +93,12 @@ class Keycloak
         return $this->grantType;
     }
 
+    /**
+     * @throws VersionDetectionException
+     */
     public function getVersion(): string
     {
-        $this->fetchVersion();
-
-        return $this->version;
+        return $this->fetchVersion();
     }
 
     /**
@@ -107,6 +109,9 @@ class Keycloak
         return $this->realm;
     }
 
+    /**
+     * @throws VersionDetectionException
+     */
     public function attackDetection(): AttackDetection
     {
         $this->fetchVersion();
@@ -119,6 +124,9 @@ class Keycloak
         return new ServerInfo($this->commandExecutor, $this->queryExecutor);
     }
 
+    /**
+     * @throws VersionDetectionException
+     */
     public function realms(): Realms
     {
         $this->fetchVersion();
@@ -126,6 +134,9 @@ class Keycloak
         return new Realms($this->commandExecutor, $this->queryExecutor);
     }
 
+    /**
+     * @throws VersionDetectionException
+     */
     public function clients(): Clients
     {
         $this->fetchVersion();
@@ -133,6 +144,9 @@ class Keycloak
         return new Clients($this->commandExecutor, $this->queryExecutor);
     }
 
+    /**
+     * @throws VersionDetectionException
+     */
     public function users(): Users
     {
         $this->fetchVersion();
@@ -140,6 +154,9 @@ class Keycloak
         return new Users($this->commandExecutor, $this->queryExecutor);
     }
 
+    /**
+     * @throws VersionDetectionException
+     */
     public function groups(): Groups
     {
         $this->fetchVersion();
@@ -147,6 +164,9 @@ class Keycloak
         return new Groups($this->commandExecutor, $this->queryExecutor);
     }
 
+    /**
+     * @throws VersionDetectionException
+     */
     public function roles(): Roles
     {
         $this->fetchVersion();
@@ -154,6 +174,9 @@ class Keycloak
         return new Roles($this->commandExecutor, $this->queryExecutor);
     }
 
+    /**
+     * @throws VersionDetectionException
+     */
     public function organizations(): Organizations
     {
         $this->fetchVersion();
@@ -165,6 +188,8 @@ class Keycloak
      * @template T of Resource
      * @param class-string<T> $resource
      * @return T
+     *
+     * @throws VersionDetectionException
      */
     public function resource(string $resource): Resource
     {
@@ -173,14 +198,45 @@ class Keycloak
         return new $resource($this->commandExecutor, $this->queryExecutor);
     }
 
-    private function fetchVersion(): void
+    /**
+     * @throws VersionDetectionException
+     */
+    private function fetchVersion(): string
     {
-        if ($this->version) {
-            return;
+        if ($this->version !== null) {
+            return $this->version;
         }
 
-        $this->version = $this->serverInfo()->get()->getSystemInfo()->getVersion();
+        try {
+            $version = $this->serverInfo()->get()->getSystemInfo()?->getVersion();
+        } catch (\Throwable $e) {
+            $this->throwVersionDetectionException($e);
+        }
+
+        if ($version === null) {
+            $this->throwVersionDetectionException();
+        }
+
+        $this->version = $version;
         $this->serializer = new Serializer($this->version);
         $this->commandExecutor = new CommandExecutor($this->client, $this->serializer);
+        $this->queryExecutor = new QueryExecutor($this->client, $this->serializer);
+
+        return $this->version;
+    }
+
+    /**
+     * @throws VersionDetectionException
+     */
+    private function throwVersionDetectionException(?\Throwable $previous = null): never
+    {
+        throw new VersionDetectionException(
+            'Could not determine the Keycloak version from GET /admin/serverinfo. Since Keycloak 26.4 '
+            . 'that endpoint withholds systemInfo from insufficiently privileged accounts: 26.4 restricted '
+            . 'it to administrators of the master realm, while 26.5 and later gate it on the manage-realm '
+            . 'role in the account\'s own realm. Grant the account manage-realm, or pass the version '
+            . 'explicitly via Builder::withVersion() to skip version detection.',
+            previous: $previous,
+        );
     }
 }
